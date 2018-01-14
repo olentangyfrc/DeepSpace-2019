@@ -24,6 +24,10 @@ public class MotorDriver extends Subsystem{
 		}
 	}
 	
+	public boolean isSwitchSet() {
+		return RobotMap.counter.get() > 0 || RobotMap.counter2.get() > 0;
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		this.setDefaultCommand(new DriveMotor());
