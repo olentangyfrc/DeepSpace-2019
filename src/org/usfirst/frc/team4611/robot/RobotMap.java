@@ -1,5 +1,10 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.HashMap;
+
+import org.usfirst.frc.team4611.robot.networking.INetworkTable;
+import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -20,6 +25,13 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
+	
+	public static final int teamID = 4611;
+	public static final String networkTableServerAddress = "10.46.11.2";
+	public static final String networkTableID = "Custom Values";
+	public static NetworkTableManager networkManager;
+	public static HashMap<String, INetworkTable> watchedValues = new HashMap<String, INetworkTable>();
+	
 	
 	public static void init () {
 		//PWM Ports
