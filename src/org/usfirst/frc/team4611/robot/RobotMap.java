@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.networking.INetworkTable;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
@@ -22,6 +23,8 @@ public class RobotMap {
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;
 	
+	public static Victor motor;
+	
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
@@ -29,22 +32,22 @@ public class RobotMap {
 	public static final int teamID = 4611;
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
-	public static NetworkTableManager networkManager;
+	public static NetworkTableManager networkManager = new NetworkTableManager();
 	public static HashMap<String, INetworkTable> watchedValues = new HashMap<String, INetworkTable>();
 	
+	public static double motorSpeed = 1;
 	
-	public static void init () {
+	public static void init() {
 		//PWM Ports
 		//PWM ports are physically on the rio and the number on the port should match with the int in code
 		driveTrainFL = new Victor(3);
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(1);
-		
-		
+
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
-		
+		motor = new Victor(4);
 		//Objects
 		SpeedControllerGroup leftSide = new SpeedControllerGroup(driveTrainFL, driveTrainBL);
 		SpeedControllerGroup rightSide = new SpeedControllerGroup(driveTrainFR, driveTrainBR);

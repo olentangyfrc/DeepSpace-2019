@@ -1,16 +1,14 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team4611.robot.commands.TankDrive;
-import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +20,7 @@ import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain tankDrive;
+	public static MotorDriver driver;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -37,6 +36,7 @@ public class Robot extends IterativeRobot {
 		
 		//Initialize the subsystems
 		tankDrive = new DriveTrain();
+		driver = new MotorDriver();
 		oi = new OI();
 	}
 

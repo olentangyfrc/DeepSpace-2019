@@ -35,6 +35,10 @@ public abstract class SpecialSubsystem extends Subsystem implements INetworkTabl
 		}
 	}
 	
+	public Object getValue(String key) {
+		return RobotMap.networkManager.getValue("NetworkTable", key);
+	}
+	
 	/**
 	 * Called by the NetworkTableEntryListener when a value that is linked with
 	 * this class through the watchedValues HashMap has been changed on the NetworkTable
