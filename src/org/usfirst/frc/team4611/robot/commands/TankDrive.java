@@ -11,9 +11,12 @@ public class TankDrive extends Command{
 	}
 	
 	protected void execute() { //execute is called every 20 miliseconds
-		double rightJoyVal = Robot.oi.filter(Robot.oi.rightJoy.getY()); //Grab the Y value of the joystick and pass 
-		double leftJoyVal = Robot.oi.filter(Robot.oi.leftJoy.getY());; //it through the filter 
-	    Robot.tankDrive.move(leftJoyVal, rightJoyVal); //Then pass that double to the method "move" in tankDrive
+		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
+		double XVal = Robot.oi.filter(Robot.oi.leftJoy.getX());//it through the filter
+		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
+		double finalZVal= ZVal* 180;
+	    Robot.tankDrive.move(-YVal, -XVal, -ZVal); 
+
 	  }
 	
 	@Override

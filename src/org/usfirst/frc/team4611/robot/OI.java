@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.DriveMotor;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 /**
@@ -13,10 +16,16 @@ import edu.wpi.first.wpilibj.buttons.Button;
 public class OI {
 	public Joystick leftJoy;
 	public Joystick rightJoy;
+	public Button armUp;
+	public Button armDown;
 	
 	public OI (){
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		armUp= new JoystickButton(rightJoy,11);
+		armDown= new JoystickButton(leftJoy,10);
+		this.armUp.whileHeld(new DriveMotor());
+		this.armDown.whileHeld(new DriveMotor());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

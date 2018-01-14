@@ -5,6 +5,7 @@ import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 /**
  * The RobotMap is where we declare what our constants are
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * This is where you're probably gonna end up when incorrect motors are running or we change ports for certain motors.
  */
 public class RobotMap {
-	public static DifferentialDrive driveTrain;
+	public static MecanumDrive driveTrain;
 	
 	public static Victor driveTrainFL;
 	public static Victor driveTrainFR;
@@ -44,14 +45,14 @@ public class RobotMap {
 		//CAN ports are decided via software in the roborio web interface 
 		motor = new Victor(4);
 		//Objects
-		SpeedControllerGroup leftSide = new SpeedControllerGroup(driveTrainFL, driveTrainBL);
-		SpeedControllerGroup rightSide = new SpeedControllerGroup(driveTrainFR, driveTrainBR);
+		//SpeedControllerGroup leftSide = new SpeedControllerGroup(driveTrainFL, driveTrainBL);
+		//SpeedControllerGroup rightSide = new SpeedControllerGroup(driveTrainFR, driveTrainBR);
 		
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
 		
 		//Objects
-		driveTrain =  new DifferentialDrive(leftSide, rightSide);
+		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		//Constants
 				
 	}
