@@ -10,19 +10,14 @@ public class NetworkTableManager {
 
 	private static NetworkTableInstance instance;
 	private static NetworkTable table;
-	
-	private NetworkTableEntryListener manager;
-	
+
 	public NetworkTableManager() {
 		instance = NetworkTableInstance.getDefault();
 		
 		instance.setServer(RobotMap.networkTableServerAddress, RobotMap.teamID);	
 		instance.startServer();
-		
-		manager = new NetworkTableEntryListener();
-		
+
 		table = instance.getTable(RobotMap.networkTableID);
-		table.addEntryListener(manager, EntryListenerFlags.kUpdate);
 	}
 	
 	/**
@@ -33,13 +28,7 @@ public class NetworkTableManager {
 	 * @param value The value to be saved/binded with the key
 	 * @return If it was successful in updating/creating the value
 	 */
-	public boolean updateValue(String subTable, String key, Object value) {
-		//Checks to see if that subtable exists
-		if(!table.containsSubTable(subTable)) {
-			//If not, it creates it and adds the entry listener for updates from Shuffleboard
-			table.getSubTable(subTable).addEntryListener(manager, EntryListenerFlags.kUpdate);
-		}
-		
+	public boolean updateValue(String subTable, String key, Object value) {		
 		//Updates the value and returns a boolean that tells if it was successful
 		return table.getSubTable(subTable).getEntry(key).setValue(value);
 	}

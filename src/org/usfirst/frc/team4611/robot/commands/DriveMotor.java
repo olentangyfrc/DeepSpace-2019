@@ -2,7 +2,9 @@ package org.usfirst.frc.team4611.robot.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
 
-public class DriveMotor extends SpecialCommand{
+import edu.wpi.first.wpilibj.command.Command;
+
+public class DriveMotor extends Command{
 
 	public DriveMotor() {
 		this.requires(Robot.driver);

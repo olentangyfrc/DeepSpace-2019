@@ -1,10 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
-import java.util.HashMap;
-
-import org.usfirst.frc.team4611.robot.networking.INetworkTable;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
@@ -33,7 +29,6 @@ public class RobotMap {
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
-	public static HashMap<String, INetworkTable> watchedValues = new HashMap<String, INetworkTable>();
 	
 	public static double motorSpeed = 1;
 	
@@ -60,4 +55,31 @@ public class RobotMap {
 		//Constants
 				
 	}
+
+
+	/**
+	 * Updates or adds a new value to the NetworkTable 
+	 * in a subtable based on the LoggerType name
+	 * @param key The identifer for the value
+	 * @param value The value of the key
+	 */
+	public static void updateValue(String subtable, String key, Object value) {
+		//Checks to see if this key has already been used
+		if(!RobotMap.networkManager.updateValue(subtable, key, value)){	
+			//If it's unsuccessful, it logs there was a problem
+			System.out.println("Unable to update value with key: " + key + " on subtable NetworkTable");
+			//TODO: Replace System.out.println with Logging functions once merged
+		}
+	}
+	
+	/**
+	 * 
+	 * @param subtable The subtable the value is on
+	 * @param key the key the value is binded to
+	 * @return the value connected to the key, or null otherwise
+	 */
+	public static Object getValue(String subtable, String key) {
+		return RobotMap.networkManager.getValue(subtable, key);
+	}
+	
 }
