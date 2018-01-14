@@ -25,11 +25,13 @@ public abstract class SpecialSubsystem extends Subsystem implements INetworkTabl
 			}else {
 				
 				//If it's unsuccessful, it logs that there was a problem
+				System.out.println("Unable to update value with key: " + key + " on subtable NetworkTable");
 			}
 			//If it has been used before, it ensures that it successfully updates the value
 		}else if(!RobotMap.networkManager.updateValue("NetworkTable", key, value)){
 			
 			//If it's unsuccessful, it logs there was a problem
+			System.out.println("Unable to update value with key: " + key + " on subtable NetworkTable");
 		}
 	}
 	

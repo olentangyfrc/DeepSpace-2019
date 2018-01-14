@@ -9,6 +9,9 @@ import edu.wpi.first.networktables.TableEntryListener;
 
 public class NetworkTableEntryListener implements TableEntryListener{
 	
+	/**
+	 * Called when an object in the NetworkTable is changed
+	 */
 	@Override
 	public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value,
 			int flags) {
