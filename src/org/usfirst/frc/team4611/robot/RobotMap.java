@@ -2,9 +2,8 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 /**
@@ -15,6 +14,10 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class RobotMap {
 	public static MecanumDrive driveTrain;
 	
+	/*public static Victor driveTrainFL;
+	public static Victor driveTrainFR;
+	public static Victor driveTrainBL;
+	public static Victor driveTrainBR;*/
 	public static Victor driveTrainFL;
 	public static Victor driveTrainFR;
 	public static Victor driveTrainBL;
@@ -25,11 +28,16 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
+	public static int joyButtonPort = 3;
 	
 	public static final int teamID = 4611;
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
+	
+	public static DoubleSolenoid sol;
+	public static int openPort = 1;
+	public static int closePort = 0;
 	
 	public static double motorSpeed = 1;
 	
@@ -41,20 +49,23 @@ public class RobotMap {
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(1);
 
+		/*driveTrainFL = new WPI_TalonSRX(0);
+		driveTrainFR = new WPI_TalonSRX(1);
+		driveTrainBL = new WPI_TalonSRX(2);
+		driveTrainBR = new WPI_TalonSRX(3);*/
+		
+		
+		//CAN Ports
+		//CAN ports are decided via software in the roborio web interface 
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
 		motor = new Victor(4);
 		//Objects
-		//SpeedControllerGroup leftSide = new SpeedControllerGroup(driveTrainFL, driveTrainBL);
-		//SpeedControllerGroup rightSide = new SpeedControllerGroup(driveTrainFR, driveTrainBR);
-		
-		//CAN Ports
-		//CAN ports are decided via software in the roborio web interface 
-		
-		//Objects
+		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		//Constants
-				
+		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+
 	}
 
 
@@ -82,5 +93,4 @@ public class RobotMap {
 	public static Object getValue(String subtable, String key) {
 		return RobotMap.networkManager.getValue(subtable, key);
 	}
-	
 }

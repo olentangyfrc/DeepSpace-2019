@@ -4,24 +4,23 @@ import org.usfirst.frc.team4611.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TankDrive extends Command{
-	
-	public TankDrive(){
+public class StrafeRight extends Command{
+	private double speed;
+	public StrafeRight(double sp){
+		this.speed= sp;
 		this.requires(Robot.tankDrive); //This command uses this subsystem
 	}
 	
 	protected void execute() { //execute is called every 20 miliseconds
-		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
-		double XVal = Robot.oi.filter(Robot.oi.leftJoy.getX());//it through the filter
+		double YVal = Robot.oi.yFilter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
-		double finalZVal= ZVal* 180;
-	    Robot.tankDrive.move(-YVal, -XVal, -ZVal); 
+	    Robot.tankDrive.move(-YVal, -speed, -ZVal); 
+	}
 
-	  }
-	
 	@Override
 	protected boolean isFinished() {
-		return false; //Don't stop running this command 
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

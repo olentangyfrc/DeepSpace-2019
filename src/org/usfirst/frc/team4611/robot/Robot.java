@@ -3,11 +3,11 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
+import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -27,6 +27,9 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
+	public static Solenoid sol;
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -37,7 +40,10 @@ public class Robot extends IterativeRobot {
 		
 		//Initialize the subsystems
 		tankDrive = new DriveTrain();
+
 		driver = new MotorDriver();
+
+		sol = new Solenoid();
 		oi = new OI();
 	}
 
