@@ -24,15 +24,20 @@ public class OI {
 	public Button but;
 
 	public OI (){
+		
+		RobotMap.updateValue("Mecanum", "StrafePower", 0.65);
+		RobotMap.updateValue("Mecanum", "motorPower", 0.65);
+		
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		strafeLeft= new JoystickButton(rightJoy, 8);
 		strafeRight= new JoystickButton(rightJoy, 9);
-		this.strafeRight.whileHeld(new StrafeRight(0.65));
-		this.strafeLeft.whileHeld(new StrafeLeft(0.65));
+		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue("Mecanum", "StrafePower")));
+		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue("Mecanum", "StrafePower")));
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		but.whileHeld(new ExtendSolenoid());
+		
 		
 	}
 	
@@ -41,7 +46,7 @@ public class OI {
         if (Math.abs(raw) < .15) {
             return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
         } else {
-            return  raw * 0.65; //Set the output to a ceratin percent of of the input
+            return  raw * (double)RobotMap.getValue("Mecanum", "motorPower"); //Set the output to a ceratin percent of of the input
         }
     }
 	public double yFilter(double raw)
