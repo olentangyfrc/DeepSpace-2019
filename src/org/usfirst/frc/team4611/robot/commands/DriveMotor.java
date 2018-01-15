@@ -13,12 +13,11 @@ public class DriveMotor extends Command{
 	
 	protected void execute() {
 		Robot.driver.runMotor();
-		RobotMap.updateValue("NetworkTable", "isPressed", Robot.driver.isSwitchSet());
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.driver.isSwitchSet();
+		return false;
 		
 	}
 	

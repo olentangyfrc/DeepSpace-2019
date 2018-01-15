@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 		//Initialize the subsystems
 		tankDrive = new DriveTrain();
 
-		driver = new MotorDriver();
+		//driver = new MotorDriver();
 
 		sol = new Solenoid();
 		oi = new OI();

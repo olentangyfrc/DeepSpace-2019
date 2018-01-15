@@ -45,10 +45,10 @@ public class RobotMap {
 	public static void init() {
 		//PWM Ports
 		//PWM ports are physically on the rio and the number on the port should match with the int in code
-		driveTrainFL = new Victor(3);
+		driveTrainFL = new Victor(1);
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
-		driveTrainBR = new Victor(1);
+		driveTrainBR = new Victor(3);
 
 		/*driveTrainFL = new WPI_TalonSRX(0);
 		driveTrainFR = new WPI_TalonSRX(1);
@@ -61,7 +61,7 @@ public class RobotMap {
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
 		
-		motor = new Spark(4);
+		//motor = new Spark(4);
 		
 		//Objects
 		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
