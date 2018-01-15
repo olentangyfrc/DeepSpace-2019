@@ -2,9 +2,8 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
@@ -25,11 +24,8 @@ public class RobotMap {
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;
 	
-	public static Victor motor;
-	public static DigitalInput limitSwitch;
-	public static Counter counter;
-	public static DigitalInput limitSwitch2;
-	public static Counter counter2;
+	public static Spark motor;
+
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
@@ -65,11 +61,7 @@ public class RobotMap {
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
 		
-		motor = new Victor(4);
-		limitSwitch = new DigitalInput(5);
-		counter = new Counter(limitSwitch);
-		limitSwitch2 = new DigitalInput(6);
-		counter2 = new Counter(limitSwitch2);
+		motor = new Spark(4);
 		
 		//Objects
 		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
