@@ -20,6 +20,9 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
+	public static int controllerPort = 0;
+	
+	public static boolean useXbox = true;
 	
 	public static void init () {
 		//PWM Ports
