@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4611.robot.commands.TankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +23,7 @@ import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain tankDrive;
+	public static Elevator elevatorSub;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -37,6 +39,7 @@ public class Robot extends IterativeRobot {
 		
 		//Initialize the subsystems
 		tankDrive = new DriveTrain();
+		elevatorSub = new Elevator();
 		oi = new OI();
 	}
 

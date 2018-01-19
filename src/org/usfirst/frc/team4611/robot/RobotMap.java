@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -16,6 +17,9 @@ public class RobotMap {
 	public static Victor driveTrainFR;
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;
+	public static Victor elevatorMotor;
+	public static DigitalInput elevatorTopSwitch;
+	public static DigitalInput elevatorBotSwitch;
 	
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
@@ -28,7 +32,11 @@ public class RobotMap {
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(1);
+		elevatorMotor = new Victor(4);
 		
+		//Sensors	
+		elevatorTopSwitch = new DigitalInput(0);
+		elevatorBotSwitch = new DigitalInput(1);
 		
 		//CAN Ports
 		//CAN ports are decided via software in the roborio web interface 
