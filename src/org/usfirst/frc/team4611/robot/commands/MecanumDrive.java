@@ -11,11 +11,11 @@ public class MecanumDrive extends Command{
 	}
 	
 	protected void execute() { //execute is called every 20 miliseconds
-		double YVal = Robot.oi.yFilter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
+		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.filter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		double finalZVal= ZVal* 180;
-	    Robot.tankDrive.move(-YVal, -XVal, -ZVal); 
+	    Robot.tankDrive.move(YVal, -XVal, -ZVal); 
 	    System.out.println("YVal: "+YVal);
 	    System.out.println("XVal: "+XVal);
 	    System.out.println("ZVal: "+ZVal);
