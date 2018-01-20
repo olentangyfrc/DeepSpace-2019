@@ -49,6 +49,17 @@ public class RobotMap {
 	
 	public static double motorSpeed = 1;
 	
+	public static String leftJoyXID = "leftJoyX";
+	public static String leftJoyYID = "leftJoyY";
+	public static String leftJoyZID = "leftJoyZ";
+	public static String rightJoyXID = "rightJoyX";
+	public static String rightJoyYID = "rightJoyY";
+	public static String rightJoyZID = "rightJoyZ";
+	public static String motorPowerID = "motorPower";
+	public static String strafePowerID = "strafePower";
+	public static String deadZoneID = "deadZone";
+	public static String deadZoneYID = "deadZoneY";
+	
 	public static void init() {
 		//PWM Ports
 		//PWM ports are physically on the rio and the number on the port should match with the int in code
