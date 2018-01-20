@@ -1,7 +1,12 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.ActivateButtonExample;
+
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 /**
@@ -13,10 +18,23 @@ import edu.wpi.first.wpilibj.buttons.Button;
 public class OI {
 	public Joystick leftJoy;
 	public Joystick rightJoy;
+	public XboxController controller;
+	
+	public Button buttonExample;
 	
 	public OI (){
-		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
-		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		if(RobotMap.useXbox)
+			controller = new XboxController(RobotMap.controllerPort); //The Xbox controller exists on this port in robot map
+		else
+		{
+			leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
+			rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		}
+		
+		
+		
+		buttonExample = new JoystickButton(determinedDrive('l'), 1);
+		this.buttonExample.whileHeld(new ActivateButtonExample());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
@@ -27,4 +45,13 @@ public class OI {
             return  raw * 0.7; //Set the output to a ceratin percent of of the input
         }
     }
+	
+	public GenericHID determinedDrive(char joystick)
+	{
+		if(RobotMap.useXbox)
+			return controller;
+		else if(joystick == 'l')
+			return leftJoy;
+		return rightJoy;
+	}
 }

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4611.robot.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TankDrive extends Command{
@@ -11,10 +13,25 @@ public class TankDrive extends Command{
 	}
 	
 	protected void execute() { //execute is called every 20 miliseconds
-		double rightJoyVal = Robot.oi.filter(Robot.oi.rightJoy.getY()); //Grab the Y value of the joystick and pass 
-		double leftJoyVal = Robot.oi.filter(Robot.oi.leftJoy.getY());; //it through the filter 
-	    Robot.tankDrive.move(leftJoyVal, rightJoyVal); //Then pass that double to the method "move" in tankDrive
+		double [] values = new double [2];
+		values = calculateVals(values);
+	    Robot.tankDrive.move(values[0], values[1]); //Then pass that double to the method "move" in tankDrive
 	  }
+	
+	protected double [] calculateVals(double [] vals)
+	{
+		if(RobotMap.useXbox)
+		{
+			vals[0] = Robot.oi.filter(Robot.oi.controller.getY(GenericHID.Hand.kLeft));
+			vals[1] = Robot.oi.filter(Robot.oi.controller.getY(GenericHID.Hand.kRight));
+		}
+		else
+		{
+			vals[0] = Robot.oi.filter(Robot.oi.leftJoy.getY());
+			vals[1] = Robot.oi.filter(Robot.oi.rightJoy.getY());
+		}
+		return vals;
+	}
 	
 	@Override
 	protected boolean isFinished() {
