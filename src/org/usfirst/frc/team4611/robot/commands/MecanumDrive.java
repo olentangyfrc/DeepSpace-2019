@@ -24,7 +24,12 @@ public class MecanumDrive extends Command{
 		RobotMap.updateValue("Joysticks", RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
 		double finalZVal= ZVal* 180;
-	    Robot.tankDrive.move(-YVal, -XVal, -ZVal); 
+		if(XVal < 0) {
+			XVal = Math.min(-XVal*2, 1);
+		}else if(XVal > 0){
+			XVal = Math.min(XVal*2, -1);
+		}
+	    Robot.tankDrive.move(YVal, XVal, -ZVal); 
 	    System.out.println("YVal: "+YVal);
 	    System.out.println("XVal: "+XVal);
 	    System.out.println("ZVal: "+ZVal);

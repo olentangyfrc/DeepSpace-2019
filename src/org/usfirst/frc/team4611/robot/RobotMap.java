@@ -87,7 +87,7 @@ public class RobotMap {
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 
-		Logger.init("Logs");
+		//Logger.init("Logs");
 	}
 
 
