@@ -104,4 +104,8 @@ public class RobotMap {
 	public static Object getValue(String subtable, String key) {
 		return RobotMap.networkManager.getValue(subtable, key);
 	}
+	
+	public static void log(String subTable, String message) {
+		Logger.log(message, Logger.getLoggerType(subTable));
+	}
 }
