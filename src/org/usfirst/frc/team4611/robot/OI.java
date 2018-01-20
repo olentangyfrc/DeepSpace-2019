@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.ActivateButtonExample;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -32,6 +34,7 @@ public class OI {
 		
 		
 		buttonExample = new JoystickButton(determinedDrive('l'), 1);
+		this.buttonExample.whileHeld(new ActivateButtonExample());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
