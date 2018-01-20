@@ -30,8 +30,8 @@ public class OI {
 		
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
-		strafeLeft= new JoystickButton(rightJoy, 8);
-		strafeRight= new JoystickButton(rightJoy, 9);
+		strafeLeft= new JoystickButton(rightJoy, 4);
+		strafeRight= new JoystickButton(rightJoy, 5);
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue("Mecanum", "StrafePower")));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue("Mecanum", "StrafePower")));
 
