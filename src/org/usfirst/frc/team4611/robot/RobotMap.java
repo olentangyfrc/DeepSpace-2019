@@ -1,5 +1,9 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.ArrayList;
+
+import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -36,6 +40,9 @@ public class RobotMap {
 	public static final String networkTableID = "Custom Values";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
 	
+	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
+	public static final long systemStartupTime = System.currentTimeMillis();
+	
 	public static DoubleSolenoid sol;
 	public static int openPort = 1;
 	public static int closePort = 0;
@@ -69,6 +76,7 @@ public class RobotMap {
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 
+		Logger.init("Logs");
 	}
 
 
