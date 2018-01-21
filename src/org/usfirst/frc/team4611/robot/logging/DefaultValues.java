@@ -1,8 +1,10 @@
 package org.usfirst.frc.team4611.robot.logging;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
@@ -12,11 +14,13 @@ import org.usfirst.frc.team4611.robot.commands.SetDefault;
 
 public class DefaultValues {
 
-	private Properties prop;
+	private Properties prop = new Properties();
 	private OutputStream stream;
+	private OutputStream usb;
 	private boolean hasFile = true;
 	public DefaultValues() {
 		try {
+			loadProperties();
 			stream = new FileOutputStream("/home/lvuser/defaults/defaults.properties");
 			RobotMap.log(RobotMap.defaultsSubTable, "Connected to defaults file");
 		}catch(IOException e) {
@@ -33,7 +37,25 @@ public class DefaultValues {
 				hasFile = false;
 			}
 		}
-		
+
+	}
+	
+	private void loadProperties() {
+		InputStream stream;
+		try {
+			stream = new FileInputStream("/media/sda1/defualts.properties");
+			prop.load(stream);
+			RobotMap.log(RobotMap.defaultsSubTable, "Loaded defaults from usb");
+		}catch (Exception e) {
+			try {
+				RobotMap.log(RobotMap.defaultsSubTable, "Unable to find properties file on usb, looking for local file");
+				stream = new FileInputStream("/home/lvuser/defaults.properties");
+				RobotMap.log(RobotMap.defaultsSubTable, "Loaded defaults from local source");
+				prop.load(stream);
+			}catch(Exception e2) {
+				RobotMap.log(RobotMap.defaultsSubTable, "Unable to find local file, creating one");
+			}
+		}
 	}
 	
 	public Object updateProperty(String name, String key, String value) {
@@ -46,7 +68,7 @@ public class DefaultValues {
 			}else {
 				RobotMap.log(RobotMap.defaultsSubTable, "Updated with new value " + value + ", replacing " + (String)old);
 			}
-			this.saveProperties();
+			//this.saveProperties();
 			return old;
 		}else{
 			RobotMap.log(RobotMap.defaultsSubTable, "You tried to set value " + value + " with key " + key + ", but THERE IS NO FILE");
@@ -66,8 +88,8 @@ public class DefaultValues {
 	
 		return hasFile ? prop.get(name + "-" + key) : null;
 	}
-	
-	private void saveProperties() {
+
+	public void saveProperties() {
 		if(hasFile) {
 			try {
 				prop.store(stream, null);

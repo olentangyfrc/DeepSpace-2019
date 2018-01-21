@@ -13,7 +13,7 @@ public class MecanumDrive extends Command{
 	
 	protected void execute() { //execute is called every 20 miliseconds
 		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
-		double XVal = Robot.oi.filter(Robot.oi.leftJoy.getX());//it through the filter
+		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
@@ -25,12 +25,7 @@ public class MecanumDrive extends Command{
 		
 		double finalZVal= ZVal* 180;
 		//Boosts the strafe to be equal to the speed of going forward or backwards
-		if(XVal < 0) {
-			XVal = Math.min(-XVal*2, 1);
-		}else if(XVal > 0){
-			XVal = Math.min(XVal*2, -1);
-		}
-	    Robot.tankDrive.move(YVal, XVal, -ZVal); 
+	    Robot.tankDrive.move(XVal, YVal, -ZVal); 
 	    System.out.println("YVal: "+YVal);
 	    System.out.println("XVal: "+XVal);
 	    System.out.println("ZVal: "+ZVal);

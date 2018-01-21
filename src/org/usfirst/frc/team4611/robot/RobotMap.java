@@ -65,7 +65,7 @@ public class RobotMap {
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
 	
-	public static DefaultValues defaults = new DefaultValues();
+	public static DefaultValues defaults;
 	
 	public static void init() {
 		//PWM Ports
@@ -93,8 +93,9 @@ public class RobotMap {
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+		Logger.init("Logs");
+		defaults = new DefaultValues();
 
-		//Logger.init("Logs");
 	}
 
 
