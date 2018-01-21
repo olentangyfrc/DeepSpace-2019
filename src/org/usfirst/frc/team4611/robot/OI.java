@@ -45,6 +45,8 @@ public class OI {
 
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue("Mecanum", RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue("Mecanum", RobotMap.strafePowerID)));
+		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue("Mecanum", "StrafePower")));
+		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue("Mecanum", "StrafePower")));
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		but.whileHeld(new ExtendSolenoid());
