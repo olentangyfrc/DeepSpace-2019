@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		RobotMap.defaults.saveProperties();
 	}
 
 	@Override
