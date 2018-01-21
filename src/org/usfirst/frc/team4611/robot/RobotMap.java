@@ -7,6 +7,8 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
@@ -20,16 +22,16 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class RobotMap {
 	public static MecanumDrive driveTrain;
 	
-	/*public static Victor driveTrainFL;
-	public static Victor driveTrainFR;
-	public static Victor driveTrainBL;
-	public static Victor driveTrainBR;*/
-	public static Victor driveTrainFL;
-	public static Victor driveTrainFR;
-	public static Victor driveTrainBL;
-	public static Victor driveTrainBR;
+	public static WPI_TalonSRX driveTrainFL_Talon;
+	public static WPI_TalonSRX driveTrainFR_Talon;
+	public static WPI_TalonSRX driveTrainBL_Talon;
+	public static WPI_TalonSRX driveTrainBR_Talon;
 	
-	public static Spark motor;
+	public static Victor driveTrainFL_Victor;
+	public static Victor driveTrainFR_Victor;
+	public static Victor driveTrainBL_Victor;
+	public static Victor driveTrainBR_Victor;
+	
 
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
@@ -70,15 +72,15 @@ public class RobotMap {
 	public static void init() {
 		//PWM Ports
 		//PWM ports are physically on the rio and the number on the port should match with the int in code
-		driveTrainFL = new Victor(1);
-		driveTrainFR = new Victor(0);
-		driveTrainBL = new Victor(2);
-		driveTrainBR = new Victor(3);
+		driveTrainFL_Victor = new Victor(1);
+		driveTrainFR_Victor = new Victor(0);
+		driveTrainBL_Victor = new Victor(2);
+		driveTrainBR_Victor = new Victor(3);
 
-		/*driveTrainFL = new WPI_TalonSRX(0);
-		driveTrainFR = new WPI_TalonSRX(1);
-		driveTrainBL = new WPI_TalonSRX(2);
-		driveTrainBR = new WPI_TalonSRX(3);*/
+		driveTrainFL_Talon = new WPI_TalonSRX(0);
+		driveTrainFR_Talon = new WPI_TalonSRX(1);
+		driveTrainBL_Talon = new WPI_TalonSRX(2);
+		driveTrainBR_Talon = new WPI_TalonSRX(3);
 		
 		//
 		//CAN Ports
@@ -90,7 +92,7 @@ public class RobotMap {
 		
 		//Objects
 		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
-		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
+		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
