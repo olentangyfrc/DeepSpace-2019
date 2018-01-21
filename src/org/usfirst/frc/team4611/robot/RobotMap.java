@@ -6,6 +6,7 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
@@ -47,6 +48,10 @@ public class RobotMap {
 	public static int openPort = 1;
 	public static int closePort = 0;
 	
+	//Ultrasonic sensor
+	public static AnalogInput ultrasonicInput;
+	public static int ultraPort = 3; 
+	
 	public static double motorSpeed = 1;
 	
 	public static void init() {
@@ -56,6 +61,9 @@ public class RobotMap {
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(3);
+		
+		//Ultrasonic sensor
+		ultrasonicInput = new AnalogInput(ultraPort);
 
 		/*driveTrainFL = new WPI_TalonSRX(0);
 		driveTrainFR = new WPI_TalonSRX(1);
