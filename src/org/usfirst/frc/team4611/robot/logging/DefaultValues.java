@@ -54,7 +54,7 @@ public class DefaultValues {
 		return null;
 	}
 	
-	private Object getProperty(String name, String key, String defaultVal) {
+	public Object getProperty(String name, String key, String defaultVal) {
 		if(hasFile) {
 			if(prop.get(name + "-" + key) == null) {
 				RobotMap.log(RobotMap.defaultsSubTable, "The key " + key + " doesn't exists, creating it now with the default value");
