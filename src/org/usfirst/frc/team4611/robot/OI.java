@@ -41,19 +41,15 @@ public class OI {
 		
 //		RobotMap.updateValue("Mecanum", RobotMap.strafePowerID, 0.65);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
-		new SetDefault(RobotMap.mecanumSubTable, RobotMap.strafePowerID);
 		
 //		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
-		new SetDefault(RobotMap.mecanumSubTable, RobotMap.motorPowerID);
 		
 //		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
-		new SetDefault(RobotMap.mecanumSubTable, RobotMap.deadZoneID);
 		
 //		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-		new SetDefault(RobotMap.mecanumSubTable, RobotMap.deadZoneYID);	
 		
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
