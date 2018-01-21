@@ -4,6 +4,7 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
+import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +23,7 @@ public class Robot extends IterativeRobot {
 
 	public static DriveTrain tankDrive;
 	public static MotorDriver driver;
+	public static UltrasonicSensor ultrasonicInput;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -42,7 +44,7 @@ public class Robot extends IterativeRobot {
 		tankDrive = new DriveTrain();
 
 		//driver = new MotorDriver();
-
+		ultrasonicInput = new UltrasonicSensor();
 		sol = new Solenoid();
 		oi = new OI();
 	}
@@ -113,6 +115,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		ultrasonicInput.getInches();
+		
 	}
 
 	/**

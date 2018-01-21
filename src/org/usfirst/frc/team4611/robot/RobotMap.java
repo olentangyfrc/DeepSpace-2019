@@ -50,7 +50,7 @@ public class RobotMap {
 	
 	//Ultrasonic sensor
 	public static AnalogInput ultrasonicInput;
-	public static int ultraPort = 3; 
+	public static int ultraPort = 2; 
 	
 	public static double motorSpeed = 1;
 	
@@ -84,7 +84,7 @@ public class RobotMap {
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 
-		Logger.init("Logs");
+		//Logger.init("Logs");
 	}
 
 
