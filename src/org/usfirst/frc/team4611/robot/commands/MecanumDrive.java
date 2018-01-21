@@ -16,12 +16,12 @@ public class MecanumDrive extends Command{
 		double XVal = Robot.oi.filter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		
-		RobotMap.updateValue("Joysticks", RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
-		RobotMap.updateValue("Joysticks", RobotMap.leftJoyYID, Robot.oi.leftJoy.getY());
-		RobotMap.updateValue("Joysticks", RobotMap.leftJoyZID, Robot.oi.leftJoy.getZ());
-		RobotMap.updateValue("Joysticks", RobotMap.rightJoyXID, Robot.oi.rightJoy.getX());
-		RobotMap.updateValue("Joysticks", RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
-		RobotMap.updateValue("Joysticks", RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, Robot.oi.leftJoy.getY());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, Robot.oi.leftJoy.getZ());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, Robot.oi.rightJoy.getX());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
 		double finalZVal= ZVal* 180;
 		//Boosts the strafe to be equal to the speed of going forward or backwards

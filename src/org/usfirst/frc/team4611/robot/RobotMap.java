@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team4611.robot.logging.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
@@ -49,6 +50,10 @@ public class RobotMap {
 	
 	public static double motorSpeed = 1;
 	
+	public static String joyStickSubTable = "Joysticks";
+	public static String mecanumSubTable = "Mecanum";
+	public static String defaultsSubTable = "Defaults";
+	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -59,6 +64,8 @@ public class RobotMap {
 	public static String strafePowerID = "strafePower";
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
+	
+	public static DefaultValues defaults = new DefaultValues();
 	
 	public static void init() {
 		//PWM Ports
