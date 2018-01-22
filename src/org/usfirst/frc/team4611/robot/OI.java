@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.ExtendSolenoid;
-import org.usfirst.frc.team4611.robot.commands.SetDefault;
 import org.usfirst.frc.team4611.robot.commands.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.StrafeRight;
 
@@ -56,6 +55,7 @@ public class OI {
 	
 	public void setupVictor() {
 		this.stopTalon();
+		RobotMap.setupVictor();
 	}
 	
 	public void stopVictor() {
@@ -65,12 +65,20 @@ public class OI {
 		RobotMap.driveTrainFR.stopMotor();
 	}
 	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any victor-specific joystick or other io buttons
+	 */	
 	public void setupTalon() {
 		this.stopVictor();
+		RobotMap.setupTalon();
 	}
 	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any talon-specific joystick or other io buttons
+	 */	
 	public void stopTalon() {
-		
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

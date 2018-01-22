@@ -100,6 +100,12 @@ public class RobotMap {
 		Logger.init("Logs");
 		defaults = new DefaultValues();
 		
+		if(defaults.getDefaultMotorType() == 0) {
+			setupVictor();
+		}else {
+			setupTalon();
+		}
+		
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
@@ -108,6 +114,19 @@ public class RobotMap {
 
 	}
 
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
+	public static void setupVictor() {
+		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
+	public static void setupTalon() {
+		
+	}
 
 	/**
 	 * Updates or adds a new value to the NetworkTable 
