@@ -7,6 +7,8 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
@@ -24,6 +26,11 @@ public class RobotMap {
 	public static Victor driveTrainFR;
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;*/
+	public static WPI_TalonSRX driveTrainFL_Talon;
+	public static WPI_TalonSRX driveTrainFR_Talon;
+	public static WPI_TalonSRX driveTrainBL_Talon;
+	public static WPI_TalonSRX driveTrainBR_Talon;
+	
 	public static Victor driveTrainFL;
 	public static Victor driveTrainFR;
 	public static Victor driveTrainBL;
@@ -78,21 +85,12 @@ public class RobotMap {
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(3);
 
-		/*driveTrainFL = new WPI_TalonSRX(0);
-		driveTrainFR = new WPI_TalonSRX(1);
-		driveTrainBL = new WPI_TalonSRX(2);
-		driveTrainBR = new WPI_TalonSRX(3);*/
-		
-		//
-		//CAN Ports
-		//CAN ports are decided via software in the roborio web interface 
-		//CAN Ports
-		//CAN ports are decided via software in the roborio web interface 
-		
-		//motor = new Spark(4);
+		driveTrainFL_Talon = new WPI_TalonSRX(10);
+		driveTrainFR_Talon = new WPI_TalonSRX(11);
+		driveTrainBL_Talon = new WPI_TalonSRX(12);
+		driveTrainBR_Talon = new WPI_TalonSRX(13);
 		
 		//Objects
-		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
