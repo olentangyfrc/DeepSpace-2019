@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot.defaults;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -19,7 +18,7 @@ public class DefaultValues {
 	private OutputStream usb;
 	
 	private boolean hasFile = true;
-	private boolean hasUSBFile = false;
+	private boolean hasUSBFile = true;
 	public DefaultValues() {
 		if(!this.loadPropertiesFromUSB()) {
 			if(!this.loadPropertiesFromLocal()) {
@@ -168,4 +167,34 @@ public class DefaultValues {
 		return defaultVal;
 	}
 	
+	public int getDefaultMotorType() {
+		try {
+			Properties prop = new Properties();
+			File file = new File("/home/lvuser/Rio-specific.properties");
+			FileInputStream stream = new FileInputStream(file);
+			prop.load(stream);
+			return Integer.parseInt(prop.getProperty("motortype"));
+		}catch(Exception e) {
+			RobotMap.log(RobotMap.defaultsSubTable, "This rio doesn't have which motors it uses, setting victors as the default");
+			this.updateMotorType(0);
+			return 0;
+		}
+	}
+	
+	public void updateMotorType(int type) {
+		try {
+			Properties prop = new Properties();
+			File file = new File("/home/lvuser/Rio-specific.properties");
+			FileInputStream stream = new FileInputStream(file);
+			prop.load(stream);
+			
+			FileOutputStream outstream = new FileOutputStream(file);
+			prop.setProperty("motortype", "" + type);
+			prop.store(outstream, null);
+		}catch(Exception e) {
+			RobotMap.log(RobotMap.defaultsSubTable, "UNABLE TO SAVE WHICH MOTORS TO USE");
+			
+		}
+	}
+
 }

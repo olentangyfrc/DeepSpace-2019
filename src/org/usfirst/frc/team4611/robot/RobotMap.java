@@ -53,6 +53,7 @@ public class RobotMap {
 	public static String joyStickSubTable = "Joysticks";
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
+	public static String switcherSubTable = "Switchable";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -64,6 +65,9 @@ public class RobotMap {
 	public static String strafePowerID = "strafePower";
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
+	public static String switcherTalonID = "talon-enabled";
+	public static String switcherVictorID = "victor-enabled";
+	
 	
 	public static DefaultValues defaults;
 	

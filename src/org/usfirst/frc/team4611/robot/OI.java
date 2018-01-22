@@ -25,7 +25,47 @@ public class OI {
 
 	public OI (){
 		
+		if(RobotMap.defaults.getDefaultMotorType() == 0) {
+			this.setupVictor();
+		}else {
+			this.setupTalon();
+		}
+		/**leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
+		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		strafeLeft= new JoystickButton(rightJoy, 4);
+		strafeRight= new JoystickButton(rightJoy, 5);
+	
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, leftJoy.getZ());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, rightJoy.getX());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, rightJoy.getY());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
+
 		
+//		RobotMap.updateValue("Mecanum", RobotMap.strafePowerID, 0.65);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
+		
+//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
+		
+//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
+		
+//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
+
+		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+
+		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
+		but.whileHeld(new ExtendSolenoid());
+		*/
+	}
+	
+	public void setupVictor() {
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		strafeLeft= new JoystickButton(rightJoy, 4);
@@ -58,6 +98,9 @@ public class OI {
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		but.whileHeld(new ExtendSolenoid());
+	}
+	
+	public void setupTalon() {
 		
 	}
 	
