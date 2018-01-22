@@ -122,7 +122,7 @@ public class RobotMap {
 	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
 	 */
 	public static void setupTalon() {
-		
+		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
 	}
 
 	/**
