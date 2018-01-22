@@ -10,6 +10,7 @@ import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
@@ -52,6 +53,10 @@ public class RobotMap {
 	public static int openPort = 1;
 	public static int closePort = 0;
 	
+	//Ultrasonic sensor
+	public static AnalogInput ultrasonicInput;
+	public static int ultraPort = 2; 
+	
 	public static double motorSpeed = 1;
 	
 	public static String joyStickSubTable = "Joysticks";
@@ -79,6 +84,9 @@ public class RobotMap {
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(3);
+		
+		//Ultrasonic sensor
+		ultrasonicInput = new AnalogInput(ultraPort);
 
 		driveTrainFL_Talon = new WPI_TalonSRX(10);
 		driveTrainFR_Talon = new WPI_TalonSRX(11);
@@ -89,7 +97,6 @@ public class RobotMap {
 		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		
 		
 		//sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
