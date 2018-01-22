@@ -2,7 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team4611.robot.logging.DefaultValues;
+import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;

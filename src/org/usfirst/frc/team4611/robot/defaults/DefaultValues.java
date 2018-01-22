@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.logging;
+package org.usfirst.frc.team4611.robot.defaults;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,7 +53,7 @@ public class DefaultValues {
 				RobotMap.log(RobotMap.defaultsSubTable, "Loaded defaults from local source");
 				prop.load(stream);
 			}catch(Exception e2) {
-				RobotMap.log(RobotMap.defaultsSubTable, "Unable to find local file, creating one");
+				RobotMap.log(RobotMap.defaultsSubTable, "Unable to find local file, so nothing is going to happen with loading known properties");
 			}
 		}
 	}

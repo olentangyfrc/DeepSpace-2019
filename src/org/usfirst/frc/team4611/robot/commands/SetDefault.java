@@ -12,7 +12,7 @@ public class SetDefault extends Command{
 	public SetDefault(String name, String key) {
 		this.name = name;
 		this.key = key;
-		this.setName("Set as default");
+		this.setName(name + " " + key + " set default");
 		SmartDashboard.putData(this);
 	}
 	
