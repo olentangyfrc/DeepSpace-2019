@@ -2,7 +2,6 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain tankDrive;
-	public static MotorDriver driver;
 	public static OI oi;
 
 	Command autonomousCommand;
