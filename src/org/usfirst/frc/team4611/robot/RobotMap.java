@@ -99,18 +99,24 @@ public class RobotMap {
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
 		defaults = new DefaultValues();
+		
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
+
 
 	}
 
 
 	/**
 	 * Updates or adds a new value to the NetworkTable 
-	 * in a subtable based on the LoggerType name
+	 * in a subtable based on the subTable name
 	 * @param key The identifer for the value
 	 * @param value The value of the key
 	 */
 	public static void updateValue(String subtable, String key, Object value) {
-		//Checks to see if this key has already been used
+		//Tries to add value to the networktable
 		if(!RobotMap.networkManager.updateValue(subtable, key, value)){	
 			//If it's unsuccessful, it logs there was a problem
 			System.out.println("Unable to update value with key: " + key + " on subtable NetworkTable");
