@@ -80,10 +80,10 @@ public class RobotMap {
 		driveTrainBL = new Victor(2);
 		driveTrainBR = new Victor(3);
 
-		driveTrainFL_Talon = new WPI_TalonSRX(10);
-		driveTrainFR_Talon = new WPI_TalonSRX(11);
-		driveTrainBL_Talon = new WPI_TalonSRX(12);
-		driveTrainBR_Talon = new WPI_TalonSRX(13);
+		driveTrainFL_Talon = new WPI_TalonSRX(12);
+		driveTrainFR_Talon = new WPI_TalonSRX(13);
+		driveTrainBL_Talon = new WPI_TalonSRX(10);
+		driveTrainBR_Talon = new WPI_TalonSRX(11);
 		
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);

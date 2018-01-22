@@ -24,7 +24,7 @@ public class StrafeLeft extends Command {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
-		Robot.tankDrive.move(-YVal, speed, -ZVal);
+		Robot.tankDrive.move(-YVal, -speed, -ZVal);
 	}
 	
 

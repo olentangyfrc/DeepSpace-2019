@@ -24,7 +24,7 @@ public class StrafeRight extends Command{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
 
-	    Robot.tankDrive.move(-YVal, -speed, -ZVal); 
+	    Robot.tankDrive.move(-YVal, speed, -ZVal); 
 	}
 
 	@Override
