@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -84,6 +85,12 @@ public class RobotMap {
 		driveTrainFR_Talon = new WPI_TalonSRX(11);
 		driveTrainBL_Talon = new WPI_TalonSRX(12);
 		driveTrainBR_Talon = new WPI_TalonSRX(13);
+		
+		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		
 		
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
