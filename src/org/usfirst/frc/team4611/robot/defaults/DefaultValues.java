@@ -193,7 +193,9 @@ public class DefaultValues {
 			prop.store(outstream, null);
 		}catch(Exception e) {
 			RobotMap.log(RobotMap.defaultsSubTable, "UNABLE TO SAVE WHICH MOTORS TO USE");
-			
+			File file = new File("/home/lvuser/");
+			file.mkdirs();
+			file = new File("/home/lvuser/Rio-specific.properties");
 		}
 	}
 

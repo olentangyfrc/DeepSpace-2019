@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 
@@ -43,12 +42,11 @@ public class OI {
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
-		but.whileHeld(new ExtendSolenoid());
-		
-		
-		if(RobotMap.defaults.getDefaultMotorType() == 0) {
+		//but.whileHeld(new ExtendSolenoid());
+			
+		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
-		}else {
+		}else{
 			this.setupTalon();
 		}
 	}

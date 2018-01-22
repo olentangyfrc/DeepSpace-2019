@@ -69,8 +69,7 @@ public class RobotMap {
 	public static String strafePowerID = "strafePower";
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
-	public static String switcherTalonID = "talon-enabled";
-	public static String switcherVictorID = "victor-enabled";
+	public static String switcherID = "motor-switch-enabled";
 	
 	public static DefaultValues defaults;
 	
@@ -92,21 +91,15 @@ public class RobotMap {
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		
 		
-		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+		//sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
 		defaults = new DefaultValues();
-		
-		if(defaults.getDefaultMotorType() == 0) {
-			setupVictor();
-		}else {
-			setupTalon();
-		}
 		
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-
+		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 
 	}
 
@@ -114,6 +107,7 @@ public class RobotMap {
 	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
 	 */
 	public static void setupVictor() {
+		RobotMap.log(RobotMap.switcherSubTable, "Setting up victor");
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 	}
 	
@@ -121,6 +115,7 @@ public class RobotMap {
 	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
 	 */
 	public static void setupTalon() {
+		RobotMap.log(RobotMap.switcherSubTable, "Setting up talons");
 		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
 	}
 

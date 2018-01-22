@@ -189,6 +189,9 @@ public class Logger {
 		log("Showing all LoggerTypes", Logger.getLoggerType("Logger-ShowOnly"));
 	}
 	
+	public static void disabled() {
+		man.disabled();
+	}
 	
 	
 	/**

@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.SwitchableUpdater;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 
@@ -42,9 +42,8 @@ public class Robot extends IterativeRobot {
 
 		//driver = new MotorDriver();
 
-		sol = new Solenoid();
+		//sol = new Solenoid();
 		oi = new OI();
-		new SwitchableUpdater();
 	}
 
 	/**
@@ -55,6 +54,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		RobotMap.defaults.saveProperties();
+		Logger.disabled();
 	}
 
 	@Override
@@ -77,12 +77,12 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherTalonID) && RobotMap.defaults.getDefaultMotorType() != 1) {
+		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			oi.setupTalon();
-			RobotMap.defaults.updateMotorType(1);
-		}else if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherVictorID) && RobotMap.defaults.getDefaultMotorType() != 0) {
+			//RobotMap.defaults.updateMotorType(1);
+		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			oi.setupVictor();
-			RobotMap.defaults.updateMotorType(0);
+			//RobotMap.defaults.updateMotorType(0);
 		}
 		
 		/*
@@ -114,12 +114,12 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherTalonID) && RobotMap.defaults.getDefaultMotorType() != 1) {
+		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			oi.setupTalon();
-			RobotMap.defaults.updateMotorType(1);
-		}else if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherVictorID) && RobotMap.defaults.getDefaultMotorType() != 0) {
+			//RobotMap.defaults.updateMotorType(1);
+		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			oi.setupVictor();
-			RobotMap.defaults.updateMotorType(0);
+			//RobotMap.defaults.updateMotorType(0);
 		}
 	}
 

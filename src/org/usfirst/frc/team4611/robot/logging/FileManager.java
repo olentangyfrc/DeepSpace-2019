@@ -38,11 +38,18 @@ public class FileManager {
 	public void write(String message) {
 		try {
 			masterWrite.write(message + "\n");
-			masterWrite.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void disabled() {
+		try {
+			masterWrite.flush();
+		}catch(Exception e) {
+			System.out.println("Unable to write to file");
 		}
 	}
 	/**
