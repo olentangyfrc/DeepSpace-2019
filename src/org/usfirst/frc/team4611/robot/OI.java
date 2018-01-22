@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.ExtendSolenoid;
-import org.usfirst.frc.team4611.robot.commands.StrafeLeft;
-import org.usfirst.frc.team4611.robot.commands.StrafeRight;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
+import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
