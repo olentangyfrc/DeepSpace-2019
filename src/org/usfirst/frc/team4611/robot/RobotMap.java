@@ -22,10 +22,6 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class RobotMap {
 	public static MecanumDrive driveTrain;
 	
-	/*public static Victor driveTrainFL;
-	public static Victor driveTrainFR;
-	public static Victor driveTrainBL;
-	public static Victor driveTrainBR;*/
 	public static WPI_TalonSRX driveTrainFL_Talon;
 	public static WPI_TalonSRX driveTrainFR_Talon;
 	public static WPI_TalonSRX driveTrainBL_Talon;
@@ -35,8 +31,8 @@ public class RobotMap {
 	public static Victor driveTrainFR;
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;
+
 	
-	public static Spark motor;
 
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
@@ -78,8 +74,7 @@ public class RobotMap {
 	public static DefaultValues defaults;
 	
 	public static void init() {
-		//PWM Ports
-		//PWM ports are physically on the rio and the number on the port should match with the int in code
+
 		driveTrainFL = new Victor(1);
 		driveTrainFR = new Victor(0);
 		driveTrainBL = new Victor(2);
@@ -90,9 +85,6 @@ public class RobotMap {
 		driveTrainBL_Talon = new WPI_TalonSRX(12);
 		driveTrainBR_Talon = new WPI_TalonSRX(13);
 		
-		//Objects
-		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
-		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
 		defaults = new DefaultValues();
