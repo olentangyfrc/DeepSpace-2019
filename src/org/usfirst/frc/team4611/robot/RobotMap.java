@@ -2,7 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team4611.robot.logging.DefaultValues;
+import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
@@ -27,10 +27,11 @@ public class RobotMap {
 	public static WPI_TalonSRX driveTrainBL_Talon;
 	public static WPI_TalonSRX driveTrainBR_Talon;
 	
-	public static Victor driveTrainFL_Victor;
-	public static Victor driveTrainFR_Victor;
-	public static Victor driveTrainBL_Victor;
-	public static Victor driveTrainBR_Victor;
+	public static Victor driveTrainFL;
+	public static Victor driveTrainFR;
+	public static Victor driveTrainBL;
+	public static Victor driveTrainBR;
+
 	
 
 	//Joystick ports
@@ -55,6 +56,7 @@ public class RobotMap {
 	public static String joyStickSubTable = "Joysticks";
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
+	public static String switcherSubTable = "Switchable";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -66,49 +68,63 @@ public class RobotMap {
 	public static String strafePowerID = "strafePower";
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
+	public static String switcherTalonID = "talon-enabled";
+	public static String switcherVictorID = "victor-enabled";
 	
 	public static DefaultValues defaults;
 	
 	public static void init() {
-		//PWM Ports
-		//PWM ports are physically on the rio and the number on the port should match with the int in code
-		driveTrainFL_Victor = new Victor(1);
-		driveTrainFR_Victor = new Victor(0);
-		driveTrainBL_Victor = new Victor(2);
-		driveTrainBR_Victor = new Victor(3);
 
-		driveTrainFL_Talon = new WPI_TalonSRX(0);
-		driveTrainFR_Talon = new WPI_TalonSRX(1);
-		driveTrainBL_Talon = new WPI_TalonSRX(2);
-		driveTrainBR_Talon = new WPI_TalonSRX(3);
+		driveTrainFL = new Victor(1);
+		driveTrainFR = new Victor(0);
+		driveTrainBL = new Victor(2);
+		driveTrainBR = new Victor(3);
+
+		driveTrainFL_Talon = new WPI_TalonSRX(10);
+		driveTrainFR_Talon = new WPI_TalonSRX(11);
+		driveTrainBL_Talon = new WPI_TalonSRX(12);
+		driveTrainBR_Talon = new WPI_TalonSRX(13);
 		
-		//
-		//CAN Ports
-		//CAN ports are decided via software in the roborio web interface 
-		//CAN Ports
-		//CAN ports are decided via software in the roborio web interface 
-		
-		//motor = new Spark(4);
-		
-		//Objects
-		//driveTrain =  new MecanumDrive(driveTrainFL, driveTrainBL, driveTrainFR, driveTrainBR);
-		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
-		//Constants
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
 		defaults = new DefaultValues();
+		
+		if(defaults.getDefaultMotorType() == 0) {
+			setupVictor();
+		}else {
+			setupTalon();
+		}
+		
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
+
 
 	}
 
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
+	public static void setupVictor() {
+		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
+	public static void setupTalon() {
+		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
+	}
 
 	/**
 	 * Updates or adds a new value to the NetworkTable 
-	 * in a subtable based on the LoggerType name
+	 * in a subtable based on the subTable name
 	 * @param key The identifer for the value
 	 * @param value The value of the key
 	 */
 	public static void updateValue(String subtable, String key, Object value) {
-		//Checks to see if this key has already been used
+		//Tries to add value to the networktable
 		if(!RobotMap.networkManager.updateValue(subtable, key, value)){	
 			//If it's unsuccessful, it logs there was a problem
 			System.out.println("Unable to update value with key: " + key + " on subtable NetworkTable");

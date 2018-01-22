@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.ExtendSolenoid;
-import org.usfirst.frc.team4611.robot.commands.SetDefault;
 import org.usfirst.frc.team4611.robot.commands.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.StrafeRight;
 
@@ -25,7 +24,7 @@ public class OI {
 
 	public OI (){
 		
-		
+	
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		strafeLeft= new JoystickButton(rightJoy, 4);
@@ -38,19 +37,6 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
-		
-//		RobotMap.updateValue("Mecanum", RobotMap.strafePowerID, 0.65);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
-		
-//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
-		
-//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
-		
-//		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
@@ -59,6 +45,40 @@ public class OI {
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		but.whileHeld(new ExtendSolenoid());
 		
+		
+		if(RobotMap.defaults.getDefaultMotorType() == 0) {
+			this.setupVictor();
+		}else {
+			this.setupTalon();
+		}
+	}
+	
+	public void setupVictor() {
+		this.stopTalon();
+		RobotMap.setupVictor();
+	}
+	
+	public void stopVictor() {
+		RobotMap.driveTrainBL.stopMotor();
+		RobotMap.driveTrainBR.stopMotor();
+		RobotMap.driveTrainFL.stopMotor();
+		RobotMap.driveTrainFR.stopMotor();
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any victor-specific joystick or other io buttons
+	 */	
+	public void setupTalon() {
+		this.stopVictor();
+		RobotMap.setupTalon();
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any talon-specific joystick or other io buttons
+	 */	
+	public void stopTalon() {
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

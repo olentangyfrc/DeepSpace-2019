@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.SwitchableUpdater;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 
 		sol = new Solenoid();
 		oi = new OI();
+		new SwitchableUpdater();
 	}
 
 	/**
@@ -75,6 +77,14 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
+		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherTalonID) && RobotMap.defaults.getDefaultMotorType() != 1) {
+			oi.setupTalon();
+			RobotMap.defaults.updateMotorType(1);
+		}else if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherVictorID) && RobotMap.defaults.getDefaultMotorType() != 0) {
+			oi.setupVictor();
+			RobotMap.defaults.updateMotorType(0);
+		}
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -103,6 +113,14 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherTalonID) && RobotMap.defaults.getDefaultMotorType() != 1) {
+			oi.setupTalon();
+			RobotMap.defaults.updateMotorType(1);
+		}else if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherVictorID) && RobotMap.defaults.getDefaultMotorType() != 0) {
+			oi.setupVictor();
+			RobotMap.defaults.updateMotorType(0);
+		}
 	}
 
 	/**

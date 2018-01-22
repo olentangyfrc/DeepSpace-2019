@@ -12,6 +12,7 @@ public class ResetDefault extends Command{
 	public ResetDefault(String sub, String k) {
 		subTable = sub;
 		key = k;
+		this.setName(subTable + " " + key + " reset");
 		SmartDashboard.putData(this);
 	}
 	
