@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.SwitchableUpdater;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.MotorDriver;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
 
 		sol = new Solenoid();
 		oi = new OI();
+		new SwitchableUpdater();
 	}
 
 	/**
