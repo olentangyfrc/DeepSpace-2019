@@ -68,7 +68,6 @@ public class RobotMap {
 	public static String switcherTalonID = "talon-enabled";
 	public static String switcherVictorID = "victor-enabled";
 	
-	
 	public static DefaultValues defaults;
 	
 	public static void init() {
