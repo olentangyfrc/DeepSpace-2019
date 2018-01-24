@@ -3,6 +3,8 @@ package org.usfirst.frc.team4611.robot.subsystems;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.drive.MecanumDrive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -17,6 +19,13 @@ public class DriveTrain extends Subsystem {
 	
 	public void movePolar (double mag, double angle, double z) {
 		RobotMap.driveTrain.drivePolar(mag, angle, z);
+	}
+	
+	public void motionMagic(int positionUnits) {
+		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
 	}
 	
 	

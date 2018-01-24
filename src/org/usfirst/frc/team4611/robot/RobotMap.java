@@ -34,8 +34,6 @@ public class RobotMap {
 	public static Victor driveTrainBL;
 	public static Victor driveTrainBR;
 
-	
-
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
@@ -97,6 +95,20 @@ public class RobotMap {
 		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		
+		driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+		driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		
+		driveTrainFL_Talon.configMotionAcceleration(360, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(360, 0);
+		driveTrainFR_Talon.configMotionAcceleration(360, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(360, 0);
+		driveTrainBL_Talon.configMotionAcceleration(360, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(360, 0);
+		driveTrainBR_Talon.configMotionAcceleration(360, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
 		
 		//sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");

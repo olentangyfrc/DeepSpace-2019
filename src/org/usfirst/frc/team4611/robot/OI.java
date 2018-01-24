@@ -77,7 +77,7 @@ public class OI {
 	 * Use to setup any talon-specific joystick or other io buttons
 	 */	
 	public void stopTalon() {
-	}
+	}	
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
     {

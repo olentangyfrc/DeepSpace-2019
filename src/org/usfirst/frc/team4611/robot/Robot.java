@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.auton.DriveBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
@@ -77,7 +78,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = new DriveBlock();
 
 		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			oi.setupTalon();
