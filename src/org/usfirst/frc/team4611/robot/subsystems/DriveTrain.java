@@ -21,11 +21,15 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrain.drivePolar(mag, angle, z);
 	}
 	
-	public void motionMagic(int positionUnits) {
+	public void motionMagicStraight(int positionUnits) {
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, positionUnits);
-		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, -positionUnits);
+	}
+	
+	public void motionMagicStraife() {
+		
 	}
 	
 	

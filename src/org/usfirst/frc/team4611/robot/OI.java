@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
@@ -44,11 +45,11 @@ public class OI {
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		//but.whileHeld(new ExtendSolenoid());
 			
-		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
+		//if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
-		}else{
+		/*}else{
 			this.setupTalon();
-		}
+		}*/
 	}
 	
 	public void setupVictor() {

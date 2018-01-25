@@ -79,14 +79,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = new DriveBlock();
-
-		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			oi.setupTalon();
-			//RobotMap.defaults.updateMotorType(1);
-		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			oi.setupVictor();
-			//RobotMap.defaults.updateMotorType(0);
-		}
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -114,7 +106,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
 		
 		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

@@ -7,6 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveBlock extends CommandGroup{
 	
 	public DriveBlock() {
-		addSequential(new DriveStraight(10));	
+		addSequential(new DriveStraight(2));	
 	}
 }
