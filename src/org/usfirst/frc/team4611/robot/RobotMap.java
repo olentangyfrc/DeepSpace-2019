@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
@@ -77,6 +78,8 @@ public class RobotMap {
 	public static String switcherID = "motor-switch-enabled";
 	
 	public static DefaultValues defaults;
+
+	public static Victor linearActuator;
 	
 	public static void init() {
 
@@ -108,6 +111,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 
+		
+		linearActuator = new Victor(4);
 	}
 
 	/**

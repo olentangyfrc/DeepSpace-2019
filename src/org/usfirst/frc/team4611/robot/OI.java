@@ -6,6 +6,8 @@ import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import potentiometer.MovePot;
+import potentiometer.stopPot;
 
 
 /**
@@ -15,12 +17,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 
 public class OI {
-	public Joystick leftJoy;
-	public Joystick rightJoy;
+	public static Joystick leftJoy;
+	public static Joystick rightJoy;
 	public Button strafeLeft;
 	public Button strafeRight;
 	public Button but;
-
+	
+	public Button potBut;
+	
 	public OI (){
 		
 	
@@ -43,6 +47,11 @@ public class OI {
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		//but.whileHeld(new ExtendSolenoid());
+		
+		potBut = new JoystickButton(leftJoy, 5);
+		MovePot cmdPot = new MovePot();
+		potBut.whileHeld(cmdPot);
+		potBut.whenReleased(new stopPot());
 			
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
