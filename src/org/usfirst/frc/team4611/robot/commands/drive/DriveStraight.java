@@ -10,7 +10,7 @@ public class DriveStraight extends Command{
 	private int cpr;
 
 	public DriveStraight(double rotations) {
-		this.requires(Robot.tankDrive);
+		this.requires(Robot.mecanum);
 		cpr = 1440;
 		positionUnits = (int) Math.round(rotations * cpr);
 	}
@@ -24,7 +24,7 @@ public class DriveStraight extends Command{
 	
 	protected void execute () {
 		System.out.println("Target Pos: " + positionUnits + " Current Position(BL): " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
-		Robot.tankDrive.motionMagicStraight(positionUnits);
+		Robot.mecanum.motionMagicStraight(positionUnits);
 	}
 	
 	@Override

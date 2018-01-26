@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MecanumDrive extends SwitchableCommand{
 	
 	public MecanumDrive(){
-		this.requires(Robot.tankDrive); //This command uses this subsystem
+		this.requires(Robot.mecanum); //This command uses this subsystem
 	}
 	
 	protected void execute() {
@@ -24,7 +24,7 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
-	    Robot.tankDrive.move(-YVal, XVal, ZVal); 	
+	    Robot.mecanum.move(-YVal, XVal, ZVal); 	
 		super.execute();
 	}
 	

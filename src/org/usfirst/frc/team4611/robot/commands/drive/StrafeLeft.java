@@ -10,11 +10,11 @@ public class StrafeLeft extends Command {
 	public StrafeLeft (double s)
 	{
 		speed=s;
-		this.requires(Robot.tankDrive);
+		this.requires(Robot.mecanum);
 	}
 	protected void execute ()
 	{
-		double YVal=Robot.oi.yFilter(Robot.oi.leftJoy.getY());
+		double YVal=Robot.oi.strafeFilter(Robot.oi.leftJoy.getY());
 		double ZVal=Robot.oi.filter(Robot.oi.rightJoy.getX());
 		
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
@@ -24,7 +24,7 @@ public class StrafeLeft extends Command {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
-		Robot.tankDrive.move(-YVal, -speed, -ZVal);
+		Robot.mecanum.move(-YVal, -speed, -ZVal);
 	}
 	
 

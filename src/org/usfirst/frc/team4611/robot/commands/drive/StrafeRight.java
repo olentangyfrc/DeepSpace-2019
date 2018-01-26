@@ -9,11 +9,11 @@ public class StrafeRight extends Command{
 	private double speed;
 	public StrafeRight(double sp){
 		this.speed= sp;
-		this.requires(Robot.tankDrive); //This command uses this subsystem
+		this.requires(Robot.mecanum); //This command uses this subsystem
 	}
 	
 	protected void execute() { //execute is called every 20 miliseconds
-		double YVal = Robot.oi.yFilter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
+		double YVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
@@ -24,7 +24,7 @@ public class StrafeRight extends Command{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
 
-	    Robot.tankDrive.move(-YVal, speed, -ZVal); 
+	    Robot.mecanum.move(-YVal, speed, -ZVal); 
 	}
 
 	@Override

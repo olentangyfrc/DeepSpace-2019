@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends IterativeRobot {
 
-	public static DriveTrain tankDrive;
+	public static DriveTrain mecanum;
 	public static UltrasonicSensor ultrasonicInput;
 	public static OI oi;
 
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 		//Initialize the subsystems
-		tankDrive = new DriveTrain();
+		mecanum = new DriveTrain();
 
 		//driver = new MotorDriver();
 		//sol = new Solenoid();

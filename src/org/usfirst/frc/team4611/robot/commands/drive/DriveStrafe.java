@@ -10,7 +10,7 @@ public class DriveStrafe extends Command{
 	private int cpr;
 
 	public DriveStrafe(double rotations) {
-		this.requires(Robot.tankDrive);
+		this.requires(Robot.mecanum);
 		cpr = 1440;
 		positionUnits = (int) Math.round(rotations * cpr);
 	}
@@ -24,7 +24,7 @@ public class DriveStrafe extends Command{
 	
 	protected void execute () {
 		System.out.println("Target Pos: " + positionUnits + " Current Position(BL): " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
-		Robot.tankDrive.motionMagicStrafe(positionUnits);
+		Robot.mecanum.motionMagicStrafe(positionUnits);
 	}
 	@Override
 	protected boolean isFinished() {

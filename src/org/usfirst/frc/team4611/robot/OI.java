@@ -20,7 +20,6 @@ public class OI {
 	public Joystick rightJoy;
 	public Button strafeLeft;
 	public Button strafeRight;
-	public Button but;
 
 	public OI (){
 		
@@ -41,9 +40,6 @@ public class OI {
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-
-		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
-		//but.whileHeld(new ExtendSolenoid());
 			
 		//if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
@@ -95,16 +91,5 @@ public class OI {
         } else {
             return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID) * 2, 1); //Set the output to a ceratin percent of of the input
         }
-	}
-	
-	public double yFilter(double raw)
-	{
-		if (Math.abs(raw)< (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID)) {
-			return 0;
-		}
-		else {
-			return raw * (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID);
-		}
-	
-	}
+	}	
 }

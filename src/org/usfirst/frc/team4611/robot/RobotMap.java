@@ -39,7 +39,10 @@ public class RobotMap {
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 	public static int joyButtonPort = 3;
 	
+	//FMS
 	public static final int teamID = 4611;
+	
+	//Networktable shit
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
@@ -47,6 +50,7 @@ public class RobotMap {
 	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
 	public static final long systemStartupTime = System.currentTimeMillis();
 	
+	//Solenoid
 	public static DoubleSolenoid sol;
 	public static int openPort = 1;
 	public static int closePort = 0;
@@ -57,11 +61,11 @@ public class RobotMap {
 	
 	public static double motorSpeed = 1;
 	
+	//String keys
 	public static String joyStickSubTable = "Joysticks";
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
-	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -88,11 +92,13 @@ public class RobotMap {
 		//Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ultraPort);
 
+		//Talon ports
 		driveTrainFL_Talon = new WPI_TalonSRX(12);
 		driveTrainFR_Talon = new WPI_TalonSRX(13);
 		driveTrainBL_Talon = new WPI_TalonSRX(10);
 		driveTrainBR_Talon = new WPI_TalonSRX(11);
 		
+		//QuadEncoder 
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
