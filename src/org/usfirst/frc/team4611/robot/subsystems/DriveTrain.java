@@ -28,8 +28,11 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 	}
 	
-	public void motionMagicStraife() {
-		
+	public void motionMagicStrafe(int positionUnits) {
+		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
+		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
 	}
 	
 	

@@ -119,7 +119,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "straight rotations 1", 0);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "strafe rotations 1", 0);
 	}
 
 	/**
