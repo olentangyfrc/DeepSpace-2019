@@ -109,11 +109,14 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
 		
+		//Checks to see if the driver has updated the switch for which motors are being used
 		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			oi.setupTalon();
+			//If it's true, it starts talon setup
+			RobotMap.setupTalon();
 			//RobotMap.defaults.updateMotorType(1);
 		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			oi.setupVictor();
+			//If it's false, it starts victor setup
+			RobotMap.setupVictor();
 			//RobotMap.defaults.updateMotorType(0);
 		}
 	}
@@ -135,4 +138,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
+	
+		
+	
 }

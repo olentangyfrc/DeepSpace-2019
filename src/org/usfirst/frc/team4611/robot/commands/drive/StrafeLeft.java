@@ -17,6 +17,7 @@ public class StrafeLeft extends Command {
 		double YVal=Robot.oi.strafeFilter(Robot.oi.leftJoy.getY());
 		double ZVal=Robot.oi.filter(Robot.oi.rightJoy.getX());
 		
+		//Sends the values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, Robot.oi.leftJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, Robot.oi.leftJoy.getZ());
