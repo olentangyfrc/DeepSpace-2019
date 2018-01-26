@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain tankDrive;
-	public static UltrasonicSensor ultrasonicInput;
+	public static UltrasonicSensor ultrasonic;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 
 		//driver = new MotorDriver();
 		//sol = new Solenoid();
-		ultrasonicInput = new UltrasonicSensor();
+		ultrasonic = new UltrasonicSensor();
 		oi = new OI();
 	}
 
@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//ultrasonicInput.getInches();
+		//ultrasonic.getInches();
 		
 	}
 

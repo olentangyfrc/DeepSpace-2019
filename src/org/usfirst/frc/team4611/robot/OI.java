@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 
@@ -43,7 +44,7 @@ public class OI {
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
-		this.autoGrabBox.whenPressed(/*command*/);
+		this.autoGrabBox.whenPressed(new AutoGrab() );
 
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		//but.whileHeld(new ExtendSolenoid());

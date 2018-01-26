@@ -57,6 +57,7 @@ public class RobotMap {
 	//Ultrasonic sensor
 	public static AnalogInput ultrasonicInput;
 	public static int ultraPort = 2; 
+	public static int udDistance = 13; //distance for UltraDrive, pointless if it's less than 12 for now
 	
 	public static double motorSpeed = 1;
 	
