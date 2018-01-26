@@ -81,6 +81,8 @@ public class RobotMap {
 
 	public static Victor linearActuator;
 	
+	public static double linearActuatorSpeed = 0.09;
+	
 	public static void init() {
 
 		driveTrainFL = new Victor(1);
@@ -113,6 +115,7 @@ public class RobotMap {
 
 		
 		linearActuator = new Victor(4);
+		//linearActuatorT = new Talon(5);
 	}
 
 	/**

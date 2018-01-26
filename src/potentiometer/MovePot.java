@@ -7,29 +7,29 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MovePot extends Command{
 	
-	private static double speed;
-	private static boolean isHeld;
+	private double speed;
 	
-	public MovePot() {
+	public MovePot(double speed) {
 		// TODO Auto-generated constructor stub
+		this.speed = speed;
 	}
 
 	protected void execute() {
+		//System.out.println("LA speed: " + -speed);
+		if(speed > 0.0)
+			System.out.println("FORWARD");
+		else
+			System.out.println("BACKWARD");
 		
-		speed = OI.leftJoy.getZ();
-		System.out.println("LA speed: " + -speed);
-		RobotMap.linearActuator.set(-speed);
+		RobotMap.linearActuator.set(speed);
 		
 	}
 	
-	public void doneHolding() {
-		isHeld = false;
-	}
 	
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return !isHeld;
+		return false;
 	}
 
 }

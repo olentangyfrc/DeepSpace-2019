@@ -23,7 +23,8 @@ public class OI {
 	public Button strafeRight;
 	public Button but;
 	
-	public Button potBut;
+	public Button linearActuatorForward;
+	public Button linearActuatorBackward;
 	
 	public OI (){
 		
@@ -48,10 +49,14 @@ public class OI {
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		//but.whileHeld(new ExtendSolenoid());
 		
-		potBut = new JoystickButton(leftJoy, 5);
-		MovePot cmdPot = new MovePot();
-		potBut.whileHeld(cmdPot);
-		potBut.whenReleased(new stopPot());
+		linearActuatorForward = new JoystickButton(leftJoy, 5);
+		linearActuatorBackward = new JoystickButton(leftJoy, 4);
+		
+		linearActuatorForward.whileHeld(new MovePot(RobotMap.linearActuatorSpeed));
+		linearActuatorForward.whenReleased(new stopPot());
+		
+		linearActuatorBackward.whileHeld(new MovePot(-RobotMap.linearActuatorSpeed));
+		linearActuatorBackward.whenReleased(new stopPot());
 			
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
