@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveBlock extends CommandGroup{
 	
 	public DriveBlock() {
-		addSequential(new DriveStraight((double) RobotMap.getValue(RobotMap.mecanumSubTable, "straight rotations 1")), 4);
-		addSequential(new DriveStrafe((double) RobotMap.getValue(RobotMap.mecanumSubTable, "strafe rotations 1")), 4);
+		addSequential(new DriveStraight((double) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.straightRotationID)), 4);
+		addSequential(new DriveStrafe((double) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafeRotationID)), 4);
 		addSequential(new DriveStraight(4), 4);
 	}
 }

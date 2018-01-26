@@ -73,6 +73,8 @@ public class RobotMap {
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "motor-switch-enabled";
+	public static String straightRotationID = "straight-rotations-one";
+	public static String strafeRotationID = "strafe-rotations-one";
 	
 	public static DefaultValues defaults;
 	
@@ -119,8 +121,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "straight rotations 1", 0);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "strafe rotations 1", 0);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.straightRotationID, 0);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafeRotationID, 0);
 	}
 
 	/**
