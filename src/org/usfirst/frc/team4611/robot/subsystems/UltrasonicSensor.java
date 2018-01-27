@@ -17,6 +17,7 @@ public class UltrasonicSensor extends Subsystem{
 		double inches = value * .05140 - 0.07;
 		//SmartDashboard.putNumber("Ultra Value", value);
 		//SmartDashboard.putNumber("Ultra Inches", inches);
+		RobotMap.updateValue(RobotMap.ultraSubtable , "Inches", inches);
 		return inches;
 	}
 

@@ -65,6 +65,7 @@ public class RobotMap {
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
+	public static String ultraSubtable = "Ultrasonic";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
