@@ -17,7 +17,6 @@ public class MecanumDrive extends SwitchableCommand{
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 
-		//Sends the current values of the two joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, Robot.oi.leftJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, Robot.oi.leftJoy.getZ());
@@ -26,23 +25,15 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
 	    Robot.mecanum.move(-YVal, XVal, ZVal); 	
-		
-	    //Runs the execute in SwitchableCommand to run talon or victor-specific code
-	    super.execute();
+		super.execute();
 	}
 	
-	/**
-	 * Talon-specific code for MecanumDrive
-	 */
 	@Override
 	public void executeTalon() {
 	    System.out.println("BL Sensor: " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
 	    RobotMap.log("Talon", "" + RobotMap.driveTrainBL_Talon.getMotorOutputVoltage());
 	}
 
-	/**
-	 * Victor-specific code for MecanumDrive
-	 */
 	@Override
 	public void executeVictor() {}
 	

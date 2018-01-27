@@ -23,12 +23,12 @@ public class OI {
 
 	public OI (){
 		
+	
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 	
-		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, leftJoy.getZ());
@@ -40,8 +40,41 @@ public class OI {
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-	
+			
+		//if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
+			this.setupVictor();
+		/*}else{
+			this.setupTalon();
+		}*/
 	}
+	
+	public void setupVictor() {
+		this.stopTalon();
+		RobotMap.setupVictor();
+	}
+	
+	public void stopVictor() {
+		RobotMap.driveTrainBL.stopMotor();
+		RobotMap.driveTrainBR.stopMotor();
+		RobotMap.driveTrainFL.stopMotor();
+		RobotMap.driveTrainFR.stopMotor();
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any victor-specific joystick or other io buttons
+	 */	
+	public void setupTalon() {
+		this.stopVictor();
+		RobotMap.setupTalon();
+	}
+	
+	/**
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 * Use to setup any talon-specific joystick or other io buttons
+	 */	
+	public void stopTalon() {
+	}	
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
     {

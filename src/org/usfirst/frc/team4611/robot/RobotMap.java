@@ -132,45 +132,21 @@ public class RobotMap {
 	}
 
 	/**
-	* Called at the beginning of teleop to setup everything necessary
-	* that needs to be setup for Victors at the beginning of the match
-	*/
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
 	public static void setupVictor() {
-		stopTalon();
 		RobotMap.log(RobotMap.switcherSubTable, "Setting up victor");
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 	}
 	
 	/**
-	* Called at the beginning of teleop to setup everything necessary
-	* that needs to be setup for Talons at the beginning of the match
-	*/
+	 * Called at the beginning of the program and whenever there is a change on the Shuffleboard
+	 */
 	public static void setupTalon() {
-		stopVictor();
 		RobotMap.log(RobotMap.switcherSubTable, "Setting up talons");
 		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
 	}
 
-	/**
-	 * Called by the setupTalon and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopVictor() {
-		RobotMap.driveTrainBL.stopMotor();
-		RobotMap.driveTrainBR.stopMotor();
-		RobotMap.driveTrainFL.stopMotor();
-		RobotMap.driveTrainFR.stopMotor();
-	}
-	
-	/**
-	 * Called by the setupVictor and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopTalon() {
-	}
-	
 	/**
 	 * Updates or adds a new value to the NetworkTable 
 	 * in a subtable based on the subTable name

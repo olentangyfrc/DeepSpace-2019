@@ -7,32 +7,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetDefault extends Command{
 
-	//The subtable the value is saved on
-	private String subTable;
-		
-	//The key the value is paired with
+	private String name;
 	private String key;
-		
 	public SetDefault(String name, String key) {
-		this.subTable = name;
+		this.name = name;
 		this.key = key;
-		
-		//Sets the name that is viewed on the Shuffleboard
-		this.setName(subTable + " " + key + " reset");
-				
-		//Sends the command to Shuffleboard to be used
+		this.setName(name + " " + key + " set default");
 		SmartDashboard.putData(this);
 	}
 	
-	/**
-	 * Called when the command button is pressed on the Shuffleboard
-	 */
 	public void execute() {
-		//The new value that is retrieved from the Shuffleboard
-		double newval = (double)RobotMap.getValue(subTable, key);
-		
-		//Overrides the currently saved value with the value retrieved from the Shuffleboard
-		RobotMap.defaults.updateProperty(subTable, key, "" + newval);
+		double newval = (double)RobotMap.getValue(name, key);
+		RobotMap.defaults.updateProperty(name, key, "" + newval);
 	}
 	
 	@Override
