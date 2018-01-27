@@ -11,11 +11,12 @@ public class Solenoid extends Subsystem{
 
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new RetractSolenoid());
+		//this.setDefaultCommand(new RetractSolenoid());
 		isRetracted = true;
 	}
 	
 	public void move(Value v) {
+		System.out.println("Solenoid Moving");
 		RobotMap.sol.set(v);
 	}
 }

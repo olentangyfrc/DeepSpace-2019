@@ -3,6 +3,8 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +25,8 @@ public class OI {
 	public Button strafeRight;
 	public Button autoGrabBox;
 	public Button solToggle;
+	public Button solE;
+	public Button solR;
 
 	public OI (){
 		
@@ -33,6 +37,8 @@ public class OI {
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabButtPort);
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
+		solE = new JoystickButton(leftJoy, RobotMap.solEPort);
+		solR = new JoystickButton(leftJoy, RobotMap.solRPort);
 	
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
@@ -47,6 +53,8 @@ public class OI {
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
 		this.solToggle.whenPressed(new ToggleSolenoid());
+		this.solE.whenPressed(new ExtendSolenoid());
+		this.solR.whenPressed(new RetractSolenoid());
 		this.autoGrabBox.whenPressed(new AutoGrab() );
 			
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

@@ -40,6 +40,8 @@ public class RobotMap {
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 	public static int solTogglePort = 1;
+	public static int solEPort = 2;
+	public static int solRPort = 1;
 	public static int autoGrabButtPort = 11;
 	
 	public static final int teamID = 4611;

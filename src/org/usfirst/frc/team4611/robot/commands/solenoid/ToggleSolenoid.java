@@ -9,9 +9,11 @@ public class ToggleSolenoid extends CommandGroup{
 		this.requires(Robot.sol);
 		if( Robot.sol.isRetracted ) {
 			addSequential( new ExtendSolenoid(), 2);
+			System.out.println("Should Extend");
 		}
 		else{
 			addSequential( new RetractSolenoid(), 2);
+			System.out.println("Should Retract");
 		}
 	}
 
