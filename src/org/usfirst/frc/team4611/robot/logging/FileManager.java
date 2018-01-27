@@ -19,9 +19,9 @@ public class FileManager {
 			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
 		} catch (Exception e) {
 			try {
-				File folder = new File("/home/indev/Logs/" + masterName + "/");
+				File folder = new File("/home/lvuser/Logs/" + masterName + "/");
 				folder.mkdirs();
-				masterWrite = new FileWriter(new File("/home/indev/Logs/" + masterName + "/" + "RoboRioLog.txt"));
+				masterWrite = new FileWriter(new File("/home/lvuser/Logs/" + masterName + "/" + "RoboRioLog.txt"));
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -38,9 +38,18 @@ public class FileManager {
 	public void write(String message) {
 		try {
 			masterWrite.write(message + "\n");
-			masterWrite.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void disabled() {
+		try {
+			masterWrite.flush();
+		}catch(Exception e) {
+			System.out.println("Unable to write to file");
 		}
 	}
 	/**
