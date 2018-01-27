@@ -39,7 +39,7 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
-	public static int solTogglePort = 3;
+	public static int solTogglePort = 1;
 	public static int autoGrabButtPort = 11;
 	
 	public static final int teamID = 4611;
@@ -102,7 +102,7 @@ public class RobotMap {
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		
-		//sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
 		Logger.init("Logs");
 		defaults = new DefaultValues();
 		

@@ -28,7 +28,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-	//public SwitchableCommand defaultDrive;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	public static Solenoid sol;
@@ -43,11 +42,10 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 		//Initialize the subsystems
-		//defaultDrive = new MecanumDrive();
 		tankDrive = new DriveTrain();
 
 		//driver = new MotorDriver();
-		//sol = new Solenoid();
+		sol = new Solenoid();
 		ultrasonic = new UltrasonicSensor();
 		oi = new OI();
 	}
