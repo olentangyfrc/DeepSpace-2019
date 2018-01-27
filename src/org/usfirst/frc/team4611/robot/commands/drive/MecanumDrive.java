@@ -24,7 +24,7 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
-	    Robot.tankDrive.move(-YVal, XVal, ZVal); 	
+	    Robot.tankDrive.move(YVal, -XVal, -ZVal); 	
 		super.execute();
 	}
 	
