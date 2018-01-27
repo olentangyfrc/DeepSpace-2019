@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//ultrasonic.getInches();
+		ultrasonic.getInches();
 		
 	}
 

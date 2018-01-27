@@ -40,7 +40,7 @@ public class RobotMap {
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 	public static int joyButtonPort = 3;
-	public static int autoGrabButtPort = 1;
+	public static int autoGrabButtPort = 11;
 	
 	public static final int teamID = 4611;
 	public static final String networkTableServerAddress = "10.46.11.2";
@@ -56,7 +56,7 @@ public class RobotMap {
 	
 	//Ultrasonic sensor
 	public static AnalogInput ultrasonicInput;
-	public static int ultraPort = 2; 
+	public static int ultraPort = 3; 
 	public static int udDistance = 13; //distance for UltraDrive, pointless if it's less than 12 for now
 	
 	public static double motorSpeed = 1;
@@ -66,6 +66,7 @@ public class RobotMap {
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
 	public static String ultraSubtable = "Ultrasonic";
+	public static String solenoidSubtable = "Solenoid";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";

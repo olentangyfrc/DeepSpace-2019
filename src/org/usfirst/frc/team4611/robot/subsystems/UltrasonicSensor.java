@@ -18,6 +18,7 @@ public class UltrasonicSensor extends Subsystem{
 		//SmartDashboard.putNumber("Ultra Value", value);
 		//SmartDashboard.putNumber("Ultra Inches", inches);
 		RobotMap.updateValue(RobotMap.ultraSubtable , "Inches", inches);
+		RobotMap.log(RobotMap.ultraSubtable, ("Distance in inches: " + inches ));
 		return inches;
 	}
 

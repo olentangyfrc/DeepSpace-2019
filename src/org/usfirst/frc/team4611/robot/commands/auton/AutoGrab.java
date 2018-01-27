@@ -14,6 +14,7 @@ public class AutoGrab extends CommandGroup{
 	public AutoGrab(){
 		addSequential(new UltraDrive(RobotMap.udDistance),5);
 		//TODO SETH *SCREAMS* add roll forward a small distance code
-		addSequential(new RetractSolenoid() ,2);
+		//addSequential(new RetractSolenoid() ,2);
+		
 	}
 }
