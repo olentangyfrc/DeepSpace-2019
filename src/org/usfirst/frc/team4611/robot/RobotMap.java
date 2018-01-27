@@ -66,6 +66,7 @@ public class RobotMap {
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
+	public static String linearActuatorSubTable = "LA";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -78,12 +79,16 @@ public class RobotMap {
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "motor-switch-enabled";
+	public static String LASpeedID = "LA-speed";
 	
 	public static DefaultValues defaults;
 
-	public static TalonSRX linearActuator;
+	public static Victor linearActuator;
 	public static ControlMode linearActuatorControl = com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput;
-	public static double linearActuatorSpeed = 0.5;
+	public static double linearActuatorSpeed = 0.7;
+	public static double potMin = .5;
+	public static double potMax = .78;
+	public static double potSwitch = .45;
 	
 	public static AnalogPotentiometer linearActuatorPot;
 	
@@ -116,9 +121,10 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-
 		
-		linearActuator = new TalonSRX(15);
+		updateValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed);
+		
+		linearActuator = new Victor(4);
 		linearActuatorPot = new AnalogPotentiometer(0);
 	}
 

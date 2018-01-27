@@ -18,10 +18,14 @@ public class MovePotSwitch extends Command{
 
 	protected void execute() {
 		//System.out.println("LA speed: " + -speed);
-		if(RobotMap.linearActuatorPot.get() < .45)
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
-		else
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+		if(RobotMap.linearActuatorPot.get() < RobotMap.potSwitch) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}
 		
 	}
 	

@@ -17,10 +17,14 @@ public class MovePotDown extends Command{
 	}
 
 	protected void execute() {
-		if(RobotMap.linearActuatorPot.get() > .1)
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
-		else
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+		if(RobotMap.linearActuatorPot.get() > RobotMap.potMin) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}
 	}
 	
 	

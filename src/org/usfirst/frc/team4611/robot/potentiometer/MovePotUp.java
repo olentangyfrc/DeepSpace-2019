@@ -17,10 +17,14 @@ public class MovePotUp extends Command{
 	}
 
 	protected void execute() {
-		if(RobotMap.linearActuatorPot.get() < .78)
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
-		else
-			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+		if(RobotMap.linearActuatorPot.get() < RobotMap.potMax) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}
 	}
 	
 	

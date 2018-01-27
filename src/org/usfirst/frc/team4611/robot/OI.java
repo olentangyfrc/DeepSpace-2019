@@ -56,13 +56,13 @@ public class OI {
 		linearActuatorDown = new JoystickButton(leftJoy, 4);
 		linearActuatorSwitch = new JoystickButton(leftJoy, 3);
 		
-		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed));
+		linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorUp.whenReleased(new stopPot());
 		
-		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed));
+		linearActuatorDown.whileHeld(new MovePotDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorDown.whenReleased(new stopPot());
 		
-		linearActuatorSwitch.whileHeld(new MovePotSwitch(RobotMap.linearActuatorSpeed));
+		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorSwitch.whenReleased(new stopPot());
 		
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

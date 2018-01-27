@@ -11,7 +11,8 @@ public class stopPot extends Command {
 	}
 	
 	protected void execute() {
-		RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0.0);
+		//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0.0);
+		RobotMap.linearActuator.set(0);
 	}
 	
 	@Override
