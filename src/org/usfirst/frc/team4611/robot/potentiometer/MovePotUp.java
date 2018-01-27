@@ -1,28 +1,26 @@
-package potentiometer;
+package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MovePot extends Command{
+public class MovePotUp extends Command{
 	
 	private double speed;
 	
-	public MovePot(double speed) {
+	public MovePotUp(double speed) {
 		// TODO Auto-generated constructor stub
 		this.speed = speed;
 	}
 
 	protected void execute() {
-		//System.out.println("LA speed: " + -speed);
-		if(speed > 0.0)
-			System.out.println("FORWARD");
+		if(RobotMap.linearActuatorPot.get() < .78)
+			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
 		else
-			System.out.println("BACKWARD");
-		
-		RobotMap.linearActuator.set(speed);
-		
+			RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
 	}
 	
 	

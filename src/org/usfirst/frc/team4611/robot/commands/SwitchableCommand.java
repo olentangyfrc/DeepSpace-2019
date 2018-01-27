@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public abstract class SwitchableCommand extends Command{
 
 	protected void execute() {
-		if(RobotMap.defaults.getDefaultMotorType() == 0) {
+		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.executeVictor();
 		}else {
 			this.executeTalon();

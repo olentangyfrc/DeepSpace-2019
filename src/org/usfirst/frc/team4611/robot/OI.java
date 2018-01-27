@@ -2,12 +2,14 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotSwitch;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
+import org.usfirst.frc.team4611.robot.potentiometer.stopPot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import potentiometer.MovePot;
-import potentiometer.stopPot;
 
 
 /**
@@ -23,8 +25,9 @@ public class OI {
 	public Button strafeRight;
 	public Button but;
 	
-	public Button linearActuatorForward;
-	public Button linearActuatorBackward;
+	public Button linearActuatorUp;
+	public Button linearActuatorDown;
+	public Button linearActuatorSwitch;
 	
 	public OI (){
 		
@@ -49,15 +52,19 @@ public class OI {
 		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
 		//but.whileHeld(new ExtendSolenoid());
 		
-		linearActuatorForward = new JoystickButton(leftJoy, 5);
-		linearActuatorBackward = new JoystickButton(leftJoy, 4);
+		linearActuatorUp = new JoystickButton(leftJoy, 5);
+		linearActuatorDown = new JoystickButton(leftJoy, 4);
+		linearActuatorSwitch = new JoystickButton(leftJoy, 3);
 		
-		linearActuatorForward.whileHeld(new MovePot(RobotMap.linearActuatorSpeed));
-		linearActuatorForward.whenReleased(new stopPot());
+		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed));
+		linearActuatorUp.whenReleased(new stopPot());
 		
-		linearActuatorBackward.whileHeld(new MovePot(-RobotMap.linearActuatorSpeed));
-		linearActuatorBackward.whenReleased(new stopPot());
-			
+		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed));
+		linearActuatorDown.whenReleased(new stopPot());
+		
+		linearActuatorSwitch.whileHeld(new MovePotSwitch(RobotMap.linearActuatorSpeed));
+		linearActuatorSwitch.whenReleased(new stopPot());
+		
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
 		}else{

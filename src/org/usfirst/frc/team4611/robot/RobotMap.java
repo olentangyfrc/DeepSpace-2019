@@ -7,7 +7,9 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -79,9 +81,11 @@ public class RobotMap {
 	
 	public static DefaultValues defaults;
 
-	public static Victor linearActuator;
+	public static TalonSRX linearActuator;
+	public static ControlMode linearActuatorControl = com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput;
+	public static double linearActuatorSpeed = 0.5;
 	
-	public static double linearActuatorSpeed = 0.09;
+	public static AnalogPotentiometer linearActuatorPot;
 	
 	public static void init() {
 
@@ -114,8 +118,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 
 		
-		linearActuator = new Victor(4);
-		//linearActuatorT = new Talon(5);
+		linearActuator = new TalonSRX(15);
+		linearActuatorPot = new AnalogPotentiometer(0);
 	}
 
 	/**

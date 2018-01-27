@@ -132,8 +132,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		//ultrasonicInput.getInches();
-		System.out.println(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0));
-		
+		//System.out.println(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0));
+		System.out.println("Potent: "+RobotMap.linearActuatorPot.get());
 	}
 
 	/**

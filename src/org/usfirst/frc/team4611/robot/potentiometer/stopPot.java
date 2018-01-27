@@ -1,4 +1,4 @@
-package potentiometer;
+package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 
@@ -11,7 +11,7 @@ public class stopPot extends Command {
 	}
 	
 	protected void execute() {
-		RobotMap.linearActuator.set(0);
+		RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0.0);
 	}
 	
 	@Override
