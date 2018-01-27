@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.SwitchableCommand;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -26,6 +28,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
+	//public SwitchableCommand defaultDrive;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	public static Solenoid sol;
@@ -40,6 +43,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 		//Initialize the subsystems
+		//defaultDrive = new MecanumDrive();
 		tankDrive = new DriveTrain();
 
 		//driver = new MotorDriver();

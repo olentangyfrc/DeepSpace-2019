@@ -18,11 +18,12 @@ public class RetractSolenoid extends Command{
 	}
 	
 	protected boolean isFinished() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
 		return false;
 	}
 	
 	protected void end() {
 		Robot.sol.move(DoubleSolenoid.Value.kOff);
+		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
+		Robot.sol.isRetracted = true;
 	}
 }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,7 +22,7 @@ public class OI {
 	public Button strafeLeft;
 	public Button strafeRight;
 	public Button autoGrabBox;
-	public Button but;
+	public Button solToggle;
 
 	public OI (){
 		
@@ -31,6 +32,7 @@ public class OI {
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabButtPort);
+		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 	
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
@@ -44,10 +46,8 @@ public class OI {
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
+		this.solToggle.whenPressed(new ToggleSolenoid());
 		this.autoGrabBox.whenPressed(new AutoGrab() );
-
-		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
-		//but.whileHeld(new ExtendSolenoid());
 			
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
