@@ -189,6 +189,8 @@ public class Logger {
 		log("Showing all LoggerTypes", Logger.getLoggerType("Logger-ShowOnly"));
 	}
 	
+	
+	
 	/**
 	 * @param withName The "Identifier/Name" that set in the addNewLoggerType(withName) parameter
 	 * @return The LoggerType class that hold's the information ("Identifier/Name") necessary for output

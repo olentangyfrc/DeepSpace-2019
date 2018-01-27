@@ -1,17 +1,16 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.auton.DriveBlock;
-import org.usfirst.frc.team4611.robot.logging.Logger;
-import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
-import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team4611.robot.commands.TankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 /**
@@ -23,17 +22,13 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
  */
 public class Robot extends IterativeRobot {
 
+	public static DriveTrain tankDrive;
 	public static Elevator elevatorSub;
-	public static DriveTrain mecanum;
-	public static UltrasonicSensor ultrasonicInput;
 	public static OI oi;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
-	public static Solenoid sol;
-	
-	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -43,13 +38,8 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 		//Initialize the subsystems
+		tankDrive = new DriveTrain();
 		elevatorSub = new Elevator();
-
-		mecanum = new DriveTrain();
-
-		//driver = new MotorDriver();
-		//sol = new Solenoid();
-		ultrasonicInput = new UltrasonicSensor();
 		oi = new OI();
 	}
 
@@ -60,8 +50,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		RobotMap.defaults.saveProperties();
-		//Logger.disabled();
+
 	}
 
 	@Override
@@ -82,8 +71,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new DriveBlock();
-		
+		autonomousCommand = chooser.getSelected();
+
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -110,19 +99,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null) 
+		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
-		//Checks to see if the driver has updated the switch for which motors are being used
-		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			//If it's true, it starts talon setup
-			RobotMap.setupTalon();
-			//RobotMap.defaults.updateMotorType(1);
-		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			//If it's false, it starts victor setup
-			RobotMap.setupVictor();
-			//RobotMap.defaults.updateMotorType(0);
-		}
 	}
 
 	/**
@@ -131,8 +109,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//ultrasonicInput.getInches();
-		
 	}
 
 	/**
@@ -142,7 +118,4 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
-	
-		
-	
 }
