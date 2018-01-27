@@ -1,11 +1,15 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotSwitch;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
 import org.usfirst.frc.team4611.robot.potentiometer.stopPot;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,12 +27,14 @@ public class OI {
 	public static Joystick rightJoy;
 	public Button strafeLeft;
 	public Button strafeRight;
-	public Button but;
-	
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
 	public Button linearActuatorSwitch;
-	
+	public Button autoGrabBox;
+	public Button solToggle;
+	public Button solE;
+	public Button solR;
+
 	public OI (){
 		
 	
@@ -36,6 +42,10 @@ public class OI {
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
+		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabButtPort);
+		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
+		solE = new JoystickButton(leftJoy, RobotMap.solEPort);
+		solR = new JoystickButton(leftJoy, RobotMap.solRPort);
 	
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
@@ -48,9 +58,6 @@ public class OI {
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		this.strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-
-		but = new JoystickButton(leftJoy, RobotMap.joyButtonPort);
-		//but.whileHeld(new ExtendSolenoid());
 		
 		linearActuatorUp = new JoystickButton(leftJoy, 5);
 		linearActuatorDown = new JoystickButton(leftJoy, 4);
@@ -65,6 +72,10 @@ public class OI {
 		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorSwitch.whenReleased(new stopPot());
 		
+		this.solToggle.whenPressed(new ToggleSolenoid());
+		this.solE.whenPressed(new ExtendSolenoid());
+		this.solR.whenPressed(new RetractSolenoid());
+		this.autoGrabBox.whenPressed(new AutoGrab() );
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			this.setupVictor();
 		}else{

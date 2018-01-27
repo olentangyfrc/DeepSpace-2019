@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands.solenoid;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,6 +14,7 @@ public class RetractSolenoid extends Command{
 	
 	protected void execute() {
 		Robot.sol.move(DoubleSolenoid.Value.kReverse);
+		RobotMap.log(RobotMap.solenoidSubtable, "Retracting solenoid" );
 	}
 	
 	protected boolean isFinished() {
@@ -21,5 +23,7 @@ public class RetractSolenoid extends Command{
 	
 	protected void end() {
 		Robot.sol.move(DoubleSolenoid.Value.kOff);
+		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
+		Robot.sol.isRetracted = true;
 	}
 }
