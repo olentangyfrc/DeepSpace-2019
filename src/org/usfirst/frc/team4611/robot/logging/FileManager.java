@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.logging;
+/*package org.usfirst.frc.team4611.robot.logging;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,7 +35,7 @@ public class FileManager {
 	 * @param logName The Identifier/Name used to group this message with a separate log file with other information
 	 * on the same matter
 	 */
-	public void write(String message) {
+	/*public void write(String message) {
 		try {
 			masterWrite.write(message + "\n");
 			masterWrite.flush();
@@ -49,7 +49,7 @@ public class FileManager {
 	 * @return Returns the time that a certain log was called from the start of the program
 	 * @author Ben Hilger
 	 */
-	public String getTimeLogged() {
+	/*public String getTimeLogged() {
 		
 		String timestamp = "";
 		double time = 12345678.8;
@@ -81,4 +81,4 @@ public class FileManager {
 		return timestamp;
 	}
 	
-}
+}*/

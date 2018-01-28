@@ -2,7 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team4611.robot.logging.Logger;
+//import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
@@ -71,7 +71,7 @@ public class RobotMap {
 		driveTrain =  new DifferentialDrive(leftSide, rightSide);
 		//Constants
 		
-		Logger.init("Logs");
+		//Logger.init("Logs");
 		RobotMap.log("Test", "Logging");
 		RobotMap.updateValue("Test", "Value", 0);
 	}
@@ -92,7 +92,7 @@ public class RobotMap {
 	}
 	
 	public static void log(String subTable, String message) {
-		Logger.log(message, Logger.getLoggerType(subTable));
+		//Logger.log(message, Logger.getLoggerType(subTable));
 	}
 	
 	/**

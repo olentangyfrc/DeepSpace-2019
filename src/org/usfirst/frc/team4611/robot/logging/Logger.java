@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.logging;
+/*package org.usfirst.frc.team4611.robot.logging;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Logger {
 	 * and logs if instantiated correctly
 	 * @author Ben Hilger
 	 */
-	public static void init(String name){
+	/*public static void init(String name){
 		//Creates logger-specific LoggerTypes
 		addNewLoggerType("Logger-Status");
 		addNewLoggerType("Logger-ShowOnly");
@@ -49,7 +49,7 @@ public class Logger {
 	 * @param - type The type of log, used to decided if it's allowed to be displayed, and what tag it gets when printed 
 	 * @author Ben Hilger
 	 */
-	public static void log(String message, LoggerType type) {
+	/*public static void log(String message, LoggerType type) {
 		//Gets the time that  function was called (format determined by status variable)
 		String timestamp = getTimeLogged();
 		
@@ -77,7 +77,7 @@ public class Logger {
 	 * @return Returns the time that a certain log was called from the start of the program
 	 * @author Ben Hilger
 	 */
-	public static String getTimeLogged() {
+	/*public static String getTimeLogged() {
 		
 		String timestamp = "";
 		double time = Timer.getMatchTime();
@@ -142,7 +142,7 @@ public class Logger {
 	 * log type
 	 * 
 	 */
-	public static void addNewLoggerType(String withName) {
+	/*public static void addNewLoggerType(String withName) {
 		//Instantiates a new LoggerType with the given name
 		LoggerType type = new LoggerType(withName);
 		
@@ -158,7 +158,7 @@ public class Logger {
 	 * @author Ben Hilger
 	 *
 	 */
-	public static void onlyShowCertainLogTypes(LoggerType[] types) {
+	/*public static void onlyShowCertainLogTypes(LoggerType[] types) {
 		//Resets the onlyShow array so unwanted types are ensured to be removed
 		onlyShow = new ArrayList<LoggerType>();
 		
@@ -182,7 +182,7 @@ public class Logger {
 	 * Changes the OnlyViewSpecifics value to false. Allows for any LoggerTypes to be printed
 	 * @author Ben Hilger
 	 */
-	public void showAll() {
+	/**public void showAll() {
 		OnlyViewSpecifics = false;
 		
 		//Logs to the console that it's showing all LoggerTypes
@@ -195,7 +195,7 @@ public class Logger {
 	 * @param withName The "Identifier/Name" that set in the addNewLoggerType(withName) parameter
 	 * @return The LoggerType class that hold's the information ("Identifier/Name") necessary for output
 	 */
-	public static LoggerType getLoggerType(String withName) {
+	/*public static LoggerType getLoggerType(String withName) {
 		for(int i = 0; i < RobotMap.loggerTypes.size(); i++) {
 			if(RobotMap.loggerTypes.get(i).getName().equals(withName)) {
 				return RobotMap.loggerTypes.get(i);
@@ -206,5 +206,5 @@ public class Logger {
 	}
 	
 }
-
+*/
 
