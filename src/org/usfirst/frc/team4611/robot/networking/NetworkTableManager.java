@@ -1,8 +1,6 @@
 package org.usfirst.frc.team4611.robot.networking;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
-
-import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 

@@ -1,15 +1,13 @@
 package org.usfirst.frc.team4611.robot;
 
-//import org.usfirst.frc.team4611.robot.commands.auton.DriveBlock;
-//import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.subsystems.Arm;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
-//import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
-//import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
-
+import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
+import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
@@ -22,14 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain mecanum;
-	//public static UltrasonicSensor ultrasonicInput;
+	public static Arm arm;
+	public static UltrasonicSensor ultrasonic;
+	public static Solenoid sol;
 	public static OI oi;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
-	//public static Solenoid sol;
-	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,10 +38,9 @@ public class Robot extends IterativeRobot {
 		
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
-
-		//driver = new MotorDriver();
-		//sol = new Solenoid();
-		//ultrasonicInput = new UltrasonicSensor();
+		arm = new Arm();
+		sol = new Solenoid();
+		ultrasonic = new UltrasonicSensor();
 		oi = new OI();
 	}
 
@@ -56,7 +52,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		RobotMap.defaults.saveProperties();
-		//Logger.disabled();
+		Logger.robotDisabled();
 	}
 
 	@Override
@@ -112,11 +108,9 @@ public class Robot extends IterativeRobot {
 		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			//If it's true, it starts talon setup
 			RobotMap.setupTalon();
-			//RobotMap.defaults.updateMotorType(1);
 		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			//If it's false, it starts victor setup
 			RobotMap.setupVictor();
-			//RobotMap.defaults.updateMotorType(0);
 		}
 	}
 
@@ -126,8 +120,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//ultrasonicInput.getInches();
-		
+		ultrasonic.getInches();
 	}
 
 	/**
@@ -135,7 +128,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 	
 		

@@ -1,4 +1,4 @@
-/*package org.usfirst.frc.team4611.robot.logging;
+package org.usfirst.frc.team4611.robot.logging;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,9 +19,9 @@ public class FileManager {
 			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
 		} catch (Exception e) {
 			try {
-				File folder = new File("/home/indev/Logs/" + masterName + "/");
+				File folder = new File("/home/lvuser/Logs/" + masterName + "/");
 				folder.mkdirs();
-				masterWrite = new FileWriter(new File("/home/indev/Logs/" + masterName + "/" + "RoboRioLog.txt"));
+				masterWrite = new FileWriter(new File("/home/lvuser/Logs/" + masterName + "/" + "RoboRioLog.txt"));
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -35,7 +35,7 @@ public class FileManager {
 	 * @param logName The Identifier/Name used to group this message with a separate log file with other information
 	 * on the same matter
 	 */
-	/*public void write(String message) {
+	public void write(String message) {
 		try {
 			masterWrite.write(message + "\n");
 			masterWrite.flush();
@@ -49,7 +49,7 @@ public class FileManager {
 	 * @return Returns the time that a certain log was called from the start of the program
 	 * @author Ben Hilger
 	 */
-	/*public String getTimeLogged() {
+	public String getTimeLogged() {
 		
 		String timestamp = "";
 		double time = 12345678.8;
@@ -80,5 +80,12 @@ public class FileManager {
 		timestamp = (hours != 0 ? formatter.format(hours) + ":" : "") + formatter.format(minutes) + ":" + formatter.format(seconds) + "." + formatter.format(milliseconds);
 		return timestamp;
 	}
-	
-}*/
+
+	public void robotDisabled() {
+		try {
+			this.masterWrite.flush();
+		}catch(Exception e) {
+			System.out.println("Unable to write to Rio with exception: " + e.getLocalizedMessage());
+		}
+	}
+}

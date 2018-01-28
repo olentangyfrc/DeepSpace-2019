@@ -1,0 +1,50 @@
+package org.usfirst.frc.team4611.robot.subsystems;
+
+import org.usfirst.frc.team4611.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class Arm extends Subsystem {
+	
+	public void stopPot() {
+		RobotMap.linearActuator.set(0);
+	}
+	
+	public void movePotUp(double speed) {
+		if(RobotMap.linearActuatorPot.get() < RobotMap.POT_MAX) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}		
+	}
+	
+	public void movePotSwitch(double speed) {
+		if(RobotMap.linearActuatorPot.get() < RobotMap.potSwitch) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}
+	}
+	
+	public void movePotDown(double speed) {
+
+		if(RobotMap.linearActuatorPot.get() > RobotMap.POT_MIN) {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
+			RobotMap.linearActuator.set(-speed);
+		}
+		else {
+			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
+			RobotMap.linearActuator.set(0);
+		}
+	}
+
+	@Override
+	protected void initDefaultCommand() {	
+	}
+
+}
