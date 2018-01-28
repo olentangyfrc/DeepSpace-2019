@@ -39,6 +39,14 @@ public class RobotMap {
 	//Extra Victors
 	public static Victor linearActuator;
 	
+	//Victor ports
+	public static int linearActuatorPort = 4;
+	public static int victorPortFL = 1;
+	public static int victorPortFR = 0;
+	public static int victorPortBL = 2;
+	public static int victorPortBR = 3;
+	
+	
 	//General Objects
 	public static DoubleSolenoid sol;
 	public static MecanumDrive driveTrain;
@@ -67,13 +75,15 @@ public class RobotMap {
 	//Constants
 	public static final int ULTRA_PORT = 3;
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	public static final double POT_MIN = .5;
-	public static final double POT_MAX = .8;
-	public static final double potSwitch = .45;
+	
+	//initial values for potentiometer settings
+	public static double potMin = .5;
+	public static double potMax = .8;
+	public static double potSwitch = .45;
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.7;
-	public static double motorSpeed = 1;
+	//public static double motorSpeed = 1;
 
 	//String keys
 	public static String joyStickSubTable = "Joysticks";
@@ -81,6 +91,7 @@ public class RobotMap {
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
 	public static String linearActuatorSubTable = "LA";
+	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
 	public static String leftJoyXID = "leftJoyX";
@@ -95,6 +106,9 @@ public class RobotMap {
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "Talon Enabled";
 	public static String LASpeedID = "LA-speed";
+	public static String potMinID = "Potentiometer Min";
+	public static String potMaxID = "Potentiometer Max";
+	public static String potSwitchID = "Potentiometer Switch";
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -102,16 +116,16 @@ public class RobotMap {
 	public static void init() {
 		
 		//Drive Train Victors
-		driveTrainFL = new Victor(1);
-		driveTrainFR = new Victor(0);
-		driveTrainBL = new Victor(2);
-		driveTrainBR = new Victor(3);
+		driveTrainFL = new Victor(victorPortFL);
+		driveTrainFR = new Victor(victorPortFR);
+		driveTrainBL = new Victor(victorPortBL);
+		driveTrainBR = new Victor(victorPortBR);
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
 		
 		//Linear Actuator
-		linearActuator = new Victor(4);
+		linearActuator = new Victor(linearActuatorPort);
 		linearActuatorPot = new AnalogPotentiometer(0);
 		
 		//Solenoid
@@ -156,6 +170,9 @@ public class RobotMap {
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, RobotMap.linearActuatorSpeed);
+		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
+		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
+		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
