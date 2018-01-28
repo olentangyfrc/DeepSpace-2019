@@ -149,6 +149,7 @@ public class RobotMap {
 		stopVictor();
 		RobotMap.log(RobotMap.switcherSubTable, "Setting up talons");
 		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
+		driveTrain.setSafetyEnabled(false);
 	}
 
 	/**
