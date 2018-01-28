@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Logger {
 
 	private static ArrayList<LoggerType> onlyShow = new ArrayList<LoggerType>();
-	private static boolean OnlyViewSpecifics = false;
+	private static boolean OnlyViewSpecifics = true;
 		
 	private static FileManager man;
 		

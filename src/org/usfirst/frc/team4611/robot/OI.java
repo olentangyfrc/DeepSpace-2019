@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
+import org.usfirst.frc.team4611.robot.commands.drive.UltraDrive;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotSwitch;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
@@ -31,6 +32,7 @@ public class OI {
 	//Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
+	public Button visionButton;
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
 	public Button linearActuatorSwitch;
@@ -46,6 +48,7 @@ public class OI {
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		
 		//Buttons
+		visionButton = new JoystickButton(leftJoy, 3);
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
@@ -64,7 +67,10 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
+		
 		//Button Commands
+		visionButton.whenPressed(new UltraDrive(1));
+		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
