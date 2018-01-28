@@ -28,6 +28,7 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
+		if ((boolean) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.switcherID)) {
 		if (YAbs >= maxJoyChange && XAbs <= maxJoyChange && ZAbs <= maxJoyChange) {
 			
 			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
@@ -67,6 +68,10 @@ public class MecanumDrive extends SwitchableCommand{
 			RobotMap.driveTrainFL_Talon.setInverted(false);
 			RobotMap.driveTrainFR_Talon.setInverted(false);
 			Robot.mecanum.move(-YVal, XVal, ZVal); 	
+		}
+	}
+		else {
+			Robot.mecanum.move(-YVal, XVal, ZVal);
 		}
 		
 		super.execute();
