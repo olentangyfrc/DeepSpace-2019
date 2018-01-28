@@ -28,6 +28,11 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
+		System.out.println("Deciding between victors and talons");
+		System.out.println("MecanumSubTable: " + RobotMap.mecanumSubTable);
+		System.out.println("MecanumSwitcherID: " + RobotMap.switcherID);	
+		System.out.println("getValue: "+ RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.switcherID));
+		
 		if ((boolean) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.switcherID)) {
 		if (YAbs >= maxJoyChange && XAbs <= maxJoyChange && ZAbs <= maxJoyChange) {
 			
