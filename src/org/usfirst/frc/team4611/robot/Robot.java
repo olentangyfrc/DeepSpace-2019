@@ -5,6 +5,9 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,6 +28,9 @@ public class Robot extends IterativeRobot {
 	public static Solenoid sol;
 	public static OI oi;
 
+	public static NetworkTableInstance tableInstance;
+	public static NetworkTable table;
+	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
@@ -32,6 +38,25 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
+	public Robot() {
+		tableInstance = NetworkTableInstance.getDefault();
+		table = tableInstance.getTable("Vision");		
+
+		/*
+		NetworkTableEntry entryAngle = Robot.table.getEntry("angle");
+		NetworkTableEntry entryDistance = Robot.table.getEntry("distance");
+		NetworkTableEntry entryStatus = Robot.table.getEntry("found");
+		
+		//Get from networktable (key in RobotMap) to get theh change, edit widgit to change values
+		
+		double angle = entryAngle.getDouble(0.0);
+		double distance = entryDistance.getDouble(0.0);
+		boolean found = entryStatus.getBoolean(false);
+		*/
+		
+	}
+	
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
