@@ -73,7 +73,7 @@ public class OI {
 		linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorUp.whenReleased(new StopPot());
 		
-		linearActuatorDown.whileHeld(new MovePotDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorDown.whenReleased(new StopPot());
 		
 		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
