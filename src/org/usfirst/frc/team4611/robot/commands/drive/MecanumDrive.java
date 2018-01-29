@@ -13,6 +13,11 @@ public class MecanumDrive extends SwitchableCommand{
 	}
 	
 	protected void execute() {
+		super.execute();
+	}
+	
+	@Override
+	public void executeTalon() {
 		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
@@ -28,12 +33,7 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
 		
-		System.out.println("Deciding between victors and talons");
-		System.out.println("MecanumSubTable: " + RobotMap.mecanumSubTable);
-		System.out.println("MecanumSwitcherID: " + RobotMap.switcherID);	
-		System.out.println("getValue: "+ RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.switcherID));
 		
-		if ((boolean) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.switcherID)) {
 		if (YAbs >= maxJoyChange && XAbs <= maxJoyChange && ZAbs <= maxJoyChange) {
 			
 			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
@@ -75,21 +75,14 @@ public class MecanumDrive extends SwitchableCommand{
 			Robot.mecanum.move(-YVal, XVal, ZVal); 	
 		}
 	}
-		else {
-			Robot.mecanum.move(-YVal, XVal, ZVal);
-		}
-		
-		super.execute();
-	}
-	
-	@Override
-	public void executeTalon() {
-	    System.out.println("BL Sensor: " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
-	    RobotMap.log("Talon", "" + RobotMap.driveTrainBL_Talon.getMotorOutputVoltage());
-	}
 
 	@Override
-	public void executeVictor() {}
+	public void executeVictor() {
+		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
+		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
+		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
+		Robot.mecanum.move(YVal,-XVal,-ZVal);
+	}
 	
 	@Override
 	protected boolean isFinished() {
