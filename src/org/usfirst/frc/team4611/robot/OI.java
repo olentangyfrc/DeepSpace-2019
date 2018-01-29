@@ -48,7 +48,7 @@ public class OI {
 		//Buttons
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, 14);
+		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabPort);
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
@@ -73,7 +73,7 @@ public class OI {
 		linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorUp.whenReleased(new StopPot());
 		
-		linearActuatorDown.whileHeld(new MovePotDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorDown.whenReleased(new StopPot());
 		
 		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
