@@ -61,6 +61,7 @@ public class RobotMap {
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
+	public static String cameraSubTable = "Camera";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -75,6 +76,9 @@ public class RobotMap {
 	public static String switcherID = "motor-switch-enabled";
 	public static String straightRotationID = "straight-rotations-one";
 	public static String strafeRotationID = "strafe-rotations-one";
+	public static String cameraFPSID = "Camera-FPS";
+	public static String cameraxResID = "Camera-xResolution";
+	public static String camerayResID = "Camera-yResolution";
 	
 	public static DefaultValues defaults;
 	
