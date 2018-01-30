@@ -38,6 +38,7 @@ public class RobotMap {
 	
 	//Extra Victors
 	public static Victor linearActuator;
+	public static Victor linearActuator2;
 	
 	//Victor ports
 	public static int linearActuatorPort = 4;
@@ -77,9 +78,12 @@ public class RobotMap {
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
 	
 	//initial values for potentiometer settings
-	public static double potMin = -0.5;
+	public static double potMin = .1;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
+	public static double potMin2 = .1;
+	public static double potMax2 = .8;
+	public static double potSwitch2 = .45;
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.7;
@@ -109,9 +113,14 @@ public class RobotMap {
 	public static String potMinID = "Potentiometer Min";
 	public static String potMaxID = "Potentiometer Max";
 	public static String potSwitchID = "Potentiometer Switch";
+	public static String potMin2ID = "Potentiometer 2 Min";
+	public static String potMax2ID = "Potentiometer 2 Max";
+	public static String potSwitch2ID = "Potentiometer 2 Switch";
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
+	public static AnalogPotentiometer linearActuatorPot2;
+	
 
 	public static void init() {
 		
@@ -126,7 +135,9 @@ public class RobotMap {
 		
 		//Linear Actuator
 		linearActuator = new Victor(linearActuatorPort);
+		linearActuator2 = new Victor(5);
 		linearActuatorPot = new AnalogPotentiometer(0);
+		linearActuatorPot2 = new AnalogPotentiometer(1);
 		
 		//Solenoid
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
@@ -173,6 +184,9 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
 		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
+		RobotMap.updateValue(potentiometerSubTable, potMax2ID, potMax2);
+		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
+		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

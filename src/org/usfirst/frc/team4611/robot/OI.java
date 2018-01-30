@@ -52,9 +52,9 @@ public class OI {
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
-		linearActuatorUp = new JoystickButton(rightJoy, 3);
-		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorSwitch = new JoystickButton(leftJoy, 3);
+		linearActuatorUp = new JoystickButton(leftJoy, 3);
+		linearActuatorDown = new JoystickButton(leftJoy, 2);
+		linearActuatorSwitch = new JoystickButton(rightJoy, 3);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
