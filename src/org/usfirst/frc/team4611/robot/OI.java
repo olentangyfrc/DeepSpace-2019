@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
+import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.drive.UltraDrive;
@@ -32,7 +33,6 @@ public class OI {
 	//Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
-	public Button visionButton;
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
 	public Button linearActuatorSwitch;
@@ -40,6 +40,11 @@ public class OI {
 	public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
+	
+	public Button positionForward;
+	public Button positionBackward;
+	public Button positionLeft;
+	public Button positionRight;
 
 	public OI (){
 		
@@ -48,7 +53,6 @@ public class OI {
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		
 		//Buttons
-		visionButton = new JoystickButton(leftJoy, 3);
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
@@ -58,6 +62,11 @@ public class OI {
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
 		linearActuatorSwitch = new JoystickButton(leftJoy, 3);
+		
+		positionForward = new JoystickButton(leftJoy, 6);
+		positionBackward = new JoystickButton(leftJoy, 7);		
+		positionLeft = new JoystickButton(leftJoy, 10);
+		positionRight = new JoystickButton(leftJoy, 11);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -68,8 +77,11 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		
-		//Button Commands
-		visionButton.whenPressed(new UltraDrive(1));
+		//Position Commands
+		positionForward.whenPressed	(new PositionDrive(2, "forward"));
+		positionBackward.whenPressed(new PositionDrive(2, "backward"));
+		positionLeft.whenPressed	(new PositionDrive(2, "left"));
+		positionRight.whenPressed	(new PositionDrive(2, "right"));
 		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
