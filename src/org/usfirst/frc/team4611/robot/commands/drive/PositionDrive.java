@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class PositionDrive extends Command{
 	
-	private int position;
+	private double position;
 	private String direction;
 	
 	private int currentBL;
@@ -19,7 +19,7 @@ public class PositionDrive extends Command{
 	private int factorBL;
 	private int factorBR;
 	
-	public PositionDrive(int pos, String dir){
+	public PositionDrive(double pos, String dir){
 		this.requires(Robot.mecanum); //This command uses this subsystem
 		this.position = (int) (pos * (1440 / 1.5)); //Conversion factor from feet to position units
 		this.direction = dir.toLowerCase();

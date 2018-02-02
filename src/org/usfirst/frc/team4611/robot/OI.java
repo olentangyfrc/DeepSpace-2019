@@ -78,10 +78,14 @@ public class OI {
 
 		
 		//Position Commands
-		positionForward.whenPressed	(new PositionDrive(2, "forward"));
-		positionBackward.whenPressed(new PositionDrive(2, "backward"));
-		positionLeft.whenPressed	(new PositionDrive(2, "left"));
-		positionRight.whenPressed	(new PositionDrive(2, "right"));
+		positionForward.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
+				RobotMap.positionDistanceID), "forward"));
+		positionBackward.whenPressed(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
+				RobotMap.positionDistanceID), "backward"));
+		positionLeft.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
+				RobotMap.positionDistanceID), "left"));
+		positionRight.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
+				RobotMap.positionDistanceID), "right"));
 		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));

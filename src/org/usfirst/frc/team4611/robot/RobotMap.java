@@ -83,6 +83,7 @@ public class RobotMap {
 	public static String linearActuatorSubTable = "LA";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
+	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -95,6 +96,7 @@ public class RobotMap {
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "Talon Enabled";
 	public static String LASpeedID = "LA-speed";
+	public static String positionDistanceID = "PositionDistanceID";
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -156,6 +158,9 @@ public class RobotMap {
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, RobotMap.linearActuatorSpeed);
+		
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID,
+		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID, 2));	
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
