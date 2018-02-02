@@ -87,6 +87,7 @@ public class RobotMap {
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.7;
+	public static double linearActuator2Speed = 0.7;
 	//public static double motorSpeed = 1;
 
 	//String keys

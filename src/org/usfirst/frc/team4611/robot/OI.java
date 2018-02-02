@@ -70,14 +70,16 @@ public class OI {
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
 		//Linear actuator commands
-		linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed, RobotMap.linearActuator2Speed));
 		linearActuatorUp.whenReleased(new StopPot());
 		
-		linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		//linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed, RobotMap.linearActuator2Speed));
 		linearActuatorDown.whenReleased(new StopPot());
 		
-		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		linearActuatorSwitch.whenReleased(new StopPot());
+		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		//linearActuatorSwitch.whenReleased(new StopPot());
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());

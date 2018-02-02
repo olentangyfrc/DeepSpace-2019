@@ -6,13 +6,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MovePotSwitch extends Command{
 	
 	private double speed;
+	private double speed2;
 	
-	public MovePotSwitch(double speed) {
+	public MovePotSwitch(double speed, double speed2) {
 		this.speed = speed;
+		this.speed2 = speed2;
 	}
 
 	protected void execute() {
-		Robot.arm.movePotSwitch(speed);
+		Robot.arm.movePotSwitch(speed, speed2);
 	}
 	
 	
