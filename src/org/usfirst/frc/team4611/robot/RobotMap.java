@@ -40,7 +40,7 @@ public class RobotMap {
 	public static Victor linearActuator;
 	
 	//Victor ports
-	public static int linearActuatorPort = 4;
+	public static int linearActuatorPort = 9;
 	public static int victorPortFL = 1;
 	public static int victorPortFR = 0;
 	public static int victorPortBL = 2;
@@ -60,7 +60,7 @@ public class RobotMap {
 	public static int solTogglePort = 10;
 	public static int solExtendPort = 2;
 	public static int solRetractPort = 1;
-	//public static int autoGrabButtPort = 11;
+	public static int autoGrabPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;
 
@@ -74,13 +74,14 @@ public class RobotMap {
 	
 	//Constants
 	public static final int ULTRA_PORT = 3;
-	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
+	public static final int UD_DISTANCE = 16; // distance for UltraDrive, pointless if it's less than 12 for now
+	public static final int MAX_RANGE = 60; //UltraDrive should not drive if the nearest surface is too far
 	
 	//initial values for potentiometer settings
 	public static double potMin = -0.5;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
-	
+	 
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.7;
 	//public static double motorSpeed = 1;

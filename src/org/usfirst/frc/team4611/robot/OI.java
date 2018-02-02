@@ -48,7 +48,7 @@ public class OI {
 		//Buttons
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, 14);
+		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabPort);
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
