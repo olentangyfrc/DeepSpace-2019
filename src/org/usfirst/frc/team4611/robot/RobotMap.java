@@ -94,6 +94,7 @@ public class RobotMap {
 	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
+	public static String cameraSubTable = "Camera";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -109,6 +110,12 @@ public class RobotMap {
 	public static String potMinID = "Potentiometer Min";
 	public static String potMaxID = "Potentiometer Max";
 	public static String potSwitchID = "Potentiometer Switch";
+	public static String straightRotationID = "straight-rotations-one";
+	public static String strafeRotationID = "strafe-rotations-one";
+	public static String cameraFPSID = "Camera-FPS";
+	public static String cameraxResID = "Camera-xResolution";
+	public static String camerayResID = "Camera-yResolution";
+
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
