@@ -4,26 +4,42 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ExtendSolenoid extends Command{
+	private Timer time;
 
 	public ExtendSolenoid() {
+		time = new Timer();
 		this.requires(Robot.sol);
 	}
 	
 	protected void execute() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Extending solenoid" );
+		time.reset();
+		time.start();
 		Robot.sol.move(DoubleSolenoid.Value.kForward);
+		RobotMap.log(RobotMap.solenoidSubtable, "Extending solenoid$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" );
+		//System.out.println("Extending solenoid$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		Robot.sol.isRetracted = false;
 	}
 	
 	protected boolean isFinished() {
+		if(time.get() >= 0.2){
+			time.stop();
+			return true;
+		}
 		return false;
 	}
 	
 	protected void end() {
+		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid----------------------------------" );
+		//System.out.println("Done extending solenoid----------------------------------");
+		Robot.sol.isRetracted = false;
+	}
+	
+	protected void interrupted(){
 		Robot.sol.move(DoubleSolenoid.Value.kOff);
-		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid" );
 		Robot.sol.isRetracted = false;
 	}
 }
