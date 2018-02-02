@@ -5,18 +5,18 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class VisionDrive extends Command{
-	private int distance;
+	//private int distance;
 	
 	/**
 	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
 	 * @param distance the value in inches the bot drives to
 	 */
 	public VisionDrive(int distance){
-		this.requires(Robot.mecanum); //This command uses this subsystem
+		//this.requires(Robot.mecanum); //This command uses this subsystem
 		//this.distance = distance;
 	}
 	public void execute(){
-			RobotMap.driveTrain.driveCartesian(0, 0.6, 0);
+		//RobotMap.driveTrain.driveCartesian(0, 0.6, 0);
 	}
 
 	
