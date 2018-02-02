@@ -1,18 +1,15 @@
 package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MovePotUp extends Command{
 	
-	private double speed;
-	
-	public MovePotUp(double speed) {
-		this.speed = speed;
-	}
 
 	protected void execute() {
-		Robot.arm.movePotUp(speed);
+		Robot.arm.movePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID));
 	}
 	
 	

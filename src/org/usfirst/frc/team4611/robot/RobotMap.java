@@ -40,7 +40,7 @@ public class RobotMap {
 	public static Victor linearActuator;
 	
 	//Victor ports
-	public static int linearActuatorPort = 9;
+	public static int linearActuatorPort = 4;
 	public static int victorPortFL = 1;
 	public static int victorPortFR = 0;
 	public static int victorPortBL = 2;
@@ -78,12 +78,13 @@ public class RobotMap {
 	public static final int MAX_RANGE = 60; //UltraDrive should not drive if the nearest surface is too far
 	
 	//initial values for potentiometer settings
-	public static double potMin = -0.5;
+	public static double potMin = 0.5;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
 	 
 	//Default motor speeds
-	public static double linearActuatorSpeed = 0.7;
+	public static double linearActuatorUpSpeed = 0.35;
+	public static double linearActuatorDownSpeed = 0.7;
 	//public static double motorSpeed = 1;
 
 	//String keys
@@ -107,7 +108,8 @@ public class RobotMap {
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "Talon Enabled";
-	public static String LASpeedID = "LA-speed";
+	public static String LASpeedUpID = "LA-up-speed";
+	public static String LASpeedDownID = "LA-down-speed";
 	public static String potMinID = "Potentiometer Min";
 	public static String potMaxID = "Potentiometer Max";
 	public static String potSwitchID = "Potentiometer Switch";
@@ -177,7 +179,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, RobotMap.linearActuatorSpeed);
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.linearActuatorUpSpeed);
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.linearActuatorUpSpeed);
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
 		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
