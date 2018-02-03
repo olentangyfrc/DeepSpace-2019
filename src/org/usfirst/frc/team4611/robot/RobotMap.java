@@ -183,9 +183,10 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID,
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, RobotMap.linearActuatorSpeed);
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
+				RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
 		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
