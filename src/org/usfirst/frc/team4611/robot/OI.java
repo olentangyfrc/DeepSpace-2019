@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
@@ -38,6 +39,8 @@ public class OI {
 	public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
+	public Button moveElevatorD;
+	public Button moveElevatorU;
 
 	public OI (){
 		
@@ -52,9 +55,11 @@ public class OI {
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
-		linearActuatorUp = new JoystickButton(leftJoy, 3);
-		linearActuatorDown = new JoystickButton(leftJoy, 2);
-		linearActuatorSwitch = new JoystickButton(rightJoy, 3);
+		linearActuatorUp = new JoystickButton(rightJoy, 3);
+		linearActuatorDown = new JoystickButton(rightJoy, 2);
+		linearActuatorSwitch = new JoystickButton(rightJoy, 6);
+		moveElevatorD = new JoystickButton(rightJoy, 10);
+		moveElevatorU= new JoystickButton(rightJoy, 11);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -65,6 +70,13 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
+		
+		moveElevatorU.whileHeld(new MoveElevator(0.5));
+		moveElevatorU.whenReleased(new MoveElevator(0));
+		
+		moveElevatorD.whileHeld(new MoveElevator(-0.5));
+		moveElevatorD.whenReleased(new MoveElevator(0));
+		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));

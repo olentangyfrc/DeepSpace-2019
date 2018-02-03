@@ -29,6 +29,8 @@ public class RobotMap {
 	public static WPI_TalonSRX driveTrainFR_Talon;
 	public static WPI_TalonSRX driveTrainBL_Talon;
 	public static WPI_TalonSRX driveTrainBR_Talon;
+	
+	public static WPI_TalonSRX elevator_Talon;
 
 	//Drive train Victors
 	public static Victor driveTrainFL;
@@ -151,6 +153,8 @@ public class RobotMap {
 		driveTrainFR_Talon = new WPI_TalonSRX(13);
 		driveTrainBL_Talon = new WPI_TalonSRX(10);
 		driveTrainBR_Talon = new WPI_TalonSRX(11);
+		
+		elevator_Talon = new WPI_TalonSRX(35);
 		
 		//Talon Configuration
 			//Sensor pos
