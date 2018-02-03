@@ -48,6 +48,9 @@ public class Arm extends Subsystem {
 	}
 	
 	public void movePotDown(double speed, double speed2) {
+		System.out.println("\n"+"LinearActuatorPot: "+ RobotMap.linearActuatorPot.get());
+		System.out.println("Shuffleboard value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
+		
 		if((RobotMap.linearActuatorPot.get() > (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID))) {
 			//talon and victor code
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
