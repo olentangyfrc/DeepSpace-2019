@@ -55,12 +55,9 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
-
+	public static int thirdJoyPort = 2;
+	
 	//Button Ports
-	public static int solTogglePort = 10;
-	public static int solExtendPort = 2;
-	public static int solRetractPort = 1;
-	public static int autoGrabPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;
 
@@ -78,8 +75,8 @@ public class RobotMap {
 	public static final int MAX_RANGE = 60; //UltraDrive should not drive if the nearest surface is too far
 	
 	//initial values for potentiometer settings
-	public static double potMin = 0.5;
-	public static double potMax = .8;
+	public static double potMin = 0.14;
+	public static double potMax = .9;
 	public static double potSwitch = .45;
 	 
 	//Default motor speeds

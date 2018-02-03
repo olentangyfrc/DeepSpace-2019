@@ -10,6 +10,8 @@ public class Arm extends Subsystem {
 	}
 	
 	public void movePotUp(double speed) {
+		System.out.println("Pot reading: "+ RobotMap.linearActuatorPot.get());
+		System.out.println("Value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMaxID));
 		if(RobotMap.linearActuatorPot.get() < (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMaxID)) {
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
 			RobotMap.linearActuator.set(speed);
@@ -32,7 +34,8 @@ public class Arm extends Subsystem {
 	}
 	
 	public void movePotDown(double speed) {
-
+		System.out.println("Pot reading: "+ RobotMap.linearActuatorPot.get());
+		System.out.println("Value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
 		if(RobotMap.linearActuatorPot.get() > (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID)) {
 			//talon and victor code
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);

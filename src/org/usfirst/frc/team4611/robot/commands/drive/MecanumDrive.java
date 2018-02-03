@@ -21,7 +21,7 @@ public class MecanumDrive extends SwitchableCommand{
 	public void executeTalon() {
 		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
-		double ZVal = Robot.oi.filter(Robot.oi.leftJoy.getTwist());
+		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		double YAbs = Math.abs(YVal);
 		double ZAbs = Math.abs(ZVal);
 		double XAbs = Math.abs(XVal);
@@ -81,7 +81,7 @@ public class MecanumDrive extends SwitchableCommand{
 	public void executeVictor() {
 		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
-		double ZVal = Robot.oi.filter(Robot.oi.leftJoy.getTwist());
+		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
 		Robot.mecanum.move(YVal,-XVal,-ZVal);
 	}
 	

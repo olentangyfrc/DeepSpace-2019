@@ -27,14 +27,20 @@ public class OI {
 	//Joysticks
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
+	public static Joystick thirdJoy;
 	
 	//Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
+	public Button strafeLeft2;
+	public Button strafeRight2;
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
+	public Button linearActuatorUp2;
+	public Button linearActuatorDown2;
 	public Button linearActuatorSwitch;
 	public Button autoGrabBox;
+	public Button autoGrabBox2;
 	public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
@@ -44,17 +50,23 @@ public class OI {
 		//Joystick
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, RobotMap.autoGrabPort);
-		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
-		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
-		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
-		linearActuatorUp = new JoystickButton(rightJoy, 3);
-		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorSwitch = new JoystickButton(leftJoy, 3);
+		strafeLeft= new JoystickButton(thirdJoy, 4);
+		strafeRight= new JoystickButton(thirdJoy, 5);
+		autoGrabBox = new JoystickButton(rightJoy, 3);
+		autoGrabBox2 = new JoystickButton(thirdJoy, 11);
+		solToggle = new JoystickButton(leftJoy, 1);
+		solExtend = new JoystickButton(leftJoy, 7);//close claw
+		solRetract = new JoystickButton(leftJoy, 6);//open claw
+		linearActuatorUp = new JoystickButton(leftJoy, 3);
+		linearActuatorDown = new JoystickButton(leftJoy, 2);
+		linearActuatorUp2 = new JoystickButton(thirdJoy, 6);
+		linearActuatorDown2 = new JoystickButton(thirdJoy, 7);
+		linearActuatorSwitch = new JoystickButton(rightJoy, 9);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -72,18 +84,23 @@ public class OI {
 		//Linear actuator commands
 		linearActuatorUp.whileHeld(new MovePotUp());
 		linearActuatorUp.whenReleased(new StopPot());
+		linearActuatorUp2.whileHeld(new MovePotUp());
+		linearActuatorUp2.whenReleased(new StopPot());
 		
 		linearActuatorDown.whileHeld(new MovePotDown());
 		linearActuatorDown.whenReleased(new StopPot());
+		linearActuatorDown2.whileHeld(new MovePotDown());
+		linearActuatorDown2.whenReleased(new StopPot());
 		
 		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID)));
 		linearActuatorSwitch.whenReleased(new StopPot());
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
-		solExtend.whenPressed(new ExtendSolenoid());
-		solRetract.whenPressed(new RetractSolenoid());
+		solExtend.whileHeld(new ExtendSolenoid());
+		solRetract.whileHeld(new RetractSolenoid());
 		autoGrabBox.whenPressed(new AutoGrab());
+		autoGrabBox2.whenPressed(new AutoGrab());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
