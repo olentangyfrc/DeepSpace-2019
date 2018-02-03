@@ -10,7 +10,7 @@ public class MoveElevator extends Command{
 		speed= sp;
 		this.requires(Robot.el); //This command uses this subsystem
 	}
-	
+
 	protected void execute() {
 		Robot.el.move(speed);
 	}
