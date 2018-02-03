@@ -28,7 +28,7 @@ public class MecanumDrive extends SwitchableCommand{
 	
 	@Override
 	public void executeTalon() {
-	    System.out.println("BL Sensor: " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
+	    //System.out.println("BL Sensor: " + RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
 	    RobotMap.log("Talon", "" + RobotMap.driveTrainBL_Talon.getMotorOutputVoltage());
 	}
 

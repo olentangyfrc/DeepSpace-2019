@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PositionDrive extends Command{
 	
 	private double position;
-	private String direction;
 	
 	private int currentBL;
 	private int currentBR;
@@ -21,28 +20,28 @@ public class PositionDrive extends Command{
 	
 	public PositionDrive(double pos, String dir){
 		this.requires(Robot.mecanum); //This command uses this subsystem
-		this.position = (int) (pos * (1440 / 1.5)); //Conversion factor from feet to position units
-		this.direction = dir.toLowerCase();
+		this.position = (int) (pos / 1.5 * 1440); //Conversion factor from feet to position units
 		this.cnt = 0;
 		this.currentBL = RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0);
 		this.currentBR = RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
 		this.currentFL = RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0);
 		this.currentFR = RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0);
+		
 
-		if (direction.equals("forward")) {
+		if (dir.toLowerCase().equals("forward")) {
 			this.factorBL = 1;
 			this.factorBR = -1;
-		} else if (direction.equals("backward")) {
+		} else if (dir.toLowerCase().equals("backward")) {
 			this.factorBL = -1;
 			this.factorBR = 1;
-		} else if (direction.equals("left")) {
+		} else if (dir.toLowerCase().equals("left")) {
 			this.factorBL = 1;
+			this.factorBR = 1;
+		} else if (dir.toLowerCase().equals("right")){
+			this.factorBL = -1;
 			this.factorBR = -1;
-		} else { //right
-			this.factorBL = 1;
-			this.factorBR = -1;
-		}
-		
+		} else //did not send a normal direction
+			System.out.println("ERROR! BAD DIRECTION VALUE! Dir: " + dir);
 		
 		System.out.println("construct");
 	}
@@ -52,16 +51,21 @@ public class PositionDrive extends Command{
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		
+		this.position = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
+		
+		
 	}
 	
 	protected void execute() {
 		cnt++;
 		
+		System.out.println("RUNNING!");
+		System.out.println(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0));
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, (-factorBL * position + currentFR));		
-		
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, (-factorBL * position + currentFR));
 	}
 	
 	

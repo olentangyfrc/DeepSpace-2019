@@ -51,8 +51,8 @@ public class RobotMap {
 	//Button Ports
 	public static int solTogglePort = 10;
 	public static int solExtendPort = 2;
-	public static int solRetractPort = 1;
-	//public static int autoGrabButtPort = 11;
+	public static int solRetractPort = 11;
+	public static int autoGrabButtPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;
 
@@ -144,6 +144,16 @@ public class RobotMap {
 			driveTrainBL_Talon.configMotionCruiseVelocity(360, 0);
 			driveTrainBR_Talon.configMotionAcceleration(360, 0);
 			driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
+			
+			driveTrainFL_Talon.config_kP(0, 5, 0);
+			driveTrainFR_Talon.config_kP(0, 5, 0);
+			driveTrainBL_Talon.config_kP(0, 5, 0);
+			driveTrainBR_Talon.config_kP(0, 5, 0);
+			
+			driveTrainFL_Talon.setSensorPhase(true);
+			driveTrainFR_Talon.setSensorPhase(true);
+			driveTrainBL_Talon.setSensorPhase(true);
+			driveTrainBR_Talon.setSensorPhase(true);
 			
 		Logger.init("Logs");
 
