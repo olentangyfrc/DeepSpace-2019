@@ -80,10 +80,10 @@ public class RobotMap {
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
 	
 	//initial values for potentiometer settings
-	public static double potMin = .1;
+	public static double potMin = .08;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
-	public static double potMin2 = .1;
+	public static double potMin2 = .08;
 	public static double potMax2 = .8;
 	public static double potSwitch2 = .45;
 	
