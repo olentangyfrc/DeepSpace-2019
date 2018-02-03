@@ -83,7 +83,6 @@ public class OI {
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
-		//solExtend.whenReleased();
 		autoGrabBox.whenPressed(new AutoGrab());
 	}
 	

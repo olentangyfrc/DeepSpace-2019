@@ -19,8 +19,7 @@ public class RetractSolenoid extends Command{
 		time.reset();
 		time.start();
 		Robot.sol.move(DoubleSolenoid.Value.kReverse);
-		RobotMap.log(RobotMap.solenoidSubtable, "Retracting solenoid*****************************" );
-		//System.out.println("Retracting solenoid*****************************");
+		RobotMap.log(RobotMap.solenoidSubtable, "Retracting solenoid" );
 		Robot.sol.isRetracted = true;
 	}
 	
@@ -33,8 +32,7 @@ public class RetractSolenoid extends Command{
 	}
 	
 	protected void end() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid!!!!!!!!!!!!!!!!!!!!!!!" );
-		//System.out.println("Done retracting solenoid!!!!!!!!!!!!!!!!!!!!!!!" );
+		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
 		Robot.sol.isRetracted = true;
 	}
 	

@@ -19,8 +19,7 @@ public class ExtendSolenoid extends Command{
 		time.reset();
 		time.start();
 		Robot.sol.move(DoubleSolenoid.Value.kForward);
-		RobotMap.log(RobotMap.solenoidSubtable, "Extending solenoid$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" );
-		//System.out.println("Extending solenoid$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		RobotMap.log(RobotMap.solenoidSubtable, "Extending solenoid" );
 		Robot.sol.isRetracted = false;
 	}
 	
@@ -33,8 +32,7 @@ public class ExtendSolenoid extends Command{
 	}
 	
 	protected void end() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid----------------------------------" );
-		//System.out.println("Done extending solenoid----------------------------------");
+		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid" );
 		Robot.sol.isRetracted = false;
 	}
 	

@@ -49,9 +49,9 @@ public class RobotMap {
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 
 	//Button Ports
-	public static int solTogglePort = 10;
-	public static int solExtendPort = 2;
-	public static int solRetractPort = 1;
+	public static int solTogglePort = 1;
+	public static int solExtendPort = 8;
+	public static int solRetractPort = 9;
 	//public static int autoGrabButtPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;

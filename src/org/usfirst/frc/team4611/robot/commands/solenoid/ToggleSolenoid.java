@@ -15,11 +15,9 @@ public class ToggleSolenoid extends Command{
 	public void execute(){
 		if( Robot.sol.isRetracted ) {
 			new ExtendSolenoid().start();
-			//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Should Extend");
 		}
 		else{
 			new RetractSolenoid().start();
-			//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Should Retract");
 		}
 		done = true;
 	}
