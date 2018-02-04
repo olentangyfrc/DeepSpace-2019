@@ -29,39 +29,32 @@ public class PositionDrive extends Command{
 		
 
 		if (dir.toLowerCase().equals("forward")) {
-			this.factorBL = 1;
-			this.factorBR = -1;
+			this.factorBL = -1;
+			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("backward")) {
-			this.factorBL = -1;
-			this.factorBR = 1;
-		} else if (dir.toLowerCase().equals("left")) {
 			this.factorBL = 1;
-			this.factorBR = 1;
-		} else if (dir.toLowerCase().equals("right")){
+			this.factorBR = -1;
+		} else if (dir.toLowerCase().equals("left")) {
 			this.factorBL = -1;
 			this.factorBR = -1;
+		} else if (dir.toLowerCase().equals("right")){
+			this.factorBL = 1;
+			this.factorBR = 1;
 		} else //did not send a normal direction
 			System.out.println("ERROR! BAD DIRECTION VALUE! Dir: " + dir);
-		
-		System.out.println("construct");
 	}
 	
 	protected void initialize() {
 		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
-		
-		this.position = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
-		
-		
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);	
 	}
 	
 	protected void execute() {
+		this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
 		cnt++;
 		
-		System.out.println("RUNNING!");
-		System.out.println(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0));
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
