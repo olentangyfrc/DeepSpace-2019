@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends Subsystem {
 	
-	private final double VARIANCE_LIMIT = .02;
+	private final double VARIANCE_LIMIT = .01;
 	
 	public void stopPot() {
 		RobotMap.linearActuator.set(0);

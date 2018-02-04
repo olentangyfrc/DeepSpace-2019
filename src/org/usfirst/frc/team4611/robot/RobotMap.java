@@ -88,8 +88,8 @@ public class RobotMap {
 	public static double potSwitch2 = .45;
 	
 	//Default motor speeds
-	public static double linearActuatorSpeed = 0.7;
-	public static double linearActuator2Speed = 0.7;
+	public static double linearActuatorSpeed = 0.5;
+	public static double linearActuator2Speed = 0.5;
 	//public static double motorSpeed = 1;
 
 	//String keys
