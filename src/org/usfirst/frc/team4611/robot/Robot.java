@@ -1,11 +1,13 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
+//import org.usfirst.frc.team4611.robot.commands.cameraupdater.CameraUpdater;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
+import edu.wpi.cscore.UsbCamera;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,9 +30,12 @@ public class Robot extends IterativeRobot {
 	public static UltrasonicSensor ultrasonic;
 	public static Solenoid sol;
 	public static OI oi;
+	
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	public static UsbCamera camera;
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,6 +54,9 @@ public class Robot extends IterativeRobot {
 		sol = new Solenoid();
 		ultrasonic = new UltrasonicSensor();
 		oi = new OI();
+		camera = CameraServer.getInstance().startAutomaticCapture();
+		//new CameraUpdater();
+		
 	}
 
 	/**

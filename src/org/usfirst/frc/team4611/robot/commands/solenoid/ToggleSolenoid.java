@@ -1,20 +1,29 @@
 package org.usfirst.frc.team4611.robot.commands.solenoid;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ToggleSolenoid extends CommandGroup{
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ToggleSolenoid extends Command{
+	private boolean done;
 	
 	public ToggleSolenoid(){
 		this.requires(Robot.sol);
+		done = false;
+	}
+	
+	public void execute(){
 		if( Robot.sol.isRetracted ) {
-			addSequential( new ExtendSolenoid(), 2);
-			System.out.println("Should Extend");
+			new ExtendSolenoid().start();
 		}
 		else{
-			addSequential( new RetractSolenoid(), 2);
-			System.out.println("Should Retract");
+			new RetractSolenoid().start();
 		}
+		done = true;
+	}
+
+	protected boolean isFinished() {
+		return false;
 	}
 
 }

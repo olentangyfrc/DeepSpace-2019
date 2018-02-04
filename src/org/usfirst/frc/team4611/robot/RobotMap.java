@@ -8,6 +8,7 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -62,12 +63,9 @@ public class RobotMap {
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
-
+	public static int thirdJoyPort = 2;
+	
 	//Button Ports
-	public static int solTogglePort = 10;
-	public static int solExtendPort = 2;
-	public static int solRetractPort = 1;
-	//public static int autoGrabButtPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;
 
@@ -81,7 +79,8 @@ public class RobotMap {
 	
 	//Constants
 	public static final int ULTRA_PORT = 3;
-	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
+	public static final int UD_DISTANCE = 16; // distance for UltraDrive, pointless if it's less than 12 for now
+	public static final int MAX_RANGE = 60; //UltraDrive should not drive if the nearest surface is too far
 	
 	//initial values for potentiometer settings
 	public static double potMin = .08;
@@ -97,6 +96,10 @@ public class RobotMap {
 	//public static double linearActuator2Speed = 0.5;
 	public static double elevatorSpeed = 0.5;
 	
+	 
+	//Default motor speeds
+	public static double linearActuatorUpSpeed = 0.35;
+	public static double linearActuatorDownSpeed = 0.7;
 	//public static double motorSpeed = 1;
 
 	//String keys
@@ -109,6 +112,7 @@ public class RobotMap {
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
 	public static String elevatorSubtable = "Elevator";
+	public static String cameraSubTable = "Camera";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -120,7 +124,8 @@ public class RobotMap {
 	public static String deadZoneID = "deadZone";
 	public static String deadZoneYID = "deadZoneY";
 	public static String switcherID = "Talon Enabled";
-	public static String LASpeedID = "LA-speed";
+	public static String LASpeedUpID = "LA-up-speed";
+	public static String LASpeedDownID = "LA-down-speed";
 	public static String potMinID = "Potentiometer Min";
 	public static String potMaxID = "Potentiometer Max";
 	public static String potSwitchID = "Potentiometer Switch";
@@ -129,6 +134,13 @@ public class RobotMap {
 	public static String potSwitch2ID = "Potentiometer 2 Switch";
 	public static String varianceLimitID = "Variance Limit";
 	public static String elevatorSpeedID = "Elevator Speed";
+	public static String straightRotationID = "straight-rotations-one";
+	public static String strafeRotationID = "strafe-rotations-one";
+	public static String cameraFPSID = "Camera-FPS";
+	public static String cameraxResID = "Camera-xResolution";
+	public static String camerayResID = "Camera-yResolution";
+	public static String rotateFilterID = "Rotate Filter";
+
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -167,11 +179,21 @@ public class RobotMap {
 		elevator_Talon = new WPI_TalonSRX(35);
 		
 		//Talon Configuration
+			driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			//Sensor pos
+					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+			
+			driveTrainFL_Talon.config_kP(0, 1.5, 0);
+			driveTrainFR_Talon.config_kP(0, 1.5, 0);
+			driveTrainBL_Talon.config_kP(0, 1.5, 0);
+			driveTrainBR_Talon.config_kP(0, 1.5, 0);
 		
 			//Motion
 			driveTrainFL_Talon.configMotionAcceleration(360, 0);
@@ -187,16 +209,21 @@ public class RobotMap {
 
 		//Shuffleboard Tables
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 1));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 1));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID, 1));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
-				RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
+
+		//RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
+				//RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.linearActuatorUpSpeed);
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.linearActuatorUpSpeed);
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
 		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);

@@ -28,14 +28,17 @@ public class OI {
 	//Joysticks
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
+	public static Joystick thirdJoy;
 	
 	//Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
+	public Button strafeLeft2;
+	public Button strafeRight2;
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
-	public Button linearActuatorSwitch;
 	public Button autoGrabBox;
+	public Button autoGrabBox2;
 	public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
@@ -47,19 +50,23 @@ public class OI {
 		//Joystick
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
-		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
-		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
-		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorSwitch = new JoystickButton(rightJoy, 6);
 		moveElevatorD = new JoystickButton(leftJoy, 4);
 		moveElevatorU= new JoystickButton(leftJoy, 5);
+		strafeLeft= new JoystickButton(thirdJoy, 4);
+		strafeRight= new JoystickButton(thirdJoy, 5);
+		autoGrabBox = new JoystickButton(rightJoy, 3);
+		autoGrabBox2 = new JoystickButton(thirdJoy, 11);
+		solToggle = new JoystickButton(leftJoy, 1);
+		solExtend = new JoystickButton(leftJoy, 7);//close claw
+		solRetract = new JoystickButton(leftJoy, 6);//open claw
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -82,22 +89,26 @@ public class OI {
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
 		//Linear actuator commands
+
 		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed, RobotMap.linearActuatorSpeed));
+		linearActuatorUp.whileHeld(new MovePotUp());
 		linearActuatorUp.whenReleased(new StopPot());
 		
 		//linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed, RobotMap.linearActuatorSpeed));
+		linearActuatorDown.whileHeld(new MovePotDown());
 		linearActuatorDown.whenReleased(new StopPot());
+		
 		
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		//linearActuatorSwitch.whenReleased(new StopPot());
+
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
-		solExtend.whenPressed(new ExtendSolenoid());
-		solRetract.whenPressed(new RetractSolenoid());
+		solExtend.whileHeld(new ExtendSolenoid());
+		solRetract.whileHeld(new RetractSolenoid());
 		autoGrabBox.whenPressed(new AutoGrab());
+		autoGrabBox2.whenPressed(new AutoGrab());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
@@ -113,7 +124,15 @@ public class OI {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
             return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
         } else {
-            return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID) * 2, 1); //Set the output to a ceratin percent of of the input
+            return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID) * 2, 1); //Set the output to a ceratin percent of of the input
         }
 	}	
+	
+	public double rotateFilter(double raw) {
+		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
+            return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
+        } else {
+            return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID), 1); //Set the output to a ceratin percent of of the input
+        }
+	}
 }

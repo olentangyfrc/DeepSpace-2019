@@ -8,72 +8,81 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class MecanumDrive extends SwitchableCommand{
 	
+	int velocityInvert1 = 1;
+	int velocityInvert2 = -1;
+	int velocityInvert3 = -1;
+	int velocityInvert4 = 1;
+	int maxRPM = 1100;
+	
 	public MecanumDrive(){
 		this.requires(Robot.mecanum); //This command uses this subsystem
 	}
 	
+	protected void initialize() {
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert1" , velocityInvert1);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert2" , velocityInvert2);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert3" , velocityInvert3);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert4" , velocityInvert4);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "Max RPM", maxRPM);
+	}
+	
 	protected void execute() {
+		
 		super.execute();
 	}
 	
 	@Override
 	public void executeTalon() {
-		double YVal = Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
+		double YVal = -Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
-		double ZVal = Robot.oi.filter(Robot.oi.rightJoy.getX());
-		double YAbs = Math.abs(YVal);
-		double ZAbs = Math.abs(ZVal);
-		double XAbs = Math.abs(XVal);
-		double maxJoyChange = 0.1;
+		double ZVal = Robot.oi.rotateFilter(Robot.oi.rightJoy.getX());
+		double velocity1;
+		double velocity2;
+		double velocity3;
+		double velocity4;
+		double YValScaler1 = 1;
+		double XValScaler1 = 1;
+		double ZValScaler1 = 1;
+		double YValScaler2 = 1;
+		double XValScaler2 = 1;
+		double ZValScaler2 = 1;
+		double YValScaler3 = 1;
+		double XValScaler3 = 1;
+		double ZValScaler3 = 1;
+		double YValScaler4 = 1;
+		double XValScaler4 = 1;
+		double ZValScaler4 = 1;	
 
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, Robot.oi.leftJoy.getY());
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, Robot.oi.leftJoy.getY());
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyZID, Robot.oi.leftJoy.getZ());
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, Robot.oi.rightJoy.getX());
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, Robot.oi.rightJoy.getY());
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, Robot.oi.rightJoy.getZ());
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, XVal);
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, YVal);
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, ZVal);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler1: ", YValScaler1);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler2: ", YValScaler2);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler3: ", YValScaler3);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler4: ", YValScaler4);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler1: ", XValScaler1);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler2: ", XValScaler2);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler3: ", XValScaler3);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler4: ", XValScaler4);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler1: ", ZValScaler1);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler2: ", ZValScaler2);	
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler3: ", ZValScaler3);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler4: ", ZValScaler4);
 		
-		
-		if (YAbs >= maxJoyChange && XAbs <= maxJoyChange && ZAbs <= maxJoyChange) {
-			
-			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
-			RobotMap.driveTrainBL_Talon.setInverted(false);
-			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
-			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, YVal);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -YVal);
-
+		//Blaine and Halter's magic math
+		velocity1 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler1) * (velocityInvert1);
+		velocity2 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler2) * (velocityInvert2); 
+		velocity3 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler3 + XVal * XValScaler3 - ZVal * ZValScaler3) * (velocityInvert3);
+		velocity4 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler4 - XVal * XValScaler4 + ZVal * ZValScaler4) * (velocityInvert4);
+		if (velocity1 > 0 || velocity2 > 0|| velocity3 > 0|| velocity4 > 0) {
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 1", velocity1);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 2", velocity2);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 3", velocity3);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 4", velocity4);
 		}
 		
-		else if (XAbs >= maxJoyChange && YAbs <= maxJoyChange && ZAbs <= maxJoyChange) {
-			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
-			RobotMap.driveTrainBL_Talon.setInverted(true);
-			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
-			RobotMap.driveTrainBR_Talon.setInverted(true);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, XVal);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, XVal);
-		}
+		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
-		else if (ZAbs >= maxJoyChange && YAbs <= maxJoyChange && XAbs <= maxJoyChange) {
-			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
-			RobotMap.driveTrainBL_Talon.setInverted(false);
-			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
-			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, ZVal);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, ZVal);
-		}
-		
-		else {
-			RobotMap.driveTrainBL_Talon.set(ControlMode.PercentOutput, 0);
-			RobotMap.driveTrainBR_Talon.set(ControlMode.PercentOutput, 0);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, 0);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, 0);
-			RobotMap.driveTrainBL_Talon.setInverted(false);
-			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFL_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.setInverted(false);
-			Robot.mecanum.move(-YVal, XVal, ZVal); 	
-		}
 	}
 
 	@Override

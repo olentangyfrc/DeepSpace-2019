@@ -74,26 +74,6 @@ public class Arm extends Subsystem {
 		}
 	}
 	
-	
-	public void movePotSwitch(double speed, double speed2) {
-		if((RobotMap.linearActuatorPot.get() < (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potSwitch2ID))) {
-			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
-			RobotMap.linearActuator.set(speed);
-			
-		}
-		else {
-			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
-			RobotMap.linearActuator.set(0);
-			
-		}
-		if((RobotMap.linearActuatorPot2.get() < (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potSwitchID))) {
-			RobotMap.linearActuator2.set(speed2);
-		}
-		else {
-			RobotMap.linearActuator2.set(0);
-		}
-	}
-	
 	@Override
 	protected void initDefaultCommand() {	
 	}

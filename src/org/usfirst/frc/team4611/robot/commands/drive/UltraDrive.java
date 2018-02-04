@@ -11,17 +11,20 @@ public class UltraDrive extends Command{
 	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
 	 * @param distance the value in inches the bot drives to
 	 */
-	public UltraDrive(int distance){
+	public UltraDrive(int dist){
 		this.requires(Robot.mecanum); //This command uses this subsystem
-		this.distance = distance;
+		this.distance = dist;
 	}
 	public void execute(){
-			RobotMap.driveTrain.driveCartesian(0, 0.6, 0);
+			RobotMap.driveTrain.driveCartesian(-0.3, 0, 0);
 	}
 
 	
 	protected boolean isFinished() {
-		if( Robot.ultrasonic.getInches() < distance){
+		double range = Robot.ultrasonic.getInches();
+		System.out.println(range);
+		if( range < distance || range > RobotMap.MAX_RANGE){
+			System.out.println("I'm stopping myself");
 			RobotMap.driveTrain.driveCartesian(0, 0, 0);
 			return true;
 		}
