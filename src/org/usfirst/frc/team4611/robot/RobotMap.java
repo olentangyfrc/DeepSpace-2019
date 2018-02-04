@@ -83,6 +83,7 @@ public class RobotMap {
 	public static String linearActuatorSubTable = "LA";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
+	public static String visionSubtable = "Vision";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -171,6 +172,10 @@ public class RobotMap {
 		
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID,
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID, 2));	
+		RobotMap.updateValue(RobotMap.visionSubtable, "angle", 0);
+		RobotMap.updateValue(RobotMap.visionSubtable, "distance", 0);
+		RobotMap.updateValue(RobotMap.visionSubtable, "horizontalDistance", 0);
+		RobotMap.updateValue(RobotMap.visionSubtable, "found", false);
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
