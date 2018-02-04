@@ -79,14 +79,14 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		
-		double networkNumber = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
+		double pos = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
 		
 		
 		//Position Commands
-		positionForward.whenPressed	(new PositionDrive(networkNumber, "forward"));
-		positionBackward.whenPressed(new PositionDrive(networkNumber, "backward"));
-		positionLeft.whenPressed	(new PositionDrive(networkNumber, "left"));
-		positionRight.whenPressed	(new PositionDrive(networkNumber, "right"));
+		positionForward.whenPressed	(new PositionDrive(pos, "forward"));
+		positionBackward.whenPressed(new PositionDrive(pos, "backward"));
+		positionLeft.whenPressed	(new PositionDrive(pos, "left"));
+		positionRight.whenPressed	(new PositionDrive(pos, "right"));
 		positionVision.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
 				RobotMap.positionDistanceID), "vision"));
 		

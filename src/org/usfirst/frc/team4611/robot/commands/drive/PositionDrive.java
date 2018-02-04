@@ -42,30 +42,17 @@ public class PositionDrive extends Command{
 			this.factorBR = 1;
 		} else //did not send a normal direction
 			System.out.println("ERROR! BAD DIRECTION VALUE! Dir: " + dir);
-		
-		System.out.println("construct");
 	}
 	
 	protected void initialize() {
 		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
-		
-		//this.position = 2;//(double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
-		
-		
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);	
 	}
 	
 	protected void execute() {
-		//System.out.println("The count is "+cnt+"+++++++++++++++++++++++++++++++++++++++");
-		
-		//if(cnt==0) {
-			this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
-			System.out.println("Position: " + position);
-		//}
-		//this.position = 3;
-		System.out.println("Position: " + position);
+		this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
 		cnt++;
 		
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
