@@ -116,6 +116,7 @@ public class RobotMap {
 	public static String cameraFPSID = "Camera-FPS";
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
+	public static String rotateFilterID = "Rotate Filter";
 
 	public static DefaultValues defaults;
 
@@ -179,13 +180,15 @@ public class RobotMap {
 
 		//Shuffleboard Tables
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 0.65));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID, 1));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.motorPowerID, 1));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID, 1));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
-		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.linearActuatorUpSpeed);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.linearActuatorUpSpeed);
