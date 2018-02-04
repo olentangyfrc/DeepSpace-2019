@@ -52,12 +52,20 @@ public class PositionDrive extends Command{
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 		
-		this.position = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
+		//this.position = 2;//(double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
 		
 		
 	}
 	
 	protected void execute() {
+		//System.out.println("The count is "+cnt+"+++++++++++++++++++++++++++++++++++++++");
+		
+		//if(cnt==0) {
+			this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
+			System.out.println("Position: " + position);
+		//}
+		//this.position = 3;
+		System.out.println("Position: " + position);
 		cnt++;
 		
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
