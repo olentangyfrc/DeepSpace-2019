@@ -161,10 +161,21 @@ public class RobotMap {
 			driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 			
-			driveTrainFL_Talon.config_kP(0, 1.5, 0);
-			driveTrainFR_Talon.config_kP(0, 1.5, 0);
-			driveTrainBL_Talon.config_kP(0, 1.5, 0);
-			driveTrainBR_Talon.config_kP(0, 1.5, 0);
+			driveTrainFL_Talon.config_kP(0, .65, 0);
+			driveTrainFR_Talon.config_kP(0, .65, 0);
+			driveTrainBL_Talon.config_kP(0, .65, 0);
+			driveTrainBR_Talon.config_kP(0, .65, 0);
+			
+			driveTrainFL_Talon.config_kI(0, 0.000, 0);
+			driveTrainFR_Talon.config_kI(0, 0.000, 0);
+			driveTrainBL_Talon.config_kI(0, 0.000, 0);
+			driveTrainBR_Talon.config_kI(0, 0.000, 0);
+			
+			driveTrainFL_Talon.config_kD(0, 0, 0);
+			driveTrainFR_Talon.config_kD(0, 0, 0);
+			driveTrainBL_Talon.config_kD(0, 0, 0);
+			driveTrainBR_Talon.config_kD(0, 0, 0);
+		
 		
 			//Motion
 			driveTrainFL_Talon.configMotionAcceleration(360, 0);

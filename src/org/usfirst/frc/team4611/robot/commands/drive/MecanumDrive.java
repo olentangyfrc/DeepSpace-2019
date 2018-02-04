@@ -12,7 +12,7 @@ public class MecanumDrive extends SwitchableCommand{
 	int velocityInvert2 = -1;
 	int velocityInvert3 = -1;
 	int velocityInvert4 = 1;
-	int maxRPM = 1100;
+	int maxRPM = 1500;
 	
 	public MecanumDrive(){
 		this.requires(Robot.mecanum); //This command uses this subsystem
