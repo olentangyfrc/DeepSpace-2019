@@ -5,6 +5,7 @@ import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.drive.UltraDrive;
+import org.usfirst.frc.team4611.robot.commands.drive.VisionDrive;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotSwitch;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
@@ -83,12 +84,12 @@ public class OI {
 		
 		
 		//Position Commands
-		positionForward.whenPressed	(new PositionDrive(pos, "forward"));
-		positionBackward.whenPressed(new PositionDrive(pos, "backward"));
-		positionLeft.whenPressed	(new PositionDrive(pos, "left"));
-		positionRight.whenPressed	(new PositionDrive(pos, "right"));
-		positionVision.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
-				RobotMap.positionDistanceID), "vision"));
+		//positionForward.whenPressed	(new PositionDrive(pos, "forward"));
+		//positionBackward.whenPressed(new PositionDrive(pos, "backward"));
+		//positionLeft.whenPressed	(new PositionDrive(pos, "left"));
+		//positionRight.whenPressed	(new PositionDrive(pos, "right"));
+		//positionVision.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
+				//RobotMap.positionDistanceID), "vision"));
 		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
@@ -108,7 +109,7 @@ public class OI {
 		//solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whenPressed(new ExtendSolenoid());
 		solRetract.whenPressed(new RetractSolenoid());
-		autoGrabBox.whenPressed(new AutoGrab());
+		autoGrabBox.whenPressed(new VisionDrive());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
