@@ -58,8 +58,8 @@ public class OI {
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
 		linearActuatorSwitch = new JoystickButton(rightJoy, 6);
-		moveElevatorD = new JoystickButton(rightJoy, 10);
-		moveElevatorU= new JoystickButton(rightJoy, 11);
+		moveElevatorD = new JoystickButton(leftJoy, 4);
+		moveElevatorU= new JoystickButton(leftJoy, 5);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -71,10 +71,10 @@ public class OI {
 
 		//Button Commands
 		
-		moveElevatorU.whileHeld(new MoveElevator(0.5));
+		moveElevatorU.whileHeld(new MoveElevator((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorSpeedID)));
 		moveElevatorU.whenReleased(new MoveElevator(0));
 		
-		moveElevatorD.whileHeld(new MoveElevator(-0.5));
+		moveElevatorD.whileHeld(new MoveElevator(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorSpeedID)));
 		moveElevatorD.whenReleased(new MoveElevator(0));
 		
 		//Strafe Commands
@@ -83,11 +83,11 @@ public class OI {
 		
 		//Linear actuator commands
 		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed, RobotMap.linearActuator2Speed));
+		linearActuatorUp.whileHeld(new MovePotUp(RobotMap.linearActuatorSpeed, RobotMap.linearActuatorSpeed));
 		linearActuatorUp.whenReleased(new StopPot());
 		
 		//linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed, RobotMap.linearActuator2Speed));
+		linearActuatorDown.whileHeld(new MovePotDown(RobotMap.linearActuatorSpeed, RobotMap.linearActuatorSpeed));
 		linearActuatorDown.whenReleased(new StopPot());
 		
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));

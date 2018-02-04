@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends Subsystem {
 	
-	private final double VARIANCE_LIMIT = .01;
+	private double varianceLimit = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.varianceLimitID);
 	
 	public void stopPot() {
 		RobotMap.linearActuator.set(0);
@@ -25,7 +25,7 @@ public class Arm extends Subsystem {
 		double pos1 = (potValue1 - min1) / (max1 - min1);
 		double pos2 = (potValue2 - min2) / (max2 - min2);
 		
-		if(potValue1 < max1 && pos1 <= pos2 + VARIANCE_LIMIT) {
+		if(potValue1 < max1 && pos1 <= pos2 + varianceLimit) {
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
 			RobotMap.linearActuator.set(speed);
 		}
@@ -34,7 +34,7 @@ public class Arm extends Subsystem {
 			RobotMap.linearActuator.set(0);
 			
 		}
-		if(potValue2 < max2 && pos2 <= pos1 + VARIANCE_LIMIT) {
+		if(potValue2 < max2 && pos2 <= pos1 + varianceLimit) {
 			RobotMap.linearActuator2.set(speed2);
 		}
 		else {
@@ -56,7 +56,7 @@ public class Arm extends Subsystem {
 		double pos1 = (potValue1 - min1) / (max1 - min1);
 		double pos2 = (potValue2 - min2) / (max2 - min2);
 		
-		if((potValue1 > min1 && pos1 >= pos2 - VARIANCE_LIMIT)) {
+		if((potValue1 > min1 && pos1 >= pos2 - varianceLimit)) {
 			//talon and victor code
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, speed);
 			RobotMap.linearActuator.set(-speed);
@@ -66,7 +66,7 @@ public class Arm extends Subsystem {
 			//RobotMap.linearActuator.set(RobotMap.linearActuatorControl, 0);
 			RobotMap.linearActuator.set(0);
 		}
-		if(potValue2 > min2 && pos2 >= pos1 - VARIANCE_LIMIT) {
+		if(potValue2 > min2 && pos2 >= pos1 - varianceLimit) {
 				RobotMap.linearActuator2.set(-speed2);
 		}
 		else {

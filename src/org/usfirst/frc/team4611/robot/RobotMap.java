@@ -86,10 +86,13 @@ public class RobotMap {
 	public static double potMin2 = .08;
 	public static double potMax2 = .8;
 	public static double potSwitch2 = .45;
+	private static double varianceLimit = .01;
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.5;
-	public static double linearActuator2Speed = 0.5;
+	//public static double linearActuator2Speed = 0.5;
+	public static double elevatorSpeed = 0.5;
+	
 	//public static double motorSpeed = 1;
 
 	//String keys
@@ -101,6 +104,7 @@ public class RobotMap {
 	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
+	public static String elevatorSubtable = "Elevator";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -119,6 +123,8 @@ public class RobotMap {
 	public static String potMin2ID = "Potentiometer 2 Min";
 	public static String potMax2ID = "Potentiometer 2 Max";
 	public static String potSwitch2ID = "Potentiometer 2 Switch";
+	public static String varianceLimitID = "Variance Limit";
+	public static String elevatorSpeedID = "Elevator Speed";
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -193,6 +199,10 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potMax2ID, potMax2);
 		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
+		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+		RobotMap.updateValue(elevatorSubtable, elevatorSpeedID, 
+				RobotMap.defaults.getDoubleDefaultValue(elevatorSubtable, elevatorSpeedID, elevatorSpeed));
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
