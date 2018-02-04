@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -49,6 +51,8 @@ public class RobotMap {
 	public static int victorPortBL = 2;
 	public static int victorPortBR = 3;
 	
+	public static DigitalInput LS = new DigitalInput(0);
+	public static Counter limitSwitch = new Counter(LS);
 	
 	//General Objects
 	public static DoubleSolenoid sol;

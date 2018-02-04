@@ -12,13 +12,17 @@ public class MoveElevator extends Command{
 	}
 
 	protected void execute() {
-		Robot.el.move(speed);
+		System.out.println(Robot.el.isSwitchSet());
+		if((Robot.el.isSwitchSet() && speed >= 0) || (!Robot.el.isSwitchSet() && speed <= 0) || (!Robot.el.isSwitchSet() && speed >= 0)){
+			Robot.el.move(speed);
+		}
+
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return Robot.el.isSwitchSet();
 	}
 
 }

@@ -12,6 +12,10 @@ public class Elevator extends Subsystem{
 
 		RobotMap.elevator_Talon.set(ControlMode.PercentOutput, speed);
 	}
+	
+	public boolean isSwitchSet() {
+		return RobotMap.limitSwitch.get() > 0;
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
