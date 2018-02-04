@@ -2,23 +2,36 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class VisionDrive extends Command{
-	private int distance;
+public class VisionDrive extends CommandGroup{
+	double angle;
+	double distance;
+	double horizontalDistance;
+	boolean found;
 	
-	/**
-	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
-	 * @param distance the value in inches the bot drives to
-	 */
-	public VisionDrive(int distance){
+	
+	public VisionDrive(){
 		this.requires(Robot.mecanum); //This command uses this subsystem
-		this.distance = distance;
 	}
+	
+	public void initialize() {
+		angle = (double) RobotMap.networkManager.getValue("Vision", "angle");
+		distance = (double) RobotMap.networkManager.getValue("Vision", "distance");
+		horizontalDistance = (double) RobotMap.networkManager.getValue("Vision", "horizontalDistance");
+		found = (boolean) RobotMap.networkManager.getValue("Vision", "found");
+		
+		if (angle < 0) {
+			addSequential(new PositionDrive(horizontalDistance/12.0, "right"));
+		} else {
+			addSequential(new PositionDrive(horizontalDistance/12.0, "left"));
+		}
+		
+		
+	}
+	
 	public void execute(){
-		//RobotMap.driveTrain.driveCartesian(0, 0.6, 0);
 	}
-
 	
 	protected boolean isFinished() {
 		//Right now run forever
@@ -33,4 +46,7 @@ public class VisionDrive extends Command{
 		//}
 	}
 
+	public boolean isInterruptable() {
+		return true;
+	}
 }
