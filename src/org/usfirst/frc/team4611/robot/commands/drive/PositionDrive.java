@@ -52,7 +52,7 @@ public class PositionDrive extends Command{
 	}
 	
 	protected void execute() {
-		System.out.println("EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE ");
+		//System.out.println("EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE ");
 		//this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
 		cnt++;
 		

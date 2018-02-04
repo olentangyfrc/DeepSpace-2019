@@ -2,9 +2,10 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class VisionDrive extends CommandGroup{
+import edu.wpi.first.wpilibj.command.Command;
+
+public class VisionDrive extends Command{
 	double angle;
 	double distance;
 	double horizontalDistance;
@@ -16,10 +17,11 @@ public class VisionDrive extends CommandGroup{
 	}
 	
 	public void initialize() {
-		angle = (double) RobotMap.networkManager.getValue("Vision", "angle");
-		distance = (double) RobotMap.networkManager.getValue("Vision", "distance");
-		horizontalDistance = (double) RobotMap.networkManager.getValue("Vision", "horizontalDistance");
-		found = (boolean) RobotMap.networkManager.getValue("Vision", "found");
+
+		angle = (double) RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		distance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceID);
+		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID);
+		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
 		//Line up
 		String direction = "right";
@@ -30,11 +32,12 @@ public class VisionDrive extends CommandGroup{
 			direction = "left";
 			//addSequential(new PositionDrive(horizontalDistance/12.0, "left"));
 		}
+		for (int i = 0; i < 100; i++) {
+			System.out.println(angle);
+		}
+		//addSequential(new PositionDrive(horizontalDistance/12.0, direction));
+		new PositionDrive(horizontalDistance/12.0, direction).start();
 		
-		addSequential(new PositionDrive(horizontalDistance/12.0, direction));
-		
-		//Move forward
-		//addSequential(new UltraDrive(),3);
 		
 		
 		

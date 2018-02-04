@@ -40,8 +40,8 @@ public class Robot extends IterativeRobot {
 	 */
 	
 	public Robot() {
-		tableInstance = NetworkTableInstance.getDefault();
-		table = tableInstance.getTable("Vision");		
+		//tableInstance = NetworkTableInstance.getDefault();
+		//table = tableInstance.getTable("Vision");		
 
 		/*
 		NetworkTableEntry entryAngle = Robot.table.getEntry("angle");

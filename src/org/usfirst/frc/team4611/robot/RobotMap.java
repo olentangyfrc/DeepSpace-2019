@@ -60,6 +60,7 @@ public class RobotMap {
 	public static final int teamID = 4611;
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
+	public static final String visionTableID = "Vision";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
 	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
 	public static final long systemStartupTime = System.currentTimeMillis();
@@ -83,7 +84,6 @@ public class RobotMap {
 	public static String linearActuatorSubTable = "LA";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
-	public static String visionSubtable = "Vision";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -98,6 +98,10 @@ public class RobotMap {
 	public static String switcherID = "Talon Enabled";
 	public static String LASpeedID = "LA-speed";
 	public static String positionDistanceID = "PositionDistanceID";
+	public static String angleID = "angle";
+	public static String distanceID = "distance";
+	public static String distanceHorizontalID = "horizontalDistance";
+	public static String foundID = "found";
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -146,10 +150,10 @@ public class RobotMap {
 			driveTrainBR_Talon.configMotionAcceleration(360, 0);
 			driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
 			
-			driveTrainFL_Talon.config_kP(0, 5, 0);
-			driveTrainFR_Talon.config_kP(0, 5, 0);
-			driveTrainBL_Talon.config_kP(0, 5, 0);
-			driveTrainBR_Talon.config_kP(0, 5, 0);
+			driveTrainFL_Talon.config_kP(0, 3, 0);
+			driveTrainFR_Talon.config_kP(0, 3, 0);
+			driveTrainBL_Talon.config_kP(0, 3, 0);
+			driveTrainBR_Talon.config_kP(0, 3, 0);
 			
 			driveTrainFL_Talon.setSensorPhase(true);
 			driveTrainFR_Talon.setSensorPhase(true);
@@ -172,10 +176,10 @@ public class RobotMap {
 		
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID,
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID, 2));	
-		RobotMap.updateValue(RobotMap.visionSubtable, "angle", 0);
-		RobotMap.updateValue(RobotMap.visionSubtable, "distance", 0);
-		RobotMap.updateValue(RobotMap.visionSubtable, "horizontalDistance", 0);
-		RobotMap.updateValue(RobotMap.visionSubtable, "found", false);
+		RobotMap.updateVisionValue(angleID, 0);
+		RobotMap.updateVisionValue(distanceID, 0);
+		RobotMap.updateVisionValue(distanceHorizontalID, 0);
+		RobotMap.updateVisionValue(foundID, false);
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
@@ -248,6 +252,16 @@ public class RobotMap {
 		}
 	}
 
+	public static void updateVisionValue(String key, Object value) {
+		// Tries to add value to the networktable
+		if (!RobotMap.networkManager.updateVisionValue(key, value)) {
+			// If it's unsuccessful, it logs there was a problem
+			System.out.println("Unable to update vision value with key: " + key + " on subtable NetworkTable");
+			// TODO: Replace System.out.println with Logging functions once
+			// merged
+		}
+	}	
+	
 	/**
 	 * 
 	 * @param subtable

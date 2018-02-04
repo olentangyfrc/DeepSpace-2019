@@ -8,6 +8,7 @@ public class NetworkTableManager {
 
 	private static NetworkTableInstance instance;
 	private static NetworkTable table;
+	private static NetworkTable visionTable;
 
 	public NetworkTableManager() {
 		instance = NetworkTableInstance.getDefault();
@@ -16,6 +17,7 @@ public class NetworkTableManager {
 		instance.startServer();
 
 		table = instance.getTable(RobotMap.networkTableID);
+		visionTable = instance.getTable(RobotMap.visionTableID);
 	}
 	
 	/**
@@ -30,6 +32,11 @@ public class NetworkTableManager {
 		//Updates the value and returns a boolean that tells if it was successful
 		return table.getSubTable(subTable).getEntry(key).setValue(value);
 	}
+
+	public boolean updateVisionValue(String key, Object value) {		
+		//Updates the value and returns a boolean that tells if it was successful
+		return visionTable.getEntry(key).setValue(value);
+	}	
 	
 	/**
 	 * Gets a value that is linked with the given key
@@ -39,6 +46,10 @@ public class NetworkTableManager {
 	 */
 	public Object getValue(String subTable, String key) {
 		return table.getSubTable(subTable).getEntry(key).getValue().getValue();
+	}
+	
+	public Object getVisionValue(String key) {
+		return visionTable.getEntry(key).getValue().getValue();
 	}
 	
 	/**
