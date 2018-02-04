@@ -8,6 +8,7 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -148,7 +149,17 @@ public class RobotMap {
 		driveTrainBR_Talon = new WPI_TalonSRX(11);
 		
 		//Talon Configuration
+			driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			//Sensor pos
+			
+			//driveTrainFL_Talon.setSensorPhase(true);
+			//driveTrainBL_Talon.setSensorPhase(true);
+			//driveTrainFR_Talon.setInverted(true);
+			//driveTrainBR_Talon.setInverted(true);
+			
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
