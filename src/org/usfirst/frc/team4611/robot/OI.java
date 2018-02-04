@@ -5,7 +5,6 @@ import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotSwitch;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
 import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
