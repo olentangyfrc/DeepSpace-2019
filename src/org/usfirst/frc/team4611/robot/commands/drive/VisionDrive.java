@@ -22,11 +22,16 @@ public class VisionDrive extends CommandGroup{
 		found = (boolean) RobotMap.networkManager.getValue("Vision", "found");
 		
 		//Line up
+		String direction = "right";
 		if (angle < 0) {
-			addSequential(new PositionDrive(horizontalDistance/12.0, "right"));
+			direction = "right";
+			//addSequential(new PositionDrive(horizontalDistance/12.0, "right"));
 		} else {
-			addSequential(new PositionDrive(horizontalDistance/12.0, "left"));
+			direction = "left";
+			//addSequential(new PositionDrive(horizontalDistance/12.0, "left"));
 		}
+		
+		addSequential(new PositionDrive(horizontalDistance/12.0, direction));
 		
 		//Move forward
 		//addSequential(new UltraDrive(),3);
