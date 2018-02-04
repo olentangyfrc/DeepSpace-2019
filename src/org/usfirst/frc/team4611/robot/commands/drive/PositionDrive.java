@@ -29,17 +29,17 @@ public class PositionDrive extends Command{
 		
 
 		if (dir.toLowerCase().equals("forward")) {
-			this.factorBL = 1;
-			this.factorBR = -1;
+			this.factorBL = -1;
+			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("backward")) {
-			this.factorBL = -1;
-			this.factorBR = 1;
-		} else if (dir.toLowerCase().equals("left")) {
 			this.factorBL = 1;
-			this.factorBR = 1;
-		} else if (dir.toLowerCase().equals("right")){
+			this.factorBR = -1;
+		} else if (dir.toLowerCase().equals("left")) {
 			this.factorBL = -1;
 			this.factorBR = -1;
+		} else if (dir.toLowerCase().equals("right")){
+			this.factorBL = 1;
+			this.factorBR = 1;
 		} else //did not send a normal direction
 			System.out.println("ERROR! BAD DIRECTION VALUE! Dir: " + dir);
 		
@@ -60,8 +60,6 @@ public class PositionDrive extends Command{
 	protected void execute() {
 		cnt++;
 		
-		System.out.println("RUNNING!");
-		System.out.println(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0));
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
