@@ -155,16 +155,16 @@ public class RobotMap {
 			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			//Sensor pos
-			
-			//driveTrainFL_Talon.setSensorPhase(true);
-			//driveTrainBL_Talon.setSensorPhase(true);
-			//driveTrainFR_Talon.setInverted(true);
-			//driveTrainBR_Talon.setInverted(true);
-			
+					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+			
+			driveTrainFL_Talon.config_kP(0, 1.5, 0);
+			driveTrainFR_Talon.config_kP(0, 1.5, 0);
+			driveTrainBL_Talon.config_kP(0, 1.5, 0);
+			driveTrainBR_Talon.config_kP(0, 1.5, 0);
 		
 			//Motion
 			driveTrainFL_Talon.configMotionAcceleration(360, 0);
