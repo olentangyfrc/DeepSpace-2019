@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
+import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
+import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
@@ -32,6 +34,8 @@ public class OI {
 	//Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
+	public Button moveForward;
+	public Button moveBackward;
 	public Button strafeLeft2;
 	public Button strafeRight2;
 	public Button linearActuatorUp;
@@ -53,6 +57,8 @@ public class OI {
 		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
+		moveForward = new JoystickButton(thirdJoy, 3);
+		moveBackward = new JoystickButton(thirdJoy,2);
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		strafeLeft= new JoystickButton(thirdJoy, 4);
@@ -78,6 +84,9 @@ public class OI {
 
 		//Button Commands
 		//Strafe Commands
+		moveForward.whileHeld(new MoveForward(0.3));
+		moveBackward.whileHeld(new MoveBackward(-0.3));
+		
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
