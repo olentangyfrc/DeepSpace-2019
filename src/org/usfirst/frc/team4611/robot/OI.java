@@ -118,7 +118,7 @@ public class OI {
 		//linearActuatorSwitch.whenReleased(new StopPot());
 		
 		MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
-		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(.3));
+		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(-.3));
 
 		
 		//Solenoid Commands
