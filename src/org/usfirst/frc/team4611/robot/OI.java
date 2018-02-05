@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.MoveElevator;
+
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
@@ -43,6 +44,9 @@ public class OI {
 	public Button solRetract;
 	public Button moveElevatorD;
 	public Button moveElevatorU;
+	public Button openClaw;
+	public Button closeClaw;
+	
 
 	public OI (){
 		
@@ -55,8 +59,8 @@ public class OI {
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
-		linearActuatorUp = new JoystickButton(rightJoy, 3);
-		linearActuatorDown = new JoystickButton(rightJoy, 2);
+		linearActuatorUp = new JoystickButton(leftJoy, 3);
+		linearActuatorDown = new JoystickButton(leftJoy, 2);
 		moveElevatorD = new JoystickButton(leftJoy, 4);
 		moveElevatorU= new JoystickButton(leftJoy, 5);
 		strafeLeft= new JoystickButton(thirdJoy, 4);
@@ -76,12 +80,6 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
-		
-		moveElevatorU.whileHeld(new MoveElevator((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorSpeedID)));
-		moveElevatorU.whenReleased(new MoveElevator(0));
-		
-		moveElevatorD.whileHeld(new MoveElevator(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorSpeedID)));
-		moveElevatorD.whenReleased(new MoveElevator(0));
 		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));

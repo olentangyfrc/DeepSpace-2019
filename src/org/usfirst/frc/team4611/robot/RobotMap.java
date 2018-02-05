@@ -111,7 +111,6 @@ public class RobotMap {
 	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
-	public static String elevatorSubtable = "Elevator";
 	public static String cameraSubTable = "Camera";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -133,7 +132,6 @@ public class RobotMap {
 	public static String potMax2ID = "Potentiometer 2 Max";
 	public static String potSwitch2ID = "Potentiometer 2 Switch";
 	public static String varianceLimitID = "Variance Limit";
-	public static String elevatorSpeedID = "Elevator Speed";
 	public static String straightRotationID = "straight-rotations-one";
 	public static String strafeRotationID = "strafe-rotations-one";
 	public static String cameraFPSID = "Camera-FPS";
@@ -232,9 +230,6 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
-		RobotMap.updateValue(elevatorSubtable, elevatorSpeedID, 
-				RobotMap.defaults.getDoubleDefaultValue(elevatorSubtable, elevatorSpeedID, elevatorSpeed));
-		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();
