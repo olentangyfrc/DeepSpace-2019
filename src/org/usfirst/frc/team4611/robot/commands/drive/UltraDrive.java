@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class UltraDrive extends Command{
 	private double range;
+	private double horizontalDistance;
+	private boolean found;
 	
 	/**
 	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
@@ -15,12 +17,23 @@ public class UltraDrive extends Command{
 		this.requires(Robot.mecanum); //This command uses this subsystem
 	}
 	public void initialize(){
-		range = Robot.ultrasonic.getInches();
-		new PositionDrive(range,"Forward").start();
+		System.out.println("Ready to Grab!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		range = Robot.ultrasonic.getInches() - 6.0;
+		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
+		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
+		
+		if(Math.abs(horizontalDistance) < 3.0 && found)
+		{
+			System.out.println(range);
+			new PositionDrive(range/12.0,"Forward").start();
+		}
+		else {
+			this.end();
+		}
 	}
 	
 	public void execute() {
-		
+		System.out.println("execution>:D");
 	}
 
 	

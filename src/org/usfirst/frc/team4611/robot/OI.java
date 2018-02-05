@@ -38,6 +38,7 @@ public class OI {
 	public Button linearActuatorDown;
 	public Button linearActuatorSwitch;
 	public Button autoGrabBox;
+	public Button moveRightToLeft;
 	//public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
@@ -58,6 +59,7 @@ public class OI {
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 1);
+		moveRightToLeft = new JoystickButton(rightJoy, 1);
 		//solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
@@ -109,7 +111,8 @@ public class OI {
 		//solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whenPressed(new ExtendSolenoid());
 		solRetract.whenPressed(new RetractSolenoid());
-		autoGrabBox.whenPressed(new VisionDrive());
+		autoGrabBox.whenPressed(new AutoGrab());
+		moveRightToLeft.whenPressed(new VisionDrive());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

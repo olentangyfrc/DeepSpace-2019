@@ -10,7 +10,7 @@ public class VisionDrive extends Command{
 	double distance;
 	double horizontalDistance;
 	boolean found;
-	
+	PositionDrive moveCommand;
 	
 	public VisionDrive(){
 		this.requires(Robot.mecanum); //This command uses this subsystem
@@ -20,27 +20,31 @@ public class VisionDrive extends Command{
 
 		angle = (double) RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 		distance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceID);
-		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID);
+		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
 		//Line up
-		String direction = "right";
+		//String direction = "right";
+		if(!found)
+			this.end();
 		if (angle < 0) {
-			direction = "right";
-			//addSequential(new PositionDrive(horizontalDistance/12.0, "right"));
+			moveCommand = new PositionDrive(horizontalDistance/12.0, "right");
+			//direction = "right";
+		} else if (angle > 0){
+			moveCommand = new PositionDrive(horizontalDistance/12.0, "left");
+			//direction = "left";
 		} else {
-			direction = "left";
-			//addSequential(new PositionDrive(horizontalDistance/12.0, "left"));
+			this.end();
 		}
+		
+		moveCommand.start();
+		
 		for (int i = 0; i < 100; i++) {
-			System.out.println(angle);
+			System.out.println("RUNNING!");
+			//System.out.println(angle);
+			//System.out.println(horizontalDistance);
 		}
-		//addSequential(new PositionDrive(horizontalDistance/12.0, direction));
-		new PositionDrive(horizontalDistance/12.0, direction).start();
-		
-		
-		
-		
+		//new PositionDrive(2, "right").start();
 	}
 	
 	public void execute(){
@@ -49,17 +53,15 @@ public class VisionDrive extends Command{
 	protected boolean isFinished() {
 		//Right now run forever
 		//add where if the angle is < 3 then end it
-		
-		//if( Robot.ultrasonic.getInches() < distance){
-		//	RobotMap.driveTrain.driveCartesian(0, 0, 0);
-		//	return true;
-		//}
-		//else{
-			return false;
-		//}
+		return moveCommand.isFinished();
 	}
 
 	public boolean isInterruptable() {
 		return true;
+	}
+	
+	protected void end()
+	{
+		System.out.println("I've been killed!!!!!!!!!!!!!!!");
 	}
 }

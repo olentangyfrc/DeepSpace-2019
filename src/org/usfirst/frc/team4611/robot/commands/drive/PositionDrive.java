@@ -45,17 +45,17 @@ public class PositionDrive extends Command{
 	}
 	
 	protected void initialize() {
-		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);	
+		RobotMap.driveTrainFL_Talon.config_kP(0, 5, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, 5, 0);
+		RobotMap.driveTrainBL_Talon.config_kP(0, 5, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, 5, 0);
 	}
 	
 	protected void execute() {
 		//System.out.println("EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE ");
 		//this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
 		cnt++;
-		
+		System.out.println(currentBL);
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
@@ -64,7 +64,15 @@ public class PositionDrive extends Command{
 	
 	
 	protected void end() {
+		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 		
+		RobotMap.driveTrainFL_Talon.config_kP(0, .65, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, .65, 0);
+		RobotMap.driveTrainBL_Talon.config_kP(0, .65, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, .65, 0);
 	}
 	
 	protected boolean isFinished() {
@@ -74,6 +82,10 @@ public class PositionDrive extends Command{
 		} else {
 			return false;
 		}
+	}
+	
+	protected void cancelled() {
+		end();
 	}
 
 	

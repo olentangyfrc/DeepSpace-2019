@@ -100,7 +100,7 @@ public class RobotMap {
 	public static String positionDistanceID = "PositionDistanceID";
 	public static String angleID = "angle";
 	public static String distanceID = "distance";
-	public static String distanceHorizontalID = "horizontalDistance";
+	public static String horizontalDistanceID = "horizontalDistance";
 	public static String foundID = "found";
 	public static DefaultValues defaults;
 
@@ -150,10 +150,10 @@ public class RobotMap {
 			driveTrainBR_Talon.configMotionAcceleration(360, 0);
 			driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
 			
-			driveTrainFL_Talon.config_kP(0, 3, 0);
-			driveTrainFR_Talon.config_kP(0, 3, 0);
-			driveTrainBL_Talon.config_kP(0, 3, 0);
-			driveTrainBR_Talon.config_kP(0, 3, 0);
+			driveTrainFL_Talon.config_kP(0, 5, 0);
+			driveTrainFR_Talon.config_kP(0, 5, 0);
+			driveTrainBL_Talon.config_kP(0, 5, 0);
+			driveTrainBR_Talon.config_kP(0, 5, 0);
 			
 			driveTrainFL_Talon.setSensorPhase(true);
 			driveTrainFR_Talon.setSensorPhase(true);
@@ -178,7 +178,7 @@ public class RobotMap {
 		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID, 2));	
 		RobotMap.updateVisionValue(angleID, 0);
 		RobotMap.updateVisionValue(distanceID, 0);
-		RobotMap.updateVisionValue(distanceHorizontalID, 0);
+		RobotMap.updateVisionValue(horizontalDistanceID, 0);
 		RobotMap.updateVisionValue(foundID, false);
 		
 		//Which type of drive train do you have?
