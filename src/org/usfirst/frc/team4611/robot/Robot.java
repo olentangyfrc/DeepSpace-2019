@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
+import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static NetworkTable table;
 	
 	Command autonomousCommand;
+	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	/**
@@ -66,6 +68,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
+		lightsCommand = new MakeLight(0);
+		lightsCommand.setRunWhenDisabled(true);
 		
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
@@ -92,6 +96,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(2);
+		}
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(3);
+		}
 	}
 
 	/**
@@ -155,6 +167,15 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
+		if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(2);
+		}
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(3);
+		}
+		
 	}
 
 	/**
