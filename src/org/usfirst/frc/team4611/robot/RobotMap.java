@@ -94,7 +94,7 @@ public class RobotMap {
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.5;
 	//public static double linearActuator2Speed = 0.5;
-	public static double elevatorSpeed = 0.5;
+	public static double elevatorSpeedScalar = 0.7;
 	
 	 
 	//Default motor speeds
@@ -112,6 +112,8 @@ public class RobotMap {
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
 	public static String cameraSubTable = "Camera";
+	public static String elevatorSubtable = "Subtable";
+	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -135,10 +137,13 @@ public class RobotMap {
 	public static String straightRotationID = "straight-rotations-one";
 	public static String strafeRotationID = "strafe-rotations-one";
 	public static String cameraFPSID = "Camera-FPS";
+	public static String elevatorScalar = "Elevator Scalar";
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
-
+	
+	
+	
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -230,6 +235,7 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+		RobotMap.updateValue(elevatorSubtable, elevatorScalar, RobotMap.defaults.getDoubleDefaultValue(elevatorSubtable, elevatorScalar, elevatorSpeedScalar));
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();

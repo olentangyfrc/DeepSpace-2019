@@ -103,8 +103,8 @@ public class OI {
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		//linearActuatorSwitch.whenReleased(new StopPot());
 		
-		MoveForward.toggleWhenPressed(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.5));
-		MoveBackward.toggleWhenPressed(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(.5));
+		MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
+		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(.3));
 
 		
 		//Solenoid Commands
