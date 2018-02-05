@@ -96,13 +96,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(2);
-		}
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1){
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1 
+				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			lightsCommand.cancel();
 			lightsCommand = new MakeLight(3);
+		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(2);
+		}else{
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(1);
 		}
 	}
 
@@ -167,13 +170,16 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
-		if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(2);
-		}
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1){
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1 
+				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			lightsCommand.cancel();
 			lightsCommand = new MakeLight(3);
+		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(2);
+		}else{
+			lightsCommand.cancel();
+			lightsCommand = new MakeLight(1);
 		}
 		
 	}
