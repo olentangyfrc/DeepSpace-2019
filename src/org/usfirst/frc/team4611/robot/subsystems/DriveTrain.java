@@ -39,23 +39,16 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainFL_Talon.set(ControlMode.Velocity, velocity1);
 		RobotMap.driveTrainFR_Talon.set(ControlMode.Velocity, velocity2);
 		
-		/* I'm a good 75% sure we don't need this but if im not moving throw in a P
-		RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
-		*/ 
-		 
-		/* Just for when everything is broken and I give up		
-		System.out.println("BL Set Velocity: " + velocity4);
-		System.out.println("BR Set Velocity: " + velocity3);
-		System.out.println("FL Set Velocity: " + velocity1);
-		System.out.println("FR Set Velocity: " + velocity2);
+		String out = "";
 		
-		System.out.println("BL Actual Velocity: " + RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0));
-		System.out.println("BR Actual Velocity: " + RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0));
-		System.out.println("FL Actual Velocity: " + RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0));
-		System.out.println("FR Actual Velocity: " + RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0));*/
+
+		out += RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0) + "," + velocity4+","+RobotMap.driveTrainBL_Talon.getMotorOutputPercent() + ",";
+		out += RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0) + "," + velocity3+","+RobotMap.driveTrainBR_Talon.getMotorOutputPercent() + ",";
+		out += RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0) + "," + velocity1+","+RobotMap.driveTrainFL_Talon.getMotorOutputPercent() + ",";
+		out += RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0) + "," + velocity2+","+RobotMap.driveTrainFR_Talon.getMotorOutputPercent() + ",";
+		
+		System.out.println(out);
+		
 	}
 	
 	

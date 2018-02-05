@@ -17,6 +17,7 @@ public class FileManager {
 			//RobotMap.logger.log("HERE", Logger.getLoggerType("DEBUG"));
 			System.out.println(folder.getFreeSpace());
 			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
+			System.out.println("Found usb");
 		} catch (Exception e) {
 			try {
 				File folder = new File("/home/lvuser/Logs/" + masterName + "/");
