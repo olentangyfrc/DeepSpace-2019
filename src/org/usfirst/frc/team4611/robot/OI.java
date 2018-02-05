@@ -46,6 +46,8 @@ public class OI {
 	public Button moveElevatorU;
 	public Button openClaw;
 	public Button closeClaw;
+	public Button MoveForward;
+	public Button MoveBackward;
 	
 
 	public OI (){
@@ -70,6 +72,8 @@ public class OI {
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
+		MoveForward = new JoystickButton(thirdJoy, 3);
+		MoveBackward = new JoystickButton(thirdJoy, 2);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -98,6 +102,9 @@ public class OI {
 		
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		//linearActuatorSwitch.whenReleased(new StopPot());
+		
+		MoveForward.toggleWhenPressed(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.5));
+		MoveBackward.toggleWhenPressed(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(.5));
 
 		
 		//Solenoid Commands
