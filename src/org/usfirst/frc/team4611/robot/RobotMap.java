@@ -52,9 +52,6 @@ public class RobotMap {
 	public static int victorPortBL = 2;
 	public static int victorPortBR = 3;
 	
-	public static DigitalInput LS = new DigitalInput(0);
-	public static Counter limitSwitch = new Counter(LS);
-	
 	//General Objects
 	public static DoubleSolenoid sol;
 	public static MecanumDrive driveTrain;
@@ -112,7 +109,7 @@ public class RobotMap {
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
 	public static String cameraSubTable = "Camera";
-	public static String elevatorSubtable = "Subtable";
+	public static String elevatorSubtable = "Elevator";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -137,7 +134,8 @@ public class RobotMap {
 	public static String straightRotationID = "straight-rotations-one";
 	public static String strafeRotationID = "strafe-rotations-one";
 	public static String cameraFPSID = "Camera-FPS";
-	public static String elevatorScalar = "Elevator Scalar";
+	public static String elevatorUpSpeed = "Elevator Up Speed";
+	public static String elevatorDownSpeed = "Elevator Down Speed";
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
@@ -180,13 +178,20 @@ public class RobotMap {
 		driveTrainBR_Talon = new WPI_TalonSRX(11);
 		
 		elevator_Talon = new WPI_TalonSRX(35);
+		elevator_Talon.setSensorPhase(true);
 		
 		//Talon Configuration
 			driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 			//Sensor pos
+			
+			elevator_Talon.configForwardSoftLimitEnable(true, 0);
+			elevator_Talon.configReverseSoftLimitEnable(true, 0);
+			elevator_Talon.configReverseSoftLimitThreshold(-63000, 0);
+			elevator_Talon.configForwardSoftLimitThreshold(54000, 0);
 					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
@@ -233,6 +238,10 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
+		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.5));
+		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
 
 		//RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
 				//RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
@@ -245,8 +254,8 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
-				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
-		RobotMap.updateValue(elevatorSubtable, elevatorScalar, RobotMap.defaults.getDoubleDefaultValue(elevatorSubtable, elevatorScalar, elevatorSpeedScalar));
+		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();

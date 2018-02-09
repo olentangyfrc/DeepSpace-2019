@@ -1,7 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.MoveElevator;
-
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevator;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
@@ -48,8 +49,8 @@ public class OI {
 	public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
-	public Button moveElevatorD;
-	public Button moveElevatorU;
+	public Button moveElevatorDown;
+	public Button moveElevatorUp;
 	public Button openClaw;
 	public Button closeClaw;
 	public Button MoveForward;
@@ -82,6 +83,8 @@ public class OI {
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		MoveForward = new JoystickButton(thirdJoy, 3);
 		MoveBackward = new JoystickButton(thirdJoy, 2);
+		moveElevatorUp = new JoystickButton(thirdJoy, 8);
+		moveElevatorDown = new JoystickButton(thirdJoy, 9);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -119,6 +122,12 @@ public class OI {
 		
 		MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
 		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(-.3));
+		
+		moveElevatorDown.whileHeld(new MoveElevatorDown());
+		//moveElevatorDown.whenReleased(new MoveElevator());
+		
+		moveElevatorUp.whileHeld(new MoveElevatorUp());
+		//moveElevatorUp.whenReleased(new MoveElevator());
 
 		
 		//Solenoid Commands
