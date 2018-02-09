@@ -98,7 +98,7 @@ public class RobotMap {
 	
 	 
 	//Default motor speeds
-	public static double linearActuatorUpSpeed = 0.35;
+	public static double linearActuatorUpSpeed = 0.7;
 	public static double linearActuatorDownSpeed = 0.7;
 	//public static double motorSpeed = 1;
 
@@ -141,6 +141,7 @@ public class RobotMap {
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
+	public static String maxRPMID = "Max RPM";
 	
 	
 	
@@ -234,11 +235,13 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
-
+		
+		
+		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 1500));
 		//RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
 				//RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.linearActuatorUpSpeed);
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.linearActuatorUpSpeed);
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, linearActuatorDownSpeed));
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
 		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
