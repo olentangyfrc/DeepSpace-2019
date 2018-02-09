@@ -69,8 +69,8 @@ public class OI {
 		strafeLeft= new JoystickButton(leftJoy, 4);
 		strafeRight= new JoystickButton(leftJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
-		linearActuatorUp = new JoystickButton(leftJoy, 3);
-		linearActuatorDown = new JoystickButton(leftJoy, 2);
+		linearActuatorUp = new JoystickButton(rightJoy, 3);
+		linearActuatorDown = new JoystickButton(rightJoy, 2);
 		linearActuatorUp2 = new JoystickButton(thirdJoy, 6);
 		linearActuatorDown2 = new JoystickButton(thirdJoy, 7);
 		strafeLeft2 = new JoystickButton(thirdJoy, 4);
