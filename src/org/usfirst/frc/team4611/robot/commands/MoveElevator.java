@@ -14,7 +14,7 @@ public class MoveElevator extends Command{
 
 	protected void execute() {
 		System.out.println(Robot.el.isSwitchSet());
-		double y = OI.thirdJoy.getY();
+		double y = -OI.thirdJoy.getY();
 		if((Robot.el.isSwitchSet() && speed >= 0) || (!Robot.el.isSwitchSet() && speed <= 0) || (!Robot.el.isSwitchSet() && speed >= 0)){
 			Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorScalar));
 		}

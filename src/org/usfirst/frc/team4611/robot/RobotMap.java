@@ -180,14 +180,15 @@ public class RobotMap {
 		driveTrainBR_Talon = new WPI_TalonSRX(11);
 		
 		elevator_Talon = new WPI_TalonSRX(35);
-		
+		elevator_Talon.setSensorPhase(true);
 		//Talon Configuration
 			driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+			elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 			//Sensor pos
-					
+			
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);

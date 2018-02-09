@@ -13,8 +13,8 @@ public class Arm extends Subsystem {
 	}
 	
 	public void movePotUp(double speed, double speed2) {
-		System.out.println("\n"+"LinearActuatorPot: "+ RobotMap.linearActuatorPot.get());
-		System.out.println("Shuffleboard value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
+		//System.out.println("\n"+"LinearActuatorPot: "+ RobotMap.linearActuatorPot.get());
+		//System.out.println("Shuffleboard value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
 		
 		double max1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMaxID);
 		double min1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID);
@@ -45,8 +45,8 @@ public class Arm extends Subsystem {
 	
 	
 	public void movePotDown(double speed, double speed2) {
-		System.out.println("\n"+"LinearActuatorPot: "+ RobotMap.linearActuatorPot.get());
-		System.out.println("Shuffleboard value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
+		//System.out.println("\n"+"LinearActuatorPot: "+ RobotMap.linearActuatorPot.get());
+		//System.out.println("Shuffleboard value: "+ RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID));
 		double max1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMaxID);
 		double min1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID);
 		double max2 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMax2ID);

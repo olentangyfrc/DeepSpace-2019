@@ -75,8 +75,8 @@ public class OI {
 		linearActuatorDown2 = new JoystickButton(thirdJoy, 7);
 		strafeLeft2 = new JoystickButton(thirdJoy, 4);
 		strafeRight2 = new JoystickButton(thirdJoy, 5);
-		autoGrabBox = new JoystickButton(rightJoy, 3);
-		autoGrabBox2 = new JoystickButton(thirdJoy, 11);
+		//autoGrabBox = new JoystickButton(rightJoy, 3);
+		//autoGrabBox2 = new JoystickButton(thirdJoy, 11);
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
@@ -95,7 +95,7 @@ public class OI {
 		
 		//Strafe Commands
 		moveForward.whileHeld(new MoveForward(0.3));
-		moveBackward.whileHeld(new MoveBackward(-0.3));
+		moveBackward.whileHeld(new MoveBackward(0.3));
 		
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
@@ -108,10 +108,14 @@ public class OI {
 		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorUp.whileHeld(new MovePotUp());
 		linearActuatorUp.whenReleased(new StopPot());
+		linearActuatorUp2.whileHeld(new MovePotUp());
+		linearActuatorUp2.whenReleased(new StopPot());
 		
 		//linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorDown.whileHeld(new MovePotDown());
 		linearActuatorDown.whenReleased(new StopPot());
+		linearActuatorDown2.whileHeld(new MovePotDown());
+		linearActuatorDown2.whenReleased(new StopPot());
 		
 		
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
@@ -125,8 +129,8 @@ public class OI {
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
-		autoGrabBox.whenPressed(new AutoGrab());
-		autoGrabBox2.whenPressed(new AutoGrab());
+		//autoGrabBox.whenPressed(new AutoGrab());
+		//autoGrabBox2.whenPressed(new AutoGrab());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
