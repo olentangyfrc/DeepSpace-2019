@@ -68,8 +68,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
-		lightsCommand = new MakeLight(0);
-		lightsCommand.setRunWhenDisabled(true);
 		
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
@@ -79,6 +77,10 @@ public class Robot extends IterativeRobot {
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
+		
+		lightsCommand = new MakeLight(1);
+		lightsCommand.start();
+		
 		oi = new OI();
 	}
 
@@ -96,17 +98,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1 
-				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(3);
-		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(2);
-		}else{
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(1);
-		}
 	}
 
 	/**
@@ -172,14 +163,11 @@ public class Robot extends IterativeRobot {
 		ultrasonic.getInches();
 		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.distanceHorizontalID)) <= 1 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(3);
+			((MakeLight)lightsCommand).setColor(7);
 		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(2);
+			((MakeLight)lightsCommand).setColor(2);
 		}else{
-			lightsCommand.cancel();
-			lightsCommand = new MakeLight(1);
+			((MakeLight)lightsCommand).setColor(5);
 		}
 		
 	}

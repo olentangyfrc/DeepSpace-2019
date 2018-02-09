@@ -26,7 +26,6 @@ public class FancyLights extends Subsystem{
 	 */
 
 	protected void initDefaultCommand() {
-		
 	}
 	
 	public void makeRed(){
