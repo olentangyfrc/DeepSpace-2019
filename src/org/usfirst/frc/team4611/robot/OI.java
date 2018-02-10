@@ -1,18 +1,15 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.MoveElevator;
-
-import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
-import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
+import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,8 +34,6 @@ public class OI {
 	public Button strafeRight;
 	public Button moveForward;
 	public Button moveBackward;
-	public Button strafeLeft2;
-	public Button strafeRight2;
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
 	public Button linearActuatorUp2;
@@ -71,17 +66,15 @@ public class OI {
 		autoGrabBox = new JoystickButton(leftJoy, 14);
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorUp2 = new JoystickButton(thirdJoy, 6);
-		linearActuatorDown2 = new JoystickButton(thirdJoy, 7);
-		strafeLeft2 = new JoystickButton(thirdJoy, 4);
-		strafeRight2 = new JoystickButton(thirdJoy, 5);
+		linearActuatorUp2 = new JoystickButton(thirdJoy, 3);
+		linearActuatorDown2 = new JoystickButton(thirdJoy, 2);
 		//autoGrabBox = new JoystickButton(rightJoy, 3);
 		//autoGrabBox2 = new JoystickButton(thirdJoy, 11);
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
-		MoveForward = new JoystickButton(thirdJoy, 3);
-		MoveBackward = new JoystickButton(thirdJoy, 2);
+		//MoveForward = new JoystickButton(thirdJoy, 3);
+		//MoveBackward = new JoystickButton(thirdJoy, 2);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -99,10 +92,6 @@ public class OI {
 		
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		
-		strafeRight2.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		strafeLeft2.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		
 		//Linear actuator commands
 
 		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
@@ -119,12 +108,7 @@ public class OI {
 		
 		
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		//linearActuatorSwitch.whenReleased(new StopPot());
-		
-		MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
-		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(-.3));
-
-		
+		//linearActuatorSwitch.whenReleased(new StopPot());	
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
