@@ -113,6 +113,7 @@ public class RobotMap {
 	public static String solenoidSubtable = "Solenoid";
 	public static String cameraSubTable = "Camera";
 	public static String elevatorSubtable = "Subtable";
+	public static String pushBoxSubtable = "Push Box";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -142,15 +143,17 @@ public class RobotMap {
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
 	public static String maxRPMID = "Max RPM";
-	
-	
+	public static String pushBoxTimeID = "Time Opened";
+	public static String pushBoxEnabledID = "Push Box Enabled";
 	
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
 	public static AnalogPotentiometer linearActuatorPot2;
 	
-
+	public static DoubleSolenoid boxPusher;
+	public static int boxPusherOpen = 2;
+	public static int boxPusherClose = 3;
 	public static void init() {
 		
 		//Drive Train Victors
@@ -170,6 +173,7 @@ public class RobotMap {
 		
 		//Solenoid
 		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+		boxPusher = new DoubleSolenoid(RobotMap.boxPusherOpen, RobotMap.boxPusherClose);
 		
 		//Default Values
 		defaults = new DefaultValues();

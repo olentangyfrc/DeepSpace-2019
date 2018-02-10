@@ -1,10 +1,9 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
-import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
@@ -49,7 +48,7 @@ public class OI {
 	public Button closeClaw;
 	public Button MoveForward;
 	public Button MoveBackward;
-	
+	public Button pushBox;
 
 	public OI (){
 		
@@ -73,7 +72,8 @@ public class OI {
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		//MoveForward = new JoystickButton(thirdJoy, 3);
 		//MoveBackward = new JoystickButton(thirdJoy, 2);
-	
+		pushBox = new JoystickButton(rightJoy, 1);
+		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
@@ -108,6 +108,8 @@ public class OI {
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
+		
+		pushBox.whenPressed(new PushBox());
 		//autoGrabBox.whenPressed(new AutoGrab());
 		//autoGrabBox2.whenPressed(new AutoGrab());
 	}

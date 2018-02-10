@@ -1,14 +1,15 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.subsystems.Arm;
 //import org.usfirst.frc.team4611.robot.commands.cameraupdater.CameraUpdater;
 import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.subsystems.Arm;
+import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
-import edu.wpi.cscore.UsbCamera;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static UltrasonicSensor ultrasonic;
 	public static Solenoid sol;
 	public static OI oi;
-	
+	public static BoxPusher boxPusher;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -46,12 +47,13 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 		CameraServer.getInstance().startAutomaticCapture();
-		
+	
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		el = new Elevator();
 		arm = new Arm();
 		sol = new Solenoid();
+		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
 		oi = new OI();
 		camera = CameraServer.getInstance().startAutomaticCapture();
