@@ -79,9 +79,9 @@ public class PositionDrive extends Command{
 	}
 	
 	protected boolean isFinished() {
-		int speedSum = RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0) + RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0)
-			+ RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0) + RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0);
-		if ( speedSum == 0 && cnt > 100) {
+		int speedSum = Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0)) + Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0))
+			+ Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0)) + Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0));
+		if ( speedSum == 0 && cnt > 10) {
 			return true;
 		} else {
 			return false;
