@@ -1,20 +1,20 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevator;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
-import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
+import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
+import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -57,8 +57,7 @@ public class OI {
 	public Button MoveForward;
 	public Button MoveBackward;
 	public Button moveElSwitch;
-
-	
+	public Button resetEle;
 
 	public OI (){
 		
@@ -90,7 +89,7 @@ public class OI {
 		moveElevatorDown = new JoystickButton(thirdJoy, 9);
 		
 		moveElSwitch = new JoystickButton(thirdJoy, 10);
-		
+		resetEle = new JoystickButton(thirdJoy, 11);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -136,6 +135,7 @@ public class OI {
 		moveElevatorUp.whileHeld(new MoveElevatorUp());
 		//moveElevatorUp.whenReleased(new MoveElevator());
 
+		resetEle.whenPressed(new ResetElevator());
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
