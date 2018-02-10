@@ -59,8 +59,6 @@ public class OI {
 		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
-		moveForward = new JoystickButton(thirdJoy, 3);
-		moveBackward = new JoystickButton(thirdJoy,2);
 		strafeLeft= new JoystickButton(leftJoy, 4);
 		strafeRight= new JoystickButton(leftJoy, 5);
 		autoGrabBox = new JoystickButton(leftJoy, 14);
@@ -86,10 +84,7 @@ public class OI {
 
 		//Button Commands
 		
-		//Strafe Commands
-		moveForward.whileHeld(new MoveForward(0.3));
-		moveBackward.whileHeld(new MoveBackward(0.3));
-		
+		//Strafe Commands	
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		//Linear actuator commands
