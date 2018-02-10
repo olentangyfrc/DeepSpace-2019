@@ -14,7 +14,8 @@ public class Elevator extends Subsystem{
 		RobotMap.elevator_Talon.set(ControlMode.PercentOutput, speed);
 	}
 	/*
-	 * The first step for Motion Magic is setting up your position PIDF values 
+	 * The first step for Motion Magic is sett
+	 * ing up your position PIDF values 
 	 * as normal (see the Soft. Ref. Manual). You then use two additional calls 
 	 * (setMotionMagicAcceleration(double) and setMotionMagicCruiseVelocity(double)) 
 	 * to set the desired acceleration and cruise velocity parameters.

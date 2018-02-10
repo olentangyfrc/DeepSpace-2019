@@ -56,7 +56,7 @@ public class OI {
 	public Button closeClaw;
 	public Button MoveForward;
 	public Button MoveBackward;
-	public Button moveElLowerAttack;
+	public Button moveElSwitch;
 
 	
 
@@ -89,7 +89,7 @@ public class OI {
 		moveElevatorUp = new JoystickButton(thirdJoy, 8);
 		moveElevatorDown = new JoystickButton(thirdJoy, 9);
 		
-		moveElLowerAttack = new JoystickButton(rightJoy, 6);
+		moveElSwitch = new JoystickButton(rightJoy, 6);
 		
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
@@ -101,7 +101,8 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
-		moveElLowerAttack.whenPressed(new MoveElevatorToPos());
+		moveElSwitch.whenPressed(new MoveElevatorToPos());
+		//moveElSwitch.whenReleased(new MoveElevator());
 		//Strafe Commands
 		moveForward.whileHeld(new MoveForward(0.3));
 		moveBackward.whileHeld(new MoveBackward(-0.3));

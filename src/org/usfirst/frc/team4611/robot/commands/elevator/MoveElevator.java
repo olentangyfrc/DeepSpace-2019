@@ -13,18 +13,16 @@ public class MoveElevator extends Command{
 	}
 
 	protected void execute() {
-		double y = -OI.thirdJoy.getY();
-		System.out.println("State of Upper Limit: "+ RobotMap.elevator_Talon.getSensorCollection().isFwdLimitSwitchClosed());
-		System.out.println("State of lower limit: "+RobotMap.elevator_Talon.getSensorCollection().isRevLimitSwitchClosed());
-		if (y < 0 && !(RobotMap.elevator_Talon.getSensorCollection().isFwdLimitSwitchClosed())) { //move up
+		double y = OI.thirdJoy.getY();
+		
+		if (y < 0) { //move up
 				Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed));
 		}
 		
-		else if (y > 0 && !(RobotMap.elevator_Talon.getSensorCollection().isRevLimitSwitchClosed())){ //move down
+		else { //move down
 			
 				Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
 		}
-		//Robot.el.moveToPos(47494);
 	}
 
 	@Override

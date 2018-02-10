@@ -141,6 +141,7 @@ public class RobotMap {
 	public static String rotateFilterID = "Rotate Filter";
 	public static String SensorVelocityID = "Sensor Velocity";
 	public static String SensorAccelID = "Sensor Accel";
+	public static String elevatorPos = "Elevator Position";
 	
 	
 	
@@ -190,8 +191,8 @@ public class RobotMap {
 			elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 			
 			//Sensor pos
-			elevator_Talon.configReverseSoftLimitThreshold(-121000, 0); //upper limit
-			elevator_Talon.configForwardSoftLimitThreshold(-1340, 0); //lower limit
+			elevator_Talon.configReverseSoftLimitThreshold(-71500, 0); //upper limit
+			elevator_Talon.configForwardSoftLimitThreshold(47200, 0); //lower limit
 			elevator_Talon.configForwardSoftLimitEnable(true, 0);
 			elevator_Talon.configReverseSoftLimitEnable(true, 0);
 		
@@ -241,10 +242,12 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
+		
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.5));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
+		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
 
 		//RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
 				//RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
