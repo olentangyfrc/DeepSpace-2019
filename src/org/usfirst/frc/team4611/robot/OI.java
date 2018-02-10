@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevator;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
@@ -55,6 +56,8 @@ public class OI {
 	public Button closeClaw;
 	public Button MoveForward;
 	public Button MoveBackward;
+	public Button moveElLowerAttack;
+
 	
 
 	public OI (){
@@ -85,6 +88,9 @@ public class OI {
 		MoveBackward = new JoystickButton(thirdJoy, 2);
 		moveElevatorUp = new JoystickButton(thirdJoy, 8);
 		moveElevatorDown = new JoystickButton(thirdJoy, 9);
+		
+		moveElLowerAttack = new JoystickButton(rightJoy, 6);
+		
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -95,7 +101,7 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
-		
+		moveElLowerAttack.whenPressed(new MoveElevatorToPos());
 		//Strafe Commands
 		moveForward.whileHeld(new MoveForward(0.3));
 		moveBackward.whileHeld(new MoveBackward(-0.3));

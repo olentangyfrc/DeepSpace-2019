@@ -139,6 +139,8 @@ public class RobotMap {
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
+	public static String SensorVelocityID = "Sensor Velocity";
+	public static String SensorAccelID = "Sensor Accel";
 	
 	
 	
@@ -186,12 +188,13 @@ public class RobotMap {
 			driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-			//Sensor pos
 			
+			//Sensor pos
+			elevator_Talon.configReverseSoftLimitThreshold(-121000, 0); //upper limit
+			elevator_Talon.configForwardSoftLimitThreshold(-1340, 0); //lower limit
 			elevator_Talon.configForwardSoftLimitEnable(true, 0);
 			elevator_Talon.configReverseSoftLimitEnable(true, 0);
-			elevator_Talon.configReverseSoftLimitThreshold(-63000, 0);
-			elevator_Talon.configForwardSoftLimitThreshold(54000, 0);
+		
 					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 			driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
