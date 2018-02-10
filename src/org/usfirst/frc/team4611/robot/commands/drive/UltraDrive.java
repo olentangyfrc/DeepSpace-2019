@@ -10,24 +10,30 @@ public class UltraDrive extends Command{
 	private boolean found;
 	private Command driveComm;
 	private boolean startedDriving;
+	private boolean dontRunMe;
 	
 	/**
 	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
 	 */
 	public void initialize(){
+		//System.out.println("Ultrasonic Range to box" + range);
+		//System.out.println("Vision Distance to box " + RobotMap.networkManager.getVisionValue(RobotMap.distanceID));
 		startedDriving = false;
-		range = Robot.ultrasonic.getInches() - 3.0;
+		range = (double)RobotMap.networkManager.getVisionValue(RobotMap.distanceID);//Robot.ultrasonic.getInches() - 6.0;
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
-		if(Math.abs(horizontalDistance) <= 3 && found)
+		if(range >= 3 && Math.abs(horizontalDistance) <= 3 && found)
 		{
-			System.out.println("Ultrasonic drive range: " + range);
+			dontRunMe = false;
+			//System.out.println("Ultrasonic drive range: " + range);
 			driveComm = new PositionDrive(range/12.0,"Forward");
 			driveComm.start();
 		}
 		else {
+			dontRunMe = true;
 			this.end();
+			return;
 		}
 	}
 	
@@ -38,6 +44,9 @@ public class UltraDrive extends Command{
 	}
 	
 	protected boolean isFinished() {
+		if(dontRunMe){
+			return true;
+		}
 		if(startedDriving && !driveComm.isRunning()){
 			return true;
 		}

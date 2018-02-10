@@ -23,8 +23,9 @@ public class VisionDrive extends Command{
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
-		if(!found){
+		if(!found || Math.abs(horizontalDistance) <= 3){
 			this.end();
+			return;
 		}
 		
 		if (angle < 0) {
@@ -33,6 +34,7 @@ public class VisionDrive extends Command{
 			driveComm = new PositionDrive(horizontalDistance/12.0, "left");
 		} else {
 			this.end();
+			return;
 		}
 		
 		driveComm.start();
