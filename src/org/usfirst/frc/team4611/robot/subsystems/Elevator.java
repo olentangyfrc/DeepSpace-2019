@@ -42,5 +42,9 @@ public class Elevator extends Subsystem{
 		// TODO Auto-generated method stub
 		setDefaultCommand(new MoveElevator());
 	}
+	
+	public boolean isSwitchSet() {
+		return RobotMap.limitSwitch.get() > 0;
+	}
 
 }

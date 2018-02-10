@@ -38,6 +38,8 @@ public class Arm extends Subsystem {
 		else {
 			RobotMap.linearActuator2.set(0);
 		}
+		
+		System.out.println("Pot value 1: " + potValue1 + "\nPot value 2: " + potValue2);
 	}
 	
 	

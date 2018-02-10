@@ -10,6 +10,10 @@ public class MoveElevatorToPos extends Command{
 	public MoveElevatorToPos(){
 		this.requires(Robot.el); //This command uses this subsystem
 	}
+	
+	protected void initialize() {
+		//RobotMap.elevator_Talon.setSensorPhase(false);
+	}
 
 	protected void execute() {
 		Robot.el.moveToPos((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos));
@@ -19,6 +23,10 @@ public class MoveElevatorToPos extends Command{
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	protected void end() {
+		//RobotMap.elevator_Talon.setSensorPhase(true);
 	}
 
 }

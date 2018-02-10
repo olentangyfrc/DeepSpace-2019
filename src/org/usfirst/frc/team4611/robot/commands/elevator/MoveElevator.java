@@ -23,6 +23,10 @@ public class MoveElevator extends Command{
 			
 				Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
 		}
+		
+		if(Robot.el.isSwitchSet()) {
+			
+		}
 	}
 
 	@Override

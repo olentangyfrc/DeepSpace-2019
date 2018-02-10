@@ -143,6 +143,7 @@ public class RobotMap {
 	public static String SensorAccelID = "Sensor Accel";
 	public static String elevatorPos = "Elevator Position";
 	
+	public static Counter limitSwitch = new Counter(new DigitalInput(0));
 	
 	
 	public static DefaultValues defaults;
@@ -193,8 +194,8 @@ public class RobotMap {
 			//Sensor pos
 			elevator_Talon.configReverseSoftLimitThreshold(-71500, 0); //upper limit
 			elevator_Talon.configForwardSoftLimitThreshold(47200, 0); //lower limit
-			elevator_Talon.configForwardSoftLimitEnable(true, 0);
-			elevator_Talon.configReverseSoftLimitEnable(true, 0);
+			elevator_Talon.configForwardSoftLimitEnable(false, 0);
+			elevator_Talon.configReverseSoftLimitEnable(false, 0);
 		
 					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);

@@ -89,7 +89,7 @@ public class OI {
 		moveElevatorUp = new JoystickButton(thirdJoy, 8);
 		moveElevatorDown = new JoystickButton(thirdJoy, 9);
 		
-		moveElSwitch = new JoystickButton(rightJoy, 6);
+		moveElSwitch = new JoystickButton(thirdJoy, 10);
 		
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
