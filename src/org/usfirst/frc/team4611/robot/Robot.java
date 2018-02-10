@@ -1,14 +1,18 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
+import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -25,6 +29,9 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain mecanum;
 	public static Arm arm;
 	public static UltrasonicSensor ultrasonic;
+	public static Relay lights1;
+	public static Relay lights2;
+	public static FancyLights fancyLight;
 	public static Solenoid sol;
 	public static OI oi;
 
@@ -32,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static NetworkTable table;
 	
 	Command autonomousCommand;
+	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	/**
@@ -66,6 +74,13 @@ public class Robot extends IterativeRobot {
 		arm = new Arm();
 		sol = new Solenoid();
 		ultrasonic = new UltrasonicSensor();
+		lights1 = new Relay(0, Direction.kBoth);
+		lights2 = new Relay(1, Direction.kBoth);
+		fancyLight = new FancyLights();
+		
+		lightsCommand = new MakeLight(1);
+		lightsCommand.start();
+		
 		oi = new OI();
 	}
 
@@ -146,6 +161,15 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 1 
+				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			((MakeLight)lightsCommand).setColor(7);
+		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+			((MakeLight)lightsCommand).setColor(2);
+		}else{
+			((MakeLight)lightsCommand).setColor(5);
+		}
+		
 	}
 
 	/**
