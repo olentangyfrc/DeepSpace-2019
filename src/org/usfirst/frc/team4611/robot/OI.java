@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 //import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
@@ -30,6 +31,7 @@ public class OI {
 	//Joysticks
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
+	public static Joystick thirdJoy;
 	
 	//Buttons
 	public Button strafeLeft;
@@ -38,7 +40,7 @@ public class OI {
 	public Button linearActuatorDown;
 	public Button linearActuatorSwitch;
 	public Button autoGrabBox;
-	public Button moveRightToLeft;
+	public Button aimBox;
 	//public Button solToggle;
 	public Button solExtend;
 	public Button solRetract;
@@ -54,12 +56,13 @@ public class OI {
 		//Joystick
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
+		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
 		strafeLeft= new JoystickButton(rightJoy, 4);
 		strafeRight= new JoystickButton(rightJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, 1);
-		moveRightToLeft = new JoystickButton(rightJoy, 1);
+		aimBox = new JoystickButton(thirdJoy, 10);
+		autoGrabBox = new JoystickButton(thirdJoy, 11);
 		//solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, RobotMap.solExtendPort);
 		solRetract = new JoystickButton(leftJoy, RobotMap.solRetractPort);
@@ -112,7 +115,7 @@ public class OI {
 		solExtend.whenPressed(new ExtendSolenoid());
 		solRetract.whenPressed(new RetractSolenoid());
 		autoGrabBox.whenPressed(new AutoGrab());
-		moveRightToLeft.whenPressed(new VisionDrive());
+		aimBox.whenPressed(new AimForBox());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

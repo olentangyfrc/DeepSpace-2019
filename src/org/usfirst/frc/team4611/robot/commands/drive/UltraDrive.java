@@ -8,37 +8,40 @@ public class UltraDrive extends Command{
 	private double range;
 	private double horizontalDistance;
 	private boolean found;
+	private Command driveComm;
+	private boolean startedDriving;
 	
 	/**
 	 * Drives forward until the ultrasonic sensor is a distance in inches from a surface
-	 * @param distance the value in inches the bot drives to
 	 */
-	public UltraDrive(){
-		this.requires(Robot.mecanum); //This command uses this subsystem
-	}
 	public void initialize(){
-		System.out.println("Ready to Grab!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		range = Robot.ultrasonic.getInches() - 6.0;
+		startedDriving = false;
+		range = Robot.ultrasonic.getInches() - 3.0;
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
-		if(Math.abs(horizontalDistance) < 3.0 && found)
+		if(Math.abs(horizontalDistance) <= 3 && found)
 		{
-			System.out.println(range);
-			new PositionDrive(range/12.0,"Forward").start();
+			System.out.println("Ultrasonic drive range: " + range);
+			driveComm = new PositionDrive(range/12.0,"Forward");
+			driveComm.start();
 		}
 		else {
 			this.end();
 		}
 	}
 	
-	public void execute() {
-		System.out.println("execution>:D");
+	public void execute(){
+		if(driveComm != null && driveComm.isRunning()){
+			startedDriving = true;
+		}
 	}
-
 	
 	protected boolean isFinished() {
+		if(startedDriving && !driveComm.isRunning()){
 			return true;
+		}
+		return false;
 	}
 
 }

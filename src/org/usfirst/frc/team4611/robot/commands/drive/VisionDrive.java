@@ -10,58 +10,48 @@ public class VisionDrive extends Command{
 	double distance;
 	double horizontalDistance;
 	boolean found;
-	PositionDrive moveCommand;
+	private Command driveComm;
+	private boolean startedDriving;
 	
 	public VisionDrive(){
-		this.requires(Robot.mecanum); //This command uses this subsystem
 	}
 	
 	public void initialize() {
-
+		startedDriving = false;
 		angle = (double) RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 		distance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceID);
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
-		//Line up
-		//String direction = "right";
-		if(!found)
+		if(!found){
 			this.end();
+		}
+		
 		if (angle < 0) {
-			moveCommand = new PositionDrive(horizontalDistance/12.0, "right");
-			//direction = "right";
+			driveComm = new PositionDrive(horizontalDistance/12.0, "right");
 		} else if (angle > 0){
-			moveCommand = new PositionDrive(horizontalDistance/12.0, "left");
-			//direction = "left";
+			driveComm = new PositionDrive(horizontalDistance/12.0, "left");
 		} else {
 			this.end();
 		}
 		
-		moveCommand.start();
+		driveComm.start();
 		
-		for (int i = 0; i < 100; i++) {
+		/*for (int i = 0; i < 100; i++) {
 			System.out.println("RUNNING!");
-			//System.out.println(angle);
-			//System.out.println(horizontalDistance);
-		}
-		//new PositionDrive(2, "right").start();
+		}*/
 	}
 	
 	public void execute(){
+		if(driveComm != null && driveComm.isRunning()){
+			startedDriving = true;
+		}
 	}
 	
 	protected boolean isFinished() {
-		//Right now run forever
-		//add where if the angle is < 3 then end it
-		return moveCommand.isFinished();
-	}
-
-	public boolean isInterruptable() {
-		return true;
-	}
-	
-	protected void end()
-	{
-		System.out.println("I've been killed!!!!!!!!!!!!!!!");
+		if(startedDriving && !driveComm.isRunning()){
+			return true;
+		}
+		return false;
 	}
 }
