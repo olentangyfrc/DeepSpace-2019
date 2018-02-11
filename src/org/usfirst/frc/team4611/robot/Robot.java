@@ -76,7 +76,8 @@ public class Robot extends IterativeRobot {
 		mecanum = new DriveTrain();
 		arm = new Arm();
 		sol = new Solenoid();
-		ultrasonic = new UltrasonicSensor();lights1 = new Relay(0, Direction.kBoth);
+		ultrasonic = new UltrasonicSensor();
+		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
 		
@@ -174,6 +175,7 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}
+
 	}
 
 	/**

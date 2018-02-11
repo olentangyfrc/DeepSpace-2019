@@ -15,7 +15,7 @@ public class AimForBox extends CommandGroup{
 	 * Drives forward until a certain distance from a surface
 	 */
 	public AimForBox(){
-		addSequential(new VisionDrive(),3);
+		addSequential(new VisionDrive(),2);
 		
 	}
 }

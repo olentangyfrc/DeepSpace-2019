@@ -15,9 +15,8 @@ public class AutoGrab extends CommandGroup{
 	 * Drives forward until a certain distance from a surface
 	 */
 	public AutoGrab(){
-		
-		addSequential(new VisionDrive(),3);
-		addSequential(new UltraDrive(),3);
+		addSequential(new VisionDrive(),2);
+		addSequential(new UltraDrive(),2);
 		
 	}
 }

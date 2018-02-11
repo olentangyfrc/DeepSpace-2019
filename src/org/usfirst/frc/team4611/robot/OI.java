@@ -31,25 +31,17 @@ public class OI {
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
 	public static Joystick auxJoy;
+
 	
 	
 	//Movement Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
-	public Button positionForward;
-	public Button positionBackward;
-	public Button positionLeft;
-	public Button positionRight;
-	public Button positionVision;
-	public Button autoGrabBox;
-	public Button aimBox;
-	
-	//LA Buttons
 	public Button linearActuatorUp;
 	public Button linearActuatorDown;
-	public Button linearActuatorUp2;
-	public Button linearActuatorDown2;
 	public Button linearActuatorSwitch;
+	public Button autoGrabBox;
+	public Button aimBox;
 	
 	//Solenoid Buttons
 	public Button solToggle;
@@ -72,16 +64,12 @@ public class OI {
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(leftJoy, 3);
 		linearActuatorDown = new JoystickButton(leftJoy, 2);
-		linearActuatorUp2 = new JoystickButton(auxJoy, 6);
-		linearActuatorDown2 = new JoystickButton(auxJoy, 7);
 		linearActuatorSwitch = new JoystickButton(rightJoy, 9);
 		
 		//Solenoid Buttons
 		solToggle = new JoystickButton(leftJoy, RobotMap.solTogglePort);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
-		solRetract = new JoystickButton(leftJoy, 6);//open claw
-
-		
+		solRetract = new JoystickButton(leftJoy, 6);//open claw	
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -95,14 +83,6 @@ public class OI {
 		double pos = (double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID);
 		
 		
-		//Position Commands
-		//positionForward.whenPressed	(new PositionDrive(pos, "forward"));
-		//positionBackward.whenPressed(new PositionDrive(pos, "backward"));
-		//positionLeft.whenPressed	(new PositionDrive(pos, "left"));
-		//positionRight.whenPressed	(new PositionDrive(pos, "right"));
-		//positionVision.whenPressed	(new PositionDrive((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, 
-				//RobotMap.positionDistanceID), "vision"));
-		
 		//Strafe Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
@@ -110,13 +90,9 @@ public class OI {
 		//Linear actuator commands
 		linearActuatorUp.whileHeld(new MovePotUp());
 		linearActuatorUp.whenReleased(new StopPot());
-		linearActuatorUp2.whileHeld(new MovePotUp());
-		linearActuatorUp2.whenReleased(new StopPot());
 		
 		linearActuatorDown.whileHeld(new MovePotDown());
 		linearActuatorDown.whenReleased(new StopPot());
-		linearActuatorDown2.whileHeld(new MovePotDown());
-		linearActuatorDown2.whenReleased(new StopPot());
 		
 		linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID)));
 		linearActuatorSwitch.whenReleased(new StopPot());

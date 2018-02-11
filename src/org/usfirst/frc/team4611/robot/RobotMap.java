@@ -56,7 +56,6 @@ public class RobotMap {
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 	public static int thirdJoyPort = 2;
-	
 	//Button Ports
 	public static int solTogglePort = 10;
 	public static int solExtendPort = 2;
