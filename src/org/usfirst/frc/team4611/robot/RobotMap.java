@@ -46,8 +46,7 @@ public class RobotMap {
 	public static int victorPortFR = 0;
 	public static int victorPortBL = 2;
 	public static int victorPortBR = 3;
-	
-	
+		
 	//General Objects
 	public static DoubleSolenoid sol;
 	public static MecanumDrive driveTrain;
@@ -59,6 +58,10 @@ public class RobotMap {
 	public static int thirdJoyPort = 2;
 	
 	//Button Ports
+	public static int solTogglePort = 10;
+	public static int solExtendPort = 2;
+	public static int solRetractPort = 11;
+	public static int autoGrabButtPort = 11;
 	public static int openPort = 1;
 	public static int closePort = 0;
 
@@ -66,19 +69,17 @@ public class RobotMap {
 	public static final int teamID = 4611;
 	public static final String networkTableServerAddress = "10.46.11.2";
 	public static final String networkTableID = "Custom Values";
+	public static final String visionTableID = "Vision";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
 	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
 	public static final long systemStartupTime = System.currentTimeMillis();
 	
 	//Constants
 	public static final int ULTRA_PORT = 3;
-	public static final int UD_DISTANCE = 16; // distance for UltraDrive, pointless if it's less than 12 for now
-	public static final int MAX_RANGE = 60; //UltraDrive should not drive if the nearest surface is too far
-	
-	//initial values for potentiometer settings
-	public static double potMin = 0.14;
-	public static double potMax = .9;
-	public static double potSwitch = .45;
+	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
+	public static final double POT_MIN = .5;
+	public static final double POT_MAX = .8;
+	public static final double potSwitch = .45;
 	 
 	//Default motor speeds
 	public static double linearActuatorUpSpeed = 0.35;
@@ -117,6 +118,11 @@ public class RobotMap {
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
+	public static String positionDistanceID = "PositionDistanceID";
+	public static String angleID = "angle";
+	public static String distanceID = "distance";
+	public static String horizontalDistanceID = "horizontalDistance";
+	public static String foundID = "found";
 
 	public static DefaultValues defaults;
 
@@ -187,6 +193,11 @@ public class RobotMap {
 			driveTrainBR_Talon.configMotionAcceleration(360, 0);
 			driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
 			
+			driveTrainFL_Talon.setSensorPhase(false);
+			driveTrainFR_Talon.setSensorPhase(false);
+			driveTrainBL_Talon.setSensorPhase(false);
+			driveTrainBR_Talon.setSensorPhase(false);
+			
 		Logger.init("Logs");
 
 		//Shuffleboard Tables
@@ -203,9 +214,17 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.linearActuatorUpSpeed);
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.linearActuatorUpSpeed);
-		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
-		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
-		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
+		RobotMap.updateValue(potentiometerSubTable, potMaxID, POT_MAX);
+		RobotMap.updateValue(potentiometerSubTable, potMinID, POT_MIN);
+				RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID,
+		RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID, 2));	
+		RobotMap.updateVisionValue(angleID, 0);
+		RobotMap.updateVisionValue(distanceID, 0);
+		RobotMap.updateVisionValue(horizontalDistanceID, 0);
+		RobotMap.updateVisionValue(foundID, false);
+		RobotMap.updateVisionValue(distanceID, 0);
+		RobotMap.updateVisionValue(horizontalDistanceID, 0);
+		RobotMap.updateVisionValue(foundID, false);
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
@@ -278,6 +297,16 @@ public class RobotMap {
 		}
 	}
 
+	public static void updateVisionValue(String key, Object value) {
+		// Tries to add value to the networktable
+		if (!RobotMap.networkManager.updateVisionValue(key, value)) {
+			// If it's unsuccessful, it logs there was a problem
+			System.out.println("Unable to update vision value with key: " + key + " on subtable NetworkTable");
+			// TODO: Replace System.out.println with Logging functions once
+			// merged
+		}
+	}	
+	
 	/**
 	 * 
 	 * @param subtable

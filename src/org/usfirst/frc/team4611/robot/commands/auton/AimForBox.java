@@ -9,15 +9,13 @@ import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoGrab extends CommandGroup{
+public class AimForBox extends CommandGroup{
 	
 	/**
 	 * Drives forward until a certain distance from a surface
 	 */
-	public AutoGrab(){
-		
+	public AimForBox(){
 		addSequential(new VisionDrive(),3);
-		addSequential(new UltraDrive(),3);
 		
 	}
 }
