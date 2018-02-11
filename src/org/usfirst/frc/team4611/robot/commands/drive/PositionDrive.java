@@ -29,20 +29,20 @@ public class PositionDrive extends Command{
 
 		if (dir.toLowerCase().equals("forward")) {
 			this.position = (int) (pos / 2 * 1440);//Conversion factor from feet to position units
-			this.factorBL = -1;
-			this.factorBR = 1;
+			this.factorBL = 1;
+			this.factorBR = -1;
 		} else if (dir.toLowerCase().equals("backward")) {
 			this.position = (int) (pos / 2 * 1440);//Conversion factor from feet to position units
-			this.factorBL = 1;
-			this.factorBR = -1;
-		} else if (dir.toLowerCase().equals("left")) {
-			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
 			this.factorBL = -1;
-			this.factorBR = -1;
-		} else if (dir.toLowerCase().equals("right")){
+			this.factorBR = 1;
+		} else if (dir.toLowerCase().equals("left")) {
 			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
 			this.factorBL = 1;
 			this.factorBR = 1;
+		} else if (dir.toLowerCase().equals("right")){
+			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
+			this.factorBL = -1;
+			this.factorBR = -1;
 		} else //did not send a normal direction
 			System.out.println("ERROR! BAD DIRECTION VALUE! Dir: " + dir);
 	}
@@ -53,10 +53,10 @@ public class PositionDrive extends Command{
 		RobotMap.driveTrainFR_Talon.config_kP(0, 5, 0);
 		RobotMap.driveTrainBL_Talon.config_kP(0, 5, 0);
 		RobotMap.driveTrainBR_Talon.config_kP(0, 5, 0);
-		RobotMap.driveTrainFL_Talon.setSensorPhase(true);
-		RobotMap.driveTrainFR_Talon.setSensorPhase(true);
-		RobotMap.driveTrainBL_Talon.setSensorPhase(true);
-		RobotMap.driveTrainBR_Talon.setSensorPhase(true);
+		//RobotMap.driveTrainFL_Talon.setSensorPhase(true);
+		//RobotMap.driveTrainFR_Talon.setSensorPhase(true);
+		//RobotMap.driveTrainBL_Talon.setSensorPhase(true);
+		//RobotMap.driveTrainBR_Talon.setSensorPhase(true);
 	}
 	
 	protected void execute() {
@@ -81,10 +81,10 @@ public class PositionDrive extends Command{
 		RobotMap.driveTrainBL_Talon.config_kP(0, .65, 0);
 		RobotMap.driveTrainBR_Talon.config_kP(0, .65, 0);
 		
-		RobotMap.driveTrainFL_Talon.setSensorPhase(false);
-		RobotMap.driveTrainFR_Talon.setSensorPhase(false);
-		RobotMap.driveTrainBL_Talon.setSensorPhase(false);
-		RobotMap.driveTrainBR_Talon.setSensorPhase(false);
+		//RobotMap.driveTrainFL_Talon.setSensorPhase(false);
+		//RobotMap.driveTrainFR_Talon.setSensorPhase(false);
+		//RobotMap.driveTrainBL_Talon.setSensorPhase(false);
+		//RobotMap.driveTrainBR_Talon.setSensorPhase(false);
 	}
 	
 	protected boolean isFinished() {

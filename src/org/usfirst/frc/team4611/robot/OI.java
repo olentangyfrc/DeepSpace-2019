@@ -81,13 +81,13 @@ public class OI {
 		linearActuatorDown3 = new JoystickButton(auxJoy, 7);
 		autoGrabBox = new JoystickButton(leftJoy, 3);
 		autoGrabBox2 = new JoystickButton(auxJoy, 11);
+		aimBox = new JoystickButton(auxJoy, 10);
 		
 		//Solenoid Buttons
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		pushBox = new JoystickButton(rightJoy, 1);
-		aimBox = new JoystickButton(auxJoy, 10);
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -124,8 +124,8 @@ public class OI {
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
 		pushBox.whenPressed(new PushBox());
-		autoGrabBox.whenPressed(new AutoGrab());
-		
+		autoGrabBox.whenPressed(new AimForBox());
+		autoGrabBox2.whenPressed(new AutoGrab());
 		//Vison Comomands
 		aimBox.whenPressed(new AimForBox());
 	}
