@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.subsystems.Arm;
+import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
@@ -29,6 +31,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain mecanum;
+	public static Elevator el;
 	public static Arm arm;
 	public static UltrasonicSensor ultrasonic;
 	public static Relay lights1;
@@ -39,7 +42,8 @@ public class Robot extends IterativeRobot {
 	public static NetworkTable table;
 	public static UsbCamera camera;
 	public static OI oi;
-	
+	public static BoxPusher boxPusher;
+
 	Command autonomousCommand;
 	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -72,10 +76,14 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
+		CameraServer.getInstance().startAutomaticCapture();
+	
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
+		el = new Elevator();
 		arm = new Arm();
 		sol = new Solenoid();
+		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
