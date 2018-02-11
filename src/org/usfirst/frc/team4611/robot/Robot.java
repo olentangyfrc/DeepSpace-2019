@@ -124,7 +124,7 @@ public class Robot extends IterativeRobot {
 		
 		//Checks to see if the driver has updated the switch for which motors are being used
 		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			//If it's true, it starts talon setup
+			//If it's true, it st  arts talon setup
 			RobotMap.setupTalon();
 		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			//If it's false, it starts victor setup

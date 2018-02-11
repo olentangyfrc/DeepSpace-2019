@@ -44,7 +44,7 @@ public class Elevator extends Subsystem{
 	}
 	
 	public boolean isSwitchSet() {
-		return RobotMap.limitSwitch.get() > 0;
+		return RobotMap.limitSwitch.get();
 	}
 
 }

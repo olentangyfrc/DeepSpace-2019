@@ -143,7 +143,7 @@ public class RobotMap {
 	public static String SensorAccelID = "Sensor Accel";
 	public static String elevatorPos = "Elevator Position";
 	
-	public static Counter limitSwitch = new Counter(new DigitalInput(0));
+	public static DigitalInput limitSwitch = new DigitalInput(0);
 	
 	
 	public static DefaultValues defaults;
@@ -192,8 +192,8 @@ public class RobotMap {
 			elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 			
 			//Sensor pos
-			elevator_Talon.configReverseSoftLimitThreshold(-71500, 0); //upper limit
-			elevator_Talon.configForwardSoftLimitThreshold(47200, 0); //lower limit
+			elevator_Talon.configReverseSoftLimitThreshold(-1000000, 0); //upper limit
+			elevator_Talon.configForwardSoftLimitThreshold(0, 0); //lower limit
 			elevator_Talon.configForwardSoftLimitEnable(false, 0);
 			elevator_Talon.configReverseSoftLimitEnable(false, 0);
 		
