@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
+import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -42,6 +43,7 @@ public class OI {
 	public Button autoGrabBox;
 	public Button autoGrabBox2;
 	public Button aimBox;
+	public Button visionTuning; //Remove when merging
 	
 	//Solenoid Buttons
 	public Button solToggle;
@@ -82,6 +84,7 @@ public class OI {
 		autoGrabBox = new JoystickButton(leftJoy, 3);
 		autoGrabBox2 = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
+		visionTuning = new JoystickButton(rightJoy, 10);
 		
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
@@ -120,6 +123,7 @@ public class OI {
 		autoGrabBox2.whenPressed(new AutoGrab());
 		//Vison Comomands
 		aimBox.whenPressed(new AimForBox());
+		visionTuning.whenPressed(new PositionDrive(1440.0, "left"));
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
