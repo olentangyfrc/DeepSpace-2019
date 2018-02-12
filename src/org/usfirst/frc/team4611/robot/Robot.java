@@ -126,9 +126,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		if(Robot.el.isSwitchSet()) {
-			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}
 	}
 
 	@Override
@@ -165,9 +162,8 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}
-		if(Robot.el.isSwitchSet()) {
-			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}
+		
+		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
 
 	/**

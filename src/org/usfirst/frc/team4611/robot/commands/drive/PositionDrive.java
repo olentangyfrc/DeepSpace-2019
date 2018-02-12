@@ -53,15 +53,9 @@ public class PositionDrive extends Command{
 		RobotMap.driveTrainFR_Talon.config_kP(0, 5, 0);
 		RobotMap.driveTrainBL_Talon.config_kP(0, 5, 0);
 		RobotMap.driveTrainBR_Talon.config_kP(0, 5, 0);
-		//RobotMap.driveTrainFL_Talon.setSensorPhase(true);
-		//RobotMap.driveTrainFR_Talon.setSensorPhase(true);
-		//RobotMap.driveTrainBL_Talon.setSensorPhase(true);
-		//RobotMap.driveTrainBR_Talon.setSensorPhase(true);
 	}
 	
 	protected void execute() {
-		//System.out.println("EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE EXECUTE ");
-		//this.position = (int)((double)RobotMap.networkManager.getValue(RobotMap.mecanumSubTable, RobotMap.positionDistanceID))/1.5*1440;
 		cnt++;
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
