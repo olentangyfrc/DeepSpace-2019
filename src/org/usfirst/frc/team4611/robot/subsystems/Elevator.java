@@ -43,7 +43,7 @@ public class Elevator extends Subsystem{
 		setDefaultCommand(new MoveElevator());
 	}
 	
-	public boolean isSwitchSet() {
+	public boolean isSwitchSet() { //if switch is pressed, returns true
 		return RobotMap.limitSwitch.get();
 	}
 

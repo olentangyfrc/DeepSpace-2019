@@ -52,12 +52,16 @@ public class OI {
 	public Button solRetract;
 	public Button moveElevatorDown;
 	public Button moveElevatorUp;
+	public Button resetElevator;
+	public Button moveElToTop;
+	public Button moveElToSwitch;
+	
 	public Button openClaw;
 	public Button closeClaw;
 	public Button MoveForward;
 	public Button MoveBackward;
-	public Button moveElSwitch;
-	public Button resetEle;
+
+
 
 	public OI (){
 		
@@ -67,29 +71,31 @@ public class OI {
 		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
 		
 		//Buttons
-		moveForward = new JoystickButton(thirdJoy, 3);
-		moveBackward = new JoystickButton(thirdJoy,2);
+		//moveForward = new JoystickButton(thirdJoy, 3);
+		//moveBackward = new JoystickButton(thirdJoy,2);
 		strafeLeft= new JoystickButton(leftJoy, 4);
 		strafeRight= new JoystickButton(leftJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, 14);
-		linearActuatorUp = new JoystickButton(leftJoy, 3);
-		linearActuatorDown = new JoystickButton(leftJoy, 2);
-		linearActuatorUp2 = new JoystickButton(thirdJoy, 6);
-		linearActuatorDown2 = new JoystickButton(thirdJoy, 7);
-		strafeLeft2 = new JoystickButton(thirdJoy, 4);
-		strafeRight2 = new JoystickButton(thirdJoy, 5);
-		autoGrabBox = new JoystickButton(rightJoy, 3);
-		autoGrabBox2 = new JoystickButton(thirdJoy, 11);
+		//autoGrabBox = new JoystickButton(leftJoy, 14);
+		linearActuatorUp = new JoystickButton(rightJoy, 3);
+		linearActuatorDown = new JoystickButton(rightJoy, 2);
+		linearActuatorUp2 = new JoystickButton(thirdJoy, 3);
+		linearActuatorDown2 = new JoystickButton(thirdJoy, 2);
+		//strafeLeft2 = new JoystickButton(thirdJoy, 4);
+		//strafeRight2 = new JoystickButton(thirdJoy, 5);
+		//autoGrabBox = new JoystickButton(rightJoy, 3);
+		//autoGrabBox2 = new JoystickButton(thirdJoy, 11);
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
-		MoveForward = new JoystickButton(thirdJoy, 3);
-		MoveBackward = new JoystickButton(thirdJoy, 2);
+		//MoveForward = new JoystickButton(thirdJoy, 3);
+		//MoveBackward = new JoystickButton(thirdJoy, 2);
+		
 		moveElevatorUp = new JoystickButton(thirdJoy, 8);
 		moveElevatorDown = new JoystickButton(thirdJoy, 9);
+		resetElevator = new JoystickButton(rightJoy, 8);
+		moveElToTop = new JoystickButton (rightJoy, 6);
+		moveElToSwitch= new JoystickButton (rightJoy, 7);
 		
-		moveElSwitch = new JoystickButton(thirdJoy, 10);
-		resetEle = new JoystickButton(thirdJoy, 11);
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -100,17 +106,17 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
-		moveElSwitch.whenPressed(new MoveElevatorToPos());
+		moveElToSwitch.whenPressed(new MoveElevatorToPos());
 		//moveElSwitch.whenReleased(new MoveElevator());
 		//Strafe Commands
-		moveForward.whileHeld(new MoveForward(0.3));
-		moveBackward.whileHeld(new MoveBackward(-0.3));
+		//moveForward.whileHeld(new MoveForward(0.3));
+		//moveBackward.whileHeld(new MoveBackward(-0.3));
 		
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
-		strafeRight2.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		strafeLeft2.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+		//strafeRight2.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+	//	strafeLeft2.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		
 		//Linear actuator commands
 
@@ -126,8 +132,8 @@ public class OI {
 		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		//linearActuatorSwitch.whenReleased(new StopPot());
 		
-		MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
-		MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(-.3));
+		//MoveForward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveForward(.3));
+		//MoveBackward.whileHeld(new org.usfirst.frc.team4611.robot.commands.drive.MoveBackward(-.3));
 		
 		moveElevatorDown.whileHeld(new MoveElevatorDown());
 		//moveElevatorDown.whenReleased(new MoveElevator());
@@ -135,14 +141,15 @@ public class OI {
 		moveElevatorUp.whileHeld(new MoveElevatorUp());
 		//moveElevatorUp.whenReleased(new MoveElevator());
 
-		resetEle.whenPressed(new ResetElevator());
+		resetElevator.whenPressed(new ResetElevator());
+	
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
-		autoGrabBox.whenPressed(new AutoGrab());
-		autoGrabBox2.whenPressed(new AutoGrab());
+		//autoGrabBox.whenPressed(new AutoGrab());
+		//autoGrabBox2.whenPressed(new AutoGrab());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

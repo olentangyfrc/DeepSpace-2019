@@ -13,7 +13,7 @@ public class MoveElevator extends Command{
 	}
 
 	protected void execute() {
-		double y = OI.thirdJoy.getY();
+		double y = -OI.thirdJoy.getY();
 		
 		if (y < 0) { //move up
 				Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed));
