@@ -143,7 +143,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
-		System.out.println("Limit Switch: "+ RobotMap.limitSwitch.get());
 		System.out.println("Elevator Pos: " + RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 		if(Robot.el.isSwitchSet()) {
 			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);

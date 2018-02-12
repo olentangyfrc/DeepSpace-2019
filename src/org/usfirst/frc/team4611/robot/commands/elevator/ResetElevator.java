@@ -10,19 +10,11 @@ public class ResetElevator extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
-				//Robot.el.isSwitchSet();
+		return Robot.el.isSwitchSet();
 	}
 
 	protected void execute() {
-		
-		if (!Robot.el.isSwitchSet()) {
 		Robot.el.move((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
-		}
-		else {
-			Robot.el.move(0);
-			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}
 	}
 	
 }
