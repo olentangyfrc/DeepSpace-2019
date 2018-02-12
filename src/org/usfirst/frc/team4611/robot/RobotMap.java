@@ -10,11 +10,10 @@ import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -157,6 +156,8 @@ public class RobotMap {
 	public static DoubleSolenoid boxPusher;
 	public static int boxPusherOpen = 2;
 	public static int boxPusherClose = 3;
+	
+	public static PigeonIMU pigeon;
 	public static void init() {
 		
 		//Drive Train Victors
@@ -167,6 +168,9 @@ public class RobotMap {
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
+		
+		//Pigeon
+		pigeon = new PigeonIMU(21);
 		
 		//Linear Actuator
 		linearActuator = new Victor(linearActuatorPort);
