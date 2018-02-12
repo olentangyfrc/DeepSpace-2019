@@ -13,7 +13,6 @@ public class MoveElevatorToPos extends Command{
 	}
 	
 	protected void initialize() {
-		//RobotMap.elevator_Talon.setSensorPhase(false);
 	}
 
 	protected void execute() {
