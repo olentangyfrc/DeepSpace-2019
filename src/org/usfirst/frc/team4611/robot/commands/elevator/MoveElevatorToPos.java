@@ -6,8 +6,9 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveElevatorToPos extends Command{
-	
-	public MoveElevatorToPos(){
+	private double position;
+	public MoveElevatorToPos(double pos){
+		this.position = pos;
 		this.requires(Robot.el); //This command uses this subsystem
 	}
 	
@@ -16,7 +17,7 @@ public class MoveElevatorToPos extends Command{
 	}
 
 	protected void execute() {
-		Robot.el.moveToPos((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos));
+		Robot.el.moveToPos(position);
 	}
 
 	@Override

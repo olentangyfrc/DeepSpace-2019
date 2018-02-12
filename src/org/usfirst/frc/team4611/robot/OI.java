@@ -106,8 +106,6 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Button Commands
-		moveElToSwitch.whenPressed(new MoveElevatorToPos());
-		//moveElSwitch.whenReleased(new MoveElevator());
 		//Strafe Commands
 		//moveForward.whileHeld(new MoveForward(0.3));
 		//moveBackward.whileHeld(new MoveBackward(-0.3));
@@ -142,7 +140,12 @@ public class OI {
 		//moveElevatorUp.whenReleased(new MoveElevator());
 
 		resetElevator.whenPressed(new ResetElevator());
-	
+		
+	//Motion magic- move elevator to specific position (top and switch height)
+		//May need to recheck positions, definitely needs testing!
+		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));
+		
+		moveElToSwitch.whenPressed(new MoveElevatorToPos(-39556));
 		
 		//Solenoid Commands
 		solToggle.whenPressed(new ToggleSolenoid());
