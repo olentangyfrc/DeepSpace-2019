@@ -160,6 +160,8 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}
+		
+		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
 
 	/**
