@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
@@ -33,6 +32,7 @@ public class RobotMap {
 	public static WPI_TalonSRX driveTrainBL_Talon;
 	public static WPI_TalonSRX driveTrainBR_Talon;
 	
+	//Extra Talons
 	public static WPI_TalonSRX elevator_Talon;
 
 	//Drive train Victors
@@ -61,6 +61,7 @@ public class RobotMap {
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
 	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
 	public static int thirdJoyPort = 2;
+	
 	//Button Ports
 	public static int solTogglePort = 10;
 	public static int solExtendPort = 2;
@@ -110,9 +111,8 @@ public class RobotMap {
 	public static String ultraSubtable = "Ultrasonic";
 	public static String solenoidSubtable = "Solenoid";
 	public static String cameraSubTable = "Camera";
-	public static String elevatorSubtable = "Subtable";
-	public static String pushBoxSubtable = "Push Box";
-	
+	public static String elevatorSubtable = "Elevator";
+	public static String pushBoxSubtable = "Push Box";	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -136,11 +136,16 @@ public class RobotMap {
 	public static String straightRotationID = "straight-rotations-one";
 	public static String strafeRotationID = "strafe-rotations-one";
 	public static String cameraFPSID = "Camera-FPS";
-	public static String elevatorScalar = "Elevator Scalar";
+	public static String elevatorUpSpeed = "Elevator Up Speed";
+	public static String elevatorDownSpeed = "Elevator Down Speed";
 	public static String cameraxResID = "Camera-xResolution";
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
+	public static String SensorVelocityID = "Sensor Velocity";
+	public static String SensorAccelID = "Sensor Accel";
+	public static String elevatorPos = "Elevator Position";
 	public static String positionDistanceID = "PositionDistanceID";
+	public static DigitalInput limitSwitch = new DigitalInput(0);
 	public static String angleID = "angle";
 	public static String distanceID = "distance";
 	public static String horizontalDistanceID = "horizontalDistance";
@@ -148,7 +153,7 @@ public class RobotMap {
 	public static String maxRPMID = "Max RPM";
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
-	
+
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -157,6 +162,7 @@ public class RobotMap {
 	public static DoubleSolenoid boxPusher;
 	public static int boxPusherOpen = 2;
 	public static int boxPusherClose = 3;
+	
 	public static void init() {
 		
 		//Drive Train Victors
@@ -198,12 +204,19 @@ public class RobotMap {
 		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		
-		//Sensor pos
+		//Limits
+		elevator_Talon.configReverseSoftLimitThreshold(-117328, 0); //upper limit
+		elevator_Talon.configForwardSoftLimitThreshold(0, 0); //lower limit
+		elevator_Talon.configForwardSoftLimitEnable(true, 0);
+		elevator_Talon.configReverseSoftLimitEnable(true, 0);
+		
+		//Startup Position Values
 		driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 		driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 			
+		//Startup PID Values
 		driveTrainFL_Talon.config_kP(0, .65, 0);
 		driveTrainFR_Talon.config_kP(0, .65, 0);
 		driveTrainBL_Talon.config_kP(0, .65, 0);
@@ -219,7 +232,7 @@ public class RobotMap {
 		driveTrainBL_Talon.config_kD(0, 0, 0);
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
-		//Motion
+		//Startup Motion Magic Values
 		driveTrainFL_Talon.configMotionAcceleration(360, 0);
 		driveTrainFL_Talon.configMotionCruiseVelocity(360, 0);
 		driveTrainFR_Talon.configMotionAcceleration(360, 0);
@@ -229,6 +242,7 @@ public class RobotMap {
 		driveTrainBR_Talon.configMotionAcceleration(360, 0);
 		driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
 			
+		//Startup Sensorphase Values
 		driveTrainFL_Talon.setSensorPhase(false);
 		driveTrainFR_Talon.setSensorPhase(false);
 		driveTrainBL_Talon.setSensorPhase(false);
@@ -247,10 +261,17 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 1500));
-		//RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID, 
-				//RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedID, linearActuatorSpeed));
+		
+		//Switcher Values
+		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
+		
+		//Elevator Values
+		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.5));
+		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
+		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
 		
 		//Linear Acutator Values
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));
@@ -264,9 +285,7 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
-				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
-		RobotMap.updateValue(elevatorSubtable, elevatorScalar, 
-				RobotMap.defaults.getDoubleDefaultValue(elevatorSubtable, elevatorScalar, elevatorSpeedScalar));
+		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
 		
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

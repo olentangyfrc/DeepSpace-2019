@@ -9,14 +9,14 @@ public class MakeLight extends Command{
 	
 	/**
 	 * 
-	 * @param c is the color: 0=Off, 1=Red, 2=Yellow, 3=Green, 4=Cyan, 5=Blue, 6=Purple, 7=White
+	 * @param color is the color: 0=Off, 1=Red, 2=Yellow, 3=Green, 4=Cyan, 5=Blue, 6=Purple, 7=White
 	 */
-	public MakeLight(int c){
-		color = c;
+	public MakeLight(int color){
+		this.color = color;
 	}
 	
-	public void setColor(int c){
-		color = c;
+	public void setColor(int color){
+		this.color = color;
 	}
 	
 	protected void execute(){

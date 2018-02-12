@@ -53,31 +53,10 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	
-	public Robot() {
-		//tableInstance = NetworkTableInstance.getDefault();
-		//table = tableInstance.getTable("Vision");		
-
-		/*
-		NetworkTableEntry entryAngle = Robot.table.getEntry("angle");
-		NetworkTableEntry entryDistance = Robot.table.getEntry("distance");
-		NetworkTableEntry entryStatus = Robot.table.getEntry("found");
-		
-		//Get from networktable (key in RobotMap) to get theh change, edit widgit to change values
-		
-		double angle = entryAngle.getDouble(0.0);
-		double distance = entryDistance.getDouble(0.0);
-		boolean found = entryStatus.getBoolean(false);
-		*/
-		
-	}
-	
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
-		CameraServer.getInstance().startAutomaticCapture();
-	
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		el = new Elevator();
@@ -88,14 +67,12 @@ public class Robot extends IterativeRobot {
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
+		oi = new OI();
 		
+		CameraServer.getInstance().startAutomaticCapture();
 		lightsCommand = new MakeLight(1);
 		lightsCommand.start();
-		
-		oi = new OI();
 		camera = CameraServer.getInstance().startAutomaticCapture();
-		//new CameraUpdater();
-		
 	}
 
 	/**
@@ -147,6 +124,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		if(Robot.el.isSwitchSet()) {
+			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
+		}
 	}
 
 	@Override
@@ -183,7 +163,9 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}
-
+		if(Robot.el.isSwitchSet()) {
+			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
+		}
 	}
 
 	/**

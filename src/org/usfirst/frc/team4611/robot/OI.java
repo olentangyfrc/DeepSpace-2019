@@ -4,7 +4,10 @@ import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
-import org.usfirst.frc.team4611.robot.commands.drive.VisionDrive;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
+import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
@@ -55,8 +58,11 @@ public class OI {
 	public Button linearActuatorSwitch;
 	
 	//Elevator Buttons
-	public Button moveElevatorD;
-	public Button moveElevatorU;
+	public Button moveElevatorDown;
+	public Button moveElevatorUp;
+	public Button resetElevator;
+	public Button moveElToTop;
+	public Button moveElToSwitch;
 	
 	//Claw Buttons
 	public Button openClaw;
@@ -73,21 +79,31 @@ public class OI {
 		//Movement Buttons
 		strafeLeft= new JoystickButton(leftJoy, 4);
 		strafeRight = new JoystickButton(leftJoy, 5);
+		autoGrabBox = new JoystickButton(leftJoy, 3);
+		autoGrabBox2 = new JoystickButton(auxJoy, 11);
+		aimBox = new JoystickButton(auxJoy, 10);
+		
+		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
 		linearActuatorUp2 = new JoystickButton(auxJoy, 3);
 		linearActuatorDown2 = new JoystickButton(auxJoy, 2);
 		linearActuatorUp3 = new JoystickButton(auxJoy, 6);
 		linearActuatorDown3 = new JoystickButton(auxJoy, 7);
-		autoGrabBox = new JoystickButton(leftJoy, 3);
-		autoGrabBox2 = new JoystickButton(auxJoy, 11);
-		aimBox = new JoystickButton(auxJoy, 10);
 		
 		//Solenoid Buttons
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		pushBox = new JoystickButton(rightJoy, 1);
+		
+		//Elevator Buttons
+		moveElevatorUp = new JoystickButton(auxJoy, 8);
+		moveElevatorDown = new JoystickButton(auxJoy, 9);
+		resetElevator = new JoystickButton(rightJoy, 8);
+		moveElToTop = new JoystickButton (rightJoy, 6);
+		moveElToSwitch= new JoystickButton (rightJoy, 7);
+		
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -97,37 +113,40 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyYID, rightJoy.getY());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
-		//Strafe Commands	
+		//Movement Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
+		autoGrabBox.whenPressed(new AimForBox());
+		autoGrabBox2.whenPressed(new AutoGrab());
+		//Vison Comomands
+		aimBox.whenPressed(new AimForBox());
 		
-		//Linear actuator commands
-		//linearActuatorUp.whileHeld(new MovePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
+		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
 		linearActuatorUp.whenReleased(new StopPot());
 		linearActuatorUp2.whileHeld(new MovePotUp());
 		linearActuatorUp2.whenReleased(new StopPot());		
 		linearActuatorUp3.whileHeld(new MovePotUp());
 		linearActuatorUp3.whenReleased(new StopPot());		
-		//linearActuatorDown.whileHeld(new MovePotDown(-(double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
 		linearActuatorDown.whileHeld(new MovePotDown());
 		linearActuatorDown.whenReleased(new StopPot());
 		linearActuatorDown2.whileHeld(new MovePotDown());
 		linearActuatorDown2.whenReleased(new StopPot());
 		linearActuatorDown3.whileHeld(new MovePotDown());
 		linearActuatorDown3.whenReleased(new StopPot());
-		//linearActuatorSwitch.whileHeld(new MovePotSwitch((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedID)));
-		//linearActuatorSwitch.whenReleased(new StopPot());	
+		
+		//Elevator Commands
+		moveElevatorDown.whileHeld(new MoveElevatorDown());
+		moveElevatorUp.whileHeld(new MoveElevatorUp());
+		resetElevator.whenPressed(new ResetElevator());
+		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
+		moveElToSwitch.whenPressed(new MoveElevatorToPos(-39556));
 		
 		//Claw Commands
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
 		pushBox.whenPressed(new PushBox());
-		autoGrabBox.whenPressed(new AimForBox());
-		autoGrabBox2.whenPressed(new AutoGrab());
-		//Vison Comomands
-		aimBox.whenPressed(new AimForBox());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
