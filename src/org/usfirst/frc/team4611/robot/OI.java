@@ -58,8 +58,6 @@ public class OI {
 	public Button linearActuatorSwitch;
 	
 	//Elevator Buttons
-	public Button moveElevatorDown;
-	public Button moveElevatorUp;
 	public Button resetElevator;
 	public Button moveElToTop;
 	public Button moveElToSwitch;
@@ -98,9 +96,7 @@ public class OI {
 		pushBox = new JoystickButton(rightJoy, 1);
 		
 		//Elevator Buttons
-		moveElevatorUp = new JoystickButton(auxJoy, 8);
-		moveElevatorDown = new JoystickButton(auxJoy, 9);
-		resetElevator = new JoystickButton(rightJoy, 8);
+		resetElevator = new JoystickButton(auxJoy, 8);
 		moveElToTop = new JoystickButton (rightJoy, 6);
 		moveElToSwitch= new JoystickButton (rightJoy, 7);
 		
@@ -136,8 +132,6 @@ public class OI {
 		linearActuatorDown3.whenReleased(new StopPot());
 		
 		//Elevator Commands
-		moveElevatorDown.whileHeld(new MoveElevatorDown());
-		moveElevatorUp.whileHeld(new MoveElevatorUp());
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
 		moveElToSwitch.whenPressed(new MoveElevatorToPos(-39556));
