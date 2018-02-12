@@ -194,8 +194,8 @@ public class RobotMap {
 			//Sensor pos
 			elevator_Talon.configReverseSoftLimitThreshold(-117328, 0); //upper limit
 			elevator_Talon.configForwardSoftLimitThreshold(0, 0); //lower limit
-			elevator_Talon.configForwardSoftLimitEnable(false, 0);
-			elevator_Talon.configReverseSoftLimitEnable(false, 0);
+			elevator_Talon.configForwardSoftLimitEnable(true, 0);
+			elevator_Talon.configReverseSoftLimitEnable(true, 0);
 		
 					
 			driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
