@@ -46,7 +46,8 @@ public class OI {
 	//Solenoid Buttons
 	public Button solToggle;
 	public Button solExtend;
-	public Button solRetract;	
+	public Button solRetract;
+	public Button solExtend2;
 	
 	//LA Buttons
 	public Button linearActuatorUp;
@@ -92,6 +93,7 @@ public class OI {
 		//Solenoid Buttons
 		solToggle = new JoystickButton(leftJoy, 1);
 		solExtend = new JoystickButton(leftJoy, 7);//close claw
+		solExtend2 = new JoystickButton(auxJoy, 1);
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		pushBox = new JoystickButton(rightJoy, 1);
 		
@@ -139,6 +141,7 @@ public class OI {
 		//Claw Commands
 		solToggle.whenPressed(new ToggleSolenoid());
 		solExtend.whileHeld(new ExtendSolenoid());
+		solExtend2.whileHeld(new ExtendSolenoid());
 		solRetract.whileHeld(new RetractSolenoid());
 		pushBox.whenPressed(new PushBox());
 	}
