@@ -10,20 +10,22 @@ public class PigeonAdjust extends SwitchableCommand {
 
 	private double desiredAngle;
 	private double startAngle;
+	private double da;
 	private Direction dir;
 	 
 	public PigeonAdjust(double da) {
-		//Resets the fused heading of the pigeon
-		RobotMap.pigeon.setFusedHeading(0, 10);
-		System.out.println("HEREE");
-		this.desiredAngle = da;
-		if(da > 0) {
-			dir = Direction.RIGHT;
-		}else{
-			dir = Direction.LEFT;
-		}
+		this.da = da;
 	}
 	
+	protected void initialize() {
+		startAngle = RobotMap.pigeon.getFusedHeading();
+		this.desiredAngle = startAngle-da;
+		if(desiredAngle > startAngle) {
+			dir = Direction.LEFT;
+		}else{
+			dir = Direction.RIGHT;
+		}
+	}
 	protected void execute() {
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
@@ -35,14 +37,16 @@ public class PigeonAdjust extends SwitchableCommand {
 	protected boolean isFinished(){
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
-		if(this.desiredAngle < status.heading && dir == Direction.RIGHT) {
+		if(this.desiredAngle < status.heading && dir == Direction.LEFT) {
+			System.out.print("Finished Left");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
 			RobotMap.driveTrainFL_Talon.stopMotor();
 			RobotMap.driveTrainBR_Talon.stopMotor();
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
-		}else if(this.desiredAngle > status.heading && dir == Direction.LEFT) {
+		}else if(this.desiredAngle > status.heading && dir == Direction.RIGHT) {
+			System.out.println("Finished Right");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
 			RobotMap.driveTrainFL_Talon.stopMotor();
@@ -62,22 +66,20 @@ public class PigeonAdjust extends SwitchableCommand {
 		// TODO Auto-generated method stub
 		double angleError = angleErrorFilter(Math.abs(this.desiredAngle-RobotMap.pigeon.getFusedHeading()));
 
-		if(dir == Direction.LEFT) {
-			System.out.println("Turning left");
+		if(dir == Direction.RIGHT) {
 			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
 			RobotMap.driveTrainBL_Talon.setInverted(false);
 			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
 			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -0.01*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -0.01*angleError);
-		}else if(dir == Direction.RIGHT) {
-			System.out.println("Turning right");
+			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+		}else if(dir == Direction.LEFT) {
 			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
 			RobotMap.driveTrainBL_Talon.setInverted(false);
 			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
 			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, 0.01*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, 0.01*angleError);
+			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
 		}
 	}
 
@@ -89,13 +91,11 @@ public class PigeonAdjust extends SwitchableCommand {
 		
 		
 		if(dir == Direction.LEFT) {
-			System.out.println("Turning left");
 			RobotMap.driveTrainBL.set(Math.max(-1, -0.03*angleError));
 			RobotMap.driveTrainBR.set(Math.max(-1, -0.03*angleError));
 			RobotMap.driveTrainFL.set(Math.max(-1, -0.03*angleError));
 			RobotMap.driveTrainFR.set(Math.max(-1, -0.03*angleError));
 		}else if(dir == Direction.RIGHT) {
-			System.out.println("Turning right");
 			RobotMap.driveTrainBL.set(Math.min(1, 0.03*angleError));
 			RobotMap.driveTrainBR.set(Math.min(1, 0.03*angleError));
 			RobotMap.driveTrainFL.set(Math.min(1, 0.03*angleError));
@@ -104,8 +104,8 @@ public class PigeonAdjust extends SwitchableCommand {
 	}
 	
 	private double angleErrorFilter(double error) {
-		if(error < 20) {
-			return 21;
+		if(error < 30) {
+			return 31;
 		}
 		return error;
 	}
