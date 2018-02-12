@@ -90,16 +90,16 @@ public class PigeonAdjust extends SwitchableCommand {
 		
 		if(dir == Direction.LEFT) {
 			System.out.println("Turning left");
-			RobotMap.driveTrainBL.set(Math.max(-1, -0.01*angleError));
-			RobotMap.driveTrainBR.set(Math.max(-1, -0.01*angleError));
-			RobotMap.driveTrainFL.set(Math.max(-1, -0.01*angleError));
-			RobotMap.driveTrainFR.set(Math.max(-1, -0.01*angleError));
+			RobotMap.driveTrainBL.set(Math.max(-1, -0.03*angleError));
+			RobotMap.driveTrainBR.set(Math.max(-1, -0.03*angleError));
+			RobotMap.driveTrainFL.set(Math.max(-1, -0.03*angleError));
+			RobotMap.driveTrainFR.set(Math.max(-1, -0.03*angleError));
 		}else if(dir == Direction.RIGHT) {
 			System.out.println("Turning right");
-			RobotMap.driveTrainBL.set(Math.min(1, 0.01*angleError));
-			RobotMap.driveTrainBR.set(Math.min(1, 0.01*angleError));
-			RobotMap.driveTrainFL.set(Math.min(1, 0.01*angleError));
-			RobotMap.driveTrainFR.set(Math.min(1, 0.01*angleError));
+			RobotMap.driveTrainBL.set(Math.min(1, 0.03*angleError));
+			RobotMap.driveTrainBR.set(Math.min(1, 0.03*angleError));
+			RobotMap.driveTrainFL.set(Math.min(1, 0.03*angleError));
+			RobotMap.driveTrainFR.set(Math.min(1, 0.03*angleError));
 		}
 	}
 	
