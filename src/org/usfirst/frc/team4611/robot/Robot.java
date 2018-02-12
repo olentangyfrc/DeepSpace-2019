@@ -46,8 +46,6 @@ public class Robot extends IterativeRobot {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		
 
-		RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		
 		CameraServer.getInstance().startAutomaticCapture();
 		
 		//Initialize the subsystems
@@ -92,7 +90,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
-		RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
 		//autonomousCommand = new DriveBlock();
 		
 		/*
@@ -125,7 +122,6 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		
-		RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
 		
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
@@ -149,9 +145,9 @@ public class Robot extends IterativeRobot {
 		ultrasonic.getInches();
 		System.out.println("Limit Switch: "+ RobotMap.limitSwitch.get());
 		System.out.println("Elevator Pos: " + RobotMap.elevator_Talon.getSelectedSensorPosition(0));
-		/*if(Robot.el.isSwitchSet()) {
+		if(Robot.el.isSwitchSet()) {
 			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}*/
+		}
 	}
 
 	/**
