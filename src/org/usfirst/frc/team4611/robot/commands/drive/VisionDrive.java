@@ -11,11 +11,14 @@ public class VisionDrive extends Command{
 	boolean found;
 	private Command driveComm;
 	private boolean startedDriving;
+	private boolean dontRunMe;
 	
 	public VisionDrive(){
+		dontRunMe = false;
 	}
 	
 	public void initialize() {
+		dontRunMe = false;
 		startedDriving = false;
 		angle = (double) RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 		distance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceID);
@@ -23,20 +26,20 @@ public class VisionDrive extends Command{
 		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
 		
 		if(!found || Math.abs(horizontalDistance) <= 3){
-			this.end();
-			return;
-		}
+			dontRunMe = true;
+		}else {
 		
-		if (angle < 0) {
-			driveComm = new PositionDrive(horizontalDistance/12.0, "right");
-		} else if (angle > 0){
-			driveComm = new PositionDrive(horizontalDistance/12.0, "left");
-		} else {
-			this.end();
-			return;
+			if (angle < 0) {
+				driveComm = new PositionDrive(horizontalDistance/12.0, "right");
+			} else if (angle > 0){
+				driveComm = new PositionDrive(horizontalDistance/12.0, "left");
+			} else {
+				dontRunMe = true;
+			}
 		}
-		
-		driveComm.start();
+		if(!dontRunMe) {
+			driveComm.start();
+		}
 		
 		/*for (int i = 0; i < 100; i++) {
 			System.out.println("RUNNING!");
@@ -50,7 +53,7 @@ public class VisionDrive extends Command{
 	}
 	
 	protected boolean isFinished() {
-		if(startedDriving && !driveComm.isRunning()){
+		if(dontRunMe || (startedDriving && !driveComm.isRunning()) ){
 			return true;
 		}
 		return false;

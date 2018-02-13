@@ -43,7 +43,8 @@ public class OI {
 	public Button autoGrabBox;
 	public Button autoGrabBox2;
 	public Button aimBox;
-	public Button visionTuning; //Remove when merging
+	public Button visionTuningLeft; //Remove when merging
+	public Button visionTuningForward; //Remove when merging
 	
 	//Solenoid Buttons
 	public Button solToggle;
@@ -84,8 +85,8 @@ public class OI {
 		autoGrabBox = new JoystickButton(leftJoy, 3);
 		autoGrabBox2 = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
-		visionTuning = new JoystickButton(rightJoy, 10);
-		
+		visionTuningLeft = new JoystickButton(rightJoy, 10);
+		visionTuningForward = new JoystickButton(rightJoy, 11);
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
@@ -123,7 +124,8 @@ public class OI {
 		autoGrabBox2.whenPressed(new AutoGrab());
 		//Vison Comomands
 		aimBox.whenPressed(new AimForBox());
-		visionTuning.whenPressed(new PositionDrive(1440.0, "left"));
+		visionTuningLeft.whenPressed(new PositionDrive(1440.0, "left"));
+		visionTuningForward.whenPressed(new PositionDrive(1440.0, "forward"));
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
