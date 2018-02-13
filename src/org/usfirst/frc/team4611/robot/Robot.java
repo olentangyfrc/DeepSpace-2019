@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
+import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -114,6 +115,7 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
+		autonomousCommand = new PigeonAuton();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -124,9 +126,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		if(Robot.el.isSwitchSet()) {
-			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}
 	}
 
 	@Override
@@ -163,9 +162,8 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}
-		if(Robot.el.isSwitchSet()) {
-			RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		}
+		
+		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
 
 	/**

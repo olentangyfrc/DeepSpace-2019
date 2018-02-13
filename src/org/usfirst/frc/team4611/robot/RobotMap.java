@@ -10,6 +10,7 @@ import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -113,6 +114,8 @@ public class RobotMap {
 	public static String cameraSubTable = "Camera";
 	public static String elevatorSubtable = "Elevator";
 	public static String pushBoxSubtable = "Push Box";	
+	public static String pigeonSubtable = "Pigeon";
+	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -153,7 +156,8 @@ public class RobotMap {
 	public static String maxRPMID = "Max RPM";
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
-
+	public static String pigeonAutonP = "Pigeon-Auton-P";
+	
 	public static DefaultValues defaults;
 
 	public static AnalogPotentiometer linearActuatorPot;
@@ -163,6 +167,8 @@ public class RobotMap {
 	public static int boxPusherOpen = 2;
 	public static int boxPusherClose = 3;
 	
+	public static PigeonIMU pigeon;
+
 	public static void init() {
 		
 		//Drive Train Victors
@@ -173,6 +179,9 @@ public class RobotMap {
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
+		
+		//Pigeon
+		pigeon = new PigeonIMU(21);
 		
 		//Linear Actuator
 		linearActuator = new Victor(linearActuatorPort);
@@ -205,10 +214,8 @@ public class RobotMap {
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		
 		//Limits
-		elevator_Talon.configReverseSoftLimitThreshold(-117328, 0); //upper limit
-		elevator_Talon.configForwardSoftLimitThreshold(0, 0); //lower limit
-		elevator_Talon.configForwardSoftLimitEnable(true, 0);
-		elevator_Talon.configReverseSoftLimitEnable(true, 0);
+		elevator_Talon.configForwardSoftLimitEnable(false, 0);
+		elevator_Talon.configReverseSoftLimitEnable(false, 0);
 		
 		//Startup Position Values
 		driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
@@ -286,7 +293,7 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
-		
+		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();
