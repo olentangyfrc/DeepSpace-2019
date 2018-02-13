@@ -5,11 +5,13 @@ import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
+import org.usfirst.frc.team4611.robot.subsystems.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 import edu.wpi.cscore.UsbCamera;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -29,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static Arm arm;
 	public static UltrasonicSensor ultrasonic;
 	public static Solenoid sol;
+	public static Optical opt;
 	public static OI oi;
 	
 
@@ -53,6 +56,8 @@ public class Robot extends IterativeRobot {
 		arm = new Arm();
 		sol = new Solenoid();
 		ultrasonic = new UltrasonicSensor();
+		opt = new Optical(Port.kMXP);
+		opt.start();
 		oi = new OI();
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		//new CameraUpdater();
@@ -135,9 +140,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		ultrasonic.getInches();
-		System.out.println("Linear Actuator 1: "+RobotMap.linearActuatorPot.get());
-		System.out.println("Linear Actuator 2: "+RobotMap.linearActuatorPot2.get());
+		//ultrasonic.getInches();
+		//System.out.println("Linear Actuator 1: "+RobotMap.linearActuatorPot.get());
+		//System.out.println("Linear Actuator 2: "+RobotMap.linearActuatorPot2.get());
+		//opt.update();
+		//System.out.println("Laser: " + opt.pidGet());
+		//System.out.println("Laser: " + opt.getDistance());
+		
 	}
 
 	/**

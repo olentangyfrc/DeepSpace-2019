@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 //import org.usfirst.frc.team4611.robot.logging.Logger;
@@ -142,6 +143,8 @@ public class RobotMap {
 	public static String camerayResID = "Camera-yResolution";
 	public static String rotateFilterID = "Rotate Filter";
 	public static String maxRPMID = "Max RPM";
+	
+	public static int distance;
 	
 	
 	

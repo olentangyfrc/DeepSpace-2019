@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.MoveElevator;
-
+import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.MoveForward;
@@ -15,6 +15,7 @@ import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -31,6 +32,7 @@ public class OI {
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
 	public static Joystick thirdJoy;
+	public static XboxController con;
 	
 	//Buttons
 	public Button strafeLeft;
@@ -54,6 +56,8 @@ public class OI {
 	public Button closeClaw;
 	public Button MoveForward;
 	public Button MoveBackward;
+	public Button getDistance;
+	public Button getDistanceController;
 	
 
 	public OI (){
@@ -62,6 +66,7 @@ public class OI {
 		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
 		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
 		thirdJoy = new Joystick(RobotMap.thirdJoyPort);
+		con = new XboxController(RobotMap.leftJoyPort);
 		
 		//Buttons
 		moveForward = new JoystickButton(thirdJoy, 3);
@@ -82,6 +87,10 @@ public class OI {
 		solRetract = new JoystickButton(leftJoy, 6);//open claw
 		MoveForward = new JoystickButton(thirdJoy, 3);
 		MoveBackward = new JoystickButton(thirdJoy, 2);
+		getDistance = new JoystickButton(leftJoy, 3);
+		getDistanceController = new JoystickButton(con, 2);
+		
+		
 	
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -96,6 +105,9 @@ public class OI {
 		//Strafe Commands
 		moveForward.whileHeld(new MoveForward(0.3));
 		moveBackward.whileHeld(new MoveBackward(0.3));
+		
+		getDistance.whenPressed(new laserDistance());
+		getDistanceController.whenPressed(new laserDistance());
 		
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));

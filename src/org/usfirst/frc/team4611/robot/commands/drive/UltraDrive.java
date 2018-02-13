@@ -22,9 +22,9 @@ public class UltraDrive extends Command{
 	
 	protected boolean isFinished() {
 		double range = Robot.ultrasonic.getInches();
-		System.out.println(range);
+		//System.out.println(range);
 		if( range < distance || range > RobotMap.MAX_RANGE){
-			System.out.println("I'm stopping myself");
+			//System.out.println("I'm stopping myself");
 			RobotMap.driveTrain.driveCartesian(0, 0, 0);
 			return true;
 		}

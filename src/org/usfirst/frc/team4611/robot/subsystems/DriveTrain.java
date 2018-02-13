@@ -47,7 +47,7 @@ public class DriveTrain extends Subsystem {
 		out += RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0) + "," + velocity1+","+RobotMap.driveTrainFL_Talon.getMotorOutputPercent() + ",";
 		out += RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0) + "," + velocity2+","+RobotMap.driveTrainFR_Talon.getMotorOutputPercent() + ",";
 		
-		System.out.println(out);
+		//System.out.println(out);
 		
 	}
 	
