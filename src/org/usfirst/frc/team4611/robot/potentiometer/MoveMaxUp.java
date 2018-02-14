@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,10 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class MoveMaxUp extends Command {
-
-    public MoveMaxUp() {
+	private double pos;
+    public MoveMaxUp(double pos) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.pos = pos;
     }
 
     // Called just before this Command runs the first time
@@ -20,12 +22,19 @@ public class MoveMaxUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.movePotPos(.8);
+    	Robot.arm.movePotPos(pos);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	double potValue1 = RobotMap.linearActuatorPot.get();
+		double potValue2 = RobotMap.linearActuatorPot2.get();
+    	if((pos + 0.05 > potValue1 && pos - 0.05 < potValue1) && (pos + 0.05 > potValue2 && pos - 0.05 < potValue2)) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
