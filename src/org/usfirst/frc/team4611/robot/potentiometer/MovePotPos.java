@@ -1,4 +1,4 @@
-/*package org.usfirst.frc.team4611.robot.potentiometer;
+package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.Robot;
 
@@ -21,4 +21,4 @@ public class MovePotPos extends Command{
 		return false;
 	}
 
-}*/
+}

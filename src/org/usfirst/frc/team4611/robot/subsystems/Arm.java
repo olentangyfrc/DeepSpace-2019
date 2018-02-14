@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot.subsystems;
 
+import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -63,6 +64,25 @@ public class Arm extends Subsystem {
 			RobotMap.linearActuator2.set(0);
 		}
 	}
+	
+	public void movePotPos(double pos) {
+		
+		if (RobotMap.linearActuator.get() > pos + 0.05 || RobotMap.linearActuator.get() > pos - 0.05) {
+			RobotMap.linearActuator.set(-0.7);
+			RobotMap.linearActuator2.set(-0.7);		
+		}
+		
+		else if (RobotMap.linearActuator.get() < pos + 0.05 || RobotMap.linearActuator.get() < pos - 0.05) {
+			RobotMap.linearActuator.set(0.7);
+			RobotMap.linearActuator2.set(0.7);
+		}
+		
+		else {
+			RobotMap.linearActuator.set(0);
+			RobotMap.linearActuator2.set(0);
+		}
+		
+		}
 	
 	@Override
 	protected void initDefaultCommand() {	

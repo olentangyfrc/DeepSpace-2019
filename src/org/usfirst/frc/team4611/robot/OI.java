@@ -8,6 +8,7 @@ import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
@@ -136,7 +137,7 @@ public class OI {
 		//Elevator Commands
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
-		moveElToSwitch.whenPressed(new MoveElevatorToPos(-39556));
+		moveElToSwitch.whenPressed(new StartingPos());
 		
 		//Claw Commands
 		solToggle.whenPressed(new ToggleSolenoid());
