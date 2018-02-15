@@ -5,6 +5,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
+import org.usfirst.frc.team4611.robot.subsystems.Climber;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	public static OI oi;
 	public static BoxPusher boxPusher;
+	public static Climber climber;
 
 	Command autonomousCommand;
 	Command lightsCommand;
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot {
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
+		climber = new Climber();
 		oi = new OI();
 		
 		CameraServer.getInstance().startAutomaticCapture();

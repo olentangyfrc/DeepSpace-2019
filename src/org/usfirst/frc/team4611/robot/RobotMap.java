@@ -210,7 +210,7 @@ public class RobotMap {
 		
 		//Climber Talons
 		climber_Talon = new WPI_TalonSRX(31);
-		climber_Talon = new WPI_TalonSRX(32);
+		climber_Talon2 = new WPI_TalonSRX(32);
 		
 		//Talon Configuration
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -218,6 +218,8 @@ public class RobotMap {
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		climber_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		climber_Talon2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
 		//Limits
 		elevator_Talon.configForwardSoftLimitEnable(false, 0);
