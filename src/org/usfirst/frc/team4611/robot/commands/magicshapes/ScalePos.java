@@ -1,14 +1,15 @@
 package org.usfirst.frc.team4611.robot.commands.magicshapes;
 
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
-//import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartingPos extends CommandGroup {
-	public StartingPos() {
-		addSequential(new MoveElevatorToPos(0));
-		addParallel(new MovePotPos(.8));
+public class ScalePos extends CommandGroup {
+	public ScalePos() {
+		addSequential(new MoveElevatorToPos(-117328)); //need to check position values
+		addParallel(new MovePotPos(0.2)); //need to check position values
+		
 	}
+
 }
