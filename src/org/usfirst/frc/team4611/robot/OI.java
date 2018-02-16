@@ -8,7 +8,11 @@ import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.BottomPos;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.MiddlePos;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
@@ -64,6 +68,13 @@ public class OI {
 	public Button moveElToTop;
 	public Button moveElToSwitch;
 	
+	//Magic Shaping Buttons
+	public Button MagicSwitch;
+	public Button MagicScale;
+	public Button MagicMiddle;
+	public Button MagicBottom;
+	public Button MagicStart;
+	
 	//Claw Buttons
 	public Button openClaw;
 	public Button closeClaw;
@@ -103,6 +114,13 @@ public class OI {
 		moveElToTop = new JoystickButton (rightJoy, 6);
 		moveElToSwitch= new JoystickButton (rightJoy, 7);
 		
+		//Magic Shaping Buttons
+		MagicScale = new JoystickButton(rightJoy,6);
+		MagicSwitch = new JoystickButton(rightJoy,11);
+		//MagicMiddle = new JoystickButton(rightJoy, 8);
+		MagicBottom = new JoystickButton(rightJoy, 9);
+		MagicStart = new JoystickButton (rightJoy, 8);
+		
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -138,6 +156,13 @@ public class OI {
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
 		moveElToSwitch.whenPressed(new StartingPos());
+		
+		//Magic Shaping Commands
+		MagicScale.whenPressed(new ScalePos());
+		MagicSwitch.whenPressed(new SwitchPos());
+		//MagicMiddle.whenPressed(new MiddlePos());
+		MagicBottom.whenPressed(new BottomPos());
+		MagicStart.whenPressed(new StartingPos());
 		
 		//Claw Commands
 		solToggle.whenPressed(new ToggleSolenoid());

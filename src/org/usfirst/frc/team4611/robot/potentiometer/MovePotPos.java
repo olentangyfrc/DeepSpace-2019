@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,8 +18,16 @@ public class MovePotPos extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		double variance = Math.abs(RobotMap.linearActuatorPot.get()-position);
+		if (variance < 1) {
+			return true;
+		}
+		else {
 		return false;
+		}
+
 	}
+	
+	
 
 }

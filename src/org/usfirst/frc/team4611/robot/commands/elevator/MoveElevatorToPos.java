@@ -31,7 +31,8 @@ public class MoveElevatorToPos extends Command{
 	}
 	
 	protected void end() {
-		//RobotMap.elevator_Talon.setSensorPhase(true);
+		System.out.println("Move elevator command finished");//RobotMap.elevator_Talon.setSensorPhase(true);
+		
 	}
 
 }

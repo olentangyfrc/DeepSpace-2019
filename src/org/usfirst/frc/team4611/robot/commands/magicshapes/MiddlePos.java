@@ -11,7 +11,7 @@ public class MiddlePos extends CommandGroup{
 //Right now: it's a position in between switchPos
 //and scalePos
 	public MiddlePos() {
-		addSequential(new MoveElevatorToPos(-15000)); //Must check position 
+		addSequential(new MoveElevatorToPos(-87696)); //Must check position 
 		addParallel(new MovePotPos(0.7)); //Must check position
 	}
 }

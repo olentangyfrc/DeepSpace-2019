@@ -5,11 +5,10 @@ import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ScalePos extends CommandGroup {
-	public ScalePos() {
-		addSequential(new MoveElevatorToPos(-116300)); //need to check position values
-		addParallel(new MovePotPos(0.8)); //need to check position values
-		
+public class BottomPos extends CommandGroup{
+	public BottomPos() {
+		addSequential(new MoveElevatorToPos(0));
+		addParallel(new MovePotPos(0.08));
 	}
 
 }
