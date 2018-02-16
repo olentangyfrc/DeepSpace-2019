@@ -35,6 +35,8 @@ public class RobotMap {
 	
 	//Extra Talons
 	public static WPI_TalonSRX elevator_Talon;
+	public static WPI_TalonSRX climber_Talon;
+	public static WPI_TalonSRX climber_Talon2;
 
 	//Drive train Victors
 	public static Victor driveTrainFL;
@@ -205,6 +207,10 @@ public class RobotMap {
 		//Elevator Talons
 		elevator_Talon = new WPI_TalonSRX(35);
 		elevator_Talon.setSensorPhase(true);
+		
+		//Climber Talons
+		climber_Talon = new WPI_TalonSRX(31);
+		climber_Talon = new WPI_TalonSRX(32);
 		
 		//Talon Configuration
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
