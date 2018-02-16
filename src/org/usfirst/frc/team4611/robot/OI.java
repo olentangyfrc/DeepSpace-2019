@@ -55,8 +55,8 @@ public class OI {
 	public Button solExtend2;
 	
 	//LA Buttons
-	public Button linearActuatorUp;
-	public Button linearActuatorDown;
+	public static Button linearActuatorUp;
+	public static Button linearActuatorDown;
 	public Button linearActuatorUp2;
 	public Button linearActuatorDown2;
 	public Button linearActuatorUp3;
@@ -155,7 +155,7 @@ public class OI {
 		//Elevator Commands
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
-		moveElToSwitch.whenPressed(new StartingPos());
+		//moveElToSwitch.whenPressed(new StartingPos());
 		
 		//Magic Shaping Commands
 		MagicScale.whenPressed(new ScalePos());

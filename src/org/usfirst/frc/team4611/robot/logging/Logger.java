@@ -52,7 +52,8 @@ public class Logger {
 	public static void log(String message, LoggerType type) {
 		//Gets the time that  function was called (format determined by status variable)
 		String timestamp = getTimeLogged();
-		
+		System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
+
 		//Checks to see if only specific LoggerTypes should be printed to the console
 		if(OnlyViewSpecifics) {		
 			//Checks if the given LoggerType is within the onlyShaw arraylist

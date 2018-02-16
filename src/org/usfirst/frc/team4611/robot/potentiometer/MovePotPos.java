@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MovePotPos extends Command{
 
-	private static double position;
+	private double position;
 	
 	public MovePotPos(double position) {
 		this.position = position;
@@ -22,11 +22,13 @@ public class MovePotPos extends Command{
 	@Override
 	protected boolean isFinished() {
 		double variance = Math.abs(RobotMap.linearActuatorPot.get()-position);
-		if (variance < 1) {
+		if (Math.abs(variance) < .02) {
+			RobotMap.log(RobotMap.linearActuatorSubTable, "Returning true");
 			return true;
 		}
 		else {
-		return false;
+			RobotMap.log(RobotMap.linearActuatorSubTable, "Returning false");
+			return false;
 		}
 
 	}

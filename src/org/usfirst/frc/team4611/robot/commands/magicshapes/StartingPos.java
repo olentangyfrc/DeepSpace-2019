@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class StartingPos extends CommandGroup {
 	public StartingPos() {
-		RobotMap.log(RobotMap.linearActuatorSubTable, "RUNNING COMMAND GROUP");
-		addParallel(new MoveElevatorToPos(0));
+		//RobotMap.log(RobotMap.linearActuatorSubTable, "RUNNING COMMAND GROUP");
 		addParallel(new MovePotPos(.85));
+		addParallel(new MoveElevatorToPos(0));
 	}
 }

@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SwitchPos extends CommandGroup{
 	public SwitchPos() {
-		addParallel(new MoveElevatorToPos(-39556)); //need to check position
 		addParallel(new MovePotPos(0.5)); //need to check position
+		addParallel(new MoveElevatorToPos(-39556)); //need to check position
+		
 	}
 }

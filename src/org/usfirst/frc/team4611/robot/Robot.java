@@ -45,6 +45,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static BoxPusher boxPusher;
 
+	private boolean hasInitialized = false;
+	
 	Command autonomousCommand;
 	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -145,7 +147,11 @@ public class Robot extends IterativeRobot {
 			//If it's false, it starts victor setup
 			RobotMap.setupVictor();
 		}
-		Logger.init("Logs");
+		
+		if(!this.hasInitialized){
+			Logger.init("Logs");
+			this.hasInitialized = true;
+		}
 	}
 
 	/**
