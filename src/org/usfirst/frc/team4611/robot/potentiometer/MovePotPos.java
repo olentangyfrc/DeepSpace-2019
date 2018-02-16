@@ -12,6 +12,9 @@ public class MovePotPos extends Command{
 	public MovePotPos(double position) {
 		this.position = position;
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.linearActuatorSubTable, "Moving to position: " + position);
+	}
 	protected void execute() {
 		Robot.arm.movePotPos(position);
 	}

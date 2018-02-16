@@ -145,6 +145,7 @@ public class Robot extends IterativeRobot {
 			//If it's false, it starts victor setup
 			RobotMap.setupVictor();
 		}
+		Logger.init("Logs");
 	}
 
 	/**
@@ -154,6 +155,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
+		RobotMap.log(RobotMap.linearActuatorSubTable, "Pot values: " + RobotMap.linearActuatorPot.get() + " " + RobotMap.linearActuatorPot2.get());
 		//System.out.println("LA 4 pos: "+ RobotMap.linearActuatorPot.get());
 		//System.out.println("LA 5 pos: "+ RobotMap.linearActuatorPot2.get());
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
@@ -164,7 +166,7 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
-		
+
 		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
 
