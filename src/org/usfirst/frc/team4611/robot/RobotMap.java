@@ -394,6 +394,6 @@ public class RobotMap {
 	}
 
 	public static void log(String subTable, String message) {
-		//Logger.log(message, Logger.getLoggerType(subTable));
+		Logger.log(message, Logger.getLoggerType(subTable));
 	}
 }

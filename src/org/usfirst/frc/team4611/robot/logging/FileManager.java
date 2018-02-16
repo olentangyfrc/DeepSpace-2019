@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 public class FileManager {
 
 	private FileWriter masterWrite;
-		
+	private boolean hasFile = true;
 	public FileManager(String folderName, String masterName) {
 		try {
 			File folder = new File("/media/sda1/Logs/" + masterName + "/");
@@ -19,13 +19,8 @@ public class FileManager {
 			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
 			System.out.println("Found usb");
 		} catch (Exception e) {
-			try {
-				File folder = new File("/home/lvuser/Logs/" + masterName + "/");
-				folder.mkdirs();
-				masterWrite = new FileWriter(new File("/home/lvuser/Logs/" + masterName + "/" + "RoboRioLog.txt"));
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+			hasFile = false;
+			e.printStackTrace();
 		} 
 	}
 	
@@ -37,11 +32,13 @@ public class FileManager {
 	 * on the same matter
 	 */
 	public void write(String message) {
-		try {
-			masterWrite.write(message + "\n");
-			masterWrite.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(hasFile) {
+			try {
+				masterWrite.write(message + "\n");
+				masterWrite.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	/**
@@ -83,10 +80,13 @@ public class FileManager {
 	}
 
 	public void robotDisabled() {
-		try {
-			this.masterWrite.flush();
-		}catch(Exception e) {
-			System.out.println("Unable to write to Rio with exception: " + e.getLocalizedMessage());
+		if(hasFile) {
+			try {
+				this.masterWrite.flush();
+			}catch(Exception e) {
+				System.out.println("Unable to write to Rio with exception: " + e.getLocalizedMessage());
+			}
 		}
+		
 	}
 }
