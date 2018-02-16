@@ -24,7 +24,7 @@ public class Optical extends Subsystem{
 			private final int LIDAR_ADDR = 0x62;
 			private final int LIDAR_CONFIG_REGISTER = 0x00;
 			private final int ready = 0x01;
-			private final int LIDAR_DISTANCE_REGISTER_BYTE = 0x8f;
+			private final int LIDAR_DISTANCE_REGISTER_BYTE = 0x10;
 			//private final int LIDAR_DISTANCE_REGISTER_HIGH_BYTE = 0x0f;
 			
 			public Optical(Port port) {
@@ -43,7 +43,7 @@ public class Optical extends Subsystem{
 			}
 		 
 			public double pidGet() {
-				return getDistance() / 257;
+				return getDistance();
 			}
 			
 			
