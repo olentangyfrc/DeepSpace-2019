@@ -9,6 +9,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartingPos extends CommandGroup {
 	public StartingPos() {
 		addSequential(new MoveElevatorToPos(0));
-		addParallel(new MovePotPos(.8));
+		//addParallel(new MovePotPos(.8));
 	}
 }

@@ -22,7 +22,7 @@ public class MoveElevatorToPos extends Command{
 	@Override
 	protected boolean isFinished() {
 		double variance = Math.abs(RobotMap.elevator_Talon.getSelectedSensorPosition(0)-position);
-		if (variance < 1) {
+		if (variance < 1000) {
 			return true;
 		}
 		else {
