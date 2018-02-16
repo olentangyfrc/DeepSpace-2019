@@ -154,14 +154,14 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		ultrasonic.getInches();
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
+		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(7);
 		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(2);
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
-		}
+		}*/
 		
 		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
