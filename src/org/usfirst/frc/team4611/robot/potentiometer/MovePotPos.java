@@ -23,7 +23,7 @@ public class MovePotPos extends Command{
 	@Override
 	protected boolean isFinished() {
 		double variance = Math.abs(RobotMap.linearActuatorPot.get()-position);
-		if (Math.abs(variance) < .02) {
+		if (Math.abs(variance) < .05) {
 			RobotMap.log(RobotMap.linearActuatorSubTable, "Returning true");
 			return true;
 		}
