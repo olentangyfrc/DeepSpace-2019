@@ -10,6 +10,7 @@ public class MovePotPos extends Command{
 	private double position;
 	
 	public MovePotPos(double position) {
+		requires(Robot.arm);
 		this.position = position;
 	}
 	protected void initialize() {
