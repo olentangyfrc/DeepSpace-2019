@@ -76,7 +76,7 @@ public class Arm extends Subsystem {
 		double pos1 = (potValue1 - min1) / (max1 - min1);
 		double pos2 = (potValue2 - min2) / (max2 - min2);
 		
-		if(RobotMap.linearActuator.get() > pos + 0.05 || RobotMap.linearActuator.get() > pos - 0.05) {
+		if(RobotMap.linearActuatorPot.get() > pos + 0.05 || RobotMap.linearActuatorPot.get() > pos - 0.05) {
 			if((potValue1 > min1 && pos1 >= pos2 - varianceLimit)) {
 				RobotMap.linearActuator.set(-.7);
 				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving down");
@@ -95,7 +95,7 @@ public class Arm extends Subsystem {
 			}
 		}
 		
-		else if (RobotMap.linearActuator.get() < pos + 0.05 || RobotMap.linearActuator.get() < pos - 0.05) {
+		else if (RobotMap.linearActuatorPot.get() < pos + 0.05 || RobotMap.linearActuatorPot.get() < pos - 0.05) {
 			if(potValue1 < max1 && pos1 <= pos2 + varianceLimit) {
 				RobotMap.linearActuator.set(.7);
 				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving up");
