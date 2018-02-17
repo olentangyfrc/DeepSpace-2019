@@ -16,8 +16,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Relay.Direction;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -35,8 +35,7 @@ public class Robot extends IterativeRobot {
 	public static Elevator el;
 	public static Arm arm;
 	public static UltrasonicSensor ultrasonic;
-	public static Relay lights1;
-	public static Relay lights2;
+	public static Spark lights1;
 	public static FancyLights fancyLight;
 	public static Solenoid sol;
 	public static NetworkTableInstance tableInstance;
@@ -44,7 +43,6 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	public static OI oi;
 	public static BoxPusher boxPusher;
-
 	Command autonomousCommand;
 	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -65,13 +63,13 @@ public class Robot extends IterativeRobot {
 		sol = new Solenoid();
 		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
-		lights1 = new Relay(0, Direction.kBoth);
-		lights2 = new Relay(1, Direction.kBoth);
+		lights1 = new Spark(6);
 		fancyLight = new FancyLights();
+		lights1.set(0.07);
 		oi = new OI();
-		
 		CameraServer.getInstance().startAutomaticCapture();
-		lightsCommand = new MakeLight(1);
+		lightsCommand = new MakeLight(2);
+		lightsCommand.setRunWhenDisabled(true);
 		lightsCommand.start();
 		camera = CameraServer.getInstance().startAutomaticCapture();
 	}
@@ -89,7 +87,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+		Scheduler.getInstance().run();		
+		((MakeLight)lightsCommand).setColor(4);
+		lights1.set(0.87);
 	}
 
 	/**
@@ -126,6 +126,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+	/**if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
+		&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+	((MakeLight)lightsCommand).setColor(7);
+	}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+		((MakeLight)lightsCommand).setColor(2);
+	}else{
+		((MakeLight)lightsCommand).setColor(5);
+	}*/
+	
 	}
 
 	@Override
@@ -145,6 +154,8 @@ public class Robot extends IterativeRobot {
 			//If it's false, it starts victor setup
 			RobotMap.setupVictor();
 		}
+		
+		Logger.init("Logs");
 	}
 
 	/**
@@ -153,7 +164,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		ultrasonic.getInches();
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(7);
@@ -163,7 +173,15 @@ public class Robot extends IterativeRobot {
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
 		
-		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
+		((MakeLight)lightsCommand).setColor(3);
+		System.out.println("Time" + Timer.getMatchTime());
+		if(Timer.getMatchTime() >= 20) {
+			lights1.set(0.03);
+		}else if(Timer.getMatchTime() >= 10) {
+			lights1.set(0.05);
+		}else {
+			lights1.set(0.07);
+		}
 	}
 
 	/**
