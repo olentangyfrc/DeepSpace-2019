@@ -65,9 +65,9 @@ public class Optical extends Subsystem{
 			public void update() {
 				i2c.write(LIDAR_CONFIG_REGISTER, 0x04); // Initiate measurement
 				Timer.delay(0.001); // Delay for measurement to be taken
-				i2c.read(ready, 1, readyCheck);
-				Timer.delay(0.001);
-				i2c.read(LIDAR_DISTANCE_REGISTER_BYTE, 2, distance); // Read in measurement
+				byte[] register = new byte[] {(byte)LIDAR_DISTANCE_REGISTER_BYTE};
+				i2c.writeBulk(register, 1);
+				i2c.readOnly(distance ,2); // Read in measurement
 				Timer.delay(0.001); // Delay to prevent over polling
 				
 			}
