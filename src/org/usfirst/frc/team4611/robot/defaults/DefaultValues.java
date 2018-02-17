@@ -89,7 +89,7 @@ public class DefaultValues {
 			RobotMap.log(RobotMap.defaultsSubTable, "Please stop trying to setup and get these values to a file that DOESN'T EXIST");
 		}
 	
-		return hasFile ? prop.get(name + "-" + key) : null;
+		return hasFile ? prop.get(name + "-" + key) : defaultVal;
 	}
 
 	public void saveProperties() {
