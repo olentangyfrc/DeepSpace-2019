@@ -74,6 +74,10 @@ public class Robot extends IterativeRobot {
 		lightsCommand = new MakeLight(1);
 		lightsCommand.start();
 		camera = CameraServer.getInstance().startAutomaticCapture();
+		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 	}
 
 	/**
@@ -153,6 +157,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		System.out.println("FL "+ RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0));
+		System.out.println("FR "+ RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0));
+		System.out.println("BL "+ RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
+		System.out.println("BR "+ RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0));
 		ultrasonic.getInches();
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
