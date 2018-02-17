@@ -24,7 +24,7 @@ public class Optical extends Subsystem{
 			private final int LIDAR_ADDR = 0x62;
 			private final int LIDAR_CONFIG_REGISTER = 0x00;
 			private final int ready = 0x01;
-			private final int LIDAR_DISTANCE_REGISTER_BYTE = 0x10;
+			private final int LIDAR_DISTANCE_REGISTER_BYTE = 0x8f;
 			//private final int LIDAR_DISTANCE_REGISTER_HIGH_BYTE = 0x0f;
 			
 			public Optical(Port port) {
@@ -63,12 +63,12 @@ public class Optical extends Subsystem{
 			
 			// Update distance variable
 			public void update() {
-				i2c.write(LIDAR_CONFIG_REGISTER, 0x00); // Initiate measurement
-				Timer.delay(0.01); // Delay for measurement to be taken
+				i2c.write(LIDAR_CONFIG_REGISTER, 0x04); // Initiate measurement
+				Timer.delay(0.001); // Delay for measurement to be taken
 				i2c.read(ready, 1, readyCheck);
-				Timer.delay(0.01);
+				Timer.delay(0.001);
 				i2c.read(LIDAR_DISTANCE_REGISTER_BYTE, 2, distance); // Read in measurement
-				Timer.delay(0.01); // Delay to prevent over polling
+				Timer.delay(0.001); // Delay to prevent over polling
 				
 			}
 
@@ -80,19 +80,17 @@ public class Optical extends Subsystem{
 			// Timer task to keep distance updated
 			private class LIDARUpdater extends TimerTask {
 				public void run() {
-					while(true) {
-						Robot.opt.update();
-						System.out.println("Ready : " + readyCheck[0]);
-						System.out.println("Laser : " + pidGet());
+					Robot.opt.update();
+					System.out.println("Ready : " + readyCheck[0]);
+					System.out.println("Laser : " + pidGet());
 						/*try {
 							Thread.sleep(10);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}*/
-					}
 				}
 			}
-			public void startReading() {
+			/*public void startReading() {
 				//i2c.write(0, 0x04);
 				if(i2c.write(0, 0x10))
 					System.out.println("Error starting reading");
@@ -115,7 +113,7 @@ public class Optical extends Subsystem{
 					}
 					i2c.readOnly(buffer, 1);
 					System.out.println("Second print: " + buffer[0] + ", " + buffer[1]);
-					*/
+					
 				return (buffer[0] >> 8);
 				//return -1;
 			}
@@ -124,6 +122,6 @@ public class Optical extends Subsystem{
 				for(int c = 0; c < buffer.length; c++) {
 					System.out.println(c + ": " + buffer[c]);
 				}
-			}
+			}*/
 			
 	}

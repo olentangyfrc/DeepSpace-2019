@@ -19,12 +19,12 @@ public class laserDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.opt.startReading();
+    	//Robot.opt.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	distance = Robot.opt.getInt(); 
+    	//distance = Robot.opt.getInt(); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
