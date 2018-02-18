@@ -33,6 +33,10 @@ public class AutonStrafe extends Command {
     	RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
     	RobotMap.driveTrainFR_Talon.config_kP(0, 1, 0);
     	RobotMap.driveTrainFL_Talon.config_kP(0, 1, 0);
+    	RobotMap.driveTrainBR_Talon.configOpenloopRamp(5, 0);
+    	RobotMap.driveTrainBL_Talon.configOpenloopRamp(5, 0);
+    	RobotMap.driveTrainFR_Talon.configOpenloopRamp(5, 0);
+    	RobotMap.driveTrainFL_Talon.configOpenloopRamp(5, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
