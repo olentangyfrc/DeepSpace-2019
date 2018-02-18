@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
-import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
+import org.usfirst.frc.team4611.robot.commands.auton.TestCommand;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
 		autonCommandGroup.put("RSCRRR", new RightScale());
-		autonCommandGroup.put("TEST", new TestBlock());
+		autonCommandGroup.put("TEST", new TestCommand());
 		oi = new OI();
 		
 		CameraServer.getInstance().startAutomaticCapture();
@@ -128,7 +128,7 @@ public class Robot extends IterativeRobot {
 		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
 		driver.getGameSpecificMessage();
 		String key = autonFinalDecision;
-		autonomousCommand = this.autonCommandGroup.get(key);
+		autonomousCommand = new TestCommand();//this.autonCommandGroup.get(key);
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

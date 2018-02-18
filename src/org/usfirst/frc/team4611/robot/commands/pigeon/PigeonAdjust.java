@@ -1,16 +1,19 @@
 package org.usfirst.frc.team4611.robot.commands.pigeon;
 
+import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.SwitchableCommand;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
 public class PigeonAdjust extends SwitchableCommand {
 
 	private double desiredAngle;
 	private double startAngle;
+	private double prevAngle = 0;
 	private double da;
+	private double multi = 1;
+	private boolean hasAdjusted = false;
 	private Direction dir;
 	 
 	public PigeonAdjust(double da) {
@@ -19,12 +22,18 @@ public class PigeonAdjust extends SwitchableCommand {
 	
 	protected void initialize() {
 		startAngle = RobotMap.pigeon.getFusedHeading();
-		this.desiredAngle = startAngle-da;
+		if(da != 0) {
+			this.desiredAngle = startAngle-da;
+		}else if(da == 0) {
+			this.desiredAngle = RobotMap.pigeon.getFusedHeading() - (RobotMap.pigeon.getFusedHeading()/360 - (int)RobotMap.pigeon.getFusedHeading()/360)*360;
+		}
+		
 		if(desiredAngle > startAngle) {
 			dir = Direction.LEFT;
 		}else{
 			dir = Direction.RIGHT;
 		}
+		prevAngle = RobotMap.pigeon.getFusedHeading();
 	}
 	protected void execute() {
 		FusionStatus status = new FusionStatus();
@@ -37,7 +46,14 @@ public class PigeonAdjust extends SwitchableCommand {
 	protected boolean isFinished(){
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
-		if(this.desiredAngle < status.heading && dir == Direction.LEFT) {
+
+		if(this.desiredAngle > status.heading && dir == Direction.RIGHT && Math.abs(status.heading-desiredAngle) > 1) {
+			dir = Direction.LEFT;
+		}else if(this.desiredAngle < status.heading && dir == Direction.LEFT && Math.abs(status.heading-desiredAngle) > 1) {
+			dir = Direction.RIGHT;
+		}
+		
+		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
 			System.out.print("Finished Left");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -45,7 +61,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			RobotMap.driveTrainBR_Talon.stopMotor();
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
-		}else if(this.desiredAngle > status.heading && dir == Direction.RIGHT) {
+		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
 			System.out.println("Finished Right");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -54,6 +70,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -67,19 +84,34 @@ public class PigeonAdjust extends SwitchableCommand {
 		double angleError = angleErrorFilter(Math.abs(this.desiredAngle-RobotMap.pigeon.getFusedHeading()));
 
 		if(dir == Direction.RIGHT) {
-			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
-			RobotMap.driveTrainBL_Talon.setInverted(false);
-			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
-			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
-		}else if(dir == Direction.LEFT) {
-			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
+			/**RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
 			RobotMap.driveTrainBL_Talon.setInverted(false);
 			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
 			RobotMap.driveTrainBR_Talon.setInverted(false);
 			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);*/
+			Robot.mecanum.rotate(multi * 800);
+			
+			if(prevAngle > RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
+				multi = 1;
+				hasAdjusted = true;
+			}
+			
+			prevAngle = RobotMap.pigeon.getFusedHeading();
+		}else if(dir == Direction.LEFT) {
+			/**RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
+			RobotMap.driveTrainBL_Talon.setInverted(false);
+			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
+			RobotMap.driveTrainBR_Talon.setInverted(false);
+			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);*/
+			Robot.mecanum.rotate(multi * -800);
+			
+			if(prevAngle < RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
+				multi = 1;
+				hasAdjusted = true;
+			}
+			prevAngle = RobotMap.pigeon.getFusedHeading();
 		}
 	}
 
