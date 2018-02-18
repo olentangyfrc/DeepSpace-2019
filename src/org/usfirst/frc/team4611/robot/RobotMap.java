@@ -160,6 +160,9 @@ public class RobotMap {
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
 	public static String autonStrafeScalarID = "StrafeScalar";
+	public static String autonSubTable = "Auton Subtable";
+	public static String sideKey = "Side";
+	public static String targetKey = "Target";
 	
 	public static DefaultValues defaults;
 
@@ -303,6 +306,8 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();

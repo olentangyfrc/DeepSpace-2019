@@ -18,6 +18,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
@@ -47,6 +48,8 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	public static OI oi;
 	public static BoxPusher boxPusher;
+	public static DriverStation driver;
+	public String autonFinalDecision;
 	public HashMap<String, Command> autonCommandGroup;
 
 	Command autonomousCommand;
@@ -72,8 +75,9 @@ public class Robot extends IterativeRobot {
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
-		autonCommandGroup = new HashMap<String, Command>();
-		autonCommandGroup.put("RIGHT_SCALE", new RightScale());
+		driver = DriverStation.getInstance();
+		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
+		autonCommandGroup.put("RSCRBR", new RightScale());
 		autonCommandGroup.put("TEST", new TestBlock());
 		oi = new OI();
 		
@@ -85,6 +89,10 @@ public class Robot extends IterativeRobot {
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		
+		autonFinalDecision = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey) +
+		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
+		driver.getGameSpecificMessage();
 	}
 
 	/**
@@ -116,8 +124,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		String strategy = "TEST";
-		autonomousCommand = this.autonCommandGroup.get(strategy);
+		System.out.println(autonFinalDecision);
+		autonFinalDecision = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey) +
+		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
+		driver.getGameSpecificMessage();
+		String key = autonFinalDecision;
+		autonomousCommand = this.autonCommandGroup.get(key);
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -184,8 +196,15 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public enum AutonCommands {
-		
+		TEST {
+			public String toString() {
+				return "TEST";
+			}
+		},
+		RIGHT_SCALE {
+			public String toString() {
+				return "RIGHT_SCALE";
+			}
 	}
-		
-	
+	}
 }
