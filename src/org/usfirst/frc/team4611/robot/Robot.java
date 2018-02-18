@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
+import org.usfirst.frc.team4611.robot.commands.auton.AutonForward;
+import org.usfirst.frc.team4611.robot.commands.auton.AutonStrafe;
 import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
@@ -10,6 +12,8 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
+
+import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
@@ -119,7 +123,7 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		autonomousCommand = new PigeonAuton();
+		//autonomousCommand = new AutonStrafe((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID));
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -157,10 +161,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("FL "+ RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0));
-		System.out.println("FR "+ RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0));
-		System.out.println("BL "+ RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0));
-		System.out.println("BR "+ RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0));
+		FusionStatus status = new FusionStatus();
+		System.out.println("Angle: " +  RobotMap.pigeon.getFusedHeading());
+		RobotMap.pigeon.getFusedHeading(status);
+		System.out.println("Angle Status: " +  status.heading);
 		ultrasonic.getInches();
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
@@ -170,8 +174,6 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
-		
-		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 	}
 
 	/**
