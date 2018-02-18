@@ -2,7 +2,6 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.commands.auton.AutonForward;
-import org.usfirst.frc.team4611.robot.commands.auton.AutonForwardRight;
 import org.usfirst.frc.team4611.robot.commands.auton.AutonStrafe;
 import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
 import org.usfirst.frc.team4611.robot.logging.Logger;
@@ -125,7 +124,6 @@ public class Robot extends IterativeRobot {
 
 		// schedule the autonomous command (example)
 		//autonomousCommand = new AutonStrafe((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID));
-		autonomousCommand = new AutonForwardRight();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
