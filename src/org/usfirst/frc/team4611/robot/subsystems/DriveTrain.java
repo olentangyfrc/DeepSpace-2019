@@ -19,14 +19,16 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrain.drivePolar(mag, angle, z);
 	}
 	
-	public void motionMagicStraight(int positionUnits) {
+	public void motionMagicStraight(double inches) {
+		double positionUnits = inches * 206.243;
+		//first convert inches to position units (double)
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 	}
 	
-	public void motionMagicStrafe(int positionUnits) {
+	public void motionMagicStrafe(double positionUnits) {
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
