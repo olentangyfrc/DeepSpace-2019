@@ -16,7 +16,7 @@ public class ResetElevator extends Command{
 	}	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		System.out.println(Robot.el.isSwitchSet());
 		return Robot.el.isSwitchSet();
 	}
 	

@@ -14,36 +14,21 @@ import org.usfirst.frc.team4611.robot.commands.SetDefault;
 public class DefaultValues {
 
 	private Properties prop = new Properties();
-	private OutputStream stream;
 	private OutputStream usb;
 	
-	private boolean hasFile = true;
-	private boolean hasUSBFile = true;
+	private boolean hasFile = false;
 	public DefaultValues() {
 		if(!this.loadPropertiesFromUSB()) {
-			if(!this.loadPropertiesFromLocal()) {
-				hasFile = this.createFile();
-				hasUSBFile = this.createFileOnUSB();
-			}else {
-				try {
-					File file = new File("/media/sda1/defaults/");
-					file.mkdirs();
-					usb = new FileOutputStream(new File("/media/sda1/defaults/defaults.properties"));
-					prop.store(usb, "Added from local file");
-				}catch(Exception e) {
-					RobotMap.log(RobotMap.defaultsSubTable, "Unable to find usb directory, only saving locally");
-					hasUSBFile = false;
-				}
-			}
+			hasFile = this.createFileOnUSB();
 		}else{
 			try {
-				File file = new File("/home/lvuser/defaults/");
+				File file = new File("/media/sda1/defaults");
 				file.mkdirs();
-				stream = new FileOutputStream(new File("/home/lvuser/defaults/defaults.properties"));
-				prop.store(stream, "All of these values are from an external usb");
+				usb = new FileOutputStream(new File("/media/sda1/defaults/defaults.properties"));
+				hasFile = true;
 			}catch(Exception e) {
-				RobotMap.log(RobotMap.defaultsSubTable, "Unable to create local properties, only referencing usb files");
 				hasFile = false;
+				e.printStackTrace();
 			}
 		}
 
@@ -63,39 +48,11 @@ public class DefaultValues {
 		}
 	}
 	
-	
-	private boolean loadPropertiesFromLocal() {
-		InputStream stream;
-		try {
-			stream = new FileInputStream(new File("/home/lvuser/defaults/defaults.properties"));
-			prop.load(stream);
-			RobotMap.log(RobotMap.defaultsSubTable, "Loaded defaults from local file");
-			this.stream = new FileOutputStream(new File("/home/lvuser/defaults/defaults.properties"));
-			return true;
-		}catch (Exception e) {
-			RobotMap.log(RobotMap.defaultsSubTable, "Unable to find properties file locally, creating a new one");
-			return false;
-		}
-	}
-	
-	private boolean createFile() {
-		try {
-			File file = new File("/home/lvuser/defaults/");
-			file.mkdirs();
-			stream = new FileOutputStream(new File("/home/lvuser/defaults/defaults.properties"));
-			RobotMap.log(RobotMap.defaultsSubTable, "Created new file, preparing usb for copying");
-			return true;
-		}catch (Exception e) {
-			RobotMap.log(RobotMap.defaultsSubTable, "Unable to create file, only returning programmed default values");
-			return false;
-		}
-	}
-	
 	private boolean createFileOnUSB() {
 		try {
 			File file = new File("/media/lvuser/defaults/");
 			file.mkdirs();
-			stream = new FileOutputStream(new File("/home/lvuser/defaults/defaults.properties"));
+			usb = new FileOutputStream(new File("/home/lvuser/defaults/defaults.properties"));
 			RobotMap.log(RobotMap.defaultsSubTable, "Created new file on usb, planning to save on both");
 			return true;
 		}catch (Exception e) {
@@ -132,20 +89,11 @@ public class DefaultValues {
 			RobotMap.log(RobotMap.defaultsSubTable, "Please stop trying to setup and get these values to a file that DOESN'T EXIST");
 		}
 	
-		return hasFile ? prop.get(name + "-" + key) : null;
+		return hasFile ? prop.get(name + "-" + key) : defaultVal;
 	}
 
 	public void saveProperties() {
 		if(hasFile) {
-			try {
-				prop.store(stream, null);
-				RobotMap.log(RobotMap.defaultsSubTable, "Saved entries successfully");
-			} catch(Exception e) {
-				RobotMap.log("Errors-" + RobotMap.defaultsSubTable, e.getLocalizedMessage());
-			}
-		}
-		
-		if(hasUSBFile) {
 			try {
 				prop.store(usb, null);
 				RobotMap.log(RobotMap.defaultsSubTable, "Saved entries successfully to usb");

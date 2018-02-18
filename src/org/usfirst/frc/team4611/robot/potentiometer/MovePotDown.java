@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MovePotDown extends Command{
 	
+	public MovePotDown() {
+		requires(Robot.arm);
+	}
+	
 	protected void execute() {
 		Robot.arm.movePotDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID), (double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID));
 	}

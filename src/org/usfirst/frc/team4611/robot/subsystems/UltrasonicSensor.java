@@ -13,7 +13,7 @@ public class UltrasonicSensor extends Subsystem{
 		double value = RobotMap.ultrasonicInput.getValue();
 		double inches = value * .05140 - 0.07;
 		RobotMap.updateValue(RobotMap.ultraSubtable , "Inches", inches);
-		RobotMap.log(RobotMap.ultraSubtable, ("Distance in inches: " + inches ));
+		//RobotMap.log(RobotMap.ultraSubtable, ("Distance in inches: " + inches ));
 		return inches;
 	}
 

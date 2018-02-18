@@ -85,18 +85,18 @@ public class RobotMap {
 	//Constants
 	public static final int ULTRA_PORT = 3;
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	public static double potMin = .08;
+	public static double potMin = .15;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
-	public static double potMin2 = .08;
+	public static double potMin2 = .15;
 	public static double potMax2 = .8;
 	public static double potSwitch2 = .45;
-	private static double varianceLimit = .01;
+	private static double varianceLimit = .02;
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.5;
 	//public static double linearActuator2Speed = 0.5;
-	public static double elevatorSpeedScalar = 0.7;
+	public static double elevatorSpeedScalar = 0.75;
 	
 	 
 	//Default motor speeds
@@ -215,10 +215,10 @@ public class RobotMap {
 		climber_Talon2 = new WPI_TalonSRX(32);
 		
 		//Talon Configuration
-		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		climber_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		climber_Talon2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -250,20 +250,20 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		driveTrainFL_Talon.configMotionAcceleration(360, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainFR_Talon.configMotionAcceleration(360, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainBL_Talon.configMotionAcceleration(360, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainBR_Talon.configMotionAcceleration(360, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
+		driveTrainFL_Talon.configMotionAcceleration(1440, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainFR_Talon.configMotionAcceleration(1440, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainBL_Talon.configMotionAcceleration(1440, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainBR_Talon.configMotionAcceleration(1440, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(1440, 0);
 			
 		//Startup Sensorphase Values
-		driveTrainFL_Talon.setSensorPhase(false);
-		driveTrainFR_Talon.setSensorPhase(false);
-		driveTrainBL_Talon.setSensorPhase(false);
-		driveTrainBR_Talon.setSensorPhase(false);
+		driveTrainFL_Talon.setSensorPhase(true);
+		driveTrainFR_Talon.setSensorPhase(true);
+		driveTrainBL_Talon.setSensorPhase(true);
+		driveTrainBR_Talon.setSensorPhase(true);
 			
 		Logger.init("Logs");
 
@@ -278,16 +278,18 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 1500));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 650));
+		
+		
 		
 		//Switcher Values
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		
 		//Elevator Values
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
 		
 		//Climber Values
@@ -298,14 +300,15 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, linearActuatorDownSpeed));
 		
 		//Potentiometer Values
-		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
-		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
+		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, potMax));
+		RobotMap.updateValue(potentiometerSubTable, potMinID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMinID, potMin));
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
-		RobotMap.updateValue(potentiometerSubTable, potMax2ID, potMax2);
-		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
+		RobotMap.updateValue(potentiometerSubTable, potMax2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMax2ID, potMax2));
+		RobotMap.updateValue(potentiometerSubTable, potMin2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMin2ID, potMin2));
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
-		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
@@ -401,6 +404,6 @@ public class RobotMap {
 	}
 
 	public static void log(String subTable, String message) {
-		//Logger.log(message, Logger.getLoggerType(subTable));
+		Logger.log(message, Logger.getLoggerType(subTable));
 	}
 }

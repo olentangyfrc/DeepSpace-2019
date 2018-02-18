@@ -21,12 +21,18 @@ public class MoveElevatorToPos extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		double variance = Math.abs(RobotMap.elevator_Talon.getSelectedSensorPosition(0)-position);
+		if (variance < 1000) {
+			return true;
+		}
+		else {
 		return false;
+		}
 	}
 	
 	protected void end() {
-		//RobotMap.elevator_Talon.setSensorPhase(true);
+		System.out.println("Move elevator command finished");//RobotMap.elevator_Talon.setSensorPhase(true);
+		
 	}
 
 }

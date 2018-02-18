@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Logger {
 
 	private static ArrayList<LoggerType> onlyShow = new ArrayList<LoggerType>();
-	private static boolean OnlyViewSpecifics = true;
+	private static boolean OnlyViewSpecifics = false;
 		
 	private static FileManager man;
 		
@@ -28,9 +28,9 @@ public class Logger {
 		
 		DecimalFormat format = new DecimalFormat("00");
 		int date = Calendar.getInstance().get(Calendar.DATE);
-		int month = Calendar.getInstance().get(Calendar.MONTH+1);
+		int month = Calendar.getInstance().get(Calendar.MONTH);
 		
-		int hour = Calendar.getInstance().get(Calendar.HOUR);
+		int hour = Calendar.getInstance().get(Calendar.HOUR)+1;
 		int minute = Calendar.getInstance().get(Calendar.MINUTE);
 		int ampm = Calendar.getInstance().get(Calendar.MILLISECOND);
 		man = new FileManager(name, month + "-" + date + "-2018" + "-" + format.format(hour) + "-" + format.format(minute) + "-" + (ampm == Calendar.AM ? "AM" : "PM"));
@@ -52,7 +52,8 @@ public class Logger {
 	public static void log(String message, LoggerType type) {
 		//Gets the time that  function was called (format determined by status variable)
 		String timestamp = getTimeLogged();
-		
+		System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
+
 		//Checks to see if only specific LoggerTypes should be printed to the console
 		if(OnlyViewSpecifics) {		
 			//Checks if the given LoggerType is within the onlyShaw arraylist
@@ -67,7 +68,12 @@ public class Logger {
 		}else {
 			//If the logger is allowed to print any LoggerType, it prints it in a set format (explained in documentation above  function)
 			System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
-			man.write("[" + timestamp + "][" + type + "]:" + message);
+			
+			try{
+				man.write("[" + timestamp + "][" + type + "]:" + message);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 	
