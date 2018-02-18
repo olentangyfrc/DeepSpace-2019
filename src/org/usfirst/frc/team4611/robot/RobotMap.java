@@ -156,6 +156,7 @@ public class RobotMap {
 	public static String horizontalDistanceID = "horizontalDistance";
 	public static String foundID = "found";
 	public static String maxRPMID = "Max RPM";
+	public static String rampTime = "Ramp Seconds: "; 
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
@@ -275,6 +276,7 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 650));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, rampTime, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, rampTime, 1));
 		
 		
 		

@@ -13,6 +13,7 @@ public class MecanumDrive extends SwitchableCommand{
 	int velocityInvert3 = -1;
 	int velocityInvert4 = 1;
 	int maxRPM = (int)(double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.maxRPMID);
+	double rampSeconds = (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rampTime);
 	
 	public MecanumDrive(){
 		this.requires(Robot.mecanum); //This command uses this subsystem
@@ -89,6 +90,10 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 3", velocity3);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 4", velocity4);
 		}
+		RobotMap.driveTrainBL_Talon.configClosedloopRamp(rampSeconds, 0);
+		RobotMap.driveTrainBR_Talon.configClosedloopRamp(rampSeconds, 0);
+		RobotMap.driveTrainFL_Talon.configClosedloopRamp(rampSeconds, 0);
+		RobotMap.driveTrainFR_Talon.configClosedloopRamp(rampSeconds, 0);
 		
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
