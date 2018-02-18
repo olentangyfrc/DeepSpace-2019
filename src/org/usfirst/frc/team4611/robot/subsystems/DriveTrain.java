@@ -34,11 +34,6 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void resetEncoders() {
-		RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, 0);
-		RobotMap.driveTrainBR_Talon.set(ControlMode.PercentOutput, 0);
-		RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, 0);
-		RobotMap.driveTrainBL_Talon.set(ControlMode.PercentOutput, 0);
-		
 		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);

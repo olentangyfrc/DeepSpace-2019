@@ -53,13 +53,6 @@ public class AutonStrafe extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
-    	StringBuffer s = null;
-    	try {
-    		s.toString();
-    	} catch (Exception e) {
-    		e.printStackTrace(System.out);
-    	}
-    	
     	System.out.println("Target Pos [" + targetPosition + "] Current Pos [" + encoderPositionAverage + "]");
     	if(targetPosition - 200 >= encoderPositionAverage)
         	return false;
