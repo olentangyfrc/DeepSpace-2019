@@ -9,7 +9,6 @@ import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.BottomPos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.MiddlePos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
