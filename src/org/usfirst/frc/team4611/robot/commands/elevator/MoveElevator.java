@@ -9,24 +9,24 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevator extends Command{
 	
 	public MoveElevator(){
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 	
 	protected void execute() {
 		double y = -OI.auxJoy.getY();
 		
 		if (y < 0) { //move up
-			Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed));
+			Robot.elevator.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed));
 		}
 		
 		else { //move down
-			Robot.el.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
+			Robot.elevator.move(y * (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
 		}
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.el.isSwitchSet();
+		return Robot.elevator.isSwitchSet();
 	}
 }

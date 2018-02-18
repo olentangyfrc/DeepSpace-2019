@@ -2,7 +2,9 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.drive.MecanumDrive;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -19,18 +21,25 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrain.drivePolar(mag, angle, z);
 	}
 	
-	public void motionMagicStraight(int positionUnits) {
+	public void motionMagicStraight(double positionUnits) {
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 	}
 	
-	public void motionMagicStrafe(int positionUnits) {
-		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
+	public void motionMagicStrafe(double positionUnits) {
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
+	}
+	
+	public void resetEncoders() {
+		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 	}
 	
 	public void velocityDrive(double velocity1, double velocity2, double velocity3, double velocity4) {
@@ -41,6 +50,13 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
+	public void rotate(double velocity) {
+		RobotMap.driveTrainBL_Talon.set(ControlMode.Velocity, velocity);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.Velocity, velocity);
+		RobotMap.driveTrainFL_Talon.set(ControlMode.Velocity, velocity);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.Velocity, velocity);
+
+	}
 	
 	@Override
 	protected void initDefaultCommand() {

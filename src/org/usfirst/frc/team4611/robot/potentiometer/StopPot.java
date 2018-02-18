@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.potentiometer;
 
 import org.usfirst.frc.team4611.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class StopPot extends Command {

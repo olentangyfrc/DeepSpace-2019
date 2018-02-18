@@ -1,7 +1,23 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.HashMap;
+
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
-import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
+import org.usfirst.frc.team4611.robot.commands.auton.DriveStraight;
+import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -15,6 +31,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,10 +49,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain mecanum;
-	public static Elevator el;
+	public static Elevator elevator;
 	public static Arm arm;
 	public static UltrasonicSensor ultrasonic;
-	public static Spark lights1;
+	public static Spark lightController;
 	public static FancyLights fancyLight;
 	public static Solenoid sol;
 	public static NetworkTableInstance tableInstance;
@@ -43,8 +60,11 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	public static OI oi;
 	public static BoxPusher boxPusher;
-	private boolean hasInitialized = false;
-	
+	public static DriverStation driver;
+	public boolean hasInitialized = false;
+	public String autonFinalDecision;
+	public HashMap<String, Command> autonCommandGroup;
+
 	Command autonomousCommand;
 	Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -57,25 +77,84 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
-		
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
-		el = new Elevator();
+		elevator = new Elevator();
 		arm = new Arm();
 		sol = new Solenoid();
 		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
-		lights1 = new Spark(6);
+		lightController = new Spark(6);
 		fancyLight = new FancyLights();
-		lights1.set(0.07);
+		driver = DriverStation.getInstance();
+		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
+		//autonCommandGroup.put("RSCRRR", new RightScale());
+		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWLRR", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLLR", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLRL", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLLL", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSCRRR", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLRR", new StartRightScaleRight());
+		autonCommandGroup.put("RSCRRL", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLRL", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCRLR", new StartRightScaleLeft());
+		autonCommandGroup.put("LSWRRR", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLRR", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSCRRR", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCRRL", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLRR", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLRL", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLLL", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCLLR", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCRLL", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCRLR", new StartLeftScaleLeft());
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRRL", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRLR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWLLL", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLLR", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSCRRR", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCRRL", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLRR", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLRL", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLLL", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCLLR", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCRLL", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCRLR", new StartCenterScaleLeft());
+		autonCommandGroup.put("RSCRRR", new RightScale());
+		autonCommandGroup.put("DRIVEFORWARD", new DriveStraight());
+		autonCommandGroup.put("TEST", new TestBlock());
+		
+		lightController.set(0.07);
+		
 		oi = new OI();
+		
+		camera = CameraServer.getInstance().startAutomaticCapture();	
 		CameraServer.getInstance().startAutomaticCapture();
-		lightsCommand = new MakeLight(2);
-		lightsCommand.setRunWhenDisabled(true);
-		lightsCommand.start();
-		camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setFPS(30);
 		camera.setResolution(320, 240);
+		
+		lightsCommand = new MakeLight(2);
+		lightsCommand.start();
+		
+		//Just creating the values in shuffleboard
+		RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
+		RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
 	}
 
 	/**
@@ -93,33 +172,29 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();		
 		((MakeLight)lightsCommand).setColor(4);
-		lights1.set(0.87);
+		lightController.set(0.87);
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
-	 */
 	@Override
 	public void autonomousInit() {
-		//autonomousCommand = new DriveBlock();
+		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
+		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
+		String c = driver.getGameSpecificMessage();
+		autonFinalDecision = a + b + c;
+		String key = autonFinalDecision;
+		if(a == null || a.toLowerCase().equals("null") || a.isEmpty())
+			key = "DRIVEFORWARD";
+		if(b == null || b.toLowerCase().equals("null") || b.isEmpty())
+			key = "DRIVEFORWARD";
+		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
+			key = "DRIVEFORWARD";
 		
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		autonomousCommand = this.autonCommandGroup.get(key);
+		
+		if (autonomousCommand == null) {
+			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
+		}
 
-		// schedule the autonomous command (example)
-		autonomousCommand = new PigeonAuton();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -172,12 +247,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
-		ultrasonic.getInches();
-		RobotMap.log(RobotMap.linearActuatorSubTable, "Pot values: " + RobotMap.linearActuatorPot.get() + " " + RobotMap.linearActuatorPot2.get());
-		//System.out.println("LA 4 pos: "+ RobotMap.linearActuatorPot.get());
-		//System.out.println("LA 5 pos: "+ RobotMap.linearActuatorPot2.get());
-
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(7);
@@ -186,27 +255,31 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
-
-		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
-
+		
 		((MakeLight)lightsCommand).setColor(3);
-		System.out.println("Time" + Timer.getMatchTime());
 		if(Timer.getMatchTime() >= 20) {
-			lights1.set(0.03);
+			lightController.set(0.03);
 		}else if(Timer.getMatchTime() >= 10) {
-			lights1.set(0.05);
+			lightController.set(0.05);
 		}else {
-			lights1.set(0.07);
+			lightController.set(0.07);
 		}
 	}
 
-	/**
-	 * This function is called periodically during test mode
-	 */
 	@Override
 	public void testPeriodic() {
 	}
 	
-		
-	
+	public enum AutonCommands {
+		TEST {
+			public String toString() {
+				return "TEST";
+			}
+		},
+		RIGHT_SCALE {
+			public String toString() {
+				return "RIGHT_SCALE";
+			}
+	}
+	}
 }

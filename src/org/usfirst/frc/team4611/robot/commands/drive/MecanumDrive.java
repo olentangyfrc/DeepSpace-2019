@@ -4,8 +4,6 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.SwitchableCommand;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 public class MecanumDrive extends SwitchableCommand{
 	
 	int velocityInvert1 = 1;

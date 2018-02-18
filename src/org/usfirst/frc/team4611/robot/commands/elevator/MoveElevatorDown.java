@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorDown extends Command{
 	
 	public MoveElevatorDown(){
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 
 	protected void execute() {	
-		Robot.el.move(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, (RobotMap.elevatorDownSpeed)));
+		Robot.elevator.move(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, (RobotMap.elevatorDownSpeed)));
 	}
 
 	@Override

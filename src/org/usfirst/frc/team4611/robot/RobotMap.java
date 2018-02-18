@@ -59,6 +59,7 @@ public class RobotMap {
 	public static DoubleSolenoid sol;
 	public static MecanumDrive driveTrain;
 	public static AnalogInput ultrasonicInput;
+	public static DigitalInput limitSwitch = new DigitalInput(0);
 	
 	//Joystick ports
 	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
@@ -95,14 +96,12 @@ public class RobotMap {
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.5;
-	//public static double linearActuator2Speed = 0.5;
 	public static double elevatorSpeedScalar = 0.75;
 	
 	 
 	//Default motor speeds
 	public static double linearActuatorUpSpeed = 0.7;
 	public static double linearActuatorDownSpeed = 0.7;
-	//public static double motorSpeed = 1;
 
 	//String keys
 	public static String joyStickSubTable = "Joysticks";
@@ -117,7 +116,6 @@ public class RobotMap {
 	public static String elevatorSubtable = "Elevator";
 	public static String pushBoxSubtable = "Push Box";	
 	public static String pigeonSubtable = "Pigeon";
-	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -150,7 +148,6 @@ public class RobotMap {
 	public static String SensorAccelID = "Sensor Accel";
 	public static String elevatorPos = "Elevator Position";
 	public static String positionDistanceID = "PositionDistanceID";
-	public static DigitalInput limitSwitch = new DigitalInput(0);
 	public static String angleID = "angle";
 	public static String distanceID = "distance";
 	public static String horizontalDistanceID = "horizontalDistance";
@@ -159,6 +156,10 @@ public class RobotMap {
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
+	public static String autonStrafeScalarID = "StrafeScalar";
+	public static String autonSubTable = "Auton Subtable";
+	public static String sideKey = "Side";
+	public static String targetKey = "Target";
 	
 	public static DefaultValues defaults;
 
@@ -184,6 +185,7 @@ public class RobotMap {
 		
 		//Pigeon
 		pigeon = new PigeonIMU(21);
+		pigeon.setFusedHeading(0, 10);
 		
 		//Linear Actuator
 		linearActuator = new Victor(linearActuatorPort);
@@ -275,8 +277,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 650));
-		
-		
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID,
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID, 0));
 		
 		//Switcher Values
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
@@ -303,6 +305,8 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();

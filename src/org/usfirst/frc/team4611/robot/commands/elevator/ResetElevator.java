@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ResetElevator extends Command{
 	
 	public ResetElevator(){
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 
 	protected void execute() {
-		Robot.el.move((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
+		Robot.elevator.move((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
 	}	
 	@Override
 	protected boolean isFinished() {
-		System.out.println(Robot.el.isSwitchSet());
-		return Robot.el.isSwitchSet();
+		System.out.println(Robot.elevator.isSwitchSet());
+		return Robot.elevator.isSwitchSet();
 	}
 	
 	protected void end() {

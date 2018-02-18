@@ -9,14 +9,14 @@ public class MoveElevatorToPos extends Command{
 	private double position;
 	public MoveElevatorToPos(double position){
 		this.position = position;
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 	
 	protected void initialize() {
 	}
 
 	protected void execute() {
-		Robot.el.moveToPos(position);
+		Robot.elevator.moveToPos(position);
 	}
 
 	@Override

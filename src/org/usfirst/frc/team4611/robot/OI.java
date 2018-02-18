@@ -4,9 +4,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.BottomPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
@@ -41,21 +39,20 @@ public class OI {
 	//Movement Buttons
 	public Button strafeLeft;
 	public Button strafeRight;
-	public Button MoveForward;
-	public Button MoveBackward;
 	public Button autoGrabBox;
-	public Button autoGrabBox2;
 	public Button aimBox;
+	public Button aimBox2;
 	
 	//Solenoid Buttons
-	public Button solToggle;
-	public Button solExtend;
-	public Button solRetract;
-	public Button solExtend2;
+	public Button grabberToggle;
+	public Button grabberExtend;
+	public Button grabberRetract;
+	public Button grabberExtend2;
+	public Button pushBox;
 	
 	//LA Buttons
-	public static Button linearActuatorUp;
-	public static Button linearActuatorDown;
+	public Button linearActuatorUp;
+	public Button linearActuatorDown;
 	public Button linearActuatorUp2;
 	public Button linearActuatorDown2;
 	public Button linearActuatorUp3;
@@ -67,17 +64,13 @@ public class OI {
 	public Button moveElToTop;
 	public Button moveElToSwitch;
 	
-	//Magic Shaping Buttons
+	//Happy Place Buttons
 	public Button MagicSwitch;
 	public Button MagicScale;
 	public Button MagicMiddle;
 	public Button MagicBottom;
 	public Button MagicStart;
 	
-	//Claw Buttons
-	public Button openClaw;
-	public Button closeClaw;
-	public Button pushBox;
 
 	public OI (){
 		
@@ -89,9 +82,9 @@ public class OI {
 		//Movement Buttons
 		strafeLeft= new JoystickButton(leftJoy, 4);
 		strafeRight = new JoystickButton(leftJoy, 5);
-		autoGrabBox = new JoystickButton(leftJoy, 3);
-		autoGrabBox2 = new JoystickButton(auxJoy, 11);
+		autoGrabBox = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
+		aimBox2 = new JoystickButton(leftJoy, 3);
 		
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
@@ -102,24 +95,25 @@ public class OI {
 		linearActuatorDown3 = new JoystickButton(auxJoy, 7);
 		
 		//Solenoid Buttons
-		solToggle = new JoystickButton(leftJoy, 1);
-		solExtend = new JoystickButton(leftJoy, 7);//close claw
-		solExtend2 = new JoystickButton(auxJoy, 1);
-		solRetract = new JoystickButton(leftJoy, 6);//open claw
+		grabberToggle = new JoystickButton(leftJoy, 1);
+		grabberExtend = new JoystickButton(leftJoy, 6);//close claw
+		grabberExtend2 = new JoystickButton(auxJoy, 1);
+		grabberRetract = new JoystickButton(leftJoy, 7);//open claw
 		pushBox = new JoystickButton(rightJoy, 1);
 		
 		//Elevator Buttons
 		resetElevator = new JoystickButton(auxJoy, 8);
+		
+	//////////////////////////////////////////////////////////
 		moveElToTop = new JoystickButton (rightJoy, 6);
 		moveElToSwitch= new JoystickButton (rightJoy, 7);
 		
 		//Magic Shaping Buttons
-		MagicScale = new JoystickButton(rightJoy,6);
+		MagicScale = new JoystickButton(rightJoy,6);                   //TALK TO HANNAH
 		MagicSwitch = new JoystickButton(rightJoy,11);
-		//MagicMiddle = new JoystickButton(rightJoy, 8);
 		MagicBottom = new JoystickButton(rightJoy, 9);
 		MagicStart = new JoystickButton (rightJoy, 8);
-		
+	///////////////////////////////////////////////////////////////	
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -132,10 +126,9 @@ public class OI {
 		//Movement Commands
 		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		autoGrabBox.whenPressed(new AimForBox());
-		autoGrabBox2.whenPressed(new AutoGrab());
-		//Vison Comomands
 		aimBox.whenPressed(new AimForBox());
+		aimBox2.whenPressed(new AimForBox());
+		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
@@ -151,23 +144,25 @@ public class OI {
 		linearActuatorDown3.whileHeld(new MovePotDown());
 		linearActuatorDown3.whenReleased(new StopPot());
 		
+	////////////////////////////////////////////////////////////////////
 		//Elevator Commands
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
 		//moveElToSwitch.whenPressed(new StartingPos());
 		
-		//Magic Shaping Commands
+		//Magic Shaping Commands									//HANNAH 
 		MagicScale.whenPressed(new ScalePos());
 		MagicSwitch.whenPressed(new SwitchPos());
 		//MagicMiddle.whenPressed(new MiddlePos());
 		MagicBottom.whenPressed(new BottomPos());
 		MagicStart.whenPressed(new StartingPos());
+	////////////////////////////////////////////////////////
 		
 		//Claw Commands
-		solToggle.whenPressed(new ToggleSolenoid());
-		solExtend.whileHeld(new ExtendSolenoid());
-		solExtend2.whileHeld(new ExtendSolenoid());
-		solRetract.whileHeld(new RetractSolenoid());
+		grabberToggle.whenPressed(new ToggleSolenoid());
+		grabberExtend.whileHeld(new ExtendSolenoid());
+		grabberExtend2.whileHeld(new ExtendSolenoid());
+		grabberRetract.whileHeld(new RetractSolenoid());
 		pushBox.whenPressed(new PushBox());
 	}
 	
