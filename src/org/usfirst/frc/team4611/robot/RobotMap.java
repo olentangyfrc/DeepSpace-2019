@@ -85,18 +85,18 @@ public class RobotMap {
 	//Constants
 	public static final int ULTRA_PORT = 3;
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	public static double potMin = .08;
+	public static double potMin = .15;
 	public static double potMax = .8;
 	public static double potSwitch = .45;
-	public static double potMin2 = .08;
+	public static double potMin2 = .15;
 	public static double potMax2 = .8;
 	public static double potSwitch2 = .45;
-	private static double varianceLimit = .01;
+	private static double varianceLimit = .02;
 	
 	//Default motor speeds
 	public static double linearActuatorSpeed = 0.5;
 	//public static double linearActuator2Speed = 0.5;
-	public static double elevatorSpeedScalar = 0.7;
+	public static double elevatorSpeedScalar = 0.75;
 	
 	 
 	//Default motor speeds
@@ -274,16 +274,16 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 1500));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 3000));
 		
 		//Switcher Values
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
 		
 		//Elevator Values
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
 		
 		//Linear Acutator Values
@@ -291,14 +291,15 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, linearActuatorDownSpeed));
 		
 		//Potentiometer Values
-		RobotMap.updateValue(potentiometerSubTable, potMaxID, potMax);
-		RobotMap.updateValue(potentiometerSubTable, potMinID, potMin);
+		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, potMax));
+		RobotMap.updateValue(potentiometerSubTable, potMinID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMinID, potMin));
 		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
-		RobotMap.updateValue(potentiometerSubTable, potMax2ID, potMax2);
-		RobotMap.updateValue(potentiometerSubTable, potMin2ID, potMin2);
+		RobotMap.updateValue(potentiometerSubTable, potMax2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMax2ID, potMax2));
+		RobotMap.updateValue(potentiometerSubTable, potMin2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMin2ID, potMin2));
 		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
-		RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		//Which type of drive train do you have?
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {

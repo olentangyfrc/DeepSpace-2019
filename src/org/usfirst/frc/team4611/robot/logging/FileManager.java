@@ -30,7 +30,8 @@ public class FileManager {
 	 * on the same matter
 	 */
 	public void write(String message) {
-		if(hasFile){
+		if(hasFile) {
+
 			try {
 				masterWrite.write(message + "\n");
 				masterWrite.flush();
@@ -79,7 +80,7 @@ public class FileManager {
 	}
 
 	public void robotDisabled() {
-		if(hasFile){
+		if(hasFile) {
 			try {
 				this.masterWrite.flush();
 			}catch(Exception e) {

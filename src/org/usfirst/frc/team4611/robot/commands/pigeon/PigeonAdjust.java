@@ -71,15 +71,15 @@ public class PigeonAdjust extends SwitchableCommand {
 			RobotMap.driveTrainBL_Talon.setInverted(false);
 			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
 			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
 		}else if(dir == Direction.LEFT) {
 			RobotMap.driveTrainBL_Talon.set(ControlMode.Follower, RobotMap.driveTrainFL_Talon.getDeviceID());
 			RobotMap.driveTrainBL_Talon.setInverted(false);
 			RobotMap.driveTrainBR_Talon.set(ControlMode.Follower, RobotMap.driveTrainFR_Talon.getDeviceID());
 			RobotMap.driveTrainBR_Talon.setInverted(false);
-			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
-			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, (double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
+			RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, -(double)RobotMap.getValue(RobotMap.pigeonSubtable, RobotMap.pigeonAutonP)*angleError);
 		}
 	}
 

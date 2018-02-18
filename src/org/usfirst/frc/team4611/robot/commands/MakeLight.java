@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,6 +21,7 @@ public class MakeLight extends Command{
 	}
 	
 	protected void execute(){
+		RobotMap.log("Fancy Lights", "HERE");
 		switch (color){
 			case 0:
 				Robot.fancyLight.makeOff();
