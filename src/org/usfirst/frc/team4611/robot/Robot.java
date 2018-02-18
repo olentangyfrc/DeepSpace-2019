@@ -3,7 +3,19 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
-import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.DriveStraight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartLeftSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
@@ -77,7 +89,56 @@ public class Robot extends IterativeRobot {
 		fancyLight = new FancyLights();
 		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		autonCommandGroup.put("RSCRRR", new RightScale());
+		//autonCommandGroup.put("RSCRRR", new RightScale());
+		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight());
+		autonCommandGroup.put("RSWLRR", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLLR", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLRL", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSWLLL", new StartRightSwitchLeft());
+		autonCommandGroup.put("RSCRRR", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLRR", new StartRightScaleRight());
+		autonCommandGroup.put("RSCRRL", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLRL", new StartRightScaleRight());
+		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft());
+		autonCommandGroup.put("RSCRLR", new StartRightScaleLeft());
+		autonCommandGroup.put("LSWRRR", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight());
+		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSWLRR", new StartLeftSwitchLeft());
+		autonCommandGroup.put("LSCRRR", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCRRL", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLRR", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLRL", new StartLeftScaleRight());
+		autonCommandGroup.put("LSCLLL", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCLLR", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCRLL", new StartLeftScaleLeft());
+		autonCommandGroup.put("LSCRLR", new StartLeftScaleLeft());
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRRL", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRLR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
+		autonCommandGroup.put("CSWLLL", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLLR", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());
+		autonCommandGroup.put("CSCRRR", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCRRL", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLRR", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLRL", new StartCenterScaleRight());
+		autonCommandGroup.put("CSCLLL", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCLLR", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCRLL", new StartCenterScaleLeft());
+		autonCommandGroup.put("CSCRLR", new StartCenterScaleLeft());
+		autonCommandGroup.put("DRIVEFORWARD", new DriveStraight());
 		autonCommandGroup.put("TEST", new TestBlock());
 		oi = new OI();
 		
@@ -124,10 +185,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonFinalDecision = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey) +
-		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
-		driver.getGameSpecificMessage();
+		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
+		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
+		String c = driver.getGameSpecificMessage();
+		autonFinalDecision = a + b + c;
 		String key = autonFinalDecision;
+		if(a == null || a.toLowerCase().equals("null") || a.isEmpty())
+			key = "DRIVEFORWARD";
+		if(b == null || b.toLowerCase().equals("null") || b.isEmpty())
+			key = "DRIVEFORWARD";
+		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
+			key = "DRIVEFORWARD";
+		
 		autonomousCommand = this.autonCommandGroup.get(key);
 		
 		/*
