@@ -12,10 +12,7 @@ public class ResetDriveTrainEncoders extends Command {
 	}
 	
 	protected void execute() {
-		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		Robot.mecanum.resetEncoders();
 		System.out.println(this.getClass().getName() + " Sensors Set to Zero");
 		
 		System.out.println(Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)));

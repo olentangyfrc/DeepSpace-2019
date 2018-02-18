@@ -12,9 +12,8 @@ public class AutonForwardRight extends CommandGroup {
 	public AutonForwardRight() {
 		//addSequential(new ExtendSolenoid());
 		addSequential(new AutonForward(135));
-		//addSequential(new ResetDriveTrainEncoders(), .1);
+		addSequential(new ResetDriveTrainEncoders(), 1);
 		addSequential(new AutonStrafe(50 * 1.6));
-		//addSequential(new PigeonAdjust(368));
 		addSequential(new RetractSolenoid());
 	}
 }

@@ -33,6 +33,18 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
 	}
 	
+	public void resetEncoders() {
+		RobotMap.driveTrainFR_Talon.set(ControlMode.PercentOutput, 0);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.PercentOutput, 0);
+		RobotMap.driveTrainFL_Talon.set(ControlMode.PercentOutput, 0);
+		RobotMap.driveTrainBL_Talon.set(ControlMode.PercentOutput, 0);
+		
+		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+	}
+	
 	public void velocityDrive(double velocity1, double velocity2, double velocity3, double velocity4) {
 		RobotMap.driveTrainBL_Talon.set(ControlMode.Velocity, velocity4);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.Velocity, velocity3);
