@@ -187,7 +187,7 @@ public class Robot extends IterativeRobot {
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
 
-		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
+		System.out.println("Elevator position: "+ RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 
 		((MakeLight)lightsCommand).setColor(3);
 		System.out.println("Time" + Timer.getMatchTime());
