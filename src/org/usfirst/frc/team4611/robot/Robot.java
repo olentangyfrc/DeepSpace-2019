@@ -17,6 +17,8 @@ import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleRight;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
+import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
+
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -140,6 +142,8 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("CSCRLR", new StartCenterScaleLeft());
 		autonCommandGroup.put("DRIVEFORWARD", new DriveStraight());
 		autonCommandGroup.put("TEST", new TestBlock());
+		autonCommandGroup.put("RSCRRR", new RightScale());
+
 		oi = new OI();
 		
 		CameraServer.getInstance().startAutomaticCapture();

@@ -48,6 +48,13 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
+	public void rotate(double velo) {
+		RobotMap.driveTrainBL_Talon.set(ControlMode.Velocity, velo);
+		RobotMap.driveTrainBR_Talon.set(ControlMode.Velocity, velo);
+		RobotMap.driveTrainFL_Talon.set(ControlMode.Velocity, velo);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.Velocity, velo);
+
+	}
 	
 	@Override
 	protected void initDefaultCommand() {

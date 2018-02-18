@@ -188,6 +188,7 @@ public class RobotMap {
 		
 		//Pigeon
 		pigeon = new PigeonIMU(21);
+		pigeon.setFusedHeading(0, 10);
 		
 		//Linear Actuator
 		linearActuator = new Victor(linearActuatorPort);
