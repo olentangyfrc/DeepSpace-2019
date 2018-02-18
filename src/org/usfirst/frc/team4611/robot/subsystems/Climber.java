@@ -8,6 +8,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem {
 
+	
+	public void move(double speed) {
+		RobotMap.climber_Talon.set(ControlMode.PercentOutput, speed);
+		RobotMap.climber_Talon2.set(ControlMode.PercentOutput, -speed);
+	}
+	
+	
 	public void moveToPos(double position) {
 		RobotMap.climber_Talon.config_kP(0, 0, 0);
 		RobotMap.climber_Talon.config_kI(0, 0, 0);

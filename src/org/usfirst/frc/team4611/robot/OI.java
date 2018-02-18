@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
+import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -67,6 +68,8 @@ public class OI {
 	public Button openClaw;
 	public Button closeClaw;
 	public Button pushBox;
+	
+	public Button moveClimber;
 
 	public OI (){
 		
@@ -102,6 +105,7 @@ public class OI {
 		moveElToTop = new JoystickButton (rightJoy, 6);
 		moveElToSwitch= new JoystickButton (rightJoy, 7);
 		
+		moveClimber = new JoystickButton(rightJoy, 10);
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -137,6 +141,8 @@ public class OI {
 		resetElevator.whenPressed(new ResetElevator());
 		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
 		moveElToSwitch.whenPressed(new MoveElevatorToPos(-39556));
+		
+		moveClimber.whileHeld(new MoveClimber());
 		
 		//Claw Commands
 		solToggle.whenPressed(new ToggleSolenoid());

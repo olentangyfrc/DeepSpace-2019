@@ -117,6 +117,7 @@ public class RobotMap {
 	public static String elevatorSubtable = "Elevator";
 	public static String pushBoxSubtable = "Push Box";	
 	public static String pigeonSubtable = "Pigeon";
+	public static String climberSubtable = "Climber";
 	
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
@@ -159,6 +160,7 @@ public class RobotMap {
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
+	public static String climberSpeed = "Climber Speed";
 	
 	public static DefaultValues defaults;
 
@@ -287,6 +289,9 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.5));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
+		
+		//Climber Values
+		RobotMap.updateValue(RobotMap.climberSubtable, climberSpeed, RobotMap.defaults.getDoubleDefaultValue(climberSubtable, climberSpeed, 1));
 		
 		//Linear Acutator Values
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));
