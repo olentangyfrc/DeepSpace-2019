@@ -25,10 +25,12 @@ public class AutonStrafe extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println(this.getClass().getName() + " initializing");
     	RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		System.out.println(this.getClass().getName() + " Sensors Set to Zero");
 		RobotMap.driveTrainBR_Talon.config_kP(0, 1, 0);
     	RobotMap.driveTrainBL_Talon.config_kP(0, 1, 0);
     	RobotMap.driveTrainFR_Talon.config_kP(0, 1, 0);
@@ -50,10 +52,21 @@ public class AutonStrafe extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(targetPosition >= encoderPositionAverage )
+    	
+    	StringBuffer s = null;
+    	try {
+    		s.toString();
+    	} catch (Exception e) {
+    		e.printStackTrace(System.out);
+    	}
+    	
+    	System.out.println("Target Pos [" + targetPosition + "] Current Pos [" + encoderPositionAverage + "]");
+    	if(targetPosition - 200 >= encoderPositionAverage)
         	return false;
-        else 
+        else {
+        	System.out.println("ENDING AUTON STRAFE");
         	return true;
+        }
     }
 
     // Called once after isFinished returns true

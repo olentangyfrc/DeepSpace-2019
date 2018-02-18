@@ -20,8 +20,6 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void motionMagicStraight(double positionUnits) {
-    	System.out.println(this.getClass().getName() + "motionMagicStraight [" + positionUnits + "]");
-
 		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);

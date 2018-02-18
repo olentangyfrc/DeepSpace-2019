@@ -23,7 +23,6 @@ public class AutonForward extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("WE ARE IN THE INITIALIZE");
     	RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
@@ -32,19 +31,16 @@ public class AutonForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("WE ARE IN THE EXECUTE");
     	encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
-    	
-    	System.out.println(this.getClass().getName() + "calling Robot.mecanum.motionMagicStraight(" + targetPosition + ")");
+    	  	
     	Robot.mecanum.motionMagicStraight(targetPosition);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println("Encoder target: [" + targetPosition + "] /n Position Average: [" + encoderPositionAverage + "]");
         if(targetPosition >= encoderPositionAverage )
         	return false;
         else 
