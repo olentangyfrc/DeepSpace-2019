@@ -213,10 +213,10 @@ public class RobotMap {
 		climber_Talon = new WPI_TalonSRX(32);
 		
 		//Talon Configuration
-		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		
 		//Limits
@@ -246,20 +246,20 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		driveTrainFL_Talon.configMotionAcceleration(360, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainFR_Talon.configMotionAcceleration(360, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainBL_Talon.configMotionAcceleration(360, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(360, 0);
-		driveTrainBR_Talon.configMotionAcceleration(360, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(360, 0);
+		driveTrainFL_Talon.configMotionAcceleration(1440, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainFR_Talon.configMotionAcceleration(1440, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainBL_Talon.configMotionAcceleration(1440, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(1440, 0);
+		driveTrainBR_Talon.configMotionAcceleration(1440, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(1440, 0);
 			
 		//Startup Sensorphase Values
-		driveTrainFL_Talon.setSensorPhase(false);
-		driveTrainFR_Talon.setSensorPhase(false);
-		driveTrainBL_Talon.setSensorPhase(false);
-		driveTrainBR_Talon.setSensorPhase(false);
+		driveTrainFL_Talon.setSensorPhase(true);
+		driveTrainFR_Talon.setSensorPhase(true);
+		driveTrainBL_Talon.setSensorPhase(true);
+		driveTrainBR_Talon.setSensorPhase(true);
 			
 		Logger.init("Logs");
 
