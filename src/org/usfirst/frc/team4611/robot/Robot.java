@@ -161,10 +161,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		FusionStatus status = new FusionStatus();
-		System.out.println("Angle: " +  RobotMap.pigeon.getFusedHeading());
-		RobotMap.pigeon.getFusedHeading(status);
-		System.out.println("Angle Status: " +  status.heading);
 		ultrasonic.getInches();
 		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
