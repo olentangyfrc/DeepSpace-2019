@@ -29,10 +29,10 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void motionMagicStrafe(double positionUnits) {
-		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
+		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
 		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, -positionUnits);
 		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, positionUnits);
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, positionUnits);
+		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, -positionUnits);
 	}
 	
 	public void velocityDrive(double velocity1, double velocity2, double velocity3, double velocity4) {

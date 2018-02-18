@@ -159,6 +159,7 @@ public class RobotMap {
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
+	public static String autonStrafeScalarID = "StrafeScalar";
 	
 	public static DefaultValues defaults;
 
@@ -275,6 +276,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 1500));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID,
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID, 0));
 		
 		//Switcher Values
 		RobotMap.updateValue(RobotMap.switcherSubTable, RobotMap.switcherID, true);
