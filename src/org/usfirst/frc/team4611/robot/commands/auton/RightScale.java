@@ -5,13 +5,16 @@ import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonForwardRight extends CommandGroup {
+public class RightScale extends CommandGroup {
 
-	public AutonForwardRight() {	
+	public RightScale() {	
 		addSequential(new RetractSolenoid());
-		addSequential(new AutonForward(135));
+		addSequential(new AutonForward(26 * 12));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(50 * 1.6));
+		addSequential(new AutonForward(26 * 12 /2));
+		addSequential(new StopAndRepositionTalons());
+		//addSequential(new AutonStrafe(50 * 1.6));
 		addSequential(new ExtendSolenoid());
 	}
 }
+

@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutonStrafe extends Command {
+public class AutonStrafeRight extends Command {
 	
 	private double inches;
 	private double targetPosition;
 	private double encoderPositionAverage;
 	public double converter = 206.243;
 	
-    public AutonStrafe(double inches) {
+    public AutonStrafeRight(double inches) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.inches = inches;

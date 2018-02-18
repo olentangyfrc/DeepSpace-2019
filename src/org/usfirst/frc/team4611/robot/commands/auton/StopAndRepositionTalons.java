@@ -8,29 +8,25 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutonForward extends Command {
-	private double inches;
-	private double targetPosition;
-	public double converter = 206.243;
-	private double encoderPositionAverage;
-    public AutonForward(double inches) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	this.inches = inches;
-    	targetPosition = inches * converter;
+public class StopAndRepositionTalons extends Command {
+	
+    public StopAndRepositionTalons() {
     	requires(Robot.mecanum);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Stop motors and set position to zero.
+     */
     protected void execute() {
+    	Robot.mecanum.resetEncoders();
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
     	double blSpeed, brSpeed, flSpeed, frSpeed;
     	double blPosition, brPosition, flPosition, frPosition;
     	
@@ -55,21 +51,20 @@ public class AutonForward extends Command {
 				+ flPosition + ", "
 				+ frPosition + ']');
       	
-    	encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
-    	System.out.println(this.getClass().getName() + "Encoder Position Av: " + encoderPositionAverage);
-    	System.out.println(this.getClass().getName() + "Target Pos {" + targetPosition + "}");
-    	Robot.mecanum.motionMagicStraight(targetPosition);
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        if(targetPosition >= encoderPositionAverage )
-        	return false;
-        else 
-        	return true;
+    	if ((blSpeed > 0 || brSpeed > 0 || flSpeed > 0 || frSpeed > 0)
+    			|| (Math.abs(blPosition) > 30
+	    			|| Math.abs(brPosition) > 30
+	    			|| Math.abs(flPosition) > 30
+	    			|| Math.abs(frPosition) > 30)) {
+    		return false;
+    	} else {
+        	RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
+    		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
+    		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
+    		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+    		return true;
+    	}
+    	
     }
 
     // Called once after isFinished returns true
@@ -79,5 +74,7 @@ public class AutonForward extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	System.out.println(this.getClass().getName() + "IS INTERRUPTED");
     }
 }
+

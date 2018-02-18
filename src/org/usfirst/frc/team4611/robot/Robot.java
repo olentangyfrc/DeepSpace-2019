@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.HashMap;
+
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
-import org.usfirst.frc.team4611.robot.commands.auton.AutonForward;
-import org.usfirst.frc.team4611.robot.commands.auton.AutonForwardRight;
-import org.usfirst.frc.team4611.robot.commands.auton.AutonStrafe;
-import org.usfirst.frc.team4611.robot.commands.auton.PigeonAuton;
+import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -13,8 +13,6 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
-
-import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
@@ -49,6 +47,7 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	public static OI oi;
 	public static BoxPusher boxPusher;
+	public HashMap<String, Command> autonCommandGroup;
 
 	Command autonomousCommand;
 	Command lightsCommand;
@@ -73,6 +72,9 @@ public class Robot extends IterativeRobot {
 		lights1 = new Relay(0, Direction.kBoth);
 		lights2 = new Relay(1, Direction.kBoth);
 		fancyLight = new FancyLights();
+		autonCommandGroup = new HashMap<String, Command>();
+		autonCommandGroup.put("RIGHT_SCALE", new RightScale());
+		autonCommandGroup.put("TEST", new TestBlock());
 		oi = new OI();
 		
 		CameraServer.getInstance().startAutomaticCapture();
@@ -114,7 +116,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new AutonForwardRight();
+		String strategy = "TEST";
+		autonomousCommand = this.autonCommandGroup.get(strategy);
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -180,6 +183,9 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 	}
 	
+	public enum AutonCommands {
+		
+	}
 		
 	
 }

@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutonForward extends Command {
+public class AutonBackward extends Command {
 	private double inches;
 	private double targetPosition;
 	public double converter = 206.243;
 	private double encoderPositionAverage;
-    public AutonForward(double inches) {
+    public AutonBackward(double inches) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.inches = inches;
-    	targetPosition = inches * converter;
+    	targetPosition = -inches * converter;
     	requires(Robot.mecanum);
     }
 
@@ -31,30 +31,6 @@ public class AutonForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double blSpeed, brSpeed, flSpeed, frSpeed;
-    	double blPosition, brPosition, flPosition, frPosition;
-    	
-    	blSpeed	= RobotMap.driveTrainBL_Talon.get();
-    	brSpeed	= RobotMap.driveTrainBR_Talon.get();
-    	flSpeed	= RobotMap.driveTrainFL_Talon.get();
-    	frSpeed	= RobotMap.driveTrainFR_Talon.get();
-
-    	System.out.println(this.getClass().getName() + "isFinished() : motorSpeeds [bl, br, fl, fr] ["
-    																			+ blSpeed + ", "
-    																			+ brSpeed + ", "
-    																			+ flSpeed + ", "
-    																			+ frSpeed + ']');
-    	
-    	blPosition	= RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0);
-    	brPosition	= RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
-    	flPosition	= RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0);
-    	frPosition	= RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0);
-      	System.out.println(this.getClass().getName() + "isFinished() : motorPositions [bl, br, fl, fr] ["
-				+ blPosition + ", "
-				+ brPosition + ", "
-				+ flPosition + ", "
-				+ frPosition + ']');
-      	
     	encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
@@ -66,7 +42,7 @@ public class AutonForward extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(targetPosition >= encoderPositionAverage )
+        if(targetPosition <= -encoderPositionAverage )
         	return false;
         else 
         	return true;
