@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
 		fancyLight = new FancyLights();
 		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		autonCommandGroup.put("RSCRBR", new RightScale());
+		autonCommandGroup.put("RSCRRR", new RightScale());
 		autonCommandGroup.put("TEST", new TestBlock());
 		oi = new OI();
 		
@@ -90,8 +90,8 @@ public class Robot extends IterativeRobot {
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
 		
-		autonFinalDecision = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey) +
-		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
+		autonFinalDecision = ((String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey)).trim().toUpperCase() +
+		((String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey)).trim().toUpperCase() +
 		driver.getGameSpecificMessage();
 	}
 
@@ -124,7 +124,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		System.out.println(autonFinalDecision);
 		autonFinalDecision = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey) +
 		(String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey) +
 		driver.getGameSpecificMessage();
