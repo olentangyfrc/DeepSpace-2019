@@ -20,12 +20,19 @@ public class PushBox extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		return this.timeSinceInitialized() >= (int)(double)RobotMap.getValue(RobotMap.pushBoxSubtable, RobotMap.pushBoxTimeID);
+		return (RobotMap.boxPusher.get() == DoubleSolenoid.Value.kForward);
 	}
 
 	protected void end() {
 		RobotMap.updateValue(RobotMap.pushBoxSubtable, RobotMap.pushBoxEnabledID, false);
-		Robot.boxPusher.move(DoubleSolenoid.Value.kReverse);
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			System.out.println("sleep interupt");
+		}
+		finally {
+			Robot.boxPusher.move(DoubleSolenoid.Value.kReverse);
+		}
 	}
 	
 	protected void interrupted() {

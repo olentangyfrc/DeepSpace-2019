@@ -11,8 +11,8 @@ public class BoxPusher extends Subsystem{
 		
 	}
 
-	public void move(Value v) {
-		RobotMap.boxPusher.set(v);
+	public void move(Value  dir) {
+		RobotMap.boxPusher.set(dir);
 	}
 	
 	@Override
