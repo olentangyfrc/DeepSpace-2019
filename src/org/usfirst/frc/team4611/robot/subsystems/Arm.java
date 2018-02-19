@@ -2,7 +2,6 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
-import org.usfirst.frc.team4611.robot.commands.drive.MecanumDrive;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePot;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
