@@ -42,7 +42,7 @@ public class AutonBackward extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(targetPosition <= -encoderPositionAverage )
+        if(targetPosition + 200 <= -encoderPositionAverage )
         	return false;
         else 
         	return true;
