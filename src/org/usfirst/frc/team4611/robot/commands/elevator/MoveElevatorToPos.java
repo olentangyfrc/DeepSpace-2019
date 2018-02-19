@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveElevatorToPos extends Command{
 	private double position;
+	
 	public MoveElevatorToPos(double position){
 		this.position = position;
 		this.requires(Robot.elevator); //This command uses this subsystem

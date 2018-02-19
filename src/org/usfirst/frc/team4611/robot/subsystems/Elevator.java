@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem{
 	
+	public final static double ELEVATOR_TOP = -137328;
+	public final static double ELEVATOR_BOTTOM = 0;
+	
 	public void move(double speed) {
 		RobotMap.elevator_Talon.set(ControlMode.PercentOutput, speed);
 	}
