@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class UltrasonicSensor extends Subsystem{
@@ -13,7 +14,7 @@ public class UltrasonicSensor extends Subsystem{
 		double value = RobotMap.ultrasonicInput.getValue();
 		double inches = value * .05140 - 0.07;
 		RobotMap.updateValue(RobotMap.ultraSubtable , "Inches", inches);
-		RobotMap.log(RobotMap.ultraSubtable, ("Distance in inches: " + inches ));
+		//RobotMap.log(RobotMap.ultraSubtable, ("Distance in inches: " + inches ));
 		return inches;
 	}
 

@@ -9,24 +9,30 @@ public class MoveElevatorToPos extends Command{
 	private double position;
 	public MoveElevatorToPos(double position){
 		this.position = position;
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 	
 	protected void initialize() {
 	}
 
 	protected void execute() {
-		Robot.el.moveToPos(position);
+		Robot.elevator.moveToPos(position);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		double variance = Math.abs(RobotMap.elevator_Talon.getSelectedSensorPosition(0)-position);
+		if (variance < 1000) {
+			return true;
+		}
+		else {
 		return false;
+		}
 	}
 	
 	protected void end() {
-		//RobotMap.elevator_Talon.setSensorPhase(true);
+		System.out.println("Move elevator command finished");//RobotMap.elevator_Talon.setSensorPhase(true);
+		
 	}
 
 }

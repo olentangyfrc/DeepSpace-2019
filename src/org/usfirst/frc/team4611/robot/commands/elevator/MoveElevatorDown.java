@@ -8,16 +8,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorDown extends Command{
 	
 	public MoveElevatorDown(){
-		this.requires(Robot.el); //This command uses this subsystem
+		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 
 	protected void execute() {	
-		Robot.el.move(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, (RobotMap.elevatorDownSpeed)));
+		double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed);
+		Robot.elevator.move(speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		return false;
 		// TODO Auto-generated method stub
+	}
+	
+	protected void end() {
+		Robot.elevator.move(0);
 	}
 }

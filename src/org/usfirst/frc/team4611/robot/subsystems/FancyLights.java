@@ -2,7 +2,6 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.Robot;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class FancyLights extends Subsystem{
@@ -29,45 +28,36 @@ public class FancyLights extends Subsystem{
 	}
 	
 	public void makeRed(){
-		Robot.lights1.set(Relay.Value.kOn);
-		Robot.lights2.set(Relay.Value.kForward);
+		Robot.lightController.set(0.61);
 	}
 	
 	public void makeYellow(){
-		Robot.lights1.set(Relay.Value.kReverse);
-		Robot.lights2.set(Relay.Value.kForward);
+		Robot.lightController.set(0.69);
 	}
 	
 	public void makeGreen(){
-		Robot.lights1.set(Relay.Value.kReverse);
-		Robot.lights2.set(Relay.Value.kOn);
+		Robot.lightController.set(0.77);
 	}
 	
 	public void makeCyan(){
-		Robot.lights1.set(Relay.Value.kReverse);
-		Robot.lights2.set(Relay.Value.kReverse);
+		Robot.lightController.set(0.79);
 	}
 	
 	public void makeBlue(){
-		Robot.lights1.set(Relay.Value.kOn);
-		Robot.lights2.set(Relay.Value.kReverse);
+		Robot.lightController.set(0.87);
 	}
 	
 	public void makePurple(){
-		Robot.lights1.set(Relay.Value.kOn);
-		Robot.lights2.set(Relay.Value.kOff);
+		Robot.lightController.set(0.91);
 	}
 	
 	
 	public void makeWhite(){
-		Robot.lights1.set(Relay.Value.kReverse);
-		Robot.lights2.set(Relay.Value.kOff);
+		Robot.lightController.set(0.93);
 	}
 	
 	public void makeOff(){
-		Robot.lights1.set(Relay.Value.kOff);
-		Robot.lights2.set(Relay.Value.kOff);
-		
-}
+		//Robot.lights1.disable();
+	}
 
 }

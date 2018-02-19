@@ -23,35 +23,27 @@ public class MakeLight extends Command{
 		switch (color){
 			case 0:
 				Robot.fancyLight.makeOff();
-				//System.out.println("Lights off");
 				break;
 			case 1:
-				//System.out.println("Lights red");
 				Robot.fancyLight.makeRed();
 				break;
 			case 2:
 				Robot.fancyLight.makeYellow();
-				//System.out.println("Lights yellow");
 				break;
 			case 3:
 				Robot.fancyLight.makeGreen();
-				//System.out.println("Lights green");
 				break;
 			case 4:
 				Robot.fancyLight.makeCyan();
-				//System.out.println("Lights cyan");
 				break;
 			case 5:
 				Robot.fancyLight.makeBlue();
-				//System.out.println("Lights blue");
 				break;
 			case 6:
 				Robot.fancyLight.makePurple();
-				//System.out.println("Lights purple");
 				break;
 			case 7:
 				Robot.fancyLight.makeWhite();
-				//System.out.println("Lights ");
 				break;
 		}
 	}

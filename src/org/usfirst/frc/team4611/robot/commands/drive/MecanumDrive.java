@@ -4,8 +4,6 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.SwitchableCommand;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 public class MecanumDrive extends SwitchableCommand{
 	
 	int velocityInvert1 = 1;
@@ -79,17 +77,17 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler Right: ", XValScaler2);
 		
 		//Blaine and Halter's magic math
-		velocity1 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1);
-		velocity2 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2); 
-		velocity3 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3);
-		velocity4 = ((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4);
+		velocity1 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1);
+		velocity2 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2); 
+		velocity3 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3);
+		velocity4 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4);
 		if (velocity1 > 0 || velocity2 > 0|| velocity3 > 0|| velocity4 > 0) {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 1", velocity1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 2", velocity2);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 3", velocity3);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 4", velocity4);
 		}
-		
+		Robot.mecanum.setRampRate();
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
 	}
