@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
-import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
@@ -71,7 +70,7 @@ public class OI {
 	public Button HappySwitch;
 	public Button HappyScale;
     public Button HappyReset;
-	public Button HappyStart;
+	//public Button HappyStart;
 	
 	//Climber Buttons
 	public Button moveClimber;
@@ -153,7 +152,7 @@ public class OI {
 		HappyScale.whenPressed(new ScalePos());
 		HappySwitch.whenPressed(new SwitchPos());
 		HappyReset.whenPressed(new ResetElevator());
-		HappyStart.whenPressed(new StartingPos());
+		//HappyStart.whenPressed(new StartingPos());
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
@@ -166,8 +165,8 @@ public class OI {
 		moveClimber.whileHeld(new MoveClimber());
 		
 		//Lidar Commands
-		getDistance.whenPressed(new laserDistance());
-		getDistanceController.whenPressed(new laserDistance());
+		//getDistance.whenPressed(new laserDistance());
+		//getDistanceController.whenPressed(new laserDistance());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value

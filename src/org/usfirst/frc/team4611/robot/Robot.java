@@ -3,7 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
-import org.usfirst.frc.team4611.robot.commands.auton.DriveStraight;
+import org.usfirst.frc.team4611.robot.commands.auton.DriveForward;
 import org.usfirst.frc.team4611.robot.commands.auton.RightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartCenterScaleRight;
@@ -19,6 +19,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
 import org.usfirst.frc.team4611.robot.subsystems.Climber;
@@ -38,6 +39,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -143,7 +145,7 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("CSCRLL", new StartCenterScaleLeft());
 		autonCommandGroup.put("CSCRLR", new StartCenterScaleLeft());
 		autonCommandGroup.put("RSCRRR", new RightScale());
-		autonCommandGroup.put("DRIVEFORWARD", new DriveStraight());
+		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
 		autonCommandGroup.put("TEST", new TestBlock());
 			
 		oi = new OI();
@@ -193,6 +195,8 @@ public class Robot extends IterativeRobot {
 			key = "DRIVEFORWARD";
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
+		
+		autonomousCommand =new TestBlock();
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -259,6 +263,12 @@ public class Robot extends IterativeRobot {
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
 		((MakeLight)lightsCommand).setColor(3);
+		System.out.println(this.getClass().getName() + "LA 1 POS: " + RobotMap.linearActuatorPot.get());
+		System.out.println(this.getClass().getName() + "LA 2 POS: " + RobotMap.linearActuatorPot2.get());
+	}
+	
+	@Override
+	public void testInit() {
 	}
 
 	@Override
