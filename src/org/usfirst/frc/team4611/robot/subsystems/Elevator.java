@@ -27,8 +27,6 @@ public class Elevator extends Subsystem{
 	}
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		setDefaultCommand(new MoveElevator());
 	}
 	
 	public boolean isSwitchSet() { //if switch is pressed, returns true

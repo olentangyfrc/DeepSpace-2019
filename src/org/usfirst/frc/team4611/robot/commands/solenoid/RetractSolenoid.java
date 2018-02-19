@@ -13,18 +13,18 @@ public class RetractSolenoid extends Command{
 	}
 	
 	protected void execute() {
-		Robot.sol.move(DoubleSolenoid.Value.kReverse);
+		Robot.sol.move(DoubleSolenoid.Value.kForward);
 	}
 	
 	protected boolean isFinished() {
-		if(RobotMap.sol.get() == DoubleSolenoid.Value.kReverse){		
+		if(RobotMap.sol.get() == DoubleSolenoid.Value.kForward){		
 			return true;
 		}
 		return false;
 	}
 	
 	protected void end() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
+		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid" );
 	}
 	
 	protected void interrupted(){

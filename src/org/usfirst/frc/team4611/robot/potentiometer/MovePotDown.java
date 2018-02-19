@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MovePotDown extends Command{
 	
 	public MovePotDown() {
-		requires(Robot.arm);
+		this.requires(Robot.arm);
 	}
 	
 	protected void execute() {

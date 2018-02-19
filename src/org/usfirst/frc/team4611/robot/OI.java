@@ -4,19 +4,18 @@ import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.BottomPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
-import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
-import org.usfirst.frc.team4611.robot.potentiometer.StopPot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -60,15 +59,14 @@ public class OI {
 	public Button linearActuatorSwitch;
 	
 	//Elevator Buttons
-	public Button resetElevator;
-	public Button moveElToTop;
-	public Button moveElToSwitch;
+	public Button moveElUp;
+	public Button moveElDown;
+	
 	
 	//Happy Place Buttons
 	public Button MagicSwitch;
 	public Button MagicScale;
-	public Button MagicMiddle;
-	public Button MagicBottom;
+    public Button MagicReset;
 	public Button MagicStart;
 	
 
@@ -91,29 +89,23 @@ public class OI {
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
 		linearActuatorUp2 = new JoystickButton(auxJoy, 3);
 		linearActuatorDown2 = new JoystickButton(auxJoy, 2);
-		linearActuatorUp3 = new JoystickButton(auxJoy, 6);
-		linearActuatorDown3 = new JoystickButton(auxJoy, 7);
 		
 		//Solenoid Buttons
 		grabberToggle = new JoystickButton(leftJoy, 1);
-		grabberExtend = new JoystickButton(leftJoy, 6);//close claw
+		grabberExtend = new JoystickButton(leftJoy, 7);//close claw
 		grabberExtend2 = new JoystickButton(auxJoy, 1);
-		grabberRetract = new JoystickButton(leftJoy, 7);//open claw
+		grabberRetract = new JoystickButton(leftJoy, 6);//open claw
 		pushBox = new JoystickButton(rightJoy, 1);
 		
 		//Elevator Buttons
-		resetElevator = new JoystickButton(auxJoy, 8);
-		
-	//////////////////////////////////////////////////////////
-		moveElToTop = new JoystickButton (rightJoy, 6);
-		moveElToSwitch= new JoystickButton (rightJoy, 7);
+		moveElUp = new JoystickButton (auxJoy, 6);
+		moveElDown = new JoystickButton (auxJoy, 7);
 		
 		//Magic Shaping Buttons
-		MagicScale = new JoystickButton(rightJoy,6);                   //TALK TO HANNAH
-		MagicSwitch = new JoystickButton(rightJoy,11);
-		MagicBottom = new JoystickButton(rightJoy, 9);
-		MagicStart = new JoystickButton (rightJoy, 8);
-	///////////////////////////////////////////////////////////////	
+		MagicScale = new JoystickButton(auxJoy,5);                   
+		MagicSwitch = new JoystickButton(auxJoy,3);
+		MagicReset = new JoystickButton(auxJoy, 8);
+		MagicStart = new JoystickButton (auxJoy, 9);
 		
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
@@ -132,37 +124,25 @@ public class OI {
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
-		linearActuatorUp.whenReleased(new StopPot());
-		linearActuatorUp2.whileHeld(new MovePotUp());
-		linearActuatorUp2.whenReleased(new StopPot());		
-		linearActuatorUp3.whileHeld(new MovePotUp());
-		linearActuatorUp3.whenReleased(new StopPot());		
+		linearActuatorUp2.whileHeld(new MovePotUp());			
 		linearActuatorDown.whileHeld(new MovePotDown());
-		linearActuatorDown.whenReleased(new StopPot());
 		linearActuatorDown2.whileHeld(new MovePotDown());
-		linearActuatorDown2.whenReleased(new StopPot());
-		linearActuatorDown3.whileHeld(new MovePotDown());
-		linearActuatorDown3.whenReleased(new StopPot());
-		
-	////////////////////////////////////////////////////////////////////
+
 		//Elevator Commands
-		resetElevator.whenPressed(new ResetElevator());
-		moveElToTop.whenPressed(new MoveElevatorToPos(-117328));	
-		//moveElToSwitch.whenPressed(new StartingPos());
+		moveElUp.whileHeld(new MoveElevatorUp());	
+		moveElDown.whileHeld(new MoveElevatorDown());
 		
-		//Magic Shaping Commands									//HANNAH 
+		//Magic Shaping Commands	
 		MagicScale.whenPressed(new ScalePos());
 		MagicSwitch.whenPressed(new SwitchPos());
-		//MagicMiddle.whenPressed(new MiddlePos());
-		MagicBottom.whenPressed(new BottomPos());
+		MagicReset.whenPressed(new ResetElevator());
 		MagicStart.whenPressed(new StartingPos());
-	////////////////////////////////////////////////////////
 		
-		//Claw Commands
+		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
-		grabberExtend.whileHeld(new ExtendSolenoid());
-		grabberExtend2.whileHeld(new ExtendSolenoid());
-		grabberRetract.whileHeld(new RetractSolenoid());
+		grabberExtend.whileHeld(new RetractSolenoid());
+		grabberExtend2.whileHeld(new RetractSolenoid());
+		grabberRetract.whileHeld(new ExtendSolenoid());
 		pushBox.whenPressed(new PushBox());
 	}
 	
@@ -190,4 +170,12 @@ public class OI {
             return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID), 1); //Set the output to a ceratin percent of of the input
         }
 	}
+	public double LAFilter(double raw) {
+		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
+            return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
+        } else {
+            return  raw * Math.min((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID), 1); //Set the output to a ceratin percent of of the input
+        }
+	}
+	
 }

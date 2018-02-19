@@ -2,6 +2,8 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.commands.drive.MecanumDrive;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePot;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -23,7 +25,6 @@ public class Arm extends Subsystem {
 		double potValue2 = RobotMap.linearActuatorPot2.get();
 		double pos1 = (potValue1 - min1) / (max1 - min1);
 		double pos2 = (potValue2 - min2) / (max2 - min2);
-		//RobotMap.log(RobotMap.linearActuatorSubTable, "Pot values" + pos1 + " " + pos2);
 		if(potValue1 < max1 && pos1 <= pos2 + varianceLimit) {
 			RobotMap.linearActuator.set(speed);
 		}
@@ -123,6 +124,7 @@ public class Arm extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {	
+		setDefaultCommand(new MovePot());
 	}
 
 }

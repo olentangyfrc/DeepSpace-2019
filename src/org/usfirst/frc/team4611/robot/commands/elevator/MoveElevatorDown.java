@@ -12,12 +12,17 @@ public class MoveElevatorDown extends Command{
 	}
 
 	protected void execute() {	
-		Robot.elevator.move(-(double)RobotMap.getValue(RobotMap.elevatorSubtable, (RobotMap.elevatorDownSpeed)));
+		double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed);
+		Robot.elevator.move(speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		return false;
 		// TODO Auto-generated method stub
+	}
+	
+	protected void end() {
+		Robot.elevator.move(0);
 	}
 }

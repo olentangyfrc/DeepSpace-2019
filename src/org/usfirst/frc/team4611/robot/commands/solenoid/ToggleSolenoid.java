@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4611.robot.commands.solenoid;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ToggleSolenoid extends Command{
@@ -13,17 +15,17 @@ public class ToggleSolenoid extends Command{
 	}
 	
 	public void execute(){
-		if( Robot.sol.isRetracted ) {
-			new ExtendSolenoid().start();
+		if(RobotMap.sol.get() == DoubleSolenoid.Value.kReverse) {
+			Robot.sol.move(DoubleSolenoid.Value.kForward);
 		}
 		else{
-			new RetractSolenoid().start();
+			Robot.sol.move(DoubleSolenoid.Value.kReverse);
 		}
 		done = true;
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 }

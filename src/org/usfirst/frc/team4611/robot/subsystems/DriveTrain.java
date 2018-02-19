@@ -58,6 +58,35 @@ public class DriveTrain extends Subsystem {
 
 	}
 	
+	public void logSpeed() {
+	  	double blSpeed, brSpeed, flSpeed, frSpeed;
+    	
+    	blSpeed	= RobotMap.driveTrainBL_Talon.get();
+    	brSpeed	= RobotMap.driveTrainBR_Talon.get();
+    	flSpeed	= RobotMap.driveTrainFL_Talon.get();
+    	frSpeed	= RobotMap.driveTrainFR_Talon.get();
+
+    	System.out.println(this.getClass().getName() + "isFinished() : motorSpeeds [bl, br, fl, fr] ["
+    																			+ blSpeed + ", "
+    																			+ brSpeed + ", "
+    																			+ flSpeed + ", "
+    																			+ frSpeed + ']');
+	}
+	
+	public void logPosition() {
+    	double blPosition, brPosition, flPosition, frPosition;
+    	
+    	blPosition	= RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0);
+    	brPosition	= RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
+    	flPosition	= RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0);
+    	frPosition	= RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0);
+      	System.out.println(this.getClass().getName() + "isFinished() : motorPositions [bl, br, fl, fr] ["
+      																			+ blPosition + ", "
+      																			+ brPosition + ", "
+      																			+ flPosition + ", "
+      																			+ frPosition + ']');
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MecanumDrive()); //This subsystem will automatically run this command 

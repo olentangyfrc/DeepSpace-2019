@@ -255,8 +255,6 @@ public class Robot extends IterativeRobot {
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
-		
-		System.out.println(RobotMap.elevator_Talon.getSelectedSensorPosition(0));
 		((MakeLight)lightsCommand).setColor(3);
 		if(Timer.getMatchTime() >= 20) {
 			lightController.set(0.03);
