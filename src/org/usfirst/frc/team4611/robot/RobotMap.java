@@ -214,6 +214,11 @@ public class RobotMap {
 		climber_Talon = new WPI_TalonSRX(31);
 		climber_Talon2 = new WPI_TalonSRX(32);
 		
+		climber_Talon.configPeakCurrentLimit(50, 250);
+		climber_Talon2.configPeakCurrentLimit(50, 250);
+		climber_Talon.enableCurrentLimit(true);
+		climber_Talon2.enableCurrentLimit(true);
+		
 		//Talon Configuration
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		driveTrainFR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);

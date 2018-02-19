@@ -8,7 +8,7 @@ public class ClimberToPos extends Command {
 
 	
 	protected void execute() {
-		Robot.climber.moveToPos(0);
+		//Robot.climber.moveToPos(0);
 	}
 	
 	@Override
