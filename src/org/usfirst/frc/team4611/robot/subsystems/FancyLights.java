@@ -5,23 +5,8 @@ import org.usfirst.frc.team4611.robot.Robot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class FancyLights extends Subsystem{
-	
-	/*	kOff - Turns both relay outputs off
-	kForward - Sets the relay to forward (M+ @ 12V, M- @ GND)
-	kReverse - Sets the relay to reverse (M+ @ GND, M- @ 12V)
-	kOn - Sets both relay outputs on (M+ @ 12V, M- @ 12V).
-	 */
-	
 	/**
-	 *  M- for fancyLights1 must be powered for any lights to turn on
-	 *  Each color has a specific pin to be grounded to turn on
-	 *  Colors are red, green, blue
-	 *  If all 3 are grounded lights = white
-	 *  The colors that need to be off should be powered
-	 *  
-	 *  M+ on fancyLights1 is Green
-	 *  M- on fancyLights2 is Red
-	 *  M+ on fancyLights2 is Blue
+	 *  See page 14 http://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf to see all spark values
 	 */
 
 	protected void initDefaultCommand() {

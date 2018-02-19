@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
 		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
 		opt = new Optical(Port.kMXP);
-		lightController = new Spark(6);
+		lightController = new Spark(9);
 		fancyLight = new FancyLights();
 		climber = new Climber();
 		driver = DriverStation.getInstance();
@@ -152,7 +152,7 @@ public class Robot extends IterativeRobot {
 		CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(320, 240);
 		
-		lightsCommand = new MakeLight(2);
+		lightsCommand = new MakeLight(1);
 		lightsCommand.start();
 		
 		//Just creating the values in shuffleboard
@@ -250,15 +250,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		/*if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
+		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
 				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(7);
 		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
 			((MakeLight)lightsCommand).setColor(2);
 		}else{
 			((MakeLight)lightsCommand).setColor(5);
-		}*/
-		((MakeLight)lightsCommand).setColor(3);
+		}
 	}
 
 	@Override
