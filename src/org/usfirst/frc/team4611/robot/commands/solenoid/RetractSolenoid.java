@@ -17,7 +17,7 @@ public class RetractSolenoid extends Command{
 	}
 	
 	protected boolean isFinished() {
-		if(RobotMap.sol.get() == DoubleSolenoid.Value.kForward){		
+		if(RobotMap.grabber.get() == DoubleSolenoid.Value.kForward){		
 			return true;
 		}
 		return false;

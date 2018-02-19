@@ -15,7 +15,7 @@ public class ToggleSolenoid extends Command{
 	}
 	
 	public void execute(){
-		if(RobotMap.sol.get() == DoubleSolenoid.Value.kReverse) {
+		if(RobotMap.grabber.get() == DoubleSolenoid.Value.kReverse) {
 			Robot.sol.move(DoubleSolenoid.Value.kForward);
 		}
 		else{

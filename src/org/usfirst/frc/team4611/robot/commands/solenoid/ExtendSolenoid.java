@@ -17,7 +17,7 @@ public class ExtendSolenoid extends Command{
 	}
 	
 	protected boolean isFinished() {
-		if(RobotMap.sol.get() == DoubleSolenoid.Value.kReverse){		
+		if(RobotMap.grabber.get() == DoubleSolenoid.Value.kReverse){		
 			return true;
 		}
 		return false;
