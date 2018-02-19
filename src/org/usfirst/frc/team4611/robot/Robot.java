@@ -25,6 +25,7 @@ import org.usfirst.frc.team4611.robot.subsystems.Climber;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
+import org.usfirst.frc.team4611.robot.subsystems.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
 
@@ -33,9 +34,9 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -58,11 +59,12 @@ public class Robot extends IterativeRobot {
 	public static Solenoid sol;
 	public static NetworkTableInstance tableInstance;
 	public static NetworkTable table;
+	public static Optical opt;
 	public static UsbCamera camera;
-	public static OI oi;
 	public static BoxPusher boxPusher;
 	public static DriverStation driver;
 	public static Climber climber;
+	public static OI oi;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
 	public HashMap<String, Command> autonCommandGroup;
@@ -86,11 +88,12 @@ public class Robot extends IterativeRobot {
 		sol = new Solenoid();
 		boxPusher = new BoxPusher();
 		ultrasonic = new UltrasonicSensor();
+		opt = new Optical(Port.kMXP);
 		lightController = new Spark(6);
 		fancyLight = new FancyLights();
 		climber = new Climber();
+		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		//autonCommandGroup.put("RSCRRR", new RightScale());
 		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight());
 		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight());
 		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight());
@@ -142,9 +145,7 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("RSCRRR", new RightScale());
 		autonCommandGroup.put("DRIVEFORWARD", new DriveStraight());
 		autonCommandGroup.put("TEST", new TestBlock());
-		
-		lightController.set(0.07);
-		
+			
 		oi = new OI();
 		
 		camera = CameraServer.getInstance().startAutomaticCapture();	
@@ -258,13 +259,6 @@ public class Robot extends IterativeRobot {
 			((MakeLight)lightsCommand).setColor(5);
 		}*/
 		((MakeLight)lightsCommand).setColor(3);
-		if(Timer.getMatchTime() >= 20) {
-			lightController.set(0.03);
-		}else if(Timer.getMatchTime() >= 10) {
-			lightController.set(0.05);
-		}else {
-			lightController.set(0.07);
-		}
 	}
 
 	@Override

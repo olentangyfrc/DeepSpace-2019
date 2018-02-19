@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
-//import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -48,31 +45,31 @@ public class RobotMap {
 	public static Victor linearActuator;
 	public static Victor linearActuator2;
 	
-	//Victor ports
-	public static int linearActuatorPort = 4;
-	public static int victorPortFL = 1;
-	public static int victorPortFR = 0;
-	public static int victorPortBL = 2;
-	public static int victorPortBR = 3;
-		
 	//General Objects
-	public static DoubleSolenoid sol;
+	public static DoubleSolenoid grabber;
 	public static MecanumDrive driveTrain;
 	public static AnalogInput ultrasonicInput;
 	public static DigitalInput limitSwitch = new DigitalInput(0);
 	
+	//Victor ports
+	public static final int LINEAR_ACTUATOR_PORT = 4;
+	public static final int VICTOR_FL_PORT = 1;
+	public static final int VICTOR_FR_PORT = 0;
+	public static final int VICTOR_BL_PORT = 2;
+	public static final int VICTOR_BR_PORT = 3;
+	
 	//Joystick ports
-	public static int leftJoyPort = 0; //Joystick can be found on this port. The ports aren't physical plugs
-	public static int rightJoyPort = 1; //But rather decided from the drivers station by the drivers
-	public static int thirdJoyPort = 2;
+	public static final int LEFT_JOY_PORT = 0; //Joystick can be found on this port. The ports aren't physical plugs
+	public static final int RIGHT_JOY_PORT = 1; //But rather decided from the drivers station by the drivers
+	public static final int THIRD_JOY_PORT = 2;
 	
 	//Button Ports
-	public static int solTogglePort = 10;
-	public static int solExtendPort = 2;
-	public static int solRetractPort = 11;
-	public static int autoGrabButtPort = 11;
-	public static int openPort = 1;
-	public static int closePort = 0;
+	public static final int SOL_TOGGLE_PORT = 10;
+	public static final int SOL_EXTEND_PORT = 2;
+	public static final int SOL_RETRACT_PORT = 11;
+	public static final int AUTO_GRAB_PORT = 11;
+	public static final int OPEN_PORT = 1;
+	public static final int CLOSE_PORT = 0;
 
 	//Networktable things
 	public static final int teamID = 4611;
@@ -86,22 +83,19 @@ public class RobotMap {
 	//Constants
 	public static final int ULTRA_PORT = 3;
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	public static double potMin = .15;
-	public static double potMax = .8;
-	public static double potSwitch = .45;
-	public static double potMin2 = .15;
-	public static double potMax2 = .8;
-	public static double potSwitch2 = .45;
-	private static double varianceLimit = .02;
+	public static final double POTMIN = .15;
+	public static final double POTMAX = .8;
+	public static final double POTSWITCH = .45;
+	public static final double POTMIN2 = .15;
+	public static final double POTMAX2 = .8;
+	public static final double POTSWITCH2 = .45;
+	private static final double VARIANCELIMIT = .02;
 	
 	//Default motor speeds
-	public static double linearActuatorSpeed = 0.5;
-	public static double elevatorSpeedScalar = 0.75;
-	
-	 
-	//Default motor speeds
-	public static double linearActuatorUpSpeed = 0.7;
-	public static double linearActuatorDownSpeed = 0.7;
+	public static final double LINEAR_ACTUATOR_SPEED = 0.5;
+	public static final double ELEVATOR_SPEED_SCALAR = 0.75;
+	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.7;
+	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.7;
 
 	//String keys
 	public static String joyStickSubTable = "Joysticks";
@@ -156,6 +150,8 @@ public class RobotMap {
 	public static String foundID = "found";
 	public static String maxRPMID = "Max RPM";
 	public static String rampTime = "Ramp Seconds: "; 
+	public static int distance;
+	
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
@@ -179,10 +175,10 @@ public class RobotMap {
 	public static void init() {
 		
 		//Drive Train Victors
-		driveTrainFL = new Victor(victorPortFL);
-		driveTrainFR = new Victor(victorPortFR);
-		driveTrainBL = new Victor(victorPortBL);
-		driveTrainBR = new Victor(victorPortBR);
+		driveTrainFL = new Victor(VICTOR_FL_PORT);
+		driveTrainFR = new Victor(VICTOR_FR_PORT);
+		driveTrainBL = new Victor(VICTOR_BL_PORT);
+		driveTrainBR = new Victor(VICTOR_BR_PORT);
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
@@ -192,13 +188,13 @@ public class RobotMap {
 		pigeon.setFusedHeading(0, 10);
 		
 		//Linear Actuator
-		linearActuator = new Victor(linearActuatorPort);
+		linearActuator = new Victor(LINEAR_ACTUATOR_PORT);
 		linearActuator2 = new Victor(5);
 		linearActuatorPot = new AnalogPotentiometer(0);
 		linearActuatorPot2 = new AnalogPotentiometer(1);
 		
 		//Solenoid
-		sol = new DoubleSolenoid(RobotMap.openPort, RobotMap.closePort);
+		grabber = new DoubleSolenoid(RobotMap.OPEN_PORT, RobotMap.CLOSE_PORT);
 		boxPusher = new DoubleSolenoid(RobotMap.boxPusherOpen, RobotMap.boxPusherClose);
 		
 		//Default Values
@@ -307,21 +303,21 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.climberSubtable, climberSpeed, RobotMap.defaults.getDoubleDefaultValue(climberSubtable, climberSpeed, (1845.703)));
 		
 		//Linear Acutator Values
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));
-		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, linearActuatorDownSpeed));
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, LINEAR_ACTUATOR_UP_SPEED));
+		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, LINEAR_ACTUATOR_DOWN_SPEED));
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
 		
 		//Potentiometer Values
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
-				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, potMax));
-		RobotMap.updateValue(potentiometerSubTable, potMinID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMinID, potMin));
-		RobotMap.updateValue(potentiometerSubTable, potSwitchID, potSwitch);
-		RobotMap.updateValue(potentiometerSubTable, potMax2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMax2ID, potMax2));
-		RobotMap.updateValue(potentiometerSubTable, potMin2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMin2ID, potMin2));
-		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, potSwitch2);
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, POTMAX));
+		RobotMap.updateValue(potentiometerSubTable, potMinID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMinID, POTMIN));
+		RobotMap.updateValue(potentiometerSubTable, potSwitchID, POTSWITCH);
+		RobotMap.updateValue(potentiometerSubTable, potMax2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMax2ID, POTMAX2));
+		RobotMap.updateValue(potentiometerSubTable, potMin2ID, RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMin2ID, POTMIN2));
+		RobotMap.updateValue(potentiometerSubTable, potSwitch2ID, POTSWITCH2);
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
-				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, varianceLimit));
+				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, VARIANCELIMIT));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");

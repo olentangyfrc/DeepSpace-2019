@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
@@ -19,6 +20,7 @@ import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -35,6 +37,7 @@ public class OI {
 	public static Joystick leftJoy;
 	public static Joystick rightJoy;
 	public static Joystick auxJoy;
+	public static XboxController con;
 	
 	//Movement Buttons
 	public Button strafeLeft;
@@ -63,22 +66,27 @@ public class OI {
 	public Button moveElUp;
 	public Button moveElDown;
 	
-	
 	//Happy Place Buttons
-	public Button MagicSwitch;
-	public Button MagicScale;
-    public Button MagicReset;
-	public Button MagicStart;
+	public Button HappySwitch;
+	public Button HappyScale;
+    public Button HappyReset;
+	public Button HappyStart;
 	
+	//Climber Buttons
 	public Button moveClimber;
+	
+	//Lidar Buttons
+	public Button getDistance;
+	public Button getDistanceController;
 	
 
 	public OI (){
 		
 		//Joystick
-		leftJoy = new Joystick(RobotMap.leftJoyPort); //The left joystick exists on this port in robot map
-		rightJoy = new Joystick(RobotMap.rightJoyPort); //The right joystick exists on this port in robot map
-		auxJoy = new Joystick(RobotMap.thirdJoyPort);
+		leftJoy = new Joystick(RobotMap.LEFT_JOY_PORT); //The left joystick exists on this port in robot map
+		rightJoy = new Joystick(RobotMap.RIGHT_JOY_PORT); //The right joystick exists on this port in robot map
+		auxJoy = new Joystick(RobotMap.THIRD_JOY_PORT);
+		con = new XboxController(RobotMap.LEFT_JOY_PORT);
 		
 		//Movement Buttons
 		strafeLeft= new JoystickButton(leftJoy, 4);
@@ -103,15 +111,18 @@ public class OI {
 		//Elevator Buttons
 		moveElUp = new JoystickButton (auxJoy, 6);
 		moveElDown = new JoystickButton (auxJoy, 7);
-
+		
+		//Climber Buttons
 		moveClimber = new JoystickButton(rightJoy, 10);
 
-		//Magic Shaping Buttons
-		MagicScale = new JoystickButton(auxJoy,5);                   
-		MagicSwitch = new JoystickButton(auxJoy,3);
-		MagicReset = new JoystickButton(auxJoy, 8);
-		MagicStart = new JoystickButton (auxJoy, 9);
+		//Happy Shaping Buttons
+		HappyScale = new JoystickButton(auxJoy,5);                   
+		HappySwitch = new JoystickButton(auxJoy,3);
+		HappyReset = new JoystickButton(auxJoy, 8);
 		
+		//Lidar Buttons
+		getDistanceController = new JoystickButton(con, 2);
+			
 		//Sends the starting values of the joysticks to the Shuffleboard
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, leftJoy.getX());
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, leftJoy.getY());
@@ -138,12 +149,10 @@ public class OI {
 		moveElDown.whileHeld(new MoveElevatorDown());
 		
 		//Magic Shaping Commands	
-		MagicScale.whenPressed(new ScalePos());
-		MagicSwitch.whenPressed(new SwitchPos());
-		MagicReset.whenPressed(new ResetElevator());
-		MagicStart.whenPressed(new StartingPos());
-		
-		moveClimber.whileHeld(new MoveClimber());
+		HappyScale.whenPressed(new ScalePos());
+		HappySwitch.whenPressed(new SwitchPos());
+		HappyReset.whenPressed(new ResetElevator());
+		HappyStart.whenPressed(new StartingPos());
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
@@ -151,6 +160,13 @@ public class OI {
 		grabberExtend2.whileHeld(new RetractSolenoid());
 		grabberRetract.whileHeld(new ExtendSolenoid());
 		pushBox.whenPressed(new PushBox());
+		
+		//Climber Commands
+		moveClimber.whileHeld(new MoveClimber());
+		
+		//Lidar Commands
+		getDistance.whenPressed(new laserDistance());
+		getDistanceController.whenPressed(new laserDistance());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
