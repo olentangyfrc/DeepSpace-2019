@@ -149,6 +149,7 @@ public class RobotMap {
 	public static String distanceID = "distance";
 	public static String horizontalDistanceID = "horizontalDistance";
 	public static String foundID = "found";
+	public static String piTimeStampID = "current_ts";
 	public static String maxRPMID = "Max RPM";
 	public static String rampTime = "Ramp Seconds: "; 
 	public static int distance;

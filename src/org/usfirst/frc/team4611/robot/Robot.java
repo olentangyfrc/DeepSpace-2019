@@ -29,6 +29,7 @@ import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
+import org.usfirst.frc.team4611.robot.utilities.PiLights;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
@@ -72,7 +73,7 @@ public class Robot extends IterativeRobot {
 	public HashMap<String, Command> autonCommandGroup;
 
 	Command autonomousCommand;
-	Command lightsCommand;
+	public static Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	
@@ -83,6 +84,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
+		//Initialize utilities
+		PiLights.reset();
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		elevator = new Elevator();
@@ -245,19 +248,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		try {
-			if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
-					&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-				((MakeLight)lightsCommand).setColor(7);
-			}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-				((MakeLight)lightsCommand).setColor(2);
-			}else{
-				((MakeLight)lightsCommand).setColor(5);
-			}
-		}catch (Exception e) {
-			RobotMap.log(RobotMap.generalSubTable, "Something is wrong with the pi");
-			((MakeLight)lightsCommand).setColor(1);
-		}
+		PiLights.checkPiAlive();
+		PiLights.lightsFromPi();
 	}
 
 	@Override
