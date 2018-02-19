@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
+import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -69,6 +70,8 @@ public class OI {
     public Button MagicReset;
 	public Button MagicStart;
 	
+	public Button moveClimber;
+	
 
 	public OI (){
 		
@@ -100,7 +103,9 @@ public class OI {
 		//Elevator Buttons
 		moveElUp = new JoystickButton (auxJoy, 6);
 		moveElDown = new JoystickButton (auxJoy, 7);
-		
+
+		moveClimber = new JoystickButton(rightJoy, 10);
+
 		//Magic Shaping Buttons
 		MagicScale = new JoystickButton(auxJoy,5);                   
 		MagicSwitch = new JoystickButton(auxJoy,3);
@@ -137,6 +142,8 @@ public class OI {
 		MagicSwitch.whenPressed(new SwitchPos());
 		MagicReset.whenPressed(new ResetElevator());
 		MagicStart.whenPressed(new StartingPos());
+		
+		moveClimber.whileHeld(new MoveClimber());
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());

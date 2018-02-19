@@ -116,6 +116,7 @@ public class RobotMap {
 	public static String elevatorSubtable = "Elevator";
 	public static String pushBoxSubtable = "Push Box";	
 	public static String pigeonSubtable = "Pigeon";
+	public static String climberSubtable = "Climber";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -160,8 +161,9 @@ public class RobotMap {
 	public static String pigeonAutonP = "Pigeon-Auton-P";
 	public static String autonStrafeScalarID = "StrafeScalar";
 	public static String autonSubTable = "Auton Subtable";
-	public static String sideKey = "Side";
+	public static String climberSpeed = "Climber Speed";
 	public static String targetKey = "Target";
+	public static String sideKey = "Position";
 	
 	public static DefaultValues defaults;
 
@@ -214,7 +216,13 @@ public class RobotMap {
 		
 		//Climber Talons
 		climber_Talon = new WPI_TalonSRX(31);
-		climber_Talon = new WPI_TalonSRX(32);
+		climber_Talon2 = new WPI_TalonSRX(32);
+		
+		climber_Talon.configPeakCurrentLimit(50, 250);
+		climber_Talon2.configPeakCurrentLimit(50, 250);
+		climber_Talon.enableCurrentLimit(true);
+		climber_Talon2.enableCurrentLimit(true);
+		climber_Talon2.setSensorPhase(true);
 		
 		//Talon Configuration
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -222,6 +230,8 @@ public class RobotMap {
 		driveTrainBL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		driveTrainBR_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		elevator_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		climber_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		climber_Talon2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
 		//Limits
 		elevator_Talon.configForwardSoftLimitEnable(false, 0);
@@ -288,10 +298,13 @@ public class RobotMap {
 		
 		//Elevator Values
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.85));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.66));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
+		
+		//Climber Values
+		RobotMap.updateValue(RobotMap.climberSubtable, climberSpeed, RobotMap.defaults.getDoubleDefaultValue(climberSubtable, climberSpeed, (1845.703)));
 		
 		//Linear Acutator Values
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));

@@ -21,6 +21,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
+import org.usfirst.frc.team4611.robot.subsystems.Climber;
 import org.usfirst.frc.team4611.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
@@ -61,6 +62,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static BoxPusher boxPusher;
 	public static DriverStation driver;
+	public static Climber climber;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
 	public HashMap<String, Command> autonCommandGroup;
@@ -86,7 +88,7 @@ public class Robot extends IterativeRobot {
 		ultrasonic = new UltrasonicSensor();
 		lightController = new Spark(6);
 		fancyLight = new FancyLights();
-		driver = DriverStation.getInstance();
+		climber = new Climber();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
 		//autonCommandGroup.put("RSCRRR", new RightScale());
 		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight());
