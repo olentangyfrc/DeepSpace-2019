@@ -21,6 +21,7 @@ public class Climber extends Subsystem {
 		RobotMap.climber_Talon.set(ControlMode.Velocity, speed);
 		RobotMap.climber_Talon2.set(ControlMode.Velocity, -speed);
 		
+		//do not slave! Slaving gives them the same output voltage which does not equal output velocity!
 	}
 	
 	public void moveToPos(double position) {

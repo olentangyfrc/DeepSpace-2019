@@ -4,7 +4,9 @@ import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
 import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
+import org.usfirst.frc.team4611.robot.commands.climber.ClimberToPos;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
+import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
 import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -74,6 +76,8 @@ public class OI {
 	
 	//Climber Buttons
 	public Button moveClimber;
+	public Button windClimber;
+	public Button moveClimbertoPos;
 	
 	//Lidar Buttons
 	public Button getDistance;
@@ -114,7 +118,10 @@ public class OI {
 		
 		//Climber Buttons
 		moveClimber = new JoystickButton(rightJoy, 10);
-
+		windClimber = new JoystickButton(rightJoy, 11);
+		moveClimbertoPos = new JoystickButton(rightJoy, 7);
+		
+		
 		//Happy Shaping Buttons
 		HappyScale = new JoystickButton(auxJoy,5);                   
 		HappySwitch = new JoystickButton(auxJoy,3);
@@ -162,6 +169,8 @@ public class OI {
 		
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
+		windClimber.whileHeld(new WindUpClimber());
+		moveClimbertoPos.whenPressed(new ClimberToPos(4915.2));
 		
 		//Lidar Commands
 		//getDistance.whenPressed(new laserDistance());
