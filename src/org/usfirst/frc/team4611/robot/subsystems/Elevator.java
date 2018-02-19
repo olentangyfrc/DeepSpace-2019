@@ -13,7 +13,7 @@ public class Elevator extends Subsystem{
 	}
 	
 	public void moveToPos(double position) {
-		RobotMap.elevator_Talon.config_kP(0, 1, 0);
+		RobotMap.elevator_Talon.config_kP(0, .5, 0);
 		RobotMap.elevator_Talon.config_kI(0, 0, 0);
 		RobotMap.elevator_Talon.config_kD(0, 0, 0);
 		RobotMap.elevator_Talon.config_kF(0, 0, 0);

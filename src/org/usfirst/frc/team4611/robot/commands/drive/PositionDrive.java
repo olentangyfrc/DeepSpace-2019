@@ -20,9 +20,11 @@ public class PositionDrive extends Command{
 	
 	private int factorBL;
 	private int factorBR;
+	private String dir;
 	
 	public PositionDrive(double pos, String dir){
 		this.requires(Robot.mecanum); //This command uses this subsystem
+		this.dir = dir;
 		this.cnt = 0;
 		this.currentBL = RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0);
 		this.currentBR = RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
@@ -61,10 +63,14 @@ public class PositionDrive extends Command{
 	
 	protected void execute() {
 		cnt++;
-		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
-		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
-		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, (-factorBL * position + currentFR));
+		
+		if (dir.toLowerCase().equals("forward") || (dir.toLowerCase().equals("backward"))) {
+			Robot.mecanum.motionMagicStraight((factorBL * position + currentBL));
+		}
+		
+		else {
+			Robot.mecanum.motionMagicStrafe(factorBL * position + currentBL);
+		}
 	}
 	
 	

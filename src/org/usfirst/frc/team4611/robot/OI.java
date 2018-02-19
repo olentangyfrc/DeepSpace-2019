@@ -10,6 +10,7 @@ import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.commands.magicshapes.AttackPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
@@ -147,6 +148,7 @@ public class OI {
 		//Magic Shaping Commands	
 		HappyScale.whenPressed(new ScalePos());
 		HappySwitch.whenPressed(new SwitchPos());
+		HappyAttack.whenPressed(new AttackPos());
 		HappyReset.whenPressed(new ResetElevator());
 		
 		//Grabber Commands
