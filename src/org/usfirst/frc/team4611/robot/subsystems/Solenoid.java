@@ -15,7 +15,7 @@ public class Solenoid extends Subsystem{
 	}
 	
 	public void move(Value v) {
-		RobotMap.sol.set(v);
+		RobotMap.grabber.set(v);
 	}
 	
 }
