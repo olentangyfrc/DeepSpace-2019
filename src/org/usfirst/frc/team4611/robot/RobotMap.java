@@ -218,6 +218,7 @@ public class RobotMap {
 		climber_Talon2.configPeakCurrentLimit(50, 250);
 		climber_Talon.enableCurrentLimit(true);
 		climber_Talon2.enableCurrentLimit(true);
+		climber_Talon2.setSensorPhase(true);
 		
 		//Talon Configuration
 		driveTrainFL_Talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -298,7 +299,7 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
 		
 		//Climber Values
-		RobotMap.updateValue(RobotMap.climberSubtable, climberSpeed, RobotMap.defaults.getDoubleDefaultValue(climberSubtable, climberSpeed, 1));
+		RobotMap.updateValue(RobotMap.climberSubtable, climberSpeed, RobotMap.defaults.getDoubleDefaultValue(climberSubtable, climberSpeed, (1845.703)));
 		
 		//Linear Acutator Values
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedUpID, linearActuatorUpSpeed));

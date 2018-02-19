@@ -11,7 +11,7 @@ public class MoveClimber extends Command{
 		this.requires(Robot.climber);
 	}
 	protected void execute() {
-		double speed = (double)RobotMap.getValue(RobotMap.climberSubtable, RobotMap.climberSpeed);
+		double speed = (double)RobotMap.getValue(RobotMap.climberSubtable, RobotMap.climberSpeed);		
 		Robot.climber.move(speed);
 	}
 

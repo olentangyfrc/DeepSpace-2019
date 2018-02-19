@@ -21,7 +21,6 @@ public class MakeLight extends Command{
 	}
 	
 	protected void execute(){
-		RobotMap.log("Fancy Lights", "HERE");
 		switch (color){
 			case 0:
 				Robot.fancyLight.makeOff();

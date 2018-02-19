@@ -192,6 +192,13 @@ public class Robot extends IterativeRobot {
 		}*/
 
 		System.out.println("Elevator position: "+ RobotMap.elevator_Talon.getSelectedSensorPosition(0));
+		
+		double velocity1 = RobotMap.climber_Talon.getSelectedSensorVelocity(0);
+		double velocity2 = RobotMap.climber_Talon2.getSelectedSensorVelocity(0);
+		
+		System.out.println(this.getClass().getName()+"Velocity1: {"+ velocity1 +"}");
+
+		System.out.println(this.getClass().getName()+"Velocity2: {"+ velocity2 +"}");
 
 		((MakeLight)lightsCommand).setColor(3);
 		System.out.println("Time" + Timer.getMatchTime());
