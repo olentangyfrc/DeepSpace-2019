@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class ScalePos extends CommandGroup {
 	public ScalePos() {
-		addSequential(new MoveElevatorToPos(-116300)); //need to check position values
+		addSequential(new MoveElevatorToPos(-136300)); //need to check position values
 		
 		
 	}

@@ -212,15 +212,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-	/**if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
-		&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-	((MakeLight)lightsCommand).setColor(7);
-	}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-		((MakeLight)lightsCommand).setColor(2);
-	}else{
-		((MakeLight)lightsCommand).setColor(5);
-	}*/
-	
 	}
 
 	@Override
@@ -254,13 +245,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
-				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			((MakeLight)lightsCommand).setColor(7);
-		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			((MakeLight)lightsCommand).setColor(2);
-		}else{
-			((MakeLight)lightsCommand).setColor(5);
+		try {
+			if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
+					&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+				((MakeLight)lightsCommand).setColor(7);
+			}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
+				((MakeLight)lightsCommand).setColor(2);
+			}else{
+				((MakeLight)lightsCommand).setColor(5);
+			}
+		}catch (Exception e) {
+			RobotMap.log(RobotMap.generalSubTable, "Something is wrong with the pi");
+			((MakeLight)lightsCommand).setColor(1);
 		}
 	}
 

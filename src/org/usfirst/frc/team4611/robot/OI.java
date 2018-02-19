@@ -41,8 +41,6 @@ public class OI {
 	public static XboxController con;
 	
 	//Movement Buttons
-	public Button strafeLeft;
-	public Button strafeRight;
 	public Button autoGrabBox;
 	public Button aimBox;
 	public Button aimBox2;
@@ -70,6 +68,7 @@ public class OI {
 	//Happy Place Buttons
 	public Button HappySwitch;
 	public Button HappyScale;
+	public Button HappyAttack;
     public Button HappyReset;
 	
 	//Climber Buttons
@@ -89,8 +88,6 @@ public class OI {
 		con = new XboxController(RobotMap.LEFT_JOY_PORT);
 		
 		//Movement Buttons
-		strafeLeft= new JoystickButton(leftJoy, 4);
-		strafeRight = new JoystickButton(leftJoy, 5);
 		autoGrabBox = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
 		aimBox2 = new JoystickButton(leftJoy, 3);
@@ -98,8 +95,8 @@ public class OI {
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorUp2 = new JoystickButton(auxJoy, 3);
-		linearActuatorDown2 = new JoystickButton(auxJoy, 2);
+		linearActuatorUp2 = new JoystickButton(auxJoy, 11);
+		linearActuatorDown2 = new JoystickButton(auxJoy, 10);
 		
 		//Solenoid Buttons
 		grabberToggle = new JoystickButton(leftJoy, 1);
@@ -118,6 +115,7 @@ public class OI {
 		//Happy Shaping Buttons
 		HappyScale = new JoystickButton(auxJoy,5);                   
 		HappySwitch = new JoystickButton(auxJoy,3);
+		HappyAttack = new JoystickButton(auxJoy, 4);
 		HappyReset = new JoystickButton(auxJoy, 8);
 		
 		//Lidar Buttons
@@ -132,8 +130,6 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Movement Commands
-		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
 		aimBox.whenPressed(new AimForBox());
 		aimBox2.whenPressed(new AimForBox());
 		autoGrabBox.whenPressed(new AutoGrab());

@@ -102,6 +102,7 @@ public class RobotMap {
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
+	public static String generalSubTable = "General";
 	public static String linearActuatorSubTable = "LA";
 	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
