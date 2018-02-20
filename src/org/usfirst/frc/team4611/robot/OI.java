@@ -136,9 +136,9 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Movement Commands
-		aimBox.whenPressed(new AimForBox());
-		aimBox2.whenPressed(new AimForBox());
-		autoGrabBox.whenPressed(new AutoGrab());
+//		aimBox.whenPressed(new AimForBox());
+//		aimBox2.whenPressed(new AimForBox());
+//		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());

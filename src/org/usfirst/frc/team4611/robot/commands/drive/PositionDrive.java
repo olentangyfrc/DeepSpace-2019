@@ -53,10 +53,10 @@ public class PositionDrive extends Command{
 	protected void initialize() {
 		cnt = 0;
 		startedMoving = false;
-		RobotMap.driveTrainFL_Talon.config_kP(0, .5, 0);
-		RobotMap.driveTrainFR_Talon.config_kP(0, .5, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, .5, 0);
-		RobotMap.driveTrainBR_Talon.config_kP(0, .5, 0);
+		RobotMap.driveTrainFL_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainBL_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, 2.5, 0);
 	}
 	
 	protected void execute() {
