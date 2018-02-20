@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.magicshapes;
+package org.usfirst.frc.team4611.robot.commands.happyshapes;
 
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 

@@ -1,21 +1,17 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
-import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
 import org.usfirst.frc.team4611.robot.commands.climber.ClimberToPos;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
-import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
-import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.AttackPos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.AttackPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.ScalePos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.StartingPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
@@ -69,10 +65,11 @@ public class OI {
 	public Button moveElDown;
 	
 	//Happy Place Buttons
-	public Button HappySwitch;
-	public Button HappyScale;
-	public Button HappyAttack;
-    public Button HappyReset;
+	public Button happySwitch;
+	public Button happyScale;
+	public Button happyAttack;
+	public Button happyStart;
+    public Button happyReset;
 	
 	//Climber Buttons
 	public Button moveClimber;
@@ -121,10 +118,11 @@ public class OI {
 		
 		
 		//Happy Shaping Buttons
-		HappyScale = new JoystickButton(auxJoy,5);                   
-		HappySwitch = new JoystickButton(auxJoy,3);
-		HappyAttack = new JoystickButton(auxJoy, 4);
-		HappyReset = new JoystickButton(auxJoy, 8);
+		happyScale = new JoystickButton(auxJoy,5);                   
+		happySwitch = new JoystickButton(auxJoy,3);
+		happyAttack = new JoystickButton(auxJoy, 4);
+		happyStart = new JoystickButton(auxJoy, 9);
+		happyReset = new JoystickButton(auxJoy, 8);
 		
 		//Lidar Buttons
 		getDistanceController = new JoystickButton(con, 2);
@@ -153,10 +151,11 @@ public class OI {
 		moveElDown.whileHeld(new MoveElevatorDown());
 		
 		//Magic Shaping Commands	
-		HappyScale.whenPressed(new ScalePos());
-		HappySwitch.whenPressed(new SwitchPos());
-		HappyAttack.whenPressed(new AttackPos());
-		HappyReset.whenPressed(new ResetElevator());
+		happyScale.whenPressed(new ScalePos());
+		happySwitch.whenPressed(new SwitchPos());
+		happyAttack.whenPressed(new AttackPos());
+		happyStart.whenPressed(new StartingPos());
+		happyReset.whenPressed(new ResetElevator());
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
