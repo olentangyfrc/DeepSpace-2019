@@ -31,19 +31,19 @@ public class PositionDrive extends Command{
 		
 
 		if (dir.toLowerCase().equals("forward")) {
-			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.5 * 4096);//Conversion factor from feet to position units
 			this.factorBL = 1;
 			this.factorBR = -1;
 		} else if (dir.toLowerCase().equals("backward")) {
-			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.5 * 4096);//Conversion factor from feet to position units
 			this.factorBL = -1;
 			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("left")) {
-			this.position = (int) (pos / 1.125 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.125 * 4096);//Conversion factor from feet to position units
 			this.factorBL = 1;
 			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("right")){
-			this.position = (int) (pos / 1.125 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.125 * 4096);//Conversion factor from feet to position units
 			this.factorBL = -1;
 			this.factorBR = -1;
 		} else //did not send a normal direction
@@ -53,10 +53,10 @@ public class PositionDrive extends Command{
 	protected void initialize() {
 		cnt = 0;
 		startedMoving = false;
-		RobotMap.driveTrainFL_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainFR_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainBR_Talon.config_kP(0, 3, 0);
+		RobotMap.driveTrainFL_Talon.config_kP(0, .5, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, .5, 0);
+		RobotMap.driveTrainBL_Talon.config_kP(0, .5, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, .5, 0);
 	}
 	
 	protected void execute() {
@@ -67,7 +67,7 @@ public class PositionDrive extends Command{
 		}
 		
 		else {
-			Robot.mecanum.motionMagicStrafe(factorBL * position + currentBL);
+			Robot.mecanum.motionMagicStrafe(-factorBL * position + currentBL);
 		}
 	}
 	

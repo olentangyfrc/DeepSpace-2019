@@ -10,6 +10,6 @@ public class StartingPos extends CommandGroup {
 	public StartingPos() {
 		addSequential(new ResetElevator());
 		addSequential(new MoveElevatorToPos(0));
-		addSequential(new MovePotPos(.85));
+		addSequential(new MovePotPos(.83));
 	}
 }
