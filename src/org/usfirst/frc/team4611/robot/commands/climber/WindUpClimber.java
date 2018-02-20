@@ -5,9 +5,9 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveClimberBackward extends Command{
+public class WindUpClimber extends Command{
 	
-	public MoveClimberBackward() {
+	public WindUpClimber() {
 		this.requires(Robot.climber);
 	}
 	protected void execute() {
