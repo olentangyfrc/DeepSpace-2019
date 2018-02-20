@@ -18,8 +18,11 @@ public class Climber extends Subsystem {
 		RobotMap.climber_Talon2.config_kI(0, 0, 0);
 		RobotMap.climber_Talon2.config_kD(0, 0, 0);
 		
+		RobotMap.climber_Talon.setInverted(false);
+		RobotMap.climber_Talon2.setInverted(true);
+		
 		RobotMap.climber_Talon.set(ControlMode.Velocity, speed);
-		RobotMap.climber_Talon2.set(ControlMode.Velocity, -speed);
+		RobotMap.climber_Talon2.set(ControlMode.Follower, 31);
 		
 		//do not slave! Slaving gives them the same output voltage which does not equal output velocity!
 	}
