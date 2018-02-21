@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
+import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
@@ -16,11 +17,9 @@ public class StartCenterSwitchRight extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new RetractSolenoid());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(50));
+		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(30));
-		addSequential(new StopAndRepositionTalons());
-		addParallel(new AutonForward(70));
+		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addParallel(new MovePotPos(.5));
 		addSequential(new ExtendSolenoid());
