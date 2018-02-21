@@ -96,55 +96,48 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight());
-		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight());
-		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight());
-		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight());
-		autonCommandGroup.put("RSWLRR", new StartRightSwitchLeft());
-		autonCommandGroup.put("RSWLLR", new StartRightSwitchLeft());
-		autonCommandGroup.put("RSWLRL", new StartRightSwitchLeft());
-		autonCommandGroup.put("RSWLLL", new StartRightSwitchLeft());
-		autonCommandGroup.put("RSCRRR", new StartRightScaleRight());
-		autonCommandGroup.put("RSCLRR", new StartRightScaleRight());
-		autonCommandGroup.put("RSCRRL", new StartRightScaleRight());
-		autonCommandGroup.put("RSCLRL", new StartRightScaleRight());
-		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft());
-		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft());
-		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft());
-		autonCommandGroup.put("RSCRLR", new StartRightScaleLeft());
-		autonCommandGroup.put("LSWRRR", new StartLeftSwitchRight());
-		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight());
-		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight());
-		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight());
-		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft());
-		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft());
-		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft());
-		autonCommandGroup.put("LSWLRR", new StartLeftSwitchLeft());
-		autonCommandGroup.put("LSCRRR", new StartLeftScaleRight());
-		autonCommandGroup.put("LSCRRL", new StartLeftScaleRight());
-		autonCommandGroup.put("LSCLRR", new StartLeftScaleRight());
-		autonCommandGroup.put("LSCLRL", new StartLeftScaleRight());
-		autonCommandGroup.put("LSCLLL", new StartLeftScaleLeft());
-		autonCommandGroup.put("LSCLLR", new StartLeftScaleLeft());
-		autonCommandGroup.put("LSCRLL", new StartLeftScaleLeft());
-		autonCommandGroup.put("LSCRLR", new StartLeftScaleLeft());
-		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
-		autonCommandGroup.put("CSWRRL", new StartCenterSwitchRight());
-		autonCommandGroup.put("CSWRLR", new StartCenterSwitchRight());
-		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());
-		autonCommandGroup.put("CSWLLL", new StartCenterSwitchLeft());
-		autonCommandGroup.put("CSWLLR", new StartCenterSwitchLeft());
-		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());
-		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());
-		autonCommandGroup.put("CSCRRR", new StartCenterScaleRight());
-		autonCommandGroup.put("CSCRRL", new StartCenterScaleRight());
-		autonCommandGroup.put("CSCLRR", new StartCenterScaleRight());
-		autonCommandGroup.put("CSCLRL", new StartCenterScaleRight());
-		autonCommandGroup.put("CSCLLL", new StartCenterScaleLeft());
-		autonCommandGroup.put("CSCLLR", new StartCenterScaleLeft());
-		autonCommandGroup.put("CSCRLL", new StartCenterScaleLeft());
-		autonCommandGroup.put("CSCRLR", new StartCenterScaleLeft());
-		autonCommandGroup.put("RSCRRR", new RightScale());
+		autonCommandGroup.put("RSWRRR", new StartRightSwitchRight()); //Checked
+		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight()); //Checked
+		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight()); //Checked
+		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight()); //Checked
+		autonCommandGroup.put("RSWLRR", new StartRightSwitchLeft()); //Wrong go for scale
+		autonCommandGroup.put("RSWLLR", new StartRightSwitchLeft()); //Wrong go for edge of null
+		autonCommandGroup.put("RSWLRL", new StartRightSwitchLeft()); //Wrong go for scale
+		autonCommandGroup.put("RSWLLL", new StartRightSwitchLeft()); //Wrong go forward 
+		autonCommandGroup.put("RSCRRR", new StartRightScaleRight()); //Checked
+		autonCommandGroup.put("RSCLRR", new StartRightScaleRight()); //Checked
+		autonCommandGroup.put("RSCRRL", new StartRightScaleRight()); //Checked
+		autonCommandGroup.put("RSCLRL", new StartRightScaleRight()); //Checked
+		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft()); //Wrong go forward
+		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft()); //Wrong go for switch
+		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft()); //Wrong go for edge of null
+		autonCommandGroup.put("RSCRLR", new StartRightScaleLeft()); //Wrong go for switch
+		autonCommandGroup.put("LSWRRR", new StartLeftSwitchRight()); //Wrong go forward
+		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight()); //Wrong go for edge of null
+		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight()); //Wrong go for scale
+		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight()); //Wrong go for scale
+		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft()); //Checked
+		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft()); //Checked
+		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft()); //Checked
+		autonCommandGroup.put("LSWLRR", new StartLeftSwitchLeft()); //Checked
+		autonCommandGroup.put("LSCRRR", new StartLeftScaleRight()); //Wrong go forward
+		autonCommandGroup.put("LSCRRL", new StartLeftScaleRight()); //Wrong go edge of null
+		autonCommandGroup.put("LSCLRR", new StartLeftScaleRight()); //Wrong go for switch
+		autonCommandGroup.put("LSCLRL", new StartLeftScaleRight()); //Wrong go for switch
+		autonCommandGroup.put("LSCLLL", new StartLeftScaleLeft()); //Checked
+		autonCommandGroup.put("LSCLLR", new StartLeftScaleLeft()); //Checked
+		autonCommandGroup.put("LSCRLL", new StartLeftScaleLeft()); //Checked
+		autonCommandGroup.put("LSCRLR", new StartLeftScaleLeft()); //Checked
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());//Checked
+		autonCommandGroup.put("CSWRRL", new StartCenterSwitchRight());//Checked
+		autonCommandGroup.put("CSWRLR", new StartCenterSwitchRight());//Checked
+		autonCommandGroup.put("CSWRRR", new StartCenterSwitchRight());//Checked
+		autonCommandGroup.put("CSWLLL", new StartCenterSwitchLeft());//Checked
+		autonCommandGroup.put("CSWLLR", new StartCenterSwitchLeft());//Checked
+		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());//Checked
+		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());//Checked
+		
+		//Never go for scale in auton center
 		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
 		autonCommandGroup.put("TEST", new TestBlock());
 			
