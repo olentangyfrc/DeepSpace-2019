@@ -218,10 +218,10 @@ public class RobotMap {
 		climber_Talon = new WPI_TalonSRX(31);
 		climber_Talon2 = new WPI_TalonSRX(32);
 		
-		climber_Talon.configPeakCurrentLimit(50, 250);
+		/*climber_Talon.configPeakCurrentLimit(50, 250);
 		climber_Talon2.configPeakCurrentLimit(50, 250);
 		climber_Talon.enableCurrentLimit(true);
-		climber_Talon2.enableCurrentLimit(true);
+		climber_Talon2.enableCurrentLimit(true);*/
 		climber_Talon2.setSensorPhase(true);
 		
 		//Talon Configuration

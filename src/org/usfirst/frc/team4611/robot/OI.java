@@ -167,7 +167,7 @@ public class OI {
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
 		windClimber.whileHeld(new WindUpClimber());
-		moveClimbertoPos.whenPressed(new ClimberToPos(4915.2));
+		moveClimbertoPos.whenPressed(new ClimberToPos(19538));
 		
 		//Lidar Commands
 		//getDistance.whenPressed(new laserDistance());

@@ -46,7 +46,7 @@ public class PiLights {
 				if(lastTimeStamp.equals((String)RobotMap.networkManager.getVisionValue(RobotMap.piTimeStampID))){
 					cnt++;
 					if(cnt>=50){
-						RobotMap.log(RobotMap.generalSubTable, "The pi time stamp is not updating often enoughd (pi is dead, probably died after startup)");
+						//RobotMap.log(RobotMap.generalSubTable, "The pi time stamp is not updating often enoughd (pi is dead, probably died after startup)");
 						isAlive = false;
 						return false;
 					}else{
@@ -64,7 +64,7 @@ public class PiLights {
 				return true;
 			}
 		}
-		RobotMap.log(RobotMap.generalSubTable, "Found on vision table is null (pi is dead, probably wasn't there to begin with)");
+		//RobotMap.log(RobotMap.generalSubTable, "Found on vision table is null (pi is dead, probably wasn't there to begin with)");
 		isAlive = false;
 		return false;
 	}
