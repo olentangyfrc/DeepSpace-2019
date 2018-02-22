@@ -10,11 +10,11 @@ public class Climber extends Subsystem {
 
 	
 	public void move(double speed) {	
-		RobotMap.climber_Talon.config_kP(0, 0.5, 0);
+		RobotMap.climber_Talon.config_kP(0, .5, 0);
 		RobotMap.climber_Talon.config_kI(0, 0, 0);
 		RobotMap.climber_Talon.config_kD(0, 0, 0);
 		
-		RobotMap.climber_Talon2.config_kP(0, 0.5, 0);
+		RobotMap.climber_Talon2.config_kP(0, .5, 0);
 		RobotMap.climber_Talon2.config_kI(0, 0, 0);
 		RobotMap.climber_Talon2.config_kD(0, 0, 0);
 		
@@ -28,16 +28,16 @@ public class Climber extends Subsystem {
 	}
 	
 	public void moveToPos(double position) {
-		RobotMap.climber_Talon.config_kP(0, .1, 0);
+		RobotMap.climber_Talon.config_kP(0, 5, 0);
 		RobotMap.climber_Talon.config_kI(0, 0, 0);
 		RobotMap.climber_Talon.config_kD(0, 0, 0);
 		
-		RobotMap.climber_Talon2.config_kP(0, .1, 0);
+		RobotMap.climber_Talon2.config_kP(0, 5, 0);
 		RobotMap.climber_Talon2.config_kI(0, 0, 0);
 		RobotMap.climber_Talon2.config_kD(0, 0, 0);
 		
-		RobotMap.climber_Talon2.configMotionAcceleration(2000, 0);
-		RobotMap.climber_Talon2.configMotionCruiseVelocity(2000, 0);
+		RobotMap.climber_Talon2.configMotionAcceleration(100000, 0);
+		RobotMap.climber_Talon2.configMotionCruiseVelocity(100000, 0);
 		
 		System.out.println(this.getClass().getName() + "2 Target Pos: " + position);
 		System.out.println(this.getClass().getName() + "2 Actual Pos: " + RobotMap.climber_Talon2.getSelectedSensorPosition(0));

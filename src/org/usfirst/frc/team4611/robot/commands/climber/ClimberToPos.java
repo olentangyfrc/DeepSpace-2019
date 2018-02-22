@@ -23,7 +23,7 @@ public class ClimberToPos extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		if((RobotMap.climber_Talon.getSelectedSensorPosition(0) + RobotMap.climber_Talon2.getSelectedSensorPosition(0))/2 > position) {
+		if((RobotMap.climber_Talon2.getSelectedSensorPosition(0) > position)) {
 			RobotMap.climber_Talon.set(0);
 			RobotMap.climber_Talon2.set(0);
 			return true;
