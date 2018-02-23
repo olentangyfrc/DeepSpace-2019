@@ -2,7 +2,9 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -15,10 +17,15 @@ public class StartRightScaleLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(13*12));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeLeft(16*12));
+		addSequential(new PigeonAdjust(90));
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new AutonForward(30));
+		addSequential(new AutonForward(16*12));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-180));
+		addSequential(new StopAndRepositionTalons());
+		addParallel(new AutonForward(12));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addParallel(new MovePotPos(.6));
 		addSequential(new ExtendSolenoid());
 	}
 }
