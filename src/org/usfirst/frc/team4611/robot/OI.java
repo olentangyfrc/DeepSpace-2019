@@ -1,18 +1,17 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.laserDistance;
 import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
-import org.usfirst.frc.team4611.robot.commands.drive.PositionDrive;
+import org.usfirst.frc.team4611.robot.commands.climber.ClimberToPos;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
-import org.usfirst.frc.team4611.robot.commands.drive.StrafeLeft;
-import org.usfirst.frc.team4611.robot.commands.drive.StrafeRight;
+import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.ScalePos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.StartingPos;
-import org.usfirst.frc.team4611.robot.commands.magicshapes.SwitchPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.AttackPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.ScalePos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.StartingPos;
+import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
@@ -41,8 +40,6 @@ public class OI {
 	public static XboxController con;
 	
 	//Movement Buttons
-	public Button strafeLeft;
-	public Button strafeRight;
 	public Button autoGrabBox;
 	public Button aimBox;
 	public Button aimBox2;
@@ -68,12 +65,16 @@ public class OI {
 	public Button moveElDown;
 	
 	//Happy Place Buttons
-	public Button HappySwitch;
-	public Button HappyScale;
-    public Button HappyReset;
+	public Button happySwitch;
+	public Button happyScale;
+	public Button happyAttack;
+	public Button happyStart;
+    public Button happyReset;
 	
 	//Climber Buttons
 	public Button moveClimber;
+	public Button windClimber;
+	public Button moveClimbertoPos;
 	
 	//Lidar Buttons
 	public Button getDistance;
@@ -89,8 +90,6 @@ public class OI {
 		con = new XboxController(RobotMap.LEFT_JOY_PORT);
 		
 		//Movement Buttons
-		strafeLeft= new JoystickButton(leftJoy, 4);
-		strafeRight = new JoystickButton(leftJoy, 5);
 		autoGrabBox = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
 		aimBox2 = new JoystickButton(leftJoy, 3);
@@ -98,8 +97,8 @@ public class OI {
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
 		linearActuatorDown = new JoystickButton(rightJoy, 2);
-		linearActuatorUp2 = new JoystickButton(auxJoy, 3);
-		linearActuatorDown2 = new JoystickButton(auxJoy, 2);
+		linearActuatorUp2 = new JoystickButton(auxJoy, 11);
+		linearActuatorDown2 = new JoystickButton(auxJoy, 10);
 		
 		//Solenoid Buttons
 		grabberToggle = new JoystickButton(leftJoy, 1);
@@ -114,11 +113,16 @@ public class OI {
 		
 		//Climber Buttons
 		moveClimber = new JoystickButton(rightJoy, 10);
-
+		windClimber = new JoystickButton(rightJoy, 11);
+		moveClimbertoPos = new JoystickButton(rightJoy, 7);
+		
+		
 		//Happy Shaping Buttons
-		HappyScale = new JoystickButton(auxJoy,5);                   
-		HappySwitch = new JoystickButton(auxJoy,3);
-		HappyReset = new JoystickButton(auxJoy, 8);
+		happyScale = new JoystickButton(auxJoy,5);                   
+		happySwitch = new JoystickButton(auxJoy,3);
+		happyAttack = new JoystickButton(auxJoy, 4);
+		happyStart = new JoystickButton(auxJoy, 9);
+		happyReset = new JoystickButton(auxJoy, 8);
 		
 		//Lidar Buttons
 		getDistanceController = new JoystickButton(con, 2);
@@ -132,11 +136,9 @@ public class OI {
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyZID, rightJoy.getZ());
 
 		//Movement Commands
-		strafeRight.whileHeld(new StrafeRight((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		strafeLeft.whileHeld(new StrafeLeft((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID)));
-		aimBox.whenPressed(new AimForBox());
-		aimBox2.whenPressed(new AimForBox());
-		autoGrabBox.whenPressed(new AutoGrab());
+//		aimBox.whenPressed(new AimForBox());
+//		aimBox2.whenPressed(new AimForBox());
+//		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands
 		linearActuatorUp.whileHeld(new MovePotUp());
@@ -149,9 +151,11 @@ public class OI {
 		moveElDown.whileHeld(new MoveElevatorDown());
 		
 		//Magic Shaping Commands	
-		HappyScale.whenPressed(new ScalePos());
-		HappySwitch.whenPressed(new SwitchPos());
-		HappyReset.whenPressed(new ResetElevator());
+		happyScale.whenPressed(new ScalePos());
+		happySwitch.whenPressed(new SwitchPos());
+		happyAttack.whenPressed(new AttackPos());
+		happyStart.whenPressed(new StartingPos());
+		happyReset.whenPressed(new ResetElevator());
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
@@ -162,6 +166,8 @@ public class OI {
 		
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
+		windClimber.whileHeld(new WindUpClimber());
+		moveClimbertoPos.whenPressed(new ClimberToPos(26050));
 		
 		//Lidar Commands
 		//getDistance.whenPressed(new laserDistance());

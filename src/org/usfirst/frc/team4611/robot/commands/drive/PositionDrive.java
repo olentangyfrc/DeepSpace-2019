@@ -3,8 +3,6 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class PositionDrive extends Command{
@@ -20,9 +18,11 @@ public class PositionDrive extends Command{
 	
 	private int factorBL;
 	private int factorBR;
+	private String dir;
 	
 	public PositionDrive(double pos, String dir){
 		this.requires(Robot.mecanum); //This command uses this subsystem
+		this.dir = dir;
 		this.cnt = 0;
 		this.currentBL = RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0);
 		this.currentBR = RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
@@ -31,19 +31,19 @@ public class PositionDrive extends Command{
 		
 
 		if (dir.toLowerCase().equals("forward")) {
-			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.5 * 4096);//Conversion factor from feet to position units
 			this.factorBL = 1;
 			this.factorBR = -1;
 		} else if (dir.toLowerCase().equals("backward")) {
-			this.position = (int) (pos / 1.5 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.5 * 4096);//Conversion factor from feet to position units
 			this.factorBL = -1;
 			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("left")) {
-			this.position = (int) (pos / 1.125 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.125 * 4096);//Conversion factor from feet to position units
 			this.factorBL = 1;
 			this.factorBR = 1;
 		} else if (dir.toLowerCase().equals("right")){
-			this.position = (int) (pos / 1.125 * 1440);//Conversion factor from feet to position units
+			this.position = (int) (pos / 1.125 * 4096);//Conversion factor from feet to position units
 			this.factorBL = -1;
 			this.factorBR = -1;
 		} else //did not send a normal direction
@@ -53,18 +53,22 @@ public class PositionDrive extends Command{
 	protected void initialize() {
 		cnt = 0;
 		startedMoving = false;
-		RobotMap.driveTrainFL_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainFR_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 3, 0);
-		RobotMap.driveTrainBR_Talon.config_kP(0, 3, 0);
+		RobotMap.driveTrainFL_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainBL_Talon.config_kP(0, 2.5, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, 2.5, 0);
 	}
 	
 	protected void execute() {
 		cnt++;
-		RobotMap.driveTrainBL_Talon.set(ControlMode.MotionMagic, (factorBL * position + currentBL));
-		RobotMap.driveTrainBR_Talon.set(ControlMode.MotionMagic, (factorBR * position + currentBR));
-		RobotMap.driveTrainFL_Talon.set(ControlMode.MotionMagic, (-factorBR * position + currentFL));
-		RobotMap.driveTrainFR_Talon.set(ControlMode.MotionMagic, (-factorBL * position + currentFR));
+		
+		if (dir.toLowerCase().equals("forward") || (dir.toLowerCase().equals("backward"))) {
+			Robot.mecanum.motionMagicStraight((factorBL * position + currentBL));
+		}
+		
+		else {
+			Robot.mecanum.motionMagicStrafe(-factorBL * position + currentBL);
+		}
 	}
 	
 	

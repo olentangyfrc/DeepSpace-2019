@@ -21,7 +21,6 @@ import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
 import org.usfirst.frc.team4611.robot.subsystems.Climber;
@@ -31,6 +30,7 @@ import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
+import org.usfirst.frc.team4611.robot.utilities.PiLights;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
@@ -41,7 +41,6 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -74,7 +73,7 @@ public class Robot extends IterativeRobot {
 	public HashMap<String, Command> autonCommandGroup;
 
 	Command autonomousCommand;
-	Command lightsCommand;
+	public static Command lightsCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	
@@ -85,6 +84,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
+		//Initialize utilities
+		PiLights.reset();
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		elevator = new Elevator();
@@ -207,15 +208,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-	/**if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
-		&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-	((MakeLight)lightsCommand).setColor(7);
-	}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-		((MakeLight)lightsCommand).setColor(2);
-	}else{
-		((MakeLight)lightsCommand).setColor(5);
-	}*/
-	
 	}
 
 	@Override
@@ -249,14 +241,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		if( Math.abs((double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID)) <= 3 
-				&& (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			((MakeLight)lightsCommand).setColor(7);
-		}else if((boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID)){
-			((MakeLight)lightsCommand).setColor(2);
-		}else{
-			((MakeLight)lightsCommand).setColor(5);
-		}
+		PiLights.checkPiAlive();
+		PiLights.lightsFromPi();
 	}
 
 	@Override

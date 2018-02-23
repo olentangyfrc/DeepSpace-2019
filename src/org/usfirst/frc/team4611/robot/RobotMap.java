@@ -6,9 +6,11 @@ import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -105,6 +107,7 @@ public class RobotMap {
 	public static String mecanumSubTable = "Mecanum";
 	public static String defaultsSubTable = "Defaults";
 	public static String switcherSubTable = "Switchable";
+	public static String generalSubTable = "General";
 	public static String linearActuatorSubTable = "LA";
 	public static String potentiometerSubTable = "Potentiometer";
 	public static String ultraSubtable = "Ultrasonic";
@@ -151,6 +154,7 @@ public class RobotMap {
 	public static String distanceID = "distance";
 	public static String horizontalDistanceID = "horizontalDistance";
 	public static String foundID = "found";
+	public static String piTimeStampID = "current_ts";
 	public static String maxRPMID = "Max RPM";
 	public static String rampTime = "Ramp Seconds: "; 
 	public static int distance;
@@ -217,10 +221,10 @@ public class RobotMap {
 		climber_Talon = new WPI_TalonSRX(31);
 		climber_Talon2 = new WPI_TalonSRX(32);
 		
-		climber_Talon.configPeakCurrentLimit(50, 250);
+		/*climber_Talon.configPeakCurrentLimit(50, 250);
 		climber_Talon2.configPeakCurrentLimit(50, 250);
 		climber_Talon.enableCurrentLimit(true);
-		climber_Talon2.enableCurrentLimit(true);
+		climber_Talon2.enableCurrentLimit(true);*/
 		climber_Talon2.setSensorPhase(true);
 		
 		//Talon Configuration
