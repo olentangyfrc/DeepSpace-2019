@@ -16,7 +16,7 @@ public class StartLeftScaleLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(12));
+		addSequential(new AutonStrafeRight(RobotMap.HALFWAY/2));
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.HALFWAY/2));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));

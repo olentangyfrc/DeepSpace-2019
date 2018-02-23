@@ -21,7 +21,7 @@ public class StartLeftScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(16*12));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-180));
+		addSequential(new PigeonAdjust(-90));
 		addParallel(new AutonForward(12));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addParallel(new MovePotPos(.6));

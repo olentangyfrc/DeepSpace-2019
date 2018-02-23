@@ -87,10 +87,10 @@ public class RobotMap {
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
 	public static final int HALFWAY = 60;
 	public static final int WAY = 120;
-	public static final int MOREWAY = 300;
+	public static final int MOREWAY = 180;
 	public static final double POTMIN = .15;
 	public static final double POTMAX = .8;
-	public static final double POTSWITCH = .45;
+	public static final double POTSWITCH = .6;
 	public static final double POTMIN2 = .15;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .45;

@@ -19,9 +19,11 @@ public class StartCenterSwitchLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonStrafeLeft(RobotMap.HALFWAY/2));
+		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(.5));
+		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new ExtendSolenoid());
 	}
 }

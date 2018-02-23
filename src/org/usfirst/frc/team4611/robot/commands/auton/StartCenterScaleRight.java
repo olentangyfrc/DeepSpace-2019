@@ -20,6 +20,7 @@ public class StartCenterScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.WAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new AutonStrafeLeft(RobotMap.HALFWAY/2));
 		addSequential(new ExtendSolenoid());
 	}
 }

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
+import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
@@ -13,11 +14,11 @@ public class StartRightScaleRight extends CommandGroup {
 		// TODO Auto-generated constructor stub
 		addSequential(new ResetElevator());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(13*12));
+		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeLeft(12));
+		addSequential(new AutonStrafeLeft(RobotMap.HALFWAY));
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new AutonForward(30));
+		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new ExtendSolenoid());
 	}
