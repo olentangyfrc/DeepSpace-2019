@@ -103,14 +103,15 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight()); //Checked
 		autonCommandGroup.put("RSWRRL", new StartRightSwitchRight()); //Checked
 		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight()); //Checked
-		autonCommandGroup.put("RSCLRR", new StartRightScaleRight()); //Wrong go for scale CHECKED
-		autonCommandGroup.put("RNZLLR", new StartRightNullZoneRightside()); //Wrong go for edge of null CHECKED
-		autonCommandGroup.put("RSWLRL", new StartRightScaleRight()); //Wrong go for scale CHECKED
-		autonCommandGroup.put("RFLLL", new DriveForward()); //Wrong go forward Checked made SW to F for Forward
+		autonCommandGroup.put("RSWLRR", new StartRightSwitchLeft()); //Wrong go for scale
+		autonCommandGroup.put("RSWLLR", new StartRightSwitchLeft()); //Wrong go for edge of null
+		autonCommandGroup.put("RSWLRL", new StartRightSwitchLeft()); //Wrong go for scale
+		autonCommandGroup.put("RSWLLL", new StartRightSwitchLeft()); //Wrong go forward 
 		autonCommandGroup.put("RSCRRR", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCLRR", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCRRL", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCLRL", new StartRightScaleRight()); //Checked
+<<<<<<< HEAD
 		autonCommandGroup.put("RFLLL", new DriveForward()); //Wrong go forward CHECKED
 		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight()); //Wrong go for switch CHECKED
 		autonCommandGroup.put("RSCLLR", new StartRightNullZoneRightside()); //Wrong go for edge of null CHECKED
@@ -119,14 +120,24 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("LSWRRL", new StartLeftNullZoneLeftside()); //Wrong go for edge of null CHECKED
 		autonCommandGroup.put("LSWRLR", new StartLeftScaleLeft()); //Wrong go for scale CHECKED
 		autonCommandGroup.put("LSWRLL", new StartLeftScaleLeft()); //Wrong go for scale CHECKED
+=======
+		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft()); //Wrong go forward
+		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft()); //Wrong go for switch
+		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft()); //Wrong go for edge of null
+		autonCommandGroup.put("RSCRLR", new StartRightScaleLeft()); //Wrong go for switch
+		autonCommandGroup.put("LSWRRR", new StartLeftSwitchRight()); //Wrong go forward
+		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight()); //Wrong go for edge of null
+		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight()); //Wrong go for scale
+		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight()); //Wrong go for scale
+>>>>>>> 46b0867007a1aa5a1e54a7d0c495e3039bdd85e7
 		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft()); //Checked
 		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft()); //Checked
 		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft()); //Checked
 		autonCommandGroup.put("LSWLRR", new StartLeftSwitchLeft()); //Checked
-		autonCommandGroup.put("LSCRRR", new DriveForward()); //Wrong go forward CHECKED
-		autonCommandGroup.put("LSCRRL", new StartLeftNullZoneLeftside()); //Wrong go edge of null CHECKED
-		autonCommandGroup.put("LSCLRR", new StartLeftSwitchRight()); //Wrong go for switch CHECKED
-		autonCommandGroup.put("LSCLRL", new StartLeftSwitchRight()); //Wrong go for switch CHECKED
+		autonCommandGroup.put("LSCRRR", new StartLeftScaleRight()); //Wrong go forward
+		autonCommandGroup.put("LSCRRL", new StartLeftScaleRight()); //Wrong go edge of null
+		autonCommandGroup.put("LSCLRR", new StartLeftScaleRight()); //Wrong go for switch
+		autonCommandGroup.put("LSCLRL", new StartLeftScaleRight()); //Wrong go for switch
 		autonCommandGroup.put("LSCLLL", new StartLeftScaleLeft()); //Checked
 		autonCommandGroup.put("LSCLLR", new StartLeftScaleLeft()); //Checked
 		autonCommandGroup.put("LSCRLL", new StartLeftScaleLeft()); //Checked
