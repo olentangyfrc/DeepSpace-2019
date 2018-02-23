@@ -112,7 +112,7 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("RSCRRL", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCLRL", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RFLLL", new DriveForward()); //Wrong go forward CHECKED
-		//autonCommandGroup.put("RSCRLL", new StartRightScaleLeft()); //Wrong go for switch
+		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight()); //Wrong go for switch CHECKED
 		autonCommandGroup.put("RSCLLR", new StartRightNullZoneRightside()); //Wrong go for edge of null CHECKED
 		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight()); //Wrong go for switch CHECKED
 		autonCommandGroup.put("LSWRRR", new DriveForward()); //Wrong go forward CHECKED
