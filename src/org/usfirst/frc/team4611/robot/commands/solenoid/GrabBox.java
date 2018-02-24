@@ -6,9 +6,9 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RetractSolenoid extends Command{
+public class GrabBox extends Command{
 
-	public RetractSolenoid() {
+	public GrabBox() {
 		this.requires(Robot.sol);
 	}
 	

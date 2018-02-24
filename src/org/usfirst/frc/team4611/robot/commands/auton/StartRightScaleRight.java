@@ -3,7 +3,8 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -20,6 +21,7 @@ public class StartRightScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addSequential(new ExtendSolenoid());
+		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
 }

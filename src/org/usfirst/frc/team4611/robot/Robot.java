@@ -142,7 +142,6 @@ public class Robot extends IterativeRobot {
 		
 		//Never go for scale in auton center
 		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
-		autonCommandGroup.put("TEST", new TestBlock());
 			
 		oi = new OI();
 		
@@ -189,10 +188,26 @@ public class Robot extends IterativeRobot {
 			key = "DRIVEFORWARD";
 		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
 			key = "DRIVEFORWARD";
+		String closeSwitch = c.substring(0, 1);
+		String scale = c.substring(1, 2);
+		String farSwitch = c.substring(2, 3);
+		boolean isCloseSwitch = false;
+		boolean isScale = false;
+		boolean isFarSwitch = false;
+		
+		if(closeSwitch.equals(a)) {
+			isCloseSwitch = true;
+		}
+		if(scale.equals(a)) {
+			isScale = true;
+		}
+		if(farSwitch.equals(a)) {
+			isFarSwitch = true;
+		}
+		
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
-		
-		autonomousCommand =new TestBlock();
+		System.out.println(autonomousCommand.getClass().getName());
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");

@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
+import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
@@ -15,17 +17,18 @@ public class StartRightScaleLeft extends CommandGroup {
 		// TODO Auto-generated constructor stub
 		addSequential(new ResetElevator());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(13*12));
+		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-90));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(16*12));
+		addSequential(new AutonForward(RobotMap.crossToScale));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(90));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new AutonForward(12));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addParallel(new MovePotPos(.6));
-		addSequential(new ExtendSolenoid());
+		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
 }
