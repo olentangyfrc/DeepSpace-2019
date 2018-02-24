@@ -23,7 +23,7 @@ public class StartCenterSwitchRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(.5));
+		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new ExtendSolenoid());
 	}
 }

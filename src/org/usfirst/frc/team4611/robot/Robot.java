@@ -111,16 +111,6 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("RSCLRR", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCRRL", new StartRightScaleRight()); //Checked
 		autonCommandGroup.put("RSCLRL", new StartRightScaleRight()); //Checked
-<<<<<<< HEAD
-		autonCommandGroup.put("RFLLL", new DriveForward()); //Wrong go forward CHECKED
-		autonCommandGroup.put("RSWRLL", new StartRightSwitchRight()); //Wrong go for switch CHECKED
-		autonCommandGroup.put("RSCLLR", new StartRightNullZoneRightside()); //Wrong go for edge of null CHECKED
-		autonCommandGroup.put("RSWRLR", new StartRightSwitchRight()); //Wrong go for switch CHECKED
-		autonCommandGroup.put("LSWRRR", new DriveForward()); //Wrong go forward CHECKED
-		autonCommandGroup.put("LSWRRL", new StartLeftNullZoneLeftside()); //Wrong go for edge of null CHECKED
-		autonCommandGroup.put("LSWRLR", new StartLeftScaleLeft()); //Wrong go for scale CHECKED
-		autonCommandGroup.put("LSWRLL", new StartLeftScaleLeft()); //Wrong go for scale CHECKED
-=======
 		autonCommandGroup.put("RSCLLL", new StartRightScaleLeft()); //Wrong go forward
 		autonCommandGroup.put("RSCRLL", new StartRightScaleLeft()); //Wrong go for switch
 		autonCommandGroup.put("RSCLLR", new StartRightScaleLeft()); //Wrong go for edge of null
@@ -129,7 +119,6 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("LSWRRL", new StartLeftSwitchRight()); //Wrong go for edge of null
 		autonCommandGroup.put("LSWRLR", new StartLeftSwitchRight()); //Wrong go for scale
 		autonCommandGroup.put("LSWRLL", new StartLeftSwitchRight()); //Wrong go for scale
->>>>>>> 46b0867007a1aa5a1e54a7d0c495e3039bdd85e7
 		autonCommandGroup.put("LSWLLL", new StartLeftSwitchLeft()); //Checked
 		autonCommandGroup.put("LSWLLR", new StartLeftSwitchLeft()); //Checked
 		autonCommandGroup.put("LSWLRL", new StartLeftSwitchLeft()); //Checked
@@ -200,6 +189,23 @@ public class Robot extends IterativeRobot {
 			key = "DRIVEFORWARD";
 		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
 			key = "DRIVEFORWARD";
+		String closeSwitch = c.substring(0, 1);
+		String scale = c.substring(1, 2);
+		String farSwitch = c.substring(2, 3);
+		boolean isCloseSwitch = false;
+		boolean isScale = false;
+		boolean isFarSwitch = false;
+		
+		if(closeSwitch.equals(a)) {
+			isCloseSwitch = true;
+		}
+		if(scale.equals(a)) {
+			isScale = true;
+		}
+		if(farSwitch.equals(a)) {
+			isFarSwitch = true;
+		}
+		
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
 		
