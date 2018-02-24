@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutonForward extends Command {
 	private double inches;
 	private double targetPosition;
-	public double converter = 206.243;
+	//public double converter = 206.243;
+	public double converter = 215.910640625;
 	private double encoderPositionAverage;
     public AutonForward(double inches) {
         // Use requires() here to declare subsystem dependencies
@@ -47,7 +48,7 @@ public class AutonForward extends Command {
     protected boolean isFinished() {
     	System.out.println(this.getClass().getName() + " targetPosition [" + targetPosition + "] encodePositionAverage [" + encoderPositionAverage + "]" );
 
-        if(targetPosition - 200 >= encoderPositionAverage)
+        if(targetPosition >= encoderPositionAverage)
         	return false;
         else 
         	return true;

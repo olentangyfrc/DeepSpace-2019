@@ -87,9 +87,12 @@ public class RobotMap {
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
 	
 	public static final int HALFWAY = 60;
-	public static final int WAY = 120;
-	public static final int MOREWAY = 180;
+	public static final int WAY = 135;
+	public static final int MOREWAY = 250;
 	public static final int turnAngle1 = 90;
+	public static final int strafeFromCenter = 60;
+	public static final int strafeToCloseTarget = 72;
+	public static final int crossToScale = 180;
 	
 	public static final double POTMIN = .15;
 	public static final double POTMAX = .8;

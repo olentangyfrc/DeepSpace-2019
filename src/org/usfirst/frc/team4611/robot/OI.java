@@ -12,9 +12,9 @@ import org.usfirst.frc.team4611.robot.commands.happyshapes.AttackPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ExtendSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
-import org.usfirst.frc.team4611.robot.commands.solenoid.RetractSolenoid;
+import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
@@ -159,9 +159,9 @@ public class OI {
 		
 		//Grabber Commands
 		grabberToggle.whenPressed(new ToggleSolenoid());
-		grabberExtend.whileHeld(new RetractSolenoid());
-		grabberExtend2.whileHeld(new RetractSolenoid());
-		grabberRetract.whileHeld(new ExtendSolenoid());
+		grabberExtend.whileHeld(new ReleaseBox());
+		grabberExtend2.whileHeld(new ReleaseBox());
+		grabberRetract.whileHeld(new GrabBox());
 		pushBox.whenPressed(new PushBox());
 		
 		//Climber Commands

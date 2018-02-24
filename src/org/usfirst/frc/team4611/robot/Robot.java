@@ -142,7 +142,6 @@ public class Robot extends IterativeRobot {
 		
 		//Never go for scale in auton center
 		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
-		autonCommandGroup.put("TEST", new TestBlock());
 			
 		oi = new OI();
 		
@@ -208,8 +207,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
-		
-		autonomousCommand =new TestBlock();
+		System.out.println(autonomousCommand.getClass().getName());
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");

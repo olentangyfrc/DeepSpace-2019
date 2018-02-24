@@ -6,9 +6,9 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ExtendSolenoid extends Command{
+public class ReleaseBox extends Command{
 
-	public ExtendSolenoid() {
+	public ReleaseBox() {
 		this.requires(Robot.sol);
 	}
 	

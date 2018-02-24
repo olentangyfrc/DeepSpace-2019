@@ -13,7 +13,7 @@ public class AutonStrafeLeft extends Command {
 	private double inches;
 	private double targetPosition;
 	private double encoderPositionAverage;
-	public double converter = 206.243;
+	public double converter = 206.243*0.85;
 	
     public AutonStrafeLeft(double inches) {
         // Use requires() here to declare subsystem dependencies
