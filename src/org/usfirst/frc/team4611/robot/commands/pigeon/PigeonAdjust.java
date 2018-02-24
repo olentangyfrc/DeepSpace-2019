@@ -53,7 +53,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			dir = Direction.RIGHT;
 		}
 		
-		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
+		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 0.5) {
 			System.out.print("Finished Left");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -61,7 +61,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			RobotMap.driveTrainBR_Talon.stopMotor();
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
-		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
+		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 0.5) {
 			System.out.println("Finished Right");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -83,8 +83,8 @@ public class PigeonAdjust extends SwitchableCommand {
 		if(dir == Direction.RIGHT) {
 			Robot.mecanum.rotate(multi * 800);
 			
-			if(prevAngle > RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
-				multi = -1;
+			if(prevAngle < RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
+				multi = 1;
 				hasAdjusted = true;
 			}
 			
@@ -92,8 +92,8 @@ public class PigeonAdjust extends SwitchableCommand {
 		}else if(dir == Direction.LEFT) {
 			Robot.mecanum.rotate(multi * -800);
 			
-			if(prevAngle < RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
-				multi = -1;
+			if(prevAngle > RobotMap.pigeon.getFusedHeading() && !hasAdjusted) {
+				multi = 1;
 				hasAdjusted = true;
 			}
 			prevAngle = RobotMap.pigeon.getFusedHeading();
