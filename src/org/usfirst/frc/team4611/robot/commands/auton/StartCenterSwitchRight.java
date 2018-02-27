@@ -28,7 +28,7 @@ public class StartCenterSwitchRight extends CommandGroup {
 		addSequential(new PigeonAdjust(-90));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new MovePotPos(RobotMap.POTSWITCH));
-		addSequential(new AutonForward(RobotMap.HALFWAY + 20), 2);
+		addSequential(new AutonForward(RobotMap.HALFWAY), 1);
 		addSequential(new ReleaseBox());
 	}
 }
