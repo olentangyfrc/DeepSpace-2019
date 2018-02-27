@@ -18,17 +18,16 @@ public class StartLeftSwitchRight extends CommandGroup {
 
 		addSequential(new ResetElevator());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.MOREWAY));
+		addParallel(new MovePotPos(RobotMap.POTSWITCH2));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/4));
+		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1+5));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.crossToScale));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1+5));
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/4));
-		addParallel(new MovePotPos(RobotMap.POTSWITCH2));
 		addSequential(new AutonForward(RobotMap.HALFWAY/2), .5);
 		//addSequential(new PushBox());
 		addSequential(new ReleaseBox());

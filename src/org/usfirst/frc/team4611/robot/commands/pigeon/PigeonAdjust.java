@@ -12,7 +12,7 @@ public class PigeonAdjust extends SwitchableCommand {
 	private double startAngle;
 	private double prevAngle = 0;
 	private double da;
-	private double multi = 1.4;
+	private double multi = 1.3;
 	private boolean hasAdjusted = false;
 	private Direction dir;
 	 

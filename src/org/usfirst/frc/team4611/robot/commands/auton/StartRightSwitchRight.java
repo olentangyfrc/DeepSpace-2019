@@ -20,7 +20,6 @@ public class StartRightSwitchRight extends CommandGroup {
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.WAY));
-		//addSequential(new Rotate(-1440), 2);
 		addSequential(new PigeonAdjust(-90));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
