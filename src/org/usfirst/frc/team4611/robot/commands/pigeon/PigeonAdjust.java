@@ -53,7 +53,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			dir = Direction.RIGHT;
 		}
 		
-		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 0.5) {
+		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
 			System.out.print("Finished Left");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -61,7 +61,7 @@ public class PigeonAdjust extends SwitchableCommand {
 			RobotMap.driveTrainBR_Talon.stopMotor();
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
-		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 0.5) {
+		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
 			System.out.println("Finished Right");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
