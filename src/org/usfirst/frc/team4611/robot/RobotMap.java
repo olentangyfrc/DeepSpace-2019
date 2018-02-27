@@ -89,6 +89,7 @@ public class RobotMap {
 	public static final int HALFWAY = 60;
 	public static final int WAY = 150;
 	public static final int MOREWAY = 230;
+	public static final int TOSCALE = 254;
 	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
 	public static final int strafeFromCenter = 60;

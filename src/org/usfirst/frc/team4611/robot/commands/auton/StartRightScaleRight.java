@@ -21,9 +21,9 @@ public class StartRightScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addParallel(new MovePotPos(RobotMap.POTMAX));
-		addSequential(new AutonForward(RobotMap.MOREWAY));
+		addSequential(new AutonForward(RobotMap.TOSCALE));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-90));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY/2), 1.5);// 1.85
 		addSequential(new ReleaseBox());
