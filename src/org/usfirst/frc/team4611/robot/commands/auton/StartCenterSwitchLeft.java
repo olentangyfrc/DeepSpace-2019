@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
@@ -20,13 +21,14 @@ public class StartCenterSwitchLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeLeft(RobotMap.strafeFromCenter));
-		//addSequential(new PigeonAuton(90));
+		addSequential(new PigeonAdjust(-90));
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new AutonForward(RobotMap.HALFWAY));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+		addSequential(new AutonForward(50), 2);
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(90));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new MovePotPos(RobotMap.POTSWITCH));
+		addSequential(new AutonForward(RobotMap.HALFWAY + 20), 2);
 		addSequential(new ReleaseBox());
-		addSequential(new PushBox());
 	}
 }

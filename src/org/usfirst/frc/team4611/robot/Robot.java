@@ -174,7 +174,7 @@ public class Robot extends IterativeRobot {
 		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
 		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
 		String c = driver.getGameSpecificMessage();
-		autonFinalDecision = a + b + c;
+		autonFinalDecision = a + b + c.trim().toUpperCase();
 		String key = autonFinalDecision;
 		if(a == null || a.toLowerCase().equals("null") || a.isEmpty())
 			key = "DRIVEFORWARD";
