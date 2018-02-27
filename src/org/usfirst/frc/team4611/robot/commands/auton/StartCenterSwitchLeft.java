@@ -21,6 +21,7 @@ public class StartCenterSwitchLeft extends CommandGroup {
 		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonStrafeLeft(RobotMap.strafeFromCenter));
+		//addSequential(new PigeonAuton(90));
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.HALFWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));

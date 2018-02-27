@@ -18,10 +18,11 @@ public class StartLeftSwitchLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new AutonForward(RobotMap.WAY));
 		addSequential(new PigeonAdjust(90));
-		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);
+		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addParallel(new MovePotPos(RobotMap.POTSWITCH));
-		addSequential(new PushBox());
 		addSequential(new ReleaseBox());
+		//addSequential(new PushBox());
 	}
 }
