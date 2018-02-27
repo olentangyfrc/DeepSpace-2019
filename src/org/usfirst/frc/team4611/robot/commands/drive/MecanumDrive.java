@@ -87,7 +87,7 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 3", velocity3);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 4", velocity4);
 		}
-		Robot.mecanum.setRampRate();
+		Robot.mecanum.setRampRate(.25);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
 	}

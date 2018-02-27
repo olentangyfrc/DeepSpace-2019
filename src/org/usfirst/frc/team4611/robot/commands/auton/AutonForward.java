@@ -29,6 +29,7 @@ public class AutonForward extends Command {
 		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
 		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		Robot.mecanum.setRampRate(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -57,6 +58,7 @@ public class AutonForward extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.mecanum.resetRampRate();
     }
 
     // Called when another command which requires one or more of the same

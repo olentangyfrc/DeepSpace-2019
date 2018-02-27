@@ -88,7 +88,7 @@ public class RobotMap {
 	
 	public static final int HALFWAY = 60;
 	public static final int WAY = 150;
-	public static final int MOREWAY = 250;
+	public static final int MOREWAY = 230;
 	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
 	public static final int strafeFromCenter = 60;
@@ -100,7 +100,7 @@ public class RobotMap {
 	public static final double POTSWITCH = .6;
 	public static final double POTMIN2 = .15;
 	public static final double POTMAX2 = .8;
-	public static final double POTSWITCH2 = .45;
+	public static final double POTSWITCH2 = .35;
 	private static final double VARIANCELIMIT = .02;
 	
 	//Default motor speeds
@@ -274,14 +274,15 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		driveTrainFL_Talon.configMotionAcceleration(1440, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(1440, 0);
-		driveTrainFR_Talon.configMotionAcceleration(1440, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(1440, 0);
-		driveTrainBL_Talon.configMotionAcceleration(1440, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(1440, 0);
-		driveTrainBR_Talon.configMotionAcceleration(1440, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(1440, 0);
+		int magicValues = 1872;
+		driveTrainFL_Talon.configMotionAcceleration(magicValues, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(magicValues, 0);
+		driveTrainFR_Talon.configMotionAcceleration(magicValues, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(magicValues, 0);
+		driveTrainBL_Talon.configMotionAcceleration(magicValues, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(magicValues, 0);
+		driveTrainBR_Talon.configMotionAcceleration(magicValues, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(magicValues, 0);
 			
 		//Startup Sensorphase Values
 		driveTrainFL_Talon.setSensorPhase(true);

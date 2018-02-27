@@ -56,12 +56,11 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainFR_Talon.configClosedloopRamp(0, 0);
 	}
 	//set back to default Ramp Rate
-	public void setRampRate() {
-		double rampSeconds = (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rampTime);
-		RobotMap.driveTrainBL_Talon.configClosedloopRamp(rampSeconds, 0);
-		RobotMap.driveTrainBR_Talon.configClosedloopRamp(rampSeconds, 0);
-		RobotMap.driveTrainFL_Talon.configClosedloopRamp(rampSeconds, 0);
-		RobotMap.driveTrainFR_Talon.configClosedloopRamp(rampSeconds, 0);
+	public void setRampRate(double d) {
+		RobotMap.driveTrainBL_Talon.configClosedloopRamp(d, 0);
+		RobotMap.driveTrainBR_Talon.configClosedloopRamp(d, 0);
+		RobotMap.driveTrainFL_Talon.configClosedloopRamp(d, 0);
+		RobotMap.driveTrainFR_Talon.configClosedloopRamp(d, 0);
 	}
 	
 	public void rotate(double velocity) {
