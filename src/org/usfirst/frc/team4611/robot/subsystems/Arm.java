@@ -79,38 +79,38 @@ public class Arm extends Subsystem {
 		if(RobotMap.linearActuatorPot.get() > pos) {
 			if((potValue1 > min1 && pos1 >= pos2 - varianceLimit)) {
 				RobotMap.linearActuator.set(-.7);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving down");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving down");
 			}
 			else {
 				RobotMap.linearActuator.set(0);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 not moving in down");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 not moving in down");
 			}
 			if(potValue2 > min2 && pos2 >= pos1 - varianceLimit) {
 					RobotMap.linearActuator2.set(-.7);
-					RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving down");
+					//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving down");
 			}
 			else {
 				RobotMap.linearActuator2.set(0);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 not moving in down");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 not moving in down");
 			}
 		}
 		
 		else if (RobotMap.linearActuatorPot.get() < pos) {
 			if(potValue1 < max1 && pos1 <= pos2 + varianceLimit) {
 				RobotMap.linearActuator.set(.7);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving up");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 moving up");
 			}
 			else {
 				RobotMap.linearActuator.set(0);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 not moving in up");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 1 not moving in up");
 			}
 			if(potValue2 < max2 && pos2 <= pos1 + varianceLimit) {
 				RobotMap.linearActuator2.set(.7);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving up");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving up");
 			}
 			else {
 				RobotMap.linearActuator2.set(0);
-				RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving in up");
+				//RobotMap.log(RobotMap.linearActuatorSubTable, "LA 2 moving in up");
 			}
 		}
 		

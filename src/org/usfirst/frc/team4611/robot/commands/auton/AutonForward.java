@@ -12,12 +12,13 @@ public class AutonForward extends Command {
 	private double inches;
 	private double targetPosition;
 	//public double converter = 206.243;
-	public double converter = 215.910640625;
+	//public double converter = 215.910640625;
 	private double encoderPositionAverage;
     public AutonForward(double inches) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.inches = inches;
+    	double converter = (double)RobotMap.getValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler);
     	targetPosition = inches * converter;
     	requires(Robot.mecanum);
     }

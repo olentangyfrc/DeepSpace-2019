@@ -182,6 +182,7 @@ public class Robot extends IterativeRobot {
 			key = "DRIVEFORWARD";
 		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
 			key = "DRIVEFORWARD";
+		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
 		String closeSwitch = c.substring(0, 1);
 		String scale = c.substring(1, 2);
 		String farSwitch = c.substring(2, 3);

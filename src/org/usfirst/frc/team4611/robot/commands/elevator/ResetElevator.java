@@ -16,8 +16,8 @@ public class ResetElevator extends Command{
 	}	
 	@Override
 	protected boolean isFinished() {
-		System.out.println(Robot.elevator.isSwitchSet());
-		return true;//!Robot.elevator.isSwitchSet();
+		//System.out.println(Robot.elevator.isSwitchSet());
+		return !Robot.elevator.isSwitchSet();
 	}
 	
 	protected void end() {

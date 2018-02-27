@@ -87,8 +87,9 @@ public class RobotMap {
 	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
 	
 	public static final int HALFWAY = 60;
-	public static final int WAY = 135;
+	public static final int WAY = 150;
 	public static final int MOREWAY = 250;
+	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
@@ -107,6 +108,9 @@ public class RobotMap {
 	public static final double ELEVATOR_SPEED_SCALAR = 0.75;
 	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.7;
 	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.7;
+	
+	//Inches to Position Units Converter
+	public static final double INCH_PU_MULTIPLIER = 215.910640625;
 
 	//String keys
 	public static String joyStickSubTable = "Joysticks";
@@ -123,6 +127,7 @@ public class RobotMap {
 	public static String pushBoxSubtable = "Push Box";	
 	public static String pigeonSubtable = "Pigeon";
 	public static String climberSubtable = "Climber";
+	public static String inchPuMultipler = "InchToPUMultipler";
 	public static String leftJoyXID = "leftJoyX";
 	public static String leftJoyYID = "leftJoyY";
 	public static String leftJoyZID = "leftJoyZ";
@@ -320,7 +325,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID, RobotMap.defaults.getDoubleDefaultValue(linearActuatorSubTable, LASpeedDownID, LINEAR_ACTUATOR_DOWN_SPEED));
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
-		
+		//Auton Values
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		//Potentiometer Values
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, POTMAX));
