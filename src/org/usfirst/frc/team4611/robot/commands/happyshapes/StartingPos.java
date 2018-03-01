@@ -13,6 +13,6 @@ public class StartingPos extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new MoveElevatorToPos(0));
 		addSequential(new MovePotPos(.83));
-		addSequential(new ReleaseBox());
+		addSequential(new GrabBox());
 	}
 }
