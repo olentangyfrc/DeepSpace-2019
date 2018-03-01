@@ -33,7 +33,7 @@ public class MecanumDrive extends SwitchableCommand{
 		double YVal = -Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.rotateFilter(Robot.oi.rightJoy.getX());
-		RobotMap.log(RobotMap.joyStickSubTable, "J0 Y, J0 X, J1 Y(Z): "+ YVal+", "+XVal+", "+ZVal);
+		//RobotMap.log(RobotMap.joyStickSubTable, "J0 Y, J0 X, J1 Y(Z): "+ YVal+", "+XVal+", "+ZVal);
 		double velocity1;
 		double velocity2;
 		double velocity3;
@@ -78,10 +78,10 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler Right: ", XValScaler2);*/
 		
 		//Blaine and Halter's magic math
-		velocity1 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1);
-		velocity2 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2); 
-		velocity3 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3);
-		velocity4 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4);
+		velocity1 = 4*(maxRPM * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1));
+		velocity2 = 4*(maxRPM * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2)); 
+		velocity3 = 4*(maxRPM * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3));
+		velocity4 = 4*(maxRPM * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4));
 		/*if (velocity1 > 0 || velocity2 > 0|| velocity3 > 0|| velocity4 > 0) {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 1", velocity1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 2", velocity2);
@@ -90,7 +90,7 @@ public class MecanumDrive extends SwitchableCommand{
 		}*/
 		Robot.mecanum.setRampRate(0);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
-		RobotMap.log(RobotMap.mecanumSubTable, "Drive Train Motor Power: "+ velocity1+", "+velocity2+", "+velocity3+", "+velocity4);
+		//RobotMap.log(RobotMap.mecanumSubTable, "Drive Train Motor Power: "+ velocity1+", "+velocity2+", "+velocity3+", "+velocity4);
 		
 	}
 
