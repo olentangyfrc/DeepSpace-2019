@@ -142,7 +142,7 @@ public class Robot extends IterativeRobot {
 		camera = CameraServer.getInstance().startAutomaticCapture();	
 		CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(320, 240);
-		camera.setFPS(30);
+		camera.setFPS(20);
 		camera.setExposureManual(20);
 		
 		lightsCommand = new MakeLight(1);
