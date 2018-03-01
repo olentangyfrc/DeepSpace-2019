@@ -114,7 +114,7 @@ public class OI {
 		//Climber Buttons
 		moveClimber = new JoystickButton(rightJoy, 10);
 		windClimber = new JoystickButton(rightJoy, 11);
-		moveClimbertoPos = new JoystickButton(rightJoy, 7);
+		//moveClimbertoPos = new JoystickButton(rightJoy, 7);
 		
 		
 		//Happy Shaping Buttons
@@ -167,7 +167,7 @@ public class OI {
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
 		windClimber.whileHeld(new WindUpClimber());
-		moveClimbertoPos.whenPressed(new ClimberToPos(26050));
+		//moveClimbertoPos.whenPressed(new ClimberToPos(26050));
 		
 		//Lidar Commands
 		//getDistance.whenPressed(new laserDistance());
