@@ -33,9 +33,7 @@ public class MecanumDrive extends SwitchableCommand{
 		double YVal = -Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.rotateFilter(Robot.oi.rightJoy.getX());
-		RobotMap.log(RobotMap.joyStickSubTable, "Joystick0 ValueY: "+ YVal);
-		RobotMap.log(RobotMap.joyStickSubTable, "Joystick0 ValueX: "+ XVal);
-		RobotMap.log(RobotMap.joyStickSubTable, "Joystick1 ValueY(Z-val): "+ ZVal);
+		RobotMap.log(RobotMap.joyStickSubTable, "J0 Y, J0 X, J1 Y(Z): "+ YVal+", "+XVal+", "+ZVal);
 		double velocity1;
 		double velocity2;
 		double velocity3;
