@@ -33,6 +33,7 @@ public class MecanumDrive extends SwitchableCommand{
 		double YVal = -Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
 		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
 		double ZVal = Robot.oi.rotateFilter(Robot.oi.rightJoy.getX());
+		RobotMap.log(RobotMap.joyStickSubTable, "Joystick Value: "+ YVal);
 		double velocity1;
 		double velocity2;
 		double velocity3;
@@ -89,6 +90,7 @@ public class MecanumDrive extends SwitchableCommand{
 		}
 		Robot.mecanum.setRampRate(.15);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
+		RobotMap.log(RobotMap.mecanumSubTable, "Drive Train Motor Power: "+ velocity1+", "+velocity2+", "+velocity3+", "+velocity4);
 		
 	}
 
