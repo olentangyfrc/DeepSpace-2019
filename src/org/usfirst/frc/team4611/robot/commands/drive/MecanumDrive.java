@@ -17,10 +17,10 @@ public class MecanumDrive extends SwitchableCommand{
 	}
 	
 	protected void initialize() {
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert1" , velocityInvert1);
+		/*RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert1" , velocityInvert1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert2" , velocityInvert2);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert3" , velocityInvert3);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert4" , velocityInvert4);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert4" , velocityInvert4);*/
 	}
 	
 	protected void execute() {
@@ -56,9 +56,9 @@ public class MecanumDrive extends SwitchableCommand{
 		double XValScaler2 = 1;
 		double ZValScaler = 1;
 
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, XVal);
+		/*RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyXID, XVal);
 		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.leftJoyYID, YVal);
-		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, ZVal);
+		RobotMap.updateValue(RobotMap.joyStickSubTable, RobotMap.rightJoyXID, ZVal);*/
 		/*RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler1: ", YValScaler1);	
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler2: ", YValScaler2);	
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler3: ", YValScaler3);	
@@ -71,23 +71,23 @@ public class MecanumDrive extends SwitchableCommand{
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler2: ", ZValScaler2);	
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler3: ", ZValScaler3);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler4: ", ZValScaler4);*/
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler Left: ", YValScaler1);
+		/*RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler Left: ", YValScaler1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler Left: ", XValScaler1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "ZVal Scaler: ", ZValScaler);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "YVal Scaler Right: ", YValScaler2);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler Right: ", XValScaler2);
+		RobotMap.updateValue(RobotMap.mecanumSubTable, "XVal Scaler Right: ", XValScaler2);*/
 		
 		//Blaine and Halter's magic math
 		velocity1 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1);
 		velocity2 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2); 
 		velocity3 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3);
 		velocity4 = 4*((Double) RobotMap.getValue(RobotMap.mecanumSubTable, "Max RPM")).doubleValue() * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4);
-		if (velocity1 > 0 || velocity2 > 0|| velocity3 > 0|| velocity4 > 0) {
+		/*if (velocity1 > 0 || velocity2 > 0|| velocity3 > 0|| velocity4 > 0) {
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 1", velocity1);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 2", velocity2);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 3", velocity3);
 		RobotMap.updateValue(RobotMap.mecanumSubTable, "Velocity 4", velocity4);
-		}
+		}*/
 		Robot.mecanum.setRampRate(0);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		RobotMap.log(RobotMap.mecanumSubTable, "Drive Train Motor Power: "+ velocity1+", "+velocity2+", "+velocity3+", "+velocity4);

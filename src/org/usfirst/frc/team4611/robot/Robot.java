@@ -254,8 +254,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		PiLights.checkPiAlive();
-		PiLights.lightsFromPi();
+		//PiLights.checkPiAlive();
+		//PiLights.lightsFromPi();
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 /**
@@ -25,7 +27,9 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
  * running or we change ports for certain motors.
  */
 public class RobotMap {
-
+	//HashMap
+	static HashMap networkTableCache = new HashMap<String, Object>(); //key, object
+	
 	//Drive train Talons
 	public static WPI_TalonSRX driveTrainFL_Talon;
 	public static WPI_TalonSRX driveTrainFR_Talon;
@@ -432,7 +436,12 @@ public class RobotMap {
 	 * @return the value connected to the key, or null otherwise
 	 */
 	public static Object getValue(String subtable, String key) {
-		return RobotMap.networkManager.getValue(subtable, key);
+		Object obj = networkTableCache.get(subtable+key);
+		if (obj == null) {
+			obj = RobotMap.networkManager.getValue(subtable, key);
+			networkTableCache.put(subtable+key, obj);
+		}
+		return obj;
 	}
 
 	public static void log(String subTable, String message) {

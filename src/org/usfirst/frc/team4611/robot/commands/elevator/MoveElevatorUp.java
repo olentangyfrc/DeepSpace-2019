@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveElevatorUp extends Command{
 	
-	double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed);
+	
 	public MoveElevatorUp(){
 		this.requires(Robot.elevator); //This command uses this subsystem
 	} 
