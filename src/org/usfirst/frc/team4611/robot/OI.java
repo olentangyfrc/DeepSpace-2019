@@ -102,9 +102,9 @@ public class OI {
 		
 		//Solenoid Buttons
 		grabberToggle = new JoystickButton(leftJoy, 1);
-		grabberExtend = new JoystickButton(leftJoy, 7);//close claw
+		grabberExtend = new JoystickButton(leftJoy, 6);//open claw
 		grabberExtend2 = new JoystickButton(auxJoy, 1);
-		grabberRetract = new JoystickButton(leftJoy, 6);//open claw
+		grabberRetract = new JoystickButton(leftJoy, 7);//close claw
 		pushBox = new JoystickButton(rightJoy, 1);
 		
 		//Elevator Buttons
