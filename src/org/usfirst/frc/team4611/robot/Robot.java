@@ -176,6 +176,9 @@ public class Robot extends IterativeRobot {
 		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
 		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
 		String c = driver.getGameSpecificMessage();
+		
+		boolean ignoreTarget = (boolean) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetAimID);
+		
 		autonFinalDecision = a + b + c.trim().toUpperCase();
 		String key = autonFinalDecision;
 		if(a == null || a.toLowerCase().equals("null") || a.isEmpty())
@@ -203,8 +206,23 @@ public class Robot extends IterativeRobot {
 		}
 		
 		
-		autonomousCommand = this.autonCommandGroup.get(key);
+		//autonomousCommand = this.autonCommandGroup.get(key); if beneath if statement fails comment it out and re add this
+		
+		if(ignoreTarget == true) {
+			if(isCloseSwitch) {
+				autonomousCommand = this.autonCommandGroup.get(key);
+			}
+			else
+			{
+				autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
+			}
+		}
+		else {
+			autonomousCommand = this.autonCommandGroup.get(key);
+		}
 		System.out.println(autonomousCommand.getClass().getName());
+		
+		
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");

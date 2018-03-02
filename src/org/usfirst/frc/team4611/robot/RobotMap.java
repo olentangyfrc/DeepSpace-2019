@@ -172,6 +172,7 @@ public class RobotMap {
 	public static String foundID = "found";
 	public static String piTimeStampID = "current_ts";
 	public static String maxRPMID = "Max RPM";
+	public static String targetAimID = "Ignore Target";
 	public static String rampTime = "Ramp Seconds: "; 
 	public static int distance;
 	
@@ -333,6 +334,7 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
 		//Auton Values
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
 		//Potentiometer Values
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, POTMAX));
