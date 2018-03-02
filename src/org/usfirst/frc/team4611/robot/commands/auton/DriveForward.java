@@ -11,4 +11,7 @@ public class DriveForward extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new AutonForward(RobotMap.WAY));
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "DRIVEFORWARD initialized");
+	}
 }
