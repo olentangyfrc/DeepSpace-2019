@@ -195,14 +195,14 @@ public class Robot extends IterativeRobot {
 		String scale = c.substring(1, 2);
 		String farSwitch = c.substring(2, 3);
 		boolean isCloseSwitch = false;
-		boolean isScale = false;
+		boolean isCloseScale = false;
 		boolean isFarSwitch = false;
 		
 		if(closeSwitch.equals(a)) {
 			isCloseSwitch = true;
 		}
 		if(scale.equals(a)) {
-			isScale = true;
+			isCloseScale = true;
 		}
 		if(farSwitch.equals(a)) {
 			isFarSwitch = true;
@@ -210,21 +210,18 @@ public class Robot extends IterativeRobot {
 		
 		
 		//autonomousCommand = this.autonCommandGroup.get(key); if beneath if statement fails comment it out and re add this
-		
 		if(ignoreTarget == true) {
-			if(isCloseSwitch) {
-				autonomousCommand = this.autonCommandGroup.get(key);
+			if(!isCloseSwitch && b.trim().toUpperCase() == "SW") {
+				key = "DRIVEFORWARD";
 			}
-			else
-			{
-				autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
+			if(!isCloseScale && b.trim().toUpperCase() == "SC") {
+				key = "DRIVEFORWARD";
 			}
 		}
-		else {
-			autonomousCommand = this.autonCommandGroup.get(key);
-		}
-		System.out.println(autonomousCommand.getClass().getName());
+		//System.out.println(autonomousCommand.getClass().getName());
 		
+		
+		autonomousCommand = this.autonCommandGroup.get(key);
 		
 		
 		if (autonomousCommand == null) {
