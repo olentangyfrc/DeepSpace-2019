@@ -222,7 +222,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
-		
+		RobotMap.log(RobotMap.autonSubTable, "["  + a + "] [" + b + "] [" + c + "] [" + key + "]");
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");

@@ -438,11 +438,8 @@ public class RobotMap {
 	 * @return the value connected to the key, or null otherwise
 	 */
 	public static Object getValue(String subtable, String key) {
-		Object obj = networkTableCache.get(subtable+key);
-		if (obj == null) {
-			obj = RobotMap.networkManager.getValue(subtable, key);
-			networkTableCache.put(subtable+key, obj);
-		}
+		Object obj  = RobotMap.networkManager.getValue(subtable, key);
+		
 		return obj;
 	}
 
