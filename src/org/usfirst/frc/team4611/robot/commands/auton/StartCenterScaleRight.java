@@ -27,4 +27,7 @@ public class StartCenterScaleRight extends CommandGroup {
 		addSequential(new PushBox());
 		addSequential(new ReleaseBox());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SCSR initialized");
+	}
 }

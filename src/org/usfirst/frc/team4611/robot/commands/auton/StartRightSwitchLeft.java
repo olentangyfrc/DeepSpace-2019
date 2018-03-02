@@ -32,4 +32,7 @@ public class StartRightSwitchLeft extends CommandGroup {
 		//addSequential(new PushBox());
 		addSequential(new StopAndRepositionTalons());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SRSWL initialized");
+	}
 }

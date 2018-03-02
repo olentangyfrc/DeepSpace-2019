@@ -32,4 +32,7 @@ public class StartLeftSwitchRight extends CommandGroup {
 		//addSequential(new PushBox());
 		addSequential(new ReleaseBox());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SLSWR initialized");
+	}
 }

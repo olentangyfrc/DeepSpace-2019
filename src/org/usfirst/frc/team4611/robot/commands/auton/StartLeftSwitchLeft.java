@@ -26,4 +26,7 @@ public class StartLeftSwitchLeft extends CommandGroup {
 		addSequential(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new ReleaseBox());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SLSWL initialized");
+	}
 }

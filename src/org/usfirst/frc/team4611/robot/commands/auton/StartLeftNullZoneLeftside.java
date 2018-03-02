@@ -14,4 +14,7 @@ public class StartLeftNullZoneLeftside extends CommandGroup {
 		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SLNZL initialized");
+	}
 }

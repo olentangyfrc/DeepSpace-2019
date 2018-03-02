@@ -28,4 +28,7 @@ public class StartLeftScaleLeft extends CommandGroup {
 		addSequential(new AutonForward(RobotMap.HALFWAY/2), 1.5);// 1.85
 		addSequential(new ReleaseBox());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SLSL initialized");
+	}
 }

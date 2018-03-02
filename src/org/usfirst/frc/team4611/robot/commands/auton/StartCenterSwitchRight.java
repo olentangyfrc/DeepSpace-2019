@@ -31,4 +31,7 @@ public class StartCenterSwitchRight extends CommandGroup {
 		addSequential(new AutonForward(RobotMap.HALFWAY), 1);
 		addSequential(new ReleaseBox());
 	}
+	protected void initialize() {
+		RobotMap.log(RobotMap.autonSubTable, "SCSWR initialized");
+	}
 }

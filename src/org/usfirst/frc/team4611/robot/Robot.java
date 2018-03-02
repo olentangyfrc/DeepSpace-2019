@@ -179,14 +179,17 @@ public class Robot extends IterativeRobot {
 		
 		boolean ignoreTarget = (boolean) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetAimID);
 		
-		autonFinalDecision = a + b + c.trim().toUpperCase();
+		autonFinalDecision = a.trim().toUpperCase() + b.trim().toUpperCase() + c.trim().toUpperCase();
 		String key = autonFinalDecision;
-		if(a == null || a.toLowerCase().equals("null") || a.isEmpty())
+		if(a == null || a.toLowerCase().equals("null") || a.isEmpty()) {
 			key = "DRIVEFORWARD";
-		if(b == null || b.toLowerCase().equals("null") || b.isEmpty())
+		}
+		if(b == null || b.toLowerCase().equals("null") || b.isEmpty()) {
 			key = "DRIVEFORWARD";
-		if(c == null || c.toLowerCase().equals("null") || c.isEmpty())
+		}
+		if(c == null || c.toLowerCase().equals("null") || c.isEmpty()) {
 			key = "DRIVEFORWARD";
+		}
 		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
 		String closeSwitch = c.substring(0, 1);
 		String scale = c.substring(1, 2);
@@ -228,8 +231,11 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
 		}
 
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+		}
+		
+		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
 	}
 
 	/**
