@@ -111,8 +111,8 @@ public class RobotMap {
 	//Default motor speeds
 	public static final double LINEAR_ACTUATOR_SPEED = 0.5;
 	public static final double ELEVATOR_SPEED_SCALAR = 0.75;
-	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.7;
-	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.7;
+	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.75;
+	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.75;
 	
 	//Inches to Position Units Converter
 	public static final double INCH_PU_MULTIPLIER = 215.910640625;
@@ -319,7 +319,7 @@ public class RobotMap {
 		
 		//Elevator Values
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.75));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.80));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);
