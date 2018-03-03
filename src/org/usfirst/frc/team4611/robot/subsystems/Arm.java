@@ -43,9 +43,11 @@ public class Arm extends Subsystem {
 	
 	public void movePotDown(double speed, double speed2) {
 		double max1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMaxID);
-		double min1 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID);
+		double min1 = 0.19;
+				//(double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMinID);
 		double max2 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMax2ID);
-		double min2 = (double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMin2ID);
+		double min2 = 0.19;
+				//(double)RobotMap.getValue(RobotMap.potentiometerSubTable, RobotMap.potMin2ID);
 		double potValue1 = RobotMap.linearActuatorPot.get();
 		double potValue2 = RobotMap.linearActuatorPot2.get();
 		double pos1 = (potValue1 - min1) / (max1 - min1);
