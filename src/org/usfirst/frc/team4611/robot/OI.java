@@ -195,7 +195,7 @@ public class OI {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
             return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
         } else {
-            return  raw * 0.75;
+            return  raw * 0.5;
             		//Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID), 1); //Set the output to a ceratin percent of of the input
         }
 	}
