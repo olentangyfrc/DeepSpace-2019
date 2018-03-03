@@ -29,7 +29,7 @@ public class StartLeftScaleRight extends CommandGroup {
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new AutonForward(RobotMap.HALFWAY));
 		//addSequential(new PushBox());
-		addSequential(new ReleaseBox());
+		addSequential(new ReleaseBox()); //27.75 wide and 32.16 long
 	}
 	protected void initialize() {
 		RobotMap.log(RobotMap.autonSubTable, "SLSR initialized");
