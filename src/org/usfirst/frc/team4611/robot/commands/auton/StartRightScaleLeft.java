@@ -20,17 +20,18 @@ public class StartRightScaleLeft extends CommandGroup {
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.MOREWAY));
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1+6));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.crossToScale+40));
 		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1-3));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1+3));
+		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY/2));
-		//addSequential(new PushBox());
 		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
 	protected void initialize() {
 		RobotMap.log(RobotMap.autonSubTable, "SRSL initialized");
