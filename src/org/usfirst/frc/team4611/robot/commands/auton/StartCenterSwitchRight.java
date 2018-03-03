@@ -19,16 +19,16 @@ public class StartCenterSwitchRight extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new AutonForward(RobotMap.HALFWAY-10));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(90));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(30), 2);
+		addSequential(new AutonForward(RobotMap.HALFWAY), 2);
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-90));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new MovePotPos(RobotMap.POTSWITCH));
-		addSequential(new AutonForward(RobotMap.HALFWAY), 1);
+		addSequential(new AutonForward(RobotMap.HALFWAY+10), 1);
 		addSequential(new ReleaseBox());
 	}
 	protected void initialize() {

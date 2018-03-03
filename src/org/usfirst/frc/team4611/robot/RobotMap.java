@@ -100,10 +100,10 @@ public class RobotMap {
 	public static final int strafeToCloseTarget = 72;
 	public static final int crossToScale = 180;
 	
-	public static final double POTMIN = .15;
+	public static final double POTMIN = .17;
 	public static final double POTMAX = .8;
 	public static final double POTSWITCH = .6;
-	public static final double POTMIN2 = .15;
+	public static final double POTMIN2 = .17;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
 	private static final double VARIANCELIMIT = .02;
@@ -309,7 +309,7 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID, 0.15));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.deadZoneYID, 0.15));
-		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 650));
+		RobotMap.updateValue(RobotMap.mecanumSubTable, maxRPMID, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, maxRPMID, 780));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, rampTime, RobotMap.defaults.getDoubleDefaultValue(mecanumSubTable, rampTime, 0.2));
 		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.mecanumSubTable, RobotMap.autonStrafeScalarID, 0));
