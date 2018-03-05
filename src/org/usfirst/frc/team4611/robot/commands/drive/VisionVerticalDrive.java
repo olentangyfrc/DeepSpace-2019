@@ -4,7 +4,7 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class UltraDrive extends Command{
+public class VisionVerticalDrive extends Command{
 	private double range;
 	private double horizontalDistance;
 	private boolean found;

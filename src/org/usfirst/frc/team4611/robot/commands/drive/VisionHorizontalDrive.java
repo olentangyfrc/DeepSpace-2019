@@ -4,7 +4,7 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class VisionDrive extends Command{
+public class VisionHorizontalDrive extends Command{
 	double angle;
 	double distance;
 	double horizontalDistance;
@@ -13,7 +13,7 @@ public class VisionDrive extends Command{
 	private boolean startedDriving;
 	private boolean dontRunMe;
 	
-	public VisionDrive(){
+	public VisionHorizontalDrive(){
 		dontRunMe = false;
 	}
 	

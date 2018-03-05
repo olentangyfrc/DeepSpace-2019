@@ -140,7 +140,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		camera = CameraServer.getInstance().startAutomaticCapture();	
-		//CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
 		camera.setExposureManual(35);
@@ -190,6 +189,7 @@ public class Robot extends IterativeRobot {
 		if(c == null || c.toLowerCase().equals("null") || c.isEmpty()) {
 			key = "DRIVEFORWARD";
 		}
+		
 		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
 		String closeSwitch = c.substring(0, 1);
 		String scale = c.substring(1, 2);
@@ -208,8 +208,6 @@ public class Robot extends IterativeRobot {
 			isFarSwitch = true;
 		}
 		
-		
-		//autonomousCommand = this.autonCommandGroup.get(key); if beneath if statement fails comment it out and re add this
 		if(ignoreTarget == true) {
 			if(!isCloseSwitch && b.trim().toUpperCase() == "SW") {
 				key = "DRIVEFORWARD";
@@ -218,8 +216,6 @@ public class Robot extends IterativeRobot {
 				key = "DRIVEFORWARD";
 			}
 		}
-		//System.out.println(autonomousCommand.getClass().getName());
-		
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
 		RobotMap.log(RobotMap.autonSubTable, "["  + a + "] [" + b + "] [" + c + "] [" + key + "]");

@@ -1,8 +1,5 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
-import org.usfirst.frc.team4611.robot.commands.auton.AutoGrab;
-import org.usfirst.frc.team4611.robot.commands.climber.ClimberToPos;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -12,9 +9,9 @@ import org.usfirst.frc.team4611.robot.commands.happyshapes.AttackPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
-import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
@@ -114,7 +111,7 @@ public class OI {
 		//Climber Buttons
 		moveClimber = new JoystickButton(rightJoy, 10);
 		windClimber = new JoystickButton(rightJoy, 11);
-		//moveClimbertoPos = new JoystickButton(rightJoy, 7);
+//		moveClimbertoPos = new JoystickButton(rightJoy, 7);
 		
 		
 		//Happy Shaping Buttons
@@ -167,11 +164,11 @@ public class OI {
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
 		windClimber.whileHeld(new WindUpClimber());
-		//moveClimbertoPos.whenPressed(new ClimberToPos(26050));
+//		moveClimbertoPos.whenPressed(new ClimberToPos(26050));
 		
-		//Lidar Commands
-		//getDistance.whenPressed(new laserDistance());
-		//getDistanceController.whenPressed(new laserDistance());
+//		//Lidar Commands
+//		getDistance.whenPressed(new laserDistance());
+//		getDistanceController.whenPressed(new laserDistance());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
