@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -134,7 +135,7 @@ public class OI {
 
 		//Movement Commands
 //		aimBox.whenPressed(new AimForBox());
-//		aimBox2.whenPressed(new AimForBox());
+		aimBox2.whenPressed(new AimForBox());//RobotMap.driveTrain));
 //		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands

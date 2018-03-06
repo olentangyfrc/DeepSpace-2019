@@ -7,28 +7,23 @@ import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class PigeonAdjust extends Command {
+public class PigeonAdjustVision extends Command {
 
 	private double desiredAngle;
 	private double startAngle;
 
 	private double da;
-	private double multi = 1.3;
-	private boolean hasAdjusted = false;
 	private Direction dir;
 	 
-	public PigeonAdjust(double da) {
-		this.da = da;
+	public PigeonAdjustVision() {
 	}
 	
 	protected void initialize() {
 		startAngle = RobotMap.pigeon.getFusedHeading();
-		if(da != 0) {
-			this.desiredAngle = startAngle-da;
-		}else if(da == 0) {
-			this.desiredAngle = RobotMap.pigeon.getFusedHeading() - (RobotMap.pigeon.getFusedHeading()/360 - (int)RobotMap.pigeon.getFusedHeading()/360)*360;
-		}
-		
+		da = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		RobotMap.log(RobotMap.pigeonSubtable, "" + da);
+		this.desiredAngle = startAngle-da;
+	
 		if(desiredAngle > startAngle) {
 			dir = Direction.LEFT;
 		}else{
@@ -36,29 +31,28 @@ public class PigeonAdjust extends Command {
 		}
 	}
 	protected void execute() {
+	
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
+		System.out.print("Desired Angle:" + desiredAngle);
+		System.out.println(" Current Angle:" + status.heading);
 		
 		if(dir == Direction.RIGHT) {
-			Robot.mecanum.rotate(multi * 800);
+			Robot.mecanum.rotate(Math.min(1040, 1040 * Math.abs(desiredAngle-status.heading)/5));
 			
 		}else if(dir == Direction.LEFT) {
-			Robot.mecanum.rotate(multi * -800);
-		
+			Robot.mecanum.rotate(Math.max(-1040, -1040 * Math.abs(desiredAngle-status.heading)/5));
+	
 		}
 	}
 	
 	protected boolean isFinished(){
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
-
-		if(this.desiredAngle > status.heading && dir == Direction.RIGHT && Math.abs(status.heading-desiredAngle) > 1) {
-			dir = Direction.LEFT;
-		}else if(this.desiredAngle < status.heading && dir == Direction.LEFT && Math.abs(status.heading-desiredAngle) > 1) {
-			dir = Direction.RIGHT;
-		}
 		
-		if((this.desiredAngle < status.heading && dir == Direction.LEFT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
+		if((this.desiredAngle < status.heading
+				&& dir == Direction.LEFT) 
+				&& Math.abs(this.desiredAngle-status.heading) <= 1.2) {
 			System.out.print("Finished Left");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -66,7 +60,9 @@ public class PigeonAdjust extends Command {
 			RobotMap.driveTrainBR_Talon.stopMotor();
 			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
 			return true;
-		}else if((this.desiredAngle > status.heading && dir == Direction.RIGHT) && Math.abs(this.desiredAngle-status.heading) <= 1) {
+		}else if((this .desiredAngle > status.heading
+				&& dir == Direction.RIGHT) 
+				&& Math.abs(this.desiredAngle-status.heading) <= 1.2) {
 			System.out.println("Finished Right");
 			RobotMap.driveTrainBL_Talon.stopMotor();
 			RobotMap.driveTrainFR_Talon.stopMotor();
@@ -80,12 +76,5 @@ public class PigeonAdjust extends Command {
 	
 	public enum Direction {
 		LEFT, RIGHT, NONE
-	}
-	
-	private double angleErrorFilter(double error) {
-		if(error < 30) {
-			return 31;
-		}
-		return error;
 	}
 }
