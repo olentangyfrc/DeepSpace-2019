@@ -27,8 +27,6 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
  * running or we change ports for certain motors.
  */
 public class RobotMap {
-	//HashMap
-	static HashMap networkTableCache = new HashMap<String, Object>(); //key, object
 	
 	//Drive train Talons
 	public static WPI_TalonSRX driveTrainFL_Talon;
@@ -175,7 +173,6 @@ public class RobotMap {
 	public static String targetAimID = "Ignore Target";
 	public static String rampTime = "Ramp Seconds: "; 
 	public static int distance;
-	
 	public static String pushBoxTimeID = "Time Opened";
 	public static String pushBoxEnabledID = "Push Box Enabled";
 	public static String pigeonAutonP = "Pigeon-Auton-P";
@@ -237,11 +234,6 @@ public class RobotMap {
 		//Climber Talons
 		climber_Talon = new WPI_TalonSRX(31);
 		climber_Talon2 = new WPI_TalonSRX(32);
-		
-		/*climber_Talon.configPeakCurrentLimit(50, 250);
-		climber_Talon2.configPeakCurrentLimit(50, 250);
-		climber_Talon.enableCurrentLimit(true);
-		climber_Talon2.enableCurrentLimit(true);*/
 		climber_Talon2.setSensorPhase(true);
 		
 		//Talon Configuration
