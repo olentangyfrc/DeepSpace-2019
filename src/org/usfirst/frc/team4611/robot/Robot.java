@@ -271,11 +271,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("Current lower limit: "+ RobotMap.POTMIN);
-		System.out.println("Current Pot1 Position: "+ RobotMap.linearActuatorPot.get());
-		System.out.println("Current Pot2 Position: "+ RobotMap.linearActuatorPot2.get());
-		//PiLights.checkPiAlive();
-		//PiLights.lightsFromPi();
 	}
 
 	@Override

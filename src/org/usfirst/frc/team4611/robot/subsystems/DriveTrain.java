@@ -71,6 +71,27 @@ public class DriveTrain extends Subsystem {
 
 	}
 	
+	public void config_kP(double p) {
+		RobotMap.driveTrainBL_Talon.config_kP(0, p, 0);
+		RobotMap.driveTrainBR_Talon.config_kP(0, p, 0);
+		RobotMap.driveTrainFL_Talon.config_kP(0, p, 0);
+		RobotMap.driveTrainFR_Talon.config_kP(0, p, 0);
+	}
+	
+	public void config_kI(double i) {
+		RobotMap.driveTrainBL_Talon.config_kI(0, i, 0);
+		RobotMap.driveTrainBR_Talon.config_kI(0, i, 0);
+		RobotMap.driveTrainFL_Talon.config_kI(0, i, 0);
+		RobotMap.driveTrainFR_Talon.config_kI(0, i, 0);
+	}
+	
+	public void config_kD(double d) {
+		RobotMap.driveTrainBL_Talon.config_kD(0, d, 0);
+		RobotMap.driveTrainBR_Talon.config_kD(0, d, 0);
+		RobotMap.driveTrainFL_Talon.config_kD(0, d, 0);
+		RobotMap.driveTrainFR_Talon.config_kD(0, d, 0);
+	}
+	
 	public void logSpeed() {
 	  	double blSpeed, brSpeed, flSpeed, frSpeed;
     	
