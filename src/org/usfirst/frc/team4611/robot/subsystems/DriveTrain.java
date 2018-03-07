@@ -56,11 +56,11 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainFR_Talon.configClosedloopRamp(0, 0);
 	}
 	//set back to default Ramp Rate
-	public void setRampRate(double d) {
-		RobotMap.driveTrainBL_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainBR_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainFL_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainFR_Talon.configClosedloopRamp(d, 0);
+	public void setRampRate(double rate) {
+		RobotMap.driveTrainBL_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainBR_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainFL_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainFR_Talon.configClosedloopRamp(rate, 0);
 	}
 	
 	public void rotate(double velocity) {
@@ -119,6 +119,22 @@ public class DriveTrain extends Subsystem {
       																			+ brPosition + ", "
       																			+ flPosition + ", "
       																			+ frPosition + ']');
+	}
+	
+	public double getAveragePosition() {
+		double encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
+		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
+		       	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
+		       	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
+		return encoderPositionAverage;
+	}
+	
+	public double getAverageSpeed() {
+		double encoderSpeedAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0)) +
+		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0)) +
+		       	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0)) +
+		       	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0))) / 4;
+		return encoderSpeedAverage;
 	}
 	
 	@Override

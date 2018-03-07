@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.auton.AimForBox;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
+import org.usfirst.frc.team4611.robot.commands.drive.FindBox;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
@@ -90,7 +90,7 @@ public class OI {
 		//Movement Buttons
 		autoGrabBox = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
-		aimBox2 = new JoystickButton(leftJoy, 3);
+		aimBox2 = new JoystickButton(leftJoy, 8);
 		
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
@@ -135,7 +135,7 @@ public class OI {
 
 		//Movement Commands
 //		aimBox.whenPressed(new AimForBox());
-		aimBox2.whenPressed(new AimForBox());//RobotMap.driveTrain));
+		aimBox2.whenPressed(new FindBox());//RobotMap.driveTrain));
 //		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands

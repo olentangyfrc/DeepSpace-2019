@@ -6,57 +6,80 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class VisionHorizontalDrive2 extends Command{
-	double angle;
-	double distance;
+	
 	double horizontalDistance;
-	boolean found;
-	private boolean dontRunMe;
+	double angle;
+	public double converter = 206.243 * 2;
 	
 	public VisionHorizontalDrive2(){
-		dontRunMe = false;
+    	requires(Robot.mecanum);
+    	
+    	try {
+    		StringBuffer b = null;
+    		b.toString();
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
 	}
 	
 	public void initialize() {
-		dontRunMe = false;
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
-		found = (boolean) RobotMap.networkManager.getVisionValue(RobotMap.foundID);
-		
-		RobotMap.driveTrainFL_Talon.config_kP(0, 2.5, 0);
-		RobotMap.driveTrainFR_Talon.config_kP(0, 2.5, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, 2.5, 0);
-		RobotMap.driveTrainBR_Talon.config_kP(0, 2.5, 0);
-		RobotMap.driveTrainBL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainBR_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFL_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.driveTrainFR_Talon.setSelectedSensorPosition(0, 0, 0);
+		angle = (double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		Robot.mecanum.resetEncoders();
+    	Robot.mecanum.config_kP(1);
+    	Robot.mecanum.resetRampRate();
+    	System.out.println("Initilizing Vision drive 2");
 	}
 	
 	public void execute(){
 		
-		if(!found || Math.abs(horizontalDistance) <= 3){
-			dontRunMe = true;
-			
-		if (angle < 0) {
-			Robot.mecanum.motionMagicStrafe(horizontalDistance);
-		} else if (angle > 0){
-			Robot.mecanum.motionMagicStrafe(horizontalDistance);
-		} else {
-			dontRunMe = true;
+		/*RobotMap.log(RobotMap.visionTableID, "Horizontal Distance {" + horizontalDistance + "}");
+		Robot.mecanum.logPosition();
+		RobotMap.log(RobotMap.visionTableID, "Position Unit Target {" + horizontalDistance * converter + "}");
+		RobotMap.log(RobotMap.visionTableID, "Average Position {" + Robot.mecanum.getAveragePosition() + "}");*/
+
+		if(angle > 0) {
+			Robot.mecanum.motionMagicStrafe(-horizontalDistance * converter);
 		}
+		
+		else {
+			Robot.mecanum.motionMagicStrafe(horizontalDistance * converter);
 		}
+		
 	}
 	
 	protected boolean isFinished() {
-		if(dontRunMe){
+		
+    	if(horizontalGood()) {
+    		RobotMap.log(RobotMap.visionTableID, "VisionHorizontalDrive2 isFinished returning true");
+        	return true;
+    	}
+        else {
+        	return false;
+        }	
+    }
+	
+	private boolean angleGood() {
+		if (Math.abs(angle) < 3) {
 			return true;
 		}
-		return false;
+		
+		else 
+			return false;
+	}
+	
+	private boolean horizontalGood() {
+		if (Math.abs(horizontalDistance * converter) > Robot.mecanum.getAveragePosition()) {
+			return false;
+		}
+		
+		else {
+			return true;
+		}
 	}
 	
 	protected void end( ) {
-		RobotMap.driveTrainFL_Talon.config_kP(0, .65, 0);
-		RobotMap.driveTrainFR_Talon.config_kP(0, .65, 0);
-		RobotMap.driveTrainBL_Talon.config_kP(0, .65, 0);
-		RobotMap.driveTrainBR_Talon.config_kP(0, .65, 0);
+		Robot.mecanum.config_kP(.65);
 	}
 }

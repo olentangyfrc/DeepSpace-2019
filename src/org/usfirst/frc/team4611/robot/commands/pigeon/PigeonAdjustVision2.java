@@ -12,12 +12,13 @@ public class PigeonAdjustVision2 extends Command {
 	private double desiredAngle;
 	private double startAngle;
 	private double encoderSpeedAverage;
-	private double speedLimit = 100;
+	private double speedLimit = 10;
 
 	private double da;
 	private Direction dir;
 	 
 	public PigeonAdjustVision2() {
+		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
@@ -36,25 +37,25 @@ public class PigeonAdjustVision2 extends Command {
 	
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
-		System.out.print("Desired Angle:" + desiredAngle);
-		System.out.println(" Current Angle:" + status.heading);
 		
 		if(dir == Direction.RIGHT) {
-			Robot.mecanum.rotate(Math.min(1040, 1040 * Math.abs(desiredAngle-status.heading)/5));
+			Robot.mecanum.rotate(780);
 			
 		}else if(dir == Direction.LEFT) {
-			Robot.mecanum.rotate(Math.max(-1040, -1040 * Math.abs(desiredAngle-status.heading)/5));
+			Robot.mecanum.rotate(-780);
 	
 		}
 		
-		encoderSpeedAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0)) +
-		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0)) +
-		    	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0)) +
-		    	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0))) / 4;
+		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}");
+		RobotMap.log(RobotMap.visionTableID, "currentAngle {" + RobotMap.pigeon.getFusedHeading() + "}");
+		RobotMap.log(RobotMap.visionTableID, "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}");
+
+
 	}
 	
 	protected boolean isFinished(){
-		if(encoderSpeedAverage < speedLimit) {
+		if(Robot.mecanum.getAverageSpeed() <= speedLimit &&
+				 Math.abs(this.desiredAngle-RobotMap.pigeon.getFusedHeading()) <= 1.2) {
 			return true;
 		}
 		return false;
