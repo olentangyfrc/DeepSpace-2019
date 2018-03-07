@@ -2,19 +2,18 @@ package org.usfirst.frc.team4611.robot.commands.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
-
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class PigeonAdjustVision2 extends Command {
 
 	private double desiredAngle;
-	private double startAngle;
+	private double startingPigeonAngle;
+	private double currentPigeonHeading;
 	private double encoderSpeedAverage;
-	private double speedLimit = 10;
+	private double speedLimit = 100;
 
-	private double da;
+	private double angleToBox;
 	private Direction dir;
 	 
 	public PigeonAdjustVision2() {
@@ -22,12 +21,23 @@ public class PigeonAdjustVision2 extends Command {
 	}
 	
 	protected void initialize() {
-		startAngle = RobotMap.pigeon.getFusedHeading();
-		da = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
-		RobotMap.log(RobotMap.pigeonSubtable, "" + da);
-		this.desiredAngle = startAngle-da;
+
+		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
+
+		/**
+		 * the angle we want to go is in the opposite direction from the angle the 
+		 * camera gives us
+		 */
+		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+
+		// desired angle is the difference between where we start and the angle to the box
+		desiredAngle = startingPigeonAngle - angleToBox;
+
+		RobotMap.log(RobotMap.pigeonSubtable, "angleToBox [" + angleToBox
+					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
 	
-		if(desiredAngle > startAngle) {
+		// which way do we need to go?
+		if(desiredAngle > startingPigeonAngle) {
 			dir = Direction.LEFT;
 		}else{
 			dir = Direction.RIGHT;
@@ -35,27 +45,36 @@ public class PigeonAdjustVision2 extends Command {
 	}
 	protected void execute() {
 	
-		FusionStatus status = new FusionStatus();
-		RobotMap.pigeon.getFusedHeading(status);
-		
-		if(dir == Direction.RIGHT) {
-			Robot.mecanum.rotate(780);
-			
-		}else if(dir == Direction.LEFT) {
-			Robot.mecanum.rotate(-780);
-	
-		}
+		// where are we now?
+		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
+
+		/**
+		 * check to see if we are where we need to be before
+		 * we even move. we might be there.
+		 */
+		if(!isFinished()) {
+			/**
+			 * HARD CODED SPEEDS LEFT BEHIND FROM TINKERING. 
+			 * NEED TO DO THIS CORRECTLY WHEN WE FIGURE OUT PRECISION
+			 * THEN DELETE THIS COMMENT BLOCK
+			 */
+
+			if(dir == Direction.RIGHT) {
+				Robot.mecanum.rotate(780);
+				
+			}else if(dir == Direction.LEFT) {
+				Robot.mecanum.rotate(-780);
+			}
+		 }
 		
 		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}");
-		RobotMap.log(RobotMap.visionTableID, "currentAngle {" + RobotMap.pigeon.getFusedHeading() + "}");
+		RobotMap.log(RobotMap.visionTableID, "currentAngle {" + currentPigeonHeading + "}");
 		RobotMap.log(RobotMap.visionTableID, "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}");
-
-
 	}
 	
 	protected boolean isFinished(){
 		if(Robot.mecanum.getAverageSpeed() <= speedLimit &&
-				 Math.abs(this.desiredAngle-RobotMap.pigeon.getFusedHeading()) <= 1.2) {
+				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1.2) {
 			return true;
 		}
 		return false;
