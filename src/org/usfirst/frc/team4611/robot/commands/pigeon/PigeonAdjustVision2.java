@@ -10,7 +10,9 @@ public class PigeonAdjustVision2 extends Command {
 	private double desiredAngle;
 	private double startingPigeonAngle;
 	private double currentPigeonHeading;
+	private double errorAngle;
 	private double encoderSpeedAverage;
+	private double maxRPM = 780;
 	private double speedLimit = 100;
 
 	private double angleToBox;
@@ -47,6 +49,12 @@ public class PigeonAdjustVision2 extends Command {
 	
 		// where are we now?
 		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
+		
+		// how far do we have to go b4 we get to the target?
+		errorAngle = Math.abs(desiredAngle) - Math.abs(currentPigeonHeading);
+		double pVal = errorAngle * .04;
+		double speed = Math.min(maxRPM, maxRPM * pVal);
+
 
 		/**
 		 * check to see if we are where we need to be before
