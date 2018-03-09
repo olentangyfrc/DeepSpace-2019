@@ -134,6 +134,24 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());
 		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());
 		
+		autonCommandGroup.put("LLLRRR", new DriveForward()); 
+		autonCommandGroup.put("LLLRRL", new DriveForward());
+		autonCommandGroup.put("LLLRLR", new StartLeftScaleLeft()); 
+		autonCommandGroup.put("LLLRLL", new StartLeftScaleLeft()); 
+		autonCommandGroup.put("LLLLLL", new StartLeftScaleLeft()); //setting precedent of picking scale over switch
+		autonCommandGroup.put("LLLLLR", new StartLeftScaleLeft()); 
+		autonCommandGroup.put("LLLLRL", new StartLeftSwitchLeft()); 
+		autonCommandGroup.put("LLLLRR", new StartLeftSwitchLeft()); 
+		
+		autonCommandGroup.put("RRRRRR", new StartRightScaleRight()); 
+		autonCommandGroup.put("RRRRLR", new StartRightSwitchRight()); 
+		autonCommandGroup.put("RRRRRL", new StartRightScaleRight()); 
+		autonCommandGroup.put("RRRRLL", new StartRightSwitchRight()); 
+		autonCommandGroup.put("RRRLRR", new StartRightScaleRight());
+		autonCommandGroup.put("RRRLLR", new DriveForward()); 
+		autonCommandGroup.put("RRRLRL", new StartRightScaleRight()); 
+		autonCommandGroup.put("RRRLLL", new DriveForward()); 
+		
 		//Never go for scale in auton center
 		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
 			
