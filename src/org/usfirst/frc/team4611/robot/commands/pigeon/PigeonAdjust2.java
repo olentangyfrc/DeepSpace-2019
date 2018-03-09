@@ -13,11 +13,11 @@ public class PigeonAdjust2 extends Command {
 	private double errorAngle;
 	private double maxRPM = 780;
 	private double speedLimit = 100;
-
-	private double angleToBox;
+	private double angle;
 	private Direction dir;
 	 
-	public PigeonAdjust2() {
+	public PigeonAdjust2(double angle) {
+		this.angle = angle;
 		this.requires(Robot.mecanum);
 	}
 	
@@ -29,12 +29,11 @@ public class PigeonAdjust2 extends Command {
 		 * the angle we want to go is in the opposite direction from the angle the 
 		 * camera gives us
 		 */
-		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 
 		// desired angle is the difference between where we start and the angle to the box
-		desiredAngle = startingPigeonAngle - angleToBox;
+		desiredAngle = startingPigeonAngle - angle;
 
-		RobotMap.log(RobotMap.pigeonSubtable, "angleToBox [" + angleToBox
+		RobotMap.log(RobotMap.pigeonSubtable, "angle [" + angle
 					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
 	
 		// which way do we need to go?
