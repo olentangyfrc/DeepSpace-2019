@@ -13,14 +13,6 @@ public class VisionHorizontalDrive2 extends Command{
 	
 	public VisionHorizontalDrive2(){
     	requires(Robot.mecanum);
-    	
-    	try {
-    		StringBuffer b = null;
-    		b.toString();
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
 	}
 	
 	public void initialize() {
@@ -70,7 +62,7 @@ public class VisionHorizontalDrive2 extends Command{
 	}
 	
 	private boolean horizontalGood() {
-		if (Math.abs(horizontalDistance * converter) > Robot.mecanum.getAveragePosition()) {
+		if (Math.abs(horizontalDistance * converter) >= Robot.mecanum.getAveragePosition()) {
 			return false;
 		}
 		

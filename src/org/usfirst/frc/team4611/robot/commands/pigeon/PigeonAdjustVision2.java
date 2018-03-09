@@ -11,7 +11,6 @@ public class PigeonAdjustVision2 extends Command {
 	private double startingPigeonAngle;
 	private double currentPigeonHeading;
 	private double errorAngle;
-	private double encoderSpeedAverage;
 	private double maxRPM = 780;
 	private double speedLimit = 100;
 
