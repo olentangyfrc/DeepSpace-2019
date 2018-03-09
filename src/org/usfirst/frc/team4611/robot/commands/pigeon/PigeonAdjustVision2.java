@@ -52,7 +52,11 @@ public class PigeonAdjustVision2 extends Command {
 		
 		// how far do we have to go b4 we get to the target?
 		errorAngle = Math.abs(desiredAngle) - Math.abs(currentPigeonHeading);
+		
+		// how do we respond to that error?
 		double pVal = errorAngle * .04;
+		
+		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
 
 
@@ -68,10 +72,10 @@ public class PigeonAdjustVision2 extends Command {
 			 */
 
 			if(dir == Direction.RIGHT) {
-				Robot.mecanum.rotate(780);
+				Robot.mecanum.rotate(speed);
 				
 			}else if(dir == Direction.LEFT) {
-				Robot.mecanum.rotate(-780);
+				Robot.mecanum.rotate(-speed);
 			}
 		 }
 		
