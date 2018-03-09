@@ -23,10 +23,8 @@ public class VisionVerticalDrive2 extends Command{
     	Robot.mecanum.resetRampRate();
 	}
 	
-	public void execute(){
-		
-		Robot.mecanum.motionMagicStraight(verticalDistance * converter);
-		
+	public void execute(){	
+		Robot.mecanum.motionMagicStraight(verticalDistance * converter);	
 	}
 	
 	protected boolean isFinished() {
