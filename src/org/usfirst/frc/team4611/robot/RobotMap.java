@@ -1,11 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
-import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -17,7 +13,6 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 /**
@@ -81,7 +76,6 @@ public class RobotMap {
 	public static final String networkTableID = "Custom Values";
 	public static final String visionTableID = "Vision";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
-	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
 	public static final long systemStartupTime = System.currentTimeMillis();
 	
 	//Constants

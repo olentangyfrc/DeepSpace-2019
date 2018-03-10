@@ -11,11 +11,10 @@ public class FileManager {
 			
 	public FileManager(String folderName, String masterName) {
 		try {
-			File folder = new File("/media/sda1/Logs/" + masterName + "/");
+			File folder = new File("/media/sda1/RobotLogs/");
  			folder.mkdirs();
- 			System.out.println(folder.getFreeSpace());
-			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
-			System.out.println("Found usb");
+ 			
+			masterWrite = new FileWriter(new File("/media/sda1/RobotLogs/" + masterName + ".txt"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

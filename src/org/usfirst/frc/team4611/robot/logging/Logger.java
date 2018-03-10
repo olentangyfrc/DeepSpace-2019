@@ -27,7 +27,11 @@ public class Logger {
 		int hour = Calendar.getInstance().get(Calendar.HOUR)+1;
 		int minute = Calendar.getInstance().get(Calendar.MINUTE);
 		int ampm = Calendar.getInstance().get(Calendar.MILLISECOND);
-		fileManager = new FileManager(name, month + "-" + date + "-2018" + "-" + format.format(hour) + "-" + format.format(minute) + "-" + (ampm == Calendar.AM ? "AM" : "PM"));
+		fileManager = new FileManager(name, month + "-"
+						+ date + "-2018" + "-"
+						+ format.format(hour)
+						+ "-" + format.format(minute)
+						+ "-" + (ampm == Calendar.AM ? "AM" : "PM"));
 				
 		//Logs to the console that the logger is ready to go!!!
 		log("Logger Enabled", "console");
@@ -53,7 +57,7 @@ public class Logger {
 			if (category == null || category.equals("console") || fileManager == null) {
 				System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + category + "]:" + message);
 			} else {
-				fileManager.write("[" + timestamp + "][" + category + "]:" + message);
+				fileManager.write("[" + timestamp + "][" + category + "]" + message);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
