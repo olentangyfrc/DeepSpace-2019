@@ -272,15 +272,15 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		int magicValues = 1872;
-		driveTrainFL_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainFR_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainBL_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainBR_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(magicValues, 0);
+		int magicValuesAccel = 2000;
+		driveTrainFL_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainFR_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainBL_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainBR_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
 			
 		//Startup Sensorphase Values
 		driveTrainFL_Talon.setSensorPhase(true);
