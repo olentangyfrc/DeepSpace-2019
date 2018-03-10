@@ -26,7 +26,7 @@ public class PushBox extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		double remainingTime =Timer.getFPGATimestamp() - initialTime;  
+		double remainingTime = Timer.getFPGATimestamp() - initialTime;  
 		return remainingTime > actualTime;
 	}
 

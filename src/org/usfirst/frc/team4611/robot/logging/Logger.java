@@ -16,7 +16,7 @@ public class Logger {
 	/**
 	 * Instantiates a basic logger, creating the LoggerTypes specific to the status of a logger,
 	 * and logs if instantiated correctly
-	 * @author Ben Hilger
+	 * 
 	 */
 	public static void init(String name){
 		
@@ -45,7 +45,6 @@ public class Logger {
 	 * Parameters:
 	 * @param - message The message that is going to the printed to the console
 	 * @param - type The type of log, used to decided if it's allowed to be displayed, and what tag it gets when printed 
-	 * @author Ben Hilger
 	 */
 	public static void log(String message, String category) {
 		//Gets the time that  function was called (format determined by status variable)
@@ -78,7 +77,7 @@ public class Logger {
 	 * Used to get the timestamp of a log. Compares the time from the constant systemStartup time (located in RobotMap)
 	 * 	to the current calendar time, getting the difference between them
 	 * @return Returns the time that a certain log was called from the start of the program
-	 * @author Ben Hilger
+	 * Ws
 	 */
 	public static String getTimeLogged() {
 		

@@ -48,7 +48,7 @@ public class MecanumDrive extends Command{
 		Robot.mecanum.setRampRate(0);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
-		Logger.log("velocities {"+ velocity1 +", " + velocity2 + ", " + velocity3 + ", " + velocity4 + "}", this.getClass().getName() + ".capturedVelocities");
+		//Logger.log("velocities {"+ velocity1 +", " + velocity2 + ", " + velocity3 + ", " + velocity4 + "}", this.getClass().getName() + ".capturedVelocities");
 		
 	}
 	@Override

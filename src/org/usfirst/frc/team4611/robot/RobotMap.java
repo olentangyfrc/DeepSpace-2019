@@ -175,6 +175,7 @@ public class RobotMap {
 	public static String climberSpeed = "Climber Speed";
 	public static String targetKey = "Target";
 	public static String sideKey = "Position";
+	public static String converterID = "Converter";
 	
 	public static DefaultValues defaults;
 
@@ -329,6 +330,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 4);
+		
 		RobotMap.setupTalon();
 		}	
 	
