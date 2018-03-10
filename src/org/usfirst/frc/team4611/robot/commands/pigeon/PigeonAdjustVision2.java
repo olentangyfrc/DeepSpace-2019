@@ -12,7 +12,7 @@ public class PigeonAdjustVision2 extends Command {
 	private double currentPigeonHeading;
 	private double errorAngle;
 	private double maxRPM = 1500;
-	private double speedLimit = 100;
+	private double speedLimit = 800;
 	private boolean speedLimitReached = false;
 
 	private double angleToBox;
@@ -20,10 +20,18 @@ public class PigeonAdjustVision2 extends Command {
 	 
 	public PigeonAdjustVision2() {
 		this.requires(Robot.mecanum);
+		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust constructor");
+		try {
+			StringBuffer b = null;
+			b.toString();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void initialize() {
-
+		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust init");
 		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
 
 		/**
@@ -33,7 +41,7 @@ public class PigeonAdjustVision2 extends Command {
 		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 
 		// desired angle is the difference between where we start and the angle to the box
-		desiredAngle = Math.abs(startingPigeonAngle - angleToBox);
+		desiredAngle = startingPigeonAngle - angleToBox;
 
 		RobotMap.log(RobotMap.pigeonSubtable, "angleToBox [" + angleToBox
 					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
@@ -46,7 +54,7 @@ public class PigeonAdjustVision2 extends Command {
 		}
 	}
 	protected void execute() {
-		
+		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust execute");
 		// where are we now?
 		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
 		
@@ -91,7 +99,7 @@ public class PigeonAdjustVision2 extends Command {
 	
 	protected boolean isFinished(){
 		if(//speedLimitReached &&
-				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
+				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1.5) {
 			return true;
 		}
 		return false;

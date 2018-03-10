@@ -17,7 +17,7 @@ public class VisionHorizontalDrive2 extends Command{
 	
 	public void initialize() {
 		horizontalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID);
-		angle = (double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		angle = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 		Robot.mecanum.resetEncoders();
     	Robot.mecanum.config_kP(1);
     	Robot.mecanum.resetRampRate();
@@ -30,7 +30,9 @@ public class VisionHorizontalDrive2 extends Command{
 		Robot.mecanum.logPosition();
 		RobotMap.log(RobotMap.visionTableID, "Position Unit Target {" + horizontalDistance * converter + "}");
 		RobotMap.log(RobotMap.visionTableID, "Average Position {" + Robot.mecanum.getAveragePosition() + "}");*/
-
+		
+		RobotMap.log(RobotMap.visionTableID," Horizontal good method [" + horizontalGood() + "]" + " Average Position [" + Robot.mecanum.getAveragePosition() + "]" + 
+				" Distance times converter [" + (horizontalDistance * converter) +"] " + " Average Speed: [" + Robot.mecanum.getAverageSpeed() + "]");
 		if(angle > 0) {
 			Robot.mecanum.motionMagicStrafe(-horizontalDistance * converter);
 		}
@@ -62,12 +64,12 @@ public class VisionHorizontalDrive2 extends Command{
 	}
 	
 	private boolean horizontalGood() {
-		if (Math.abs(horizontalDistance * converter) >= Robot.mecanum.getAveragePosition()) {
-			return false;
+		if ((horizontalDistance * converter) - 200 >= Robot.mecanum.getAveragePosition()) {
+			return true;
 		}
 		
 		else {
-			return true;
+			return false;
 		}
 	}
 	

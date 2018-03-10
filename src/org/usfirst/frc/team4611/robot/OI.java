@@ -90,7 +90,7 @@ public class OI {
 		//Movement Buttons
 		autoGrabBox = new JoystickButton(auxJoy, 11);
 		aimBox = new JoystickButton(auxJoy, 10);
-		aimBox2 = new JoystickButton(leftJoy, 8);
+		aimBox2 = new JoystickButton(leftJoy, 3);
 		
 		//LA Buttons
 		linearActuatorUp = new JoystickButton(rightJoy, 3);
