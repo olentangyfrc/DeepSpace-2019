@@ -11,7 +11,7 @@ public class PigeonAdjust2 extends Command {
 	private double startingPigeonAngle;
 	private double currentPigeonHeading;
 	private double errorAngle;
-	private double maxRPM = 780;
+	private double maxRPM = 1500;
 	private double speedLimit = 100;
 	private double angle;
 	private Direction dir;
@@ -24,11 +24,6 @@ public class PigeonAdjust2 extends Command {
 	protected void initialize() {
 
 		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
-
-		/**
-		 * the angle we want to go is in the opposite direction from the angle the 
-		 * camera gives us
-		 */
 
 		// desired angle is the difference between where we start and the angle to the box
 		desiredAngle = startingPigeonAngle - angle;
@@ -49,10 +44,10 @@ public class PigeonAdjust2 extends Command {
 		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
 		
 		// how far do we have to go b4 we get to the target?
-		errorAngle = Math.abs(desiredAngle) - Math.abs(currentPigeonHeading);
+		errorAngle = Math.abs(desiredAngle - currentPigeonHeading);
 		
 		// how do we respond to that error?
-		double pVal = errorAngle * .04;
+		double pVal = errorAngle * .1;
 		
 		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
@@ -76,15 +71,10 @@ public class PigeonAdjust2 extends Command {
 				Robot.mecanum.rotate(-speed);
 			}
 		 }
-		
-		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}");
-		RobotMap.log(RobotMap.visionTableID, "currentAngle {" + currentPigeonHeading + "}");
-		RobotMap.log(RobotMap.visionTableID, "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}");
 	}
 	
 	protected boolean isFinished(){
-		if(Robot.mecanum.getAverageSpeed() <= speedLimit &&
-				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1.2) {
+		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}
 		return false;

@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleRight;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -151,6 +152,7 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("RRRLLR", new DriveForward()); 
 		autonCommandGroup.put("RRRLRL", new StartRightScaleRight()); 
 		autonCommandGroup.put("RRRLLL", new DriveForward()); 
+		autonCommandGroup.put("TTRRR", new TestBlock());
 		
 		//Never go for scale in auton center
 		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
