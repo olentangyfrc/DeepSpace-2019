@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class FindBox extends CommandGroup {
 
 	public FindBox() {
+		Logger
 		//addSequential(new StopAndRepositionTalons());
 		//addSequential(new VisionHorizontalDrive2());
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjustVision2());
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjustVision2());
 	}
 }
