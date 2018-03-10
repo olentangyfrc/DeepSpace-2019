@@ -55,7 +55,7 @@ public class ReplayStrafe extends Command {
 		
 		for (int i = 0; i < howMuchToReplay; i++) {
 			velocities	= replay[i];
-			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[4]);			
+			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);			
 		}
 		
 	}
