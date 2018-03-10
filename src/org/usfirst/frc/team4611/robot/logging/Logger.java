@@ -10,11 +10,8 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Logger {
-
-	private static ArrayList<LoggerType> onlyShow = new ArrayList<LoggerType>();
-	private static boolean OnlyViewSpecifics = false;
 		
-	private static FileManager man;
+	private static FileManager fileManager;
 		
 	/**
 	 * Instantiates a basic logger, creating the LoggerTypes specific to the status of a logger,
@@ -22,9 +19,6 @@ public class Logger {
 	 * @author Ben Hilger
 	 */
 	public static void init(String name){
-		//Creates logger-specific LoggerTypes
-		addNewLoggerType("Logger-Status");
-		addNewLoggerType("Logger-ShowOnly");
 		
 		DecimalFormat format = new DecimalFormat("00");
 		int date = Calendar.getInstance().get(Calendar.DATE);
@@ -33,10 +27,10 @@ public class Logger {
 		int hour = Calendar.getInstance().get(Calendar.HOUR)+1;
 		int minute = Calendar.getInstance().get(Calendar.MINUTE);
 		int ampm = Calendar.getInstance().get(Calendar.MILLISECOND);
-		man = new FileManager(name, month + "-" + date + "-2018" + "-" + format.format(hour) + "-" + format.format(minute) + "-" + (ampm == Calendar.AM ? "AM" : "PM"));
+		fileManager = new FileManager(name, month + "-" + date + "-2018" + "-" + format.format(hour) + "-" + format.format(minute) + "-" + (ampm == Calendar.AM ? "AM" : "PM"));
 				
 		//Logs to the console that the logger is ready to go!!!
-		log("Logger Enabled", Logger.getLoggerType("Logger-Status"));
+		log("Logger Enabled", "console");
 	}
 	
 	/** 
@@ -49,33 +43,32 @@ public class Logger {
 	 * @param - type The type of log, used to decided if it's allowed to be displayed, and what tag it gets when printed 
 	 * @author Ben Hilger
 	 */
-	public static void log(String message, LoggerType type) {
+	public static void log(String message, String category) {
 		//Gets the time that  function was called (format determined by status variable)
 		String timestamp = getTimeLogged();
-		System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
+		
 
-		//Checks to see if only specific LoggerTypes should be printed to the console
-		if(OnlyViewSpecifics) {		
-			//Checks if the given LoggerType is within the onlyShaw arraylist
-			for(int i = 0; i < onlyShow.size(); i++) {
-				if(onlyShow.get(i).getName().equals(type.getName())) {
-					//If it's within the onlyShow arraylist, it prints to the console in a set format (explained in documentation above  function)
-					System.out.println("[" + timestamp + "]"  + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
-					man.write("[" + timestamp + "][" + type + "]:" + message);
-				}
+		try {
+			// print to console if caller is lazy or specifies console or  
+			if (category == null || category.equals("console") || fileManager == null) {
+				System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + category + "]:" + message);
+			} else {
+				fileManager.write("[" + timestamp + "][" + category + "]:" + message);
 			}
-			
-		}else {
-			//If the logger is allowed to print any LoggerType, it prints it in a set format (explained in documentation above  function)
-			System.out.println("[" + timestamp + "]" + "[" + getRealTimeCreated() + "]" + "[" + type + "]:" + message);
-			
-			try{
-				man.write("[" + timestamp + "][" + type + "]:" + message);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
 	}
+	
+	/**
+	 * convenience log() just forwards to more specific log(()
+	 * should be used instead of System.out.print() variations
+	 * 
+	 */
+	public static void log(String message) {
+		Logger.log(message, "console");
+	}
+
 	
 	/**
 	 * Used to get the timestamp of a log. Compares the time from the constant systemStartup time (located in RobotMap)
@@ -140,82 +133,12 @@ public class Logger {
 		timestamp = (hours != 0 ? formatter.format(hours) + ":" : "") + formatter.format(minutes) + ":" + formatter.format(seconds) + "." + formatter.format(milliseconds);
 		return timestamp;
 	}
-	/** 
-	 * Adds a new LoggerType, allowing for more specific and varying outputs depending on the
-	 * application of  program. Allows easy access for more specific targeting of certain outputs
-	 * with the onlyShowCertainLogTypes() method
-	 * @param withName: "Identifier/Name" of the new logger type. Used when referencing  specific
-	 * log type
-	 * 
-	 */
-	public static void addNewLoggerType(String withName) {
-		//Instantiates a new LoggerType with the given name
-		LoggerType type = new LoggerType(withName);
-		
-		//Adds the new LoggerType to the main array for future reference by the Logger.getLoggerType() method
-		RobotMap.loggerTypes.add(type);
-	}
-	
-	/**
-	 * Fills the onlyShow arraylist with the specific LoggerTypes in the parameter. It then will then
-	 * only allow those LoggerTypes to be printed. Recommended use for specific debugging purposes.
-	 * IMPORTANT: Automatically sets OnlyViewSpecifics to true, use the showAll() method to undo .
-	 * @param types: The LoggerTypes that you only want displayed
-	 * @author Ben Hilger
-	 *
-	 */
-	public static void onlyShowCertainLogTypes(LoggerType[] types) {
-		//Resets the onlyShow array so unwanted types are ensured to be removed
-		onlyShow = new ArrayList<LoggerType>();
-		
-		//Goes through the given array, and adds each one to the onlyShow array
-		for(int i = 0; i < types.length; i++) {
-			onlyShow.add(types[i]);
-		}
-		
-		//Ensures that the logger-specific types always get printed
-		onlyShow.add(Logger.getLoggerType("Logger-ShowOnly"));
-		onlyShow.add(Logger.getLoggerType("Logger-Status"));
-		
-		//Sets the OnlyViewSpecifics boolean to true so the log function knows to only show the ones added to the onShow arraylist
-		OnlyViewSpecifics = true;
-		
-		//Logs to the console that it's only showing the specific LoggerTypes
-		log("Only showing LoggerTypes with names: " + Arrays.toString(types), Logger.getLoggerType("Logger-ShowOnly"));
-	}
-	
-	/**
-	 * Changes the OnlyViewSpecifics value to false. Allows for any LoggerTypes to be printed
-	 * @author Ben Hilger
-	 */
-	public void showAll() {
-		OnlyViewSpecifics = false;
-		
-		//Logs to the console that it's showing all LoggerTypes
-		log("Showing all LoggerTypes", Logger.getLoggerType("Logger-ShowOnly"));
-	}
-	
-	
-	
-	/**
-	 * @param withName The "Identifier/Name" that set in the addNewLoggerType(withName) parameter
-	 * @return The LoggerType class that hold's the information ("Identifier/Name") necessary for output
-	 */
-	public static LoggerType getLoggerType(String withName) {
-		for(int i = 0; i < RobotMap.loggerTypes.size(); i++) {
-			if(RobotMap.loggerTypes.get(i).getName().equals(withName)) {
-				return RobotMap.loggerTypes.get(i);
-			}
-		}
-		Logger.addNewLoggerType(withName);
-		return Logger.getLoggerType(withName);
-	}
-	
+
 	/**
 	 * Called when the robot is disabled, writes everything that was logged to the Rio
 	 */
 	public static void robotDisabled() {
-		man.robotDisabled();
+		fileManager.commit();
 	}
 	
 }

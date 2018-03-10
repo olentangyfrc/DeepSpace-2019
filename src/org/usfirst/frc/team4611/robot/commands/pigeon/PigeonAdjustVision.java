@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.commands.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
@@ -12,7 +13,7 @@ public class PigeonAdjustVision extends Command {
 	private double desiredAngle;
 	private double startAngle;
 
-	private double da;
+	private double angleToBox;
 	private Direction dir;
 	 
 	public PigeonAdjustVision() {
@@ -20,9 +21,10 @@ public class PigeonAdjustVision extends Command {
 	
 	protected void initialize() {
 		startAngle = RobotMap.pigeon.getFusedHeading();
-		da = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
-		RobotMap.log(RobotMap.pigeonSubtable, "" + da);
-		this.desiredAngle = startAngle-da;
+		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		
+		Logger.log("angleToBox [" + angleToBox + "]", this.getClass().getName());
+		this.desiredAngle = startAngle-angleToBox;
 	
 		if(desiredAngle > startAngle) {
 			dir = Direction.LEFT;
@@ -34,8 +36,10 @@ public class PigeonAdjustVision extends Command {
 	
 		FusionStatus status = new FusionStatus();
 		RobotMap.pigeon.getFusedHeading(status);
-		System.out.print("Desired Angle:" + desiredAngle);
-		System.out.println(" Current Angle:" + status.heading);
+		
+		Logger.log("Desired Angle [" + desiredAngle + "]", this.getClass().getName());
+		Logger.log("Current Angle [" + status.heading + "]", this.getClass().getName());
+
 		
 		if(dir == Direction.RIGHT) {
 			Robot.mecanum.rotate(Math.min(1040, 1040 * Math.abs(desiredAngle-status.heading)/5));

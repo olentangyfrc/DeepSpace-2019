@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust2;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
@@ -34,6 +35,6 @@ public class StartRightScaleLeft extends CommandGroup {
 		addSequential(new PushBox());
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.autonSubTable, "SRSL initialized");
+		Logger.log("initialized", this.getClass().getName());
 	}
 }

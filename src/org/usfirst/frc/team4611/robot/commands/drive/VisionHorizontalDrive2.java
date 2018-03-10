@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,6 +11,7 @@ public class VisionHorizontalDrive2 extends Command{
 	double horizontalDistance;
 	double angle;
 	public double converter = 206.243 * 2;
+	private double horizontalThreshhold = 200.0;
 	
 	public VisionHorizontalDrive2(){
     	requires(Robot.mecanum);
@@ -31,8 +33,13 @@ public class VisionHorizontalDrive2 extends Command{
 		RobotMap.log(RobotMap.visionTableID, "Position Unit Target {" + horizontalDistance * converter + "}");
 		RobotMap.log(RobotMap.visionTableID, "Average Position {" + Robot.mecanum.getAveragePosition() + "}");*/
 		
-		RobotMap.log(RobotMap.visionTableID," Horizontal good method [" + horizontalGood() + "]" + " Average Position [" + Robot.mecanum.getAveragePosition() + "]" + 
-				" Distance times converter [" + (horizontalDistance * converter) +"] " + " Average Speed: [" + Robot.mecanum.getAverageSpeed() + "]");
+		Logger.log(" H Dist [" + horizontalDistance +"] "
+				+ " Converter [" + converter +"] "
+				+ " HDist*converter [" + (horizontalDistance * converter) +"] "
+				+ " H Thresh [" + horizontalThreshhold +"] "
+				+ " Avg Position [" + Robot.mecanum.getAveragePosition() + "]"
+				+ " Avg Speed: [" + Robot.mecanum.getAverageSpeed() + "]", this.getClass().getName());
+		
 		if(angle > 0) {
 			Robot.mecanum.motionMagicStrafe(-horizontalDistance * converter);
 		}
@@ -46,7 +53,7 @@ public class VisionHorizontalDrive2 extends Command{
 	protected boolean isFinished() {
 		
     	if(horizontalGood()) {
-    		RobotMap.log(RobotMap.visionTableID, "VisionHorizontalDrive2 isFinished returning true");
+    		Logger.log("VisionHorizontalDrive2 isFinished returning true", this.getClass().getName());
         	return true;
     	}
         else {
@@ -54,21 +61,10 @@ public class VisionHorizontalDrive2 extends Command{
         }	
     }
 	
-	private boolean angleGood() {
-		if (Math.abs(angle) < 3) {
-			return true;
-		}
-		
-		else 
-			return false;
-	}
-	
 	private boolean horizontalGood() {
-		if ((horizontalDistance * converter) - 200 >= Robot.mecanum.getAveragePosition()) {
+		if ((horizontalDistance * converter) - horizontalThreshhold >= Robot.mecanum.getAveragePosition()) {
 			return true;
-		}
-		
-		else {
+		} else {
 			return false;
 		}
 	}

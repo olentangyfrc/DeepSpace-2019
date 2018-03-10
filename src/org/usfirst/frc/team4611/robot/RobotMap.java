@@ -194,12 +194,6 @@ public class RobotMap {
 	public static PigeonIMU pigeon;
 
 	public static void init() {
-		
-		//Drive Train Victors
-		driveTrainFL = new Victor(VICTOR_FL_PORT);
-		driveTrainFR = new Victor(VICTOR_FR_PORT);
-		driveTrainBL = new Victor(VICTOR_BL_PORT);
-		driveTrainBR = new Victor(VICTOR_BR_PORT);
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
@@ -340,26 +334,13 @@ public class RobotMap {
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
-		//Which type of drive train do you have?
-		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			setupVictor();
-		}else{
-			RobotMap.setupTalon();
-		}
-	}	
+
+		RobotMap.setupTalon();
+		}	
 	
-	//Setup Victor DriveTrain
-	public static void setupVictor() {
-		stopTalon();
-		RobotMap.log(RobotMap.switcherSubTable, "Setting up victor");
-		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
-		driveTrain.setSafetyEnabled(false);
-	}
 
 	//Setup Talon DriveTrain
 	public static void setupTalon() {
-		stopVictor();
-		RobotMap.log(RobotMap.switcherSubTable, "Setting up talons");
 		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
 		driveTrain.setSafetyEnabled(false);
 	}
@@ -433,9 +414,5 @@ public class RobotMap {
 		Object obj  = RobotMap.networkManager.getValue(subtable, key);
 		
 		return obj;
-	}
-
-	public static void log(String subTable, String message) {
-		Logger.log(message, Logger.getLoggerType(subTable));
 	}
 }

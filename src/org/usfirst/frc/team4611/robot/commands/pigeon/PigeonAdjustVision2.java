@@ -2,6 +2,8 @@ package org.usfirst.frc.team4611.robot.commands.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
+
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,18 +22,10 @@ public class PigeonAdjustVision2 extends Command {
 	 
 	public PigeonAdjustVision2() {
 		this.requires(Robot.mecanum);
-		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust constructor");
-		try {
-			StringBuffer b = null;
-			b.toString();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	protected void initialize() {
-		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust init");
+		Logger.log("init", this.getClass().getName());
 		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
 
 		/**
@@ -43,8 +37,8 @@ public class PigeonAdjustVision2 extends Command {
 		// desired angle is the difference between where we start and the angle to the box
 		desiredAngle = startingPigeonAngle - angleToBox;
 
-		RobotMap.log(RobotMap.pigeonSubtable, "angleToBox [" + angleToBox
-					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
+		Logger.log("angleToBox [" + angleToBox
+					+ "] startingPigeonAngle [" + startingPigeonAngle + "]", this.getClass().getName());
 	
 		// which way do we need to go?
 		if(desiredAngle > startingPigeonAngle) {
@@ -54,7 +48,6 @@ public class PigeonAdjustVision2 extends Command {
 		}
 	}
 	protected void execute() {
-		RobotMap.log(RobotMap.pigeonSubtable, "In pigeon adjust execute");
 		// where are we now?
 		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
 		
@@ -91,10 +84,10 @@ public class PigeonAdjustVision2 extends Command {
 			speedLimitReached = true;
 		}
 		
-		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}" 
-		+ "currentAngle {" + currentPigeonHeading + "}"
-		+ "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}"
-		+ "Target Speed {" + speed + "}");
+		Logger.log("desiredAngle {" + desiredAngle + "}" 
+			+ "currentAngle {" + currentPigeonHeading + "}"
+			+ "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}"
+			+ "Target Speed {" + speed + "}", this.getClass().getName());
 	}
 	
 	protected boolean isFinished(){

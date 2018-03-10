@@ -210,7 +210,6 @@ public class Robot extends IterativeRobot {
 			key = "DRIVEFORWARD";
 		}
 		
-		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
 		String closeSwitch = c.substring(0, 1);
 		String scale = c.substring(1, 2);
 		String farSwitch = c.substring(2, 3);
@@ -238,7 +237,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		autonomousCommand = this.autonCommandGroup.get(key);
-		RobotMap.log(RobotMap.autonSubTable, "["  + a + "] [" + b + "] [" + c + "] [" + key + "]");
+		Logger.log("["  + a + "] [" + b + "] [" + c + "] [" + key + "]", this.getClass().getName());
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -248,7 +247,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 		}
 		
-		RobotMap.log(RobotMap.autonSubTable, "Auton Final Decision is: "+autonFinalDecision);
+		Logger.log("Auton Final Decision [ "+autonFinalDecision + "]", this.getClass().getName());
 	}
 
 	/**
@@ -269,20 +268,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
 		
-		//Checks to see if the driver has updated the switch for which motors are being used
-		if((boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			//If it's true, it starts talon setup
-			RobotMap.setupTalon();
-		}else if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			//If it's false, it starts victor setup
-			RobotMap.setupVictor();
-		}
-		
-		if(!this.hasInitialized){
-			Logger.init("Logs");
-			this.hasInitialized = true;
-		}
-		Logger.init("Logs");
+		RobotMap.setupTalon();
 	}
 
 	/**

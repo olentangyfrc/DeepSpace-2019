@@ -2,6 +2,8 @@ package org.usfirst.frc.team4611.robot.commands.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
+
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,8 +30,8 @@ public class PigeonAdjust2 extends Command {
 		// desired angle is the difference between where we start and the angle to the box
 		desiredAngle = startingPigeonAngle - angle;
 
-		RobotMap.log(RobotMap.pigeonSubtable, "angle [" + angle
-					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
+		Logger.log("angle [" + angle
+					+ "] startingPigeonAngle [" + startingPigeonAngle + "]", this.getClass().getName());
 	
 		// which way do we need to go?
 		if(desiredAngle > startingPigeonAngle) {

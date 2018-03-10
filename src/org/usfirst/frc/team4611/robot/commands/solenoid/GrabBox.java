@@ -24,7 +24,6 @@ public class GrabBox extends Command{
 	}
 	
 	protected void end() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done extending solenoid" );
 	}
 	
 	protected void interrupted(){

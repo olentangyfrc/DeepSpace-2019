@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class FindBox extends CommandGroup {
 
 	public FindBox() {
-		RobotMap.log(RobotMap.pigeonSubtable, "In find box");
 		//addSequential(new StopAndRepositionTalons());
 		//addSequential(new VisionHorizontalDrive2());
 		addSequential(new StopAndRepositionTalons());
