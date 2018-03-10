@@ -1,8 +1,9 @@
 package org.usfirst.frc.team4611.robot.commands.drive;
 
+import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
-import org.usfirst.frc.team4611.robot.commands.SwitchableCommand;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,22 +16,17 @@ public class MecanumDrive extends Command{
 	int maxRPM = (int)(double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.maxRPMID);
 	
 	public MecanumDrive(){
-		this.requires(Robot.mecanum); //This command uses this subsystem
+		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
-		/*RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert1" , velocityInvert1);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert2" , velocityInvert2);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert3" , velocityInvert3);
-		RobotMap.updateValue(RobotMap.mecanumSubTable, "velocityInvert4" , velocityInvert4);*/
 	}
 	
 	@Override
 	protected void execute() {
-		double YVal = -Robot.oi.filter(Robot.oi.leftJoy.getY()); //Grab the Y value of the joystick and pass 
-		double XVal = Robot.oi.strafeFilter(Robot.oi.leftJoy.getX());//it through the filter
-		double ZVal = Robot.oi.rotateFilter(Robot.oi.rightJoy.getX());
-		//RobotMap.log(RobotMap.joyStickSubTable, "J0 Y, J0 X, J1 Y(Z): "+ YVal+", "+XVal+", "+ZVal);
+		double YVal = -Robot.oi.filter(OI.leftJoy.getY()); 
+		double XVal = Robot.oi.strafeFilter(OI.leftJoy.getX());
+		double ZVal = Robot.oi.rotateFilter(OI.rightJoy.getX());
 		double velocity1;
 		double velocity2;
 		double velocity3;
@@ -51,7 +47,8 @@ public class MecanumDrive extends Command{
 
 		Robot.mecanum.setRampRate(0);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
-		//RobotMap.log(RobotMap.mecanumSubTable, "Drive Train Motor Power: "+ velocity1+", "+velocity2+", "+velocity3+", "+velocity4);
+		
+		Logger.log("velocities {"+ velocity1 +", " + velocity2 + ", " + velocity3 + ", " + velocity4 + "}", this.getClass().getName() + ".capturedVelocities");
 		
 	}
 	@Override
