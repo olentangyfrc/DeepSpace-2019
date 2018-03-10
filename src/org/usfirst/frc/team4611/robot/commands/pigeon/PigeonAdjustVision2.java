@@ -11,8 +11,9 @@ public class PigeonAdjustVision2 extends Command {
 	private double startingPigeonAngle;
 	private double currentPigeonHeading;
 	private double errorAngle;
-	private double maxRPM = 780;
+	private double maxRPM = 1500;
 	private double speedLimit = 100;
+	private boolean speedLimitReached = false;
 
 	private double angleToBox;
 	private Direction dir;
@@ -32,7 +33,7 @@ public class PigeonAdjustVision2 extends Command {
 		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 
 		// desired angle is the difference between where we start and the angle to the box
-		desiredAngle = startingPigeonAngle - angleToBox;
+		desiredAngle = Math.abs(startingPigeonAngle - angleToBox);
 
 		RobotMap.log(RobotMap.pigeonSubtable, "angleToBox [" + angleToBox
 					+ "] startingPigeonAngle [" + startingPigeonAngle + "]");
@@ -45,15 +46,15 @@ public class PigeonAdjustVision2 extends Command {
 		}
 	}
 	protected void execute() {
-	
+		
 		// where are we now?
 		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
 		
 		// how far do we have to go b4 we get to the target?
-		errorAngle = Math.abs(desiredAngle) - Math.abs(currentPigeonHeading);
+		errorAngle = Math.abs(desiredAngle - currentPigeonHeading);
 		
 		// how do we respond to that error?
-		double pVal = errorAngle * .04;
+		double pVal = errorAngle * .1;
 		
 		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
@@ -78,14 +79,19 @@ public class PigeonAdjustVision2 extends Command {
 			}
 		 }
 		
-		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}");
-		RobotMap.log(RobotMap.visionTableID, "currentAngle {" + currentPigeonHeading + "}");
-		RobotMap.log(RobotMap.visionTableID, "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}");
+		if(Robot.mecanum.getAverageSpeed() <= speedLimit) {
+			speedLimitReached = true;
+		}
+		
+		RobotMap.log(RobotMap.visionTableID, "desiredAngle {" + desiredAngle + "}" 
+		+ "currentAngle {" + currentPigeonHeading + "}"
+		+ "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}"
+		+ "Target Speed {" + speed + "}");
 	}
 	
 	protected boolean isFinished(){
-		if(Robot.mecanum.getAverageSpeed() <= speedLimit &&
-				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1.2) {
+		if(//speedLimitReached &&
+				 Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}
 		return false;
