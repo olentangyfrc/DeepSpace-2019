@@ -140,7 +140,7 @@ public class Logger {
 	/**
 	 * Called when the robot is disabled, writes everything that was logged to the Rio
 	 */
-	public static void robotDisabled() {
+	public static void commit() {
 		fileManager.commit();
 	}
 	
