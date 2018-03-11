@@ -32,10 +32,10 @@ public class PigeonAdjustVision2 extends Command {
 		 * the angle we want to go is in the opposite direction from the angle the 
 		 * camera gives us
 		 */
-		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		angleToBox = (double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 
 		// desired angle is the difference between where we start and the angle to the box
-		desiredAngle = startingPigeonAngle - angleToBox;
+		desiredAngle = angleToBox-startingPigeonAngle;
 
 		Logger.log("angleToBox [" + angleToBox
 					+ "] startingPigeonAngle [" + startingPigeonAngle + "]", this.getClass().getName());
@@ -60,18 +60,11 @@ public class PigeonAdjustVision2 extends Command {
 		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
 
-
 		/**
 		 * check to see if we are where we need to be before
 		 * we even move. we might be there.
 		 */
 		if(!isFinished()) {
-			/**
-			 * HARD CODED SPEEDS LEFT BEHIND FROM TINKERING. 
-			 * NEED TO DO THIS CORRECTLY WHEN WE FIGURE OUT PRECISION
-			 * THEN DELETE THIS COMMENT BLOCK
-			 */
-
 			if(dir == Direction.RIGHT) {
 				Robot.mecanum.rotate(speed);
 				

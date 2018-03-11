@@ -10,7 +10,7 @@ public class VisionVerticalDrive2 extends Command{
 	
 	double verticalDistance;
 	double angle;
-	public double converter = 206.243 * 2;
+	public double converter = 206.243;
 	
 	public VisionVerticalDrive2(){
     	requires(Robot.mecanum);
