@@ -262,14 +262,15 @@ public class RobotMap {
 		
 		//Startup Motion Magic Values
 		int magicValuesAccel = 2000;
+		int motionmagicCruiseVelocity = 2000;
 		driveTrainFL_Talon.configMotionAcceleration(magicValuesAccel, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 		driveTrainFR_Talon.configMotionAcceleration(magicValuesAccel, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 		driveTrainBL_Talon.configMotionAcceleration(magicValuesAccel, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 		driveTrainBR_Talon.configMotionAcceleration(magicValuesAccel, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(magicValuesAccel, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 			
 		//Startup Sensorphase Values
 		driveTrainFL_Talon.setSensorPhase(true);
@@ -314,6 +315,7 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
 		//Auton Values
+		RobotMap.updateValue(autonSubTable, "P-value", 1);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
 		//Potentiometer Values
@@ -330,7 +332,7 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 
-		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 4);
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
 		
 		RobotMap.setupTalon();
 		}	
