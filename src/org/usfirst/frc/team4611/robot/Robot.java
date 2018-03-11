@@ -180,7 +180,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		RobotMap.defaults.saveProperties();
-		Logger.robotDisabled();
+		Logger.log("ROBOT DISABLED", "Robot");
+		
+		Logger.commit();
 	}
 
 	@Override
@@ -282,18 +284,5 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
-	}
-	
-	public enum AutonCommands {
-		TEST {
-			public String toString() {
-				return "TEST";
-			}
-		},
-		RIGHT_SCALE {
-			public String toString() {
-				return "RIGHT_SCALE";
-			}
-	}
 	}
 }

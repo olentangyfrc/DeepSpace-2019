@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -41,19 +42,15 @@ public class AutonForward extends Command {
     	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
     	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
-    	System.out.println(this.getClass().getName() + "Encoder Position Av: " + encoderPositionAverage);
-    	System.out.println(this.getClass().getName() + "Target Pos {" + targetPosition + "}");
+    	
     	Robot.mecanum.motionMagicStraight(targetPosition);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println(this.getClass().getName() + " targetPosition [" + targetPosition + "] encodePositionAverage [" + encoderPositionAverage + "]" );
+    	Logger.log(" targetPosition [" + targetPosition + "] encodePositionAverage [" + encoderPositionAverage + "]", "AutonForward");
 
-        if(targetPosition >= encoderPositionAverage)
-        	return false;
-        else 
-        	return true;
+        return (targetPosition < encoderPositionAverage);
     }
 
     // Called once after isFinished returns true

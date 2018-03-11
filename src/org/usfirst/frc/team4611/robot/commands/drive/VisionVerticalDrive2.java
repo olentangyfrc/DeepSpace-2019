@@ -28,25 +28,8 @@ public class VisionVerticalDrive2 extends Command{
 		Robot.mecanum.motionMagicStraight(verticalDistance * converter);	
 	}
 	
-	protected boolean isFinished() {
-		
-    	if(verticalGood()) {
-    		Logger.log("VisionVerticalDrive2 isFinished returning true", this.getClass().getName());
-        	return true;
-    	}
-        else {
-        	return false;
-        }	
-    }
-	
-	private boolean verticalGood() {
-		if (Math.abs(verticalDistance * converter) >= Robot.mecanum.getAveragePosition()) {
-			return false;
-		}
-		
-		else {
-			return true;
-		}
+	public boolean isFinished() {
+		return (Math.abs(verticalDistance * converter) < Robot.mecanum.getAveragePosition());
 	}
 	
 	protected void end( ) {
