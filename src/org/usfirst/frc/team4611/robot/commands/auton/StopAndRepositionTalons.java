@@ -23,6 +23,7 @@ public class StopAndRepositionTalons extends Command {
      */
     protected void execute() {
     	Robot.mecanum.resetEncoders();
+    	Robot.mecanum.velocityDrive(0, 0, 0, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
