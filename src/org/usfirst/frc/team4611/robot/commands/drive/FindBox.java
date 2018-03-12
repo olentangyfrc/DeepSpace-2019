@@ -25,11 +25,7 @@ public class FindBox extends CommandGroup {
 		//addSequential(new VisionHorizontalDrive3());
 		//addSequential(new StopAndRepositionTalons());
 		
-		addSequential(new StopAndRepositionTalons());
-		Logger.log("StopAndRepositionTalons", "FindBox");
-		addSequential(new PigeonAdjust2(180));
-		Logger.log("Pigeon Adjust", "FindBox");
-		addSequential(new Wait(1));
+		
 		Logger.log("Wait", "FindBox");
 		addSequential(new StopAndRepositionTalons());
 		Logger.log("StopAndRepositionTalons", "FindBox");
