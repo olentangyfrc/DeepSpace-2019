@@ -41,7 +41,9 @@ public class VisionHorizontalDrive3 extends Command{
 		Logger.log(" H Dist [" + horizontalDistance +"] "
 				+ " Target [" + RobotMap.driveTrainBL_Talon.getClosedLoopTarget(0) + "]"
 				+ " Avg Position [" + Robot.mecanum.getAveragePosition() + "]"
-				+ " Avg Speed: [" + Robot.mecanum.getAverageSpeed() + "]", "VisionHorizontalDrive3");
+				+ " Avg Speed: [" + Robot.mecanum.getAverageSpeed() + "]"
+				+ " Found: [" + ((boolean)RobotMap.networkManager.getVisionValue(RobotMap.foundID)) + "] "
+				,"VisionHorizontalDrive3 Execute");
 		if(horizontalDistance == -1 && (boolean)RobotMap.networkManager.getVisionValue(RobotMap.foundID)) {	
 			horizontalDistance = (double)RobotMap.networkManager.getVisionValue(RobotMap.horizontalDistanceID); 
 		}
@@ -51,6 +53,10 @@ public class VisionHorizontalDrive3 extends Command{
 		if(horizontalDistance <= 1.5) {
 			inTolerence = true;
 			return;
+		}
+		
+		else {
+			inTolerence = false;
 		}
 		if(angle > 0) {
 			Robot.mecanum.motionMagicStrafe(-horizontalDistance * converter);
@@ -62,6 +68,12 @@ public class VisionHorizontalDrive3 extends Command{
 	}
 	
 	protected boolean isFinished() {
+		Logger.log(" inTolerence [" + inTolerence +"] "
+				+ " error [" + error + "]"
+				+ " Avg Position [" + Robot.mecanum.getAveragePosition() + "]"
+				+ " Avg Speed: [" + Robot.mecanum.getAverageSpeed() + "]"
+				+ " Found: [" + ((boolean)RobotMap.networkManager.getVisionValue(RobotMap.foundID)) + "] "
+				,"VisionHorizontalDrive3 isFinished");
 		if(inTolerence || error < 100) {
 			return true;
 		}
@@ -76,13 +88,7 @@ public class VisionHorizontalDrive3 extends Command{
 			}
 		}
 		return false;
-		/*if(horizontalGood()) {
-    		Logger.log("VisionHorizontalDrive3 isFinished returning true", this.getClass().getName());
-        	return true;
-    	}
-        else {
-        	return false;
-        }*/	
+
     }
 	
 	private boolean horizontalGood() {

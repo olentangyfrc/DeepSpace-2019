@@ -33,7 +33,7 @@ public class PigeonAdjustVision extends Command {
 		Logger.log("angle passed [" + angle
 				+ "] desired angle [" + desiredAngle
 				+ "] direction[" + dir
-				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV2 Init before calc");
+				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV Init before calc");
 		// which way do we need to go?
 		if(desiredAngle > startingPigeonAngle) {
 			dir = Direction.LEFT;
@@ -46,7 +46,7 @@ public class PigeonAdjustVision extends Command {
 		Logger.log("angle passed [" + angle
 				+ "] desired angle [" + desiredAngle
 				+ "] direction[" + dir
-				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV2 Init after calc");
+				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV Init after calc");
 	}
 	protected void execute() {
 	

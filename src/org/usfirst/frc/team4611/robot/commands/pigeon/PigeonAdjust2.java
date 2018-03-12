@@ -25,7 +25,7 @@ public class PigeonAdjust2 extends Command {
 	}
 	
 	protected void initialize() {
-		angle = (double)RobotMap.getValue(RobotMap.autonSubTable, "Pigeon Angle");
+		
 		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
 
 		// desired angle is the difference between where we start and the angle to the box
