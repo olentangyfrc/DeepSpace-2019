@@ -17,7 +17,9 @@ public class PigeonAdjustVision3 extends Command {
 	private double speedLimit = 100;
 	private double angle;
 	private Direction dir;
-	 
+	private double speed;
+	
+	
 	public PigeonAdjustVision3() {
 		this.requires(Robot.mecanum);
 	}
@@ -57,7 +59,7 @@ public class PigeonAdjustVision3 extends Command {
 		double pVal = errorAngle * .1;
 		
 		// set our speed to that adjusted speed
-		double speed = Math.min(maxRPM, maxRPM * pVal);
+		speed = Math.min(maxRPM, maxRPM * pVal);
 
 
 		/**
@@ -73,13 +75,15 @@ public class PigeonAdjustVision3 extends Command {
 				Robot.mecanum.rotate(-speed);
 			}
 		 }
-		Logger.log("desiredAngle {" + desiredAngle + "}" 
-				+ "currentAngle {" + currentPigeonHeading + "}"
-				+ "Average Speed {" + Robot.mecanum.getAverageSpeed() + "}"
-				+ "Target Speed {" + speed + "}", this.getClass().getName());
+		Logger.log("Speed [" + speed + "]", this.getClass().getName());
 	}
-	
+	/* if(Robot.mecanum.getAveragePosition() > 1000) {
+			if(Robot.mecanum.getAverageSpeed() <= 100) {
+			*/
 	protected boolean isFinished(){
+		if(!Robot.mecanum.isTargetSpeedWithinThreshold(speed)) {
+			return true;
+		}
 		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}

@@ -16,10 +16,11 @@ public class PigeonAdjust2 extends Command {
 	private double maxRPM = 1500;
 	private double speedLimit = 100;
 	private double angle;
+	private double speed;
 	private Direction dir;
 	 
 	public PigeonAdjust2(double angle) {
-		//this.angle = angle; MAKE SURE TO COMMENT THIS BACK IN
+		this.angle = angle; 
 		this.requires(Robot.mecanum);
 	}
 	
@@ -56,7 +57,7 @@ public class PigeonAdjust2 extends Command {
 		double pVal = errorAngle * .06;
 		
 		// set our speed to that adjusted speed
-		double speed = Math.min(maxRPM, maxRPM * pVal);
+		speed = Math.min(maxRPM, maxRPM * pVal);
 
 		/**
 		 * check to see if we are where we need to be before
@@ -77,12 +78,15 @@ public class PigeonAdjust2 extends Command {
 				Robot.mecanum.rotate(-speed);
 			}
 		 }
+		Logger.log("Speed [" + speed + "]", this.getClass().getName());
 	}
 	
 	protected boolean isFinished(){
 		Logger.log("desired angle [" + desiredAngle + 
 				" ]current angle" + currentPigeonHeading,"PAV2 isFinished");
-		
+		if(!Robot.mecanum.isTargetSpeedWithinThreshold(speed)) {
+			return true;
+		}
 		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}

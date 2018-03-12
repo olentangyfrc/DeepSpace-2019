@@ -5,77 +5,101 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class PigeonAdjustVision extends Command {
 
 	private double desiredAngle;
-	private double startAngle;
-
-	private double angleToBox;
+	private double startingPigeonAngle;
+	private double currentPigeonHeading;
+	private double errorAngle;
+	private double maxRPM = 1500;
+	private double speedLimit = 100;
+	private double angle;
+	private double speed;
 	private Direction dir;
 	 
 	public PigeonAdjustVision() {
+		//this.angle = angle; MAKE SURE TO COMMENT THIS BACK IN
+		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
-		startAngle = RobotMap.pigeon.getFusedHeading();
-		angleToBox = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
-		
-		Logger.log("angleToBox [" + angleToBox + "]", this.getClass().getName());
-		this.desiredAngle = startAngle-angleToBox;
-	
-		if(desiredAngle > startAngle) {
+		this.angle = -(double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
+		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
+
+		// desired angle is the difference between where we start and the angle to the box
+		desiredAngle = startingPigeonAngle - angle;
+		Logger.log("angle passed [" + angle
+				+ "] desired angle [" + desiredAngle
+				+ "] direction[" + dir
+				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV2 Init before calc");
+		// which way do we need to go?
+		if(desiredAngle > startingPigeonAngle) {
 			dir = Direction.LEFT;
+		//	angle -= RobotMap.rotationDifference;
 		}else{
 			dir = Direction.RIGHT;
+		//	angle += RobotMap.rotationDifference;;
 		}
+		
+		Logger.log("angle passed [" + angle
+				+ "] desired angle [" + desiredAngle
+				+ "] direction[" + dir
+				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV2 Init after calc");
 	}
 	protected void execute() {
 	
-		FusionStatus status = new FusionStatus();
-		RobotMap.pigeon.getFusedHeading(status);
+		// where are we now?
+		currentPigeonHeading = RobotMap.pigeon.getFusedHeading();
 		
-		Logger.log("Desired Angle [" + desiredAngle + "]", this.getClass().getName());
-		Logger.log("Current Angle [" + status.heading + "]", this.getClass().getName());
+		// how far do we have to go b4 we get to the target?
+		errorAngle = Math.abs(desiredAngle - currentPigeonHeading);
+		
+		// how do we respond to that error?
+		double pVal = errorAngle * .06;
+		
+		// set our speed to that adjusted speed
+		speed = Math.min(maxRPM, maxRPM * pVal);
 
+		/**
+		 * check to see if we are where we need to be before
+		 * we even move. we might be there.
+		 */
 		
-		if(dir == Direction.RIGHT) {
-			Robot.mecanum.rotate(Math.min(1040, 1040 * Math.abs(desiredAngle-status.heading)/5));
-			
-		}else if(dir == Direction.LEFT) {
-			Robot.mecanum.rotate(Math.max(-1040, -1040 * Math.abs(desiredAngle-status.heading)/5));
-	
-		}
+		Logger.log("angle passed [" + angle
+				+ "] current angle[" + currentPigeonHeading
+				+ "] starting pigeon angle [" + startingPigeonAngle
+				+ "] desired angle [" + desiredAngle + "]", "PAV2 Execute");
+		
+		if(!isFinished()) {
+
+			if(dir == Direction.RIGHT) {
+				Robot.mecanum.rotate(speed);
+				
+			}else if(dir == Direction.LEFT) {
+				Robot.mecanum.rotate(-speed);
+			}
+		 }
+		Logger.log("Speed [" + speed + "]", this.getClass().getName());
 	}
 	
 	protected boolean isFinished(){
-		FusionStatus status = new FusionStatus();
-		RobotMap.pigeon.getFusedHeading(status);
-		
-		if((this.desiredAngle < status.heading
-				&& dir == Direction.LEFT) 
-				&& Math.abs(this.desiredAngle-status.heading) <= 1.2) {
-			System.out.print("Finished Left");
-			RobotMap.driveTrainBL_Talon.stopMotor();
-			RobotMap.driveTrainFR_Talon.stopMotor();
-			RobotMap.driveTrainFL_Talon.stopMotor();
-			RobotMap.driveTrainBR_Talon.stopMotor();
-			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
+		Logger.log("desired angle [" + desiredAngle + 
+				" ]current angle" + currentPigeonHeading,"PAV2 isFinished");
+		if(!Robot.mecanum.isTargetSpeedWithinThreshold(speed)) {
 			return true;
-		}else if((this .desiredAngle > status.heading
-				&& dir == Direction.RIGHT) 
-				&& Math.abs(this.desiredAngle-status.heading) <= 1.2) {
-			System.out.println("Finished Right");
-			RobotMap.driveTrainBL_Talon.stopMotor();
-			RobotMap.driveTrainFR_Talon.stopMotor();
-			RobotMap.driveTrainFL_Talon.stopMotor();
-			RobotMap.driveTrainBR_Talon.stopMotor();
-			System.out.println("Angles Moved: " + (RobotMap.pigeon.getFusedHeading() - startAngle));
+		}
+		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}
 		return false;
+	}
+	
+	protected void end() {
+		Logger.log("] current angle[" + currentPigeonHeading
+				+ "] starting pigeon angle [" + startingPigeonAngle
+				+ "] desired angle [" + desiredAngle + "]","end PAV2");
 	}
 	
 	public enum Direction {

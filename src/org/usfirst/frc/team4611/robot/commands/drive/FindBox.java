@@ -1,14 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands.drive;
 
-import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.auton.StopAndRepositionTalons;
-import org.usfirst.frc.team4611.robot.commands.auton.Wait;
-import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
-import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
-import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust2;
-import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision3;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
-import org.usfirst.frc.team4611.robot.subsystems.Elevator;
+import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -22,7 +15,7 @@ public class FindBox extends CommandGroup {
 		//addSequential(new VisionVerticalDrive2());
 		
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust2(90));
+		addSequential(new PigeonAdjustVision());
 		
 		/*addSequential(new Wait(1));
 		addSequential(new StopAndRepositionTalons());
