@@ -29,9 +29,6 @@ public class PigeonAdjust2 extends Command {
 
 		// desired angle is the difference between where we start and the angle to the box
 		desiredAngle = startingPigeonAngle - angle;
-
-		Logger.log("angle [" + angle
-					+ "] startingPigeonAngle [" + startingPigeonAngle + "]", this.getClass().getName());
 	
 		// which way do we need to go?
 		if(desiredAngle > startingPigeonAngle) {
@@ -39,6 +36,11 @@ public class PigeonAdjust2 extends Command {
 		}else{
 			dir = Direction.RIGHT;
 		}
+		
+		Logger.log("angle passed [" + angle
+				+ "] desired angle [" + desiredAngle
+				+ "] direction[" + dir
+				+ "] starting pigeon angle [" + startingPigeonAngle + "]", "PAV2 Init");
 	}
 	protected void execute() {
 	
@@ -54,11 +56,16 @@ public class PigeonAdjust2 extends Command {
 		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
 
-
 		/**
 		 * check to see if we are where we need to be before
 		 * we even move. we might be there.
 		 */
+		
+		Logger.log("angle passed [" + angle
+				+ "] current angle[" + currentPigeonHeading
+				+ "] starting pigeon angle [" + startingPigeonAngle
+				+ "] desired angle [" + desiredAngle, "PAV2 Execute");
+		
 		if(!isFinished()) {
 			/**
 			 * HARD CODED SPEEDS LEFT BEHIND FROM TINKERING. 
@@ -76,10 +83,19 @@ public class PigeonAdjust2 extends Command {
 	}
 	
 	protected boolean isFinished(){
+		Logger.log("desired angle [" + desiredAngle + 
+				" ]current angle" + currentPigeonHeading,"PAV2 isFinished");
+		
 		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
 			return true;
 		}
 		return false;
+	}
+	
+	protected void end() {
+		Logger.log("] current angle[" + currentPigeonHeading
+				+ "] starting pigeon angle [" + startingPigeonAngle
+				+ "] desired angle [" + desiredAngle, "end PAV2");
 	}
 	
 	public enum Direction {
