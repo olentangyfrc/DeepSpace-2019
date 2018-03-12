@@ -65,11 +65,6 @@ public class PigeonAdjustVision3 extends Command {
 		 * we even move. we might be there.
 		 */
 		if(!isFinished()) {
-			/**
-			 * HARD CODED SPEEDS LEFT BEHIND FROM TINKERING. 
-			 * NEED TO DO THIS CORRECTLY WHEN WE FIGURE OUT PRECISION
-			 * THEN DELETE THIS COMMENT BLOCK
-			 */
 
 			if(dir == Direction.RIGHT) {
 				Robot.mecanum.rotate(speed);
