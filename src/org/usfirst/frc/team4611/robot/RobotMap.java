@@ -100,6 +100,8 @@ public class RobotMap {
 	public static final double POTSWITCH2 = .35;
 	private static final double VARIANCELIMIT = .02;
 	
+	public static final double rotationDifference = 3.5;
+	
 	//Default motor speeds
 	public static final double LINEAR_ACTUATOR_SPEED = 0.5;
 	public static final double ELEVATOR_SPEED_SCALAR = 0.75;
@@ -316,6 +318,7 @@ public class RobotMap {
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
 		//Auton Values
 		RobotMap.updateValue(autonSubTable, "P-value", 1);
+		RobotMap.updateValue(autonSubTable, "Pigeon Angle", 90);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
 		//Potentiometer Values

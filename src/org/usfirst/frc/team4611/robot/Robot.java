@@ -280,7 +280,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+		Logger.log("Pigeon Angle [" + RobotMap.pigeon.getFusedHeading() + "]", "Teleop Periodic");
 			
 	}
 

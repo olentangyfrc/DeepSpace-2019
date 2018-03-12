@@ -19,12 +19,12 @@ public class PigeonAdjust2 extends Command {
 	private Direction dir;
 	 
 	public PigeonAdjust2(double angle) {
-		this.angle = angle;
+		//this.angle = angle; MAKE SURE TO COMMENT THIS BACK IN
 		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
-
+		angle = (double)RobotMap.getValue(RobotMap.autonSubTable, "Pigeon Angle");
 		startingPigeonAngle = RobotMap.pigeon.getFusedHeading();
 
 		// desired angle is the difference between where we start and the angle to the box
@@ -33,8 +33,10 @@ public class PigeonAdjust2 extends Command {
 		// which way do we need to go?
 		if(desiredAngle > startingPigeonAngle) {
 			dir = Direction.LEFT;
+			angle += RobotMap.rotationDifference;
 		}else{
 			dir = Direction.RIGHT;
+			angle -= RobotMap.rotationDifference;;
 		}
 		
 		Logger.log("angle passed [" + angle
@@ -51,7 +53,7 @@ public class PigeonAdjust2 extends Command {
 		errorAngle = Math.abs(desiredAngle - currentPigeonHeading);
 		
 		// how do we respond to that error?
-		double pVal = errorAngle * .1;
+		double pVal = errorAngle * .06;
 		
 		// set our speed to that adjusted speed
 		double speed = Math.min(maxRPM, maxRPM * pVal);
@@ -64,14 +66,9 @@ public class PigeonAdjust2 extends Command {
 		Logger.log("angle passed [" + angle
 				+ "] current angle[" + currentPigeonHeading
 				+ "] starting pigeon angle [" + startingPigeonAngle
-				+ "] desired angle [" + desiredAngle, "PAV2 Execute");
+				+ "] desired angle [" + desiredAngle + "]", "PAV2 Execute");
 		
 		if(!isFinished()) {
-			/**
-			 * HARD CODED SPEEDS LEFT BEHIND FROM TINKERING. 
-			 * NEED TO DO THIS CORRECTLY WHEN WE FIGURE OUT PRECISION
-			 * THEN DELETE THIS COMMENT BLOCK
-			 */
 
 			if(dir == Direction.RIGHT) {
 				Robot.mecanum.rotate(speed);
@@ -95,7 +92,7 @@ public class PigeonAdjust2 extends Command {
 	protected void end() {
 		Logger.log("] current angle[" + currentPigeonHeading
 				+ "] starting pigeon angle [" + startingPigeonAngle
-				+ "] desired angle [" + desiredAngle, "end PAV2");
+				+ "] desired angle [" + desiredAngle + "]","end PAV2");
 	}
 	
 	public enum Direction {
