@@ -1,11 +1,7 @@
 package org.usfirst.frc.team4611.robot.logging;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-
-import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 

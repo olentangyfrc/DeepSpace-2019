@@ -1,12 +1,11 @@
 package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
-import org.usfirst.frc.team4611.robot.commands.auton.StopAndRepositionTalons;
+import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
 import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision;
 import org.usfirst.frc.team4611.robot.logging.Logger;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

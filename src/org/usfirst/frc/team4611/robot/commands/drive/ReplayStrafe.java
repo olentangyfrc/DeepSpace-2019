@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 

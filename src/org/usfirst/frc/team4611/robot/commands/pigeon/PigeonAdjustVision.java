@@ -4,7 +4,6 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 
-import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class PigeonAdjustVision extends Command {

@@ -3,7 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
-import org.usfirst.frc.team4611.robot.commands.auton.DriveForward;
+import org.usfirst.frc.team4611.robot.commands.auton.JustDriveForward;
 import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartCenterSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.StartLeftScaleLeft;
@@ -15,7 +15,6 @@ import org.usfirst.frc.team4611.robot.commands.auton.StartRightScaleRight;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.StartRightSwitchRight;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
-import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision2;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -136,27 +135,26 @@ public class Robot extends IterativeRobot {
 		autonCommandGroup.put("CSWLRL", new StartCenterSwitchLeft());
 		autonCommandGroup.put("CSWLRR", new StartCenterSwitchLeft());
 		
-		autonCommandGroup.put("LLLRRR", new DriveForward()); 
-		autonCommandGroup.put("LLLRRL", new DriveForward());
+		autonCommandGroup.put("LLLRRR", new JustDriveForward()); 
+		autonCommandGroup.put("LLLRRL", new JustDriveForward());
 		autonCommandGroup.put("LLLRLR", new StartLeftScaleLeft()); 
 		autonCommandGroup.put("LLLRLL", new StartLeftScaleLeft()); 
-		autonCommandGroup.put("LLLLLL", new StartLeftScaleLeft()); //setting precedent of picking scale over switch
+		autonCommandGroup.put("LLLLLL", new StartLeftScaleLeft());
 		autonCommandGroup.put("LLLLLR", new StartLeftScaleLeft()); 
 		autonCommandGroup.put("LLLLRL", new StartLeftSwitchLeft()); 
-		autonCommandGroup.put("LLLLRR", new StartLeftSwitchLeft()); 
-		
+		autonCommandGroup.put("LLLLRR", new StartLeftSwitchLeft()); 		
 		autonCommandGroup.put("RRRRRR", new StartRightScaleRight()); 
 		autonCommandGroup.put("RRRRLR", new StartRightSwitchRight()); 
 		autonCommandGroup.put("RRRRRL", new StartRightScaleRight()); 
 		autonCommandGroup.put("RRRRLL", new StartRightSwitchRight()); 
 		autonCommandGroup.put("RRRLRR", new StartRightScaleRight());
-		autonCommandGroup.put("RRRLLR", new DriveForward()); 
+		autonCommandGroup.put("RRRLLR", new JustDriveForward()); 
 		autonCommandGroup.put("RRRLRL", new StartRightScaleRight()); 
-		autonCommandGroup.put("RRRLLL", new DriveForward()); 
+		autonCommandGroup.put("RRRLLL", new JustDriveForward()); 
 		autonCommandGroup.put("TTRRR", new TestBlock());
 		
 		//Never go for scale in auton center
-		autonCommandGroup.put("DRIVEFORWARD", new DriveForward());
+		autonCommandGroup.put("DRIVEFORWARD", new JustDriveForward());
 			
 		oi = new OI();
 		
@@ -270,8 +268,6 @@ public class Robot extends IterativeRobot {
 		Robot.mecanum.setRampRate(0);
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
-		
-		RobotMap.setupTalon();
 	}
 
 	/**
@@ -279,9 +275,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-		//Logger.log("Pigeon Angle [" + RobotMap.pigeon.getFusedHeading() + "]", "Teleop Periodic");
-			
+		Scheduler.getInstance().run();			
 	}
 
 	@Override

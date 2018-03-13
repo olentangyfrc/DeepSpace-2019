@@ -6,10 +6,10 @@ import org.usfirst.frc.team4611.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleSolenoid extends Command{
+public class ToggleGrabber extends Command{
 	private boolean done;
 	
-	public ToggleSolenoid(){
+	public ToggleGrabber(){
 		this.requires(Robot.sol);
 		done = false;
 	}

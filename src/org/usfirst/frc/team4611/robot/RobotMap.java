@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
  * etc. This is where you're probably gonna end up when incorrect motors are
  * running or we change ports for certain motors.
  */
+
 public class RobotMap {
 	
 	//Drive train Talons
@@ -80,8 +81,7 @@ public class RobotMap {
 	
 	//Constants
 	public static final int ULTRA_PORT = 3;
-	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	
+	public static final int UD_DISTANCE = 13;
 	public static final int HALFWAY = 60;
 	public static final int WAY = 150;
 	public static final int MOREWAY = 230;
@@ -90,16 +90,14 @@ public class RobotMap {
 	public static final int turnAngle1 = 90;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
-	public static final int crossToScale = 180;
-	
+	public static final int crossToScale = 180;	
 	public static final double POTMIN = .19;
 	public static final double POTMAX = .8;
 	public static final double POTSWITCH = .6;
 	public static final double POTMIN2 = .19;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
-	private static final double VARIANCELIMIT = .02;
-	
+	private static final double VARIANCELIMIT = .02;	
 	public static final double rotationDifference = 3.5;
 	
 	//Default motor speeds
@@ -279,6 +277,9 @@ public class RobotMap {
 		driveTrainFR_Talon.setSensorPhase(true);
 		driveTrainBL_Talon.setSensorPhase(true);
 		driveTrainBR_Talon.setSensorPhase(true);
+		
+		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
+		driveTrain.setSafetyEnabled(false);
 			
 		Logger.init("Logs");
 
@@ -336,40 +337,7 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
-		
-		RobotMap.setupTalon();
 		}	
-	
-
-	//Setup Talon DriveTrain
-	public static void setupTalon() {
-		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
-		driveTrain.setSafetyEnabled(false);
-	}
-	
-	/**
-	 * Called by the setupTalon and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopVictor() {
-		RobotMap.driveTrainBL.stopMotor();
-		RobotMap.driveTrainBR.stopMotor();
-		RobotMap.driveTrainFL.stopMotor();
-		RobotMap.driveTrainFR.stopMotor();
-	}
-	
-	/**
-	 * Called by the setupVictor and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopTalon() {
-		driveTrainBL.disable();
-		driveTrainBR.disable();
-		driveTrainFL.disable();
-		driveTrainFR.disable();
-	}
 	
 	/**
 	 * Updates or adds a new value to the NetworkTable 

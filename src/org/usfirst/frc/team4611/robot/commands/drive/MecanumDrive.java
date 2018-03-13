@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
-import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
