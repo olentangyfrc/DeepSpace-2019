@@ -175,10 +175,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		//shuffleboard values
-		//String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
-		//String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
-		String a = SmartDashboard.getString(RobotMap.sideKey, "C");
-		String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
+		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
+		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
+		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
+		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
 		String c = driver.getGameSpecificMessage();
 		
 		boolean ignoreTarget = (boolean) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetAimID);
