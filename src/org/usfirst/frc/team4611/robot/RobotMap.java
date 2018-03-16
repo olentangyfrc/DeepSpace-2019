@@ -336,31 +336,17 @@ public class RobotMap {
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
-<<<<<<< HEAD
 		//Which type of drive train do you have?
 		//Smart dash board values
 		SmartDashboard.putString(sideKey, "C");
 		SmartDashboard.putString(targetKey, "SW");
 		
-		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
-			setupVictor();
-		}else{
-			RobotMap.setupTalon();
-		}
-	}	
-	
-	//Setup Victor DriveTrain
-	public static void setupVictor() {
-		stopTalon();
-		RobotMap.log(RobotMap.switcherSubTable, "Setting up victor");
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		driveTrain.setSafetyEnabled(false);
-	}
-=======
->>>>>>> master
 
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
-		}	
+		
+	}	
 	
 	/**
 	 * Updates or adds a new value to the NetworkTable 

@@ -7,19 +7,18 @@ import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
-<<<<<<< HEAD
-=======
 import org.usfirst.frc.team4611.robot.logging.Logger;
->>>>>>> master
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class StartCenterScaleRight extends CommandGroup {
 
+	
+	//Connor: "It's really screwed"
 	public StartCenterScaleRight() {
-		// TODO Auto-generated constructor stub
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
@@ -32,8 +31,8 @@ public class StartCenterScaleRight extends CommandGroup {
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		//addSequential(new PushBox());
 		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftNullZoneLeftside extends CommandGroup {
 
 	public StartLeftNullZoneLeftside() {
-		// TODO Auto-generated constructor stub
 		addSequential(new ResetElevator());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.MOREWAY));
