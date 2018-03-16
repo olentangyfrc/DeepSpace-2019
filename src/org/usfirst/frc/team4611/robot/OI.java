@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.arm.MovePotDown;
+import org.usfirst.frc.team4611.robot.commands.arm.MovePotUp;
 import org.usfirst.frc.team4611.robot.commands.climber.MoveClimber;
 import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
@@ -12,9 +14,7 @@ import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
-import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleSolenoid;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotDown;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotUp;
+import org.usfirst.frc.team4611.robot.commands.solenoid.ToggleGrabber;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -134,7 +134,7 @@ public class OI {
 
 		//Movement Commands
 //		aimBox.whenPressed(new AimForBox());
-//		aimBox2.whenPressed(new AimForBox());
+//		aimBox2.whenPressed(new FindBox());//RobotMap.driveTrain));   DRIVER COMMANDS TBD BY DRIVERS
 //		autoGrabBox.whenPressed(new AutoGrab());
 		
 		//LA commands
@@ -155,7 +155,7 @@ public class OI {
 		happyReset.whenPressed(new ResetElevator());
 		
 		//Grabber Commands
-		grabberToggle.whenPressed(new ToggleSolenoid());
+		grabberToggle.whenPressed(new ToggleGrabber());
 		grabberExtend.whileHeld(new ReleaseBox());
 		grabberExtend2.whileHeld(new ReleaseBox());
 		grabberRetract.whileHeld(new GrabBox());
@@ -164,11 +164,8 @@ public class OI {
 		//Climber Commands
 		moveClimber.whileHeld(new MoveClimber());
 		windClimber.whileHeld(new WindUpClimber());
-//		moveClimbertoPos.whenPressed(new ClimberToPos(26050));
+//		moveClimbertoPos.whenPressed(new ClimberToPos(26050)); Not working feature 
 		
-//		//Lidar Commands
-//		getDistance.whenPressed(new laserDistance());
-//		getDistanceController.whenPressed(new laserDistance());
 	}
 	
 	public double filter(double raw) //We pass joystick values through the filter here and edit the raw value
@@ -182,7 +179,7 @@ public class OI {
 	
 	public double strafeFilter(double raw) {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
-            return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
+            return 0;
         } else {
             return  raw * Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.strafePowerID) * 2, 1); //Set the output to a ceratin percent of of the input
         }
@@ -190,15 +187,14 @@ public class OI {
 	
 	public double rotateFilter(double raw) {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
-            return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
+            return 0;
         } else {
             return  raw * 0.5;
-            		//Math.min((double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.rotateFilterID), 1); //Set the output to a ceratin percent of of the input
         }
 	}
 	public double LAFilter(double raw) {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
-            return 0; //If the value passed is less than 15% ignore it. This is reffered to as a deadzone
+            return 0;
         } else {
             return  raw * Math.min((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID), 1); //Set the output to a ceratin percent of of the input
         }

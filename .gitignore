@@ -1,6 +1,11 @@
-/bin/
+/bin/*
 /build/*
-/dist/
+/dist/*
 /*.class/
 /*.jar/
-sysProps.xml
+/*.xml/
+/*.properties/
+/.classpath
+/.project
+build.properties
+build.xml

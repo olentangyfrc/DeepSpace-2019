@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class BoxPusher extends Subsystem{
 
-	public BoxPusher() {
-		
-	}
-
+	/** Moves the pusher to set direction
+	 * 
+	 * @param dir Desired position based on [DoubleSolenoid.Value]
+	 */
 	public void move(Value  dir) {
 		RobotMap.boxPusher.set(dir);
 	}

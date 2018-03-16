@@ -24,7 +24,6 @@ public class ReleaseBox extends Command{
 	}
 	
 	protected void end() {
-		RobotMap.log(RobotMap.solenoidSubtable, "Done retracting solenoid" );
 	}
 	
 	protected void interrupted(){

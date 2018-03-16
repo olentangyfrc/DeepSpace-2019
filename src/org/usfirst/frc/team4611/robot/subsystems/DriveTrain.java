@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.drive.MecanumDrive;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -9,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 
-	public void move(double y, double x, double z) { //Grabs the left and right values that get passed by "TankDrive"
-		 RobotMap.driveTrain.driveCartesian(y, x, z); //Use those values for the method "tankDrive" which calls for joystick values
+	public void move(double y, double x, double z) { 
+		 RobotMap.driveTrain.driveCartesian(y, x, z); 
 	}
 	
 	public void moveGyro (double y, double x, double z, double gyroAngle) {
@@ -56,11 +57,11 @@ public class DriveTrain extends Subsystem {
 		RobotMap.driveTrainFR_Talon.configClosedloopRamp(0, 0);
 	}
 	//set back to default Ramp Rate
-	public void setRampRate(double d) {
-		RobotMap.driveTrainBL_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainBR_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainFL_Talon.configClosedloopRamp(d, 0);
-		RobotMap.driveTrainFR_Talon.configClosedloopRamp(d, 0);
+	public void setRampRate(double rate) {
+		RobotMap.driveTrainBL_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainBR_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainFL_Talon.configClosedloopRamp(rate, 0);
+		RobotMap.driveTrainFR_Talon.configClosedloopRamp(rate, 0);
 	}
 	
 	public void rotate(double velocity) {
@@ -100,11 +101,11 @@ public class DriveTrain extends Subsystem {
     	flSpeed	= RobotMap.driveTrainFL_Talon.get();
     	frSpeed	= RobotMap.driveTrainFR_Talon.get();
 
-    	System.out.println(this.getClass().getName() + "isFinished() : motorSpeeds [bl, br, fl, fr] ["
-    																			+ blSpeed + ", "
-    																			+ brSpeed + ", "
-    																			+ flSpeed + ", "
-    																			+ frSpeed + ']');
+    	Logger.log("motorSpeeds [bl, br, fl, fr] ["
+													+ blSpeed + ", "
+													+ brSpeed + ", "
+													+ flSpeed + ", "
+													+ frSpeed + ']', "DriveTrain");
 	}
 	
 	public void logPosition() {
@@ -114,15 +115,60 @@ public class DriveTrain extends Subsystem {
     	brPosition	= RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0);
     	flPosition	= RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0);
     	frPosition	= RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0);
-      	System.out.println(this.getClass().getName() + "isFinished() : motorPositions [bl, br, fl, fr] ["
-      																			+ blPosition + ", "
-      																			+ brPosition + ", "
-      																			+ flPosition + ", "
-      																			+ frPosition + ']');
+      	Logger.log("motorPositions [bl, br, fl, fr] ["
+													+ blPosition + ", "
+													+ brPosition + ", "
+													+ flPosition + ", "
+													+ frPosition + ']', "DriveTrain");
+	}
+	
+	public double getAveragePosition() {
+		double encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
+		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
+		       	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
+		       	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
+		return encoderPositionAverage;
+	}
+	
+	public double getAverageSpeed() {
+		double encoderSpeedAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0)) +
+		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0)) +
+		       	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0)) +
+		       	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0))) / 4;
+		return encoderSpeedAverage;
+	}
+	
+	/**
+	   * Returns 0.0 if the given value is within the specified range around zero. The remaining range
+	   * between the deadband and 1.0 is scaled from 0.0 to 1.0. 
+	   *
+	   * @param value    value to clip
+	   * @param deadband range around zero
+	   */
+	protected double applyDeadband(double value, double deadband) {
+	    if (Math.abs(value) > deadband) {
+	      if (value > 0.0) {
+	        return (value - deadband) / (1.0 - deadband);
+	      } else {
+	        return (value + deadband) / (1.0 - deadband);
+	      }
+	    } else {
+	      return 0.0;
+	    }
+	}
+	
+	public boolean isTargetSpeedWithinThreshold(double speed){
+		if(Math.abs(speed) > 200) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MecanumDrive()); //This subsystem will automatically run this command 
+		setDefaultCommand(new MecanumDrive());
 	}
 }

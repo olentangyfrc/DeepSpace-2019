@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
+import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,6 +18,6 @@ public class StartLeftNullZoneLeftside extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.autonSubTable, "SLNZL initialized");
+		Logger.log("initialized", this.getClass().getName());
 	}
 }

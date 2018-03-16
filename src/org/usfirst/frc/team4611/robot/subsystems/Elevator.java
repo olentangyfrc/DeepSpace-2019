@@ -32,7 +32,7 @@ public class Elevator extends Subsystem{
 	protected void initDefaultCommand() {
 	}
 	
-	public boolean isSwitchSet() { //if switch is pressed, returns true
+	public boolean isSwitchSet() { 
 		return RobotMap.limitSwitch.get();
 	}
 

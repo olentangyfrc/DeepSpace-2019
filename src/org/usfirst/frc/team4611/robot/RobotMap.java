@@ -1,11 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.usfirst.frc.team4611.robot.defaults.DefaultValues;
 import org.usfirst.frc.team4611.robot.logging.Logger;
-import org.usfirst.frc.team4611.robot.logging.LoggerType;
 import org.usfirst.frc.team4611.robot.networking.NetworkTableManager;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -17,7 +13,6 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * etc. This is where you're probably gonna end up when incorrect motors are
  * running or we change ports for certain motors.
  */
+
 public class RobotMap {
 	
 	//Drive train Talons
@@ -82,13 +78,11 @@ public class RobotMap {
 	public static final String networkTableID = "Custom Values";
 	public static final String visionTableID = "Vision";
 	public static NetworkTableManager networkManager = new NetworkTableManager();
-	public static ArrayList<LoggerType> loggerTypes = new ArrayList<LoggerType>();
 	public static final long systemStartupTime = System.currentTimeMillis();
 	
 	//Constants
 	public static final int ULTRA_PORT = 3;
-	public static final int UD_DISTANCE = 13; // distance for UltraDrive, pointless if it's less than 12 for now
-	
+	public static final int UD_DISTANCE = 13;
 	public static final int HALFWAY = 60;
 	public static final int WAY = 150;
 	public static final int MOREWAY = 230;
@@ -97,15 +91,15 @@ public class RobotMap {
 	public static final int turnAngle1 = 90;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
-	public static final int crossToScale = 180;
-	
+	public static final int crossToScale = 180;	
 	public static final double POTMIN = .19;
 	public static final double POTMAX = .8;
 	public static final double POTSWITCH = .6;
 	public static final double POTMIN2 = .19;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
-	private static final double VARIANCELIMIT = .02;
+	private static final double VARIANCELIMIT = .02;	
+	public static final double rotationDifference = 3.5;
 	
 	//Default motor speeds
 	public static final double LINEAR_ACTUATOR_SPEED = 0.5;
@@ -182,6 +176,7 @@ public class RobotMap {
 	public static String climberSpeed = "Climber Speed";
 	public static String targetKey = "Target";
 	public static String sideKey = "Position";
+	public static String converterID = "Converter";
 	
 	public static DefaultValues defaults;
 
@@ -195,12 +190,6 @@ public class RobotMap {
 	public static PigeonIMU pigeon;
 
 	public static void init() {
-		
-		//Drive Train Victors
-		driveTrainFL = new Victor(VICTOR_FL_PORT);
-		driveTrainFR = new Victor(VICTOR_FR_PORT);
-		driveTrainBL = new Victor(VICTOR_BL_PORT);
-		driveTrainBR = new Victor(VICTOR_BR_PORT);
 
 		// Ultrasonic sensor
 		ultrasonicInput = new AnalogInput(ULTRA_PORT);
@@ -273,21 +262,25 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		int magicValues = 1872;
-		driveTrainFL_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainFL_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainFR_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainFR_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainBL_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainBL_Talon.configMotionCruiseVelocity(magicValues, 0);
-		driveTrainBR_Talon.configMotionAcceleration(magicValues, 0);
-		driveTrainBR_Talon.configMotionCruiseVelocity(magicValues, 0);
+		int magicValuesAccel = 2000;
+		int motionmagicCruiseVelocity = 2000;
+		driveTrainFL_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainFL_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
+		driveTrainFR_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainFR_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
+		driveTrainBL_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainBL_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
+		driveTrainBR_Talon.configMotionAcceleration(magicValuesAccel, 0);
+		driveTrainBR_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 			
 		//Startup Sensorphase Values
 		driveTrainFL_Talon.setSensorPhase(true);
 		driveTrainFR_Talon.setSensorPhase(true);
 		driveTrainBL_Talon.setSensorPhase(true);
 		driveTrainBR_Talon.setSensorPhase(true);
+		
+		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
+		driveTrain.setSafetyEnabled(false);
 			
 		Logger.init("Logs");
 
@@ -326,6 +319,8 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID,
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID, 0.75));
 		//Auton Values
+		RobotMap.updateValue(autonSubTable, "P-value", 1);
+		RobotMap.updateValue(autonSubTable, "Pigeon Angle", 90);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
 		//Potentiometer Values
@@ -341,6 +336,7 @@ public class RobotMap {
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
+<<<<<<< HEAD
 		//Which type of drive train do you have?
 		//Smart dash board values
 		SmartDashboard.putString(sideKey, "C");
@@ -360,38 +356,11 @@ public class RobotMap {
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
 		driveTrain.setSafetyEnabled(false);
 	}
+=======
+>>>>>>> master
 
-	//Setup Talon DriveTrain
-	public static void setupTalon() {
-		stopVictor();
-		RobotMap.log(RobotMap.switcherSubTable, "Setting up talons");
-		driveTrain = new MecanumDrive(driveTrainFL_Talon, driveTrainFR_Talon, driveTrainBL_Talon, driveTrainBR_Talon);
-		driveTrain.setSafetyEnabled(false);
-	}
-	
-	/**
-	 * Called by the setupTalon and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopVictor() {
-		RobotMap.driveTrainBL.stopMotor();
-		RobotMap.driveTrainBR.stopMotor();
-		RobotMap.driveTrainFL.stopMotor();
-		RobotMap.driveTrainFR.stopMotor();
-	}
-	
-	/**
-	 * Called by the setupVictor and is meant as a safety to ensure
-	 * anything that shouldn't be abruptly stopped is safely stopped
-	 * before continuing the setup process
-	 */	
-	public static void stopTalon() {
-		driveTrainBL.disable();
-		driveTrainBR.disable();
-		driveTrainFL.disable();
-		driveTrainFR.disable();
-	}
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
+		}	
 	
 	/**
 	 * Updates or adds a new value to the NetworkTable 
@@ -438,9 +407,5 @@ public class RobotMap {
 		Object obj  = RobotMap.networkManager.getValue(subtable, key);
 		
 		return obj;
-	}
-
-	public static void log(String subTable, String message) {
-		Logger.log(message, Logger.getLoggerType(subTable));
 	}
 }

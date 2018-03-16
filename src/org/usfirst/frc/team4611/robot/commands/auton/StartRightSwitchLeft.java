@@ -1,11 +1,14 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
+import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
-import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -32,6 +35,6 @@ public class StartRightSwitchLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.autonSubTable, "SRSWL initialized");
+		Logger.log("initialized", this.getClass().getName());
 	}
 }

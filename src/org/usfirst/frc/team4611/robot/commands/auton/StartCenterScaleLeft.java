@@ -1,10 +1,18 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeLeft;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeRight;
+import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
+<<<<<<< HEAD
+=======
+import org.usfirst.frc.team4611.robot.logging.Logger;
+>>>>>>> master
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -26,6 +34,6 @@ public class StartCenterScaleLeft extends CommandGroup {
 		addSequential(new PushBox());
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.autonSubTable, "SCSL initialized");
+		Logger.log("initialized", this.getClass().getName());
 	}
 }

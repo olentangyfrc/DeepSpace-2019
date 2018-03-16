@@ -1,11 +1,21 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+<<<<<<< HEAD
+=======
+import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
+import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
+>>>>>>> master
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
+<<<<<<< HEAD
 import org.usfirst.frc.team4611.robot.potentiometer.MovePotPos;
+=======
+import org.usfirst.frc.team4611.robot.logging.Logger;
+>>>>>>> master
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -29,6 +39,6 @@ public class StartCenterSwitchLeft extends CommandGroup {
 		addSequential(new ReleaseBox());
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.autonSubTable, "SCSWL initialized");
+		Logger.log("initialized", this.getClass().getName());
 	}
 }

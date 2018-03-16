@@ -7,17 +7,15 @@ import java.text.DecimalFormat;
 
 public class FileManager {
 
-	private FileWriter masterWrite;
-	private boolean hasFile = true;
+	private FileWriter masterWrite = null;
+			
 	public FileManager(String folderName, String masterName) {
 		try {
-			File folder = new File("/media/sda1/Logs/" + masterName + "/");
+			File folder = new File("/media/sda1/RobotLogs/");
  			folder.mkdirs();
- 			System.out.println(folder.getFreeSpace());
-			masterWrite = new FileWriter(new File("/media/sda1/Logs/" + masterName + "/" + "RoboRioLogs.txt"));
-			System.out.println("Found usb");
+ 			
+			masterWrite = new FileWriter(new File("/media/sda1/RobotLogs/" + masterName + ".txt"));
 		} catch (Exception e) {
-			hasFile = false;
 			e.printStackTrace();
 		} 
 	}
@@ -30,16 +28,15 @@ public class FileManager {
 	 * on the same matter
 	 */
 	public void write(String message) {
-		if(hasFile) {
 
 			try {
-				masterWrite.write(message + "\n");
-				masterWrite.flush();
+				if (masterWrite != null) {
+					masterWrite.write(message + "\n");
+					masterWrite.flush();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
 	}
 	/**
 	 * Used to get the timestamp of a log. Compares the time from the constant systemStartup time (located in RobotMap)
@@ -79,14 +76,13 @@ public class FileManager {
 		return timestamp;
 	}
 
-	public void robotDisabled() {
-		if(hasFile) {
+	public void commit() {
 			try {
-				this.masterWrite.flush();
+				if (masterWrite != null) {
+					masterWrite.flush();
+				}
 			}catch(Exception e) {
 				System.out.println("Unable to write to Rio with exception: " + e.getLocalizedMessage());
 			}
-		}
-		
 	}
 }

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
@@ -23,6 +23,7 @@ public class StopAndRepositionTalons extends Command {
      */
     protected void execute() {
     	Robot.mecanum.resetEncoders();
+    	Robot.mecanum.velocityDrive(0, 0, 0, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

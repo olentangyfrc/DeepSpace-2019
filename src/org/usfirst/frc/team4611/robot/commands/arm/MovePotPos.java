@@ -1,7 +1,8 @@
-package org.usfirst.frc.team4611.robot.potentiometer;
+package org.usfirst.frc.team4611.robot.commands.arm;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,7 +15,7 @@ public class MovePotPos extends Command{
 		this.position = position;
 	}
 	protected void initialize() {
-		RobotMap.log(RobotMap.linearActuatorSubTable, "Moving to position: " + position);
+		Logger.log("Moving to position: " + position, this.getClass().getName());
 	}
 	protected void execute() {
 		Robot.arm.movePotPos(position);
@@ -24,11 +25,11 @@ public class MovePotPos extends Command{
 	protected boolean isFinished() {
 		double posError = Math.abs(RobotMap.linearActuatorPot.get()-position);
 		if (posError < .05) {
-			RobotMap.log(RobotMap.linearActuatorSubTable, "Returning true");
+			Logger.log("finished", this.getClass().getName());
 			return true;
 		}
 		else {
-			RobotMap.log(RobotMap.linearActuatorSubTable, "Returning false");
+			Logger.log("not finished", this.getClass().getName());
 			return false;
 		}
 

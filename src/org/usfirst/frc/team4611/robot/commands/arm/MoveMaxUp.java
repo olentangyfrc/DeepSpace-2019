@@ -1,41 +1,44 @@
-package org.usfirst.frc.team4611.robot.commands;
+package org.usfirst.frc.team4611.robot.commands.arm;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class laserDistance extends Command {
-
-	public int distance;
-	
-    public laserDistance() {
+public class MoveMaxUp extends Command {
+	private double pos;
+    public MoveMaxUp(double pos) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.opt);
+    	this.pos = pos;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.opt.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//distance = Robot.opt.getInt(); 
+    	Robot.arm.movePotPos(pos);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        
-    	return !(distance == -1);
+    	double potValue1 = RobotMap.linearActuatorPot.get();
+		double potValue2 = RobotMap.linearActuatorPot2.get();
+    	if((pos + 0.05 > potValue1 && pos - 0.05 < potValue1) && (pos + 0.05 > potValue2 && pos - 0.05 < potValue2)) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("Laser distance: " + distance);
     }
 
     // Called when another command which requires one or more of the same
