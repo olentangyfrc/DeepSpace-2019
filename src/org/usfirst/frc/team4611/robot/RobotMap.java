@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The RobotMap is where we declare what our constants are It's where we set
@@ -341,6 +342,10 @@ public class RobotMap {
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 		//Which type of drive train do you have?
+		//Smart dash board values
+		SmartDashboard.putString(sideKey, "C");
+		SmartDashboard.putString(targetKey, "SW");
+		
 		if(!(boolean)RobotMap.getValue(RobotMap.switcherSubTable, RobotMap.switcherID)) {
 			setupVictor();
 		}else{
