@@ -29,11 +29,19 @@ public class StartRightScaleLeft extends CommandGroup {
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1+6));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.crossToScale+40));
+<<<<<<< HEAD
+=======
 		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+>>>>>>> master
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1+3));
 		addSequential(new StopAndRepositionTalons());
+<<<<<<< HEAD
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH/2));
+=======
 		addSequential(new AutonForward(RobotMap.HALFWAY/2));
+>>>>>>> master
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
 		addSequential(new StopAndRepositionTalons());

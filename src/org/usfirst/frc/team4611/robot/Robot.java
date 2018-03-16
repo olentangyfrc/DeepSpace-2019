@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -66,6 +67,7 @@ public class Robot extends IterativeRobot {
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
 	public HashMap<String, Command> autonCommandGroup;
+	//public SendableChooser chooser;
 
 	Command autonomousCommand;
 	public static Command lightsCommand;
@@ -193,8 +195,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		//shuffleboard values
 		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
 		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
+		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
+		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
 		String c = driver.getGameSpecificMessage();
 		
 		boolean ignoreTarget = (boolean) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetAimID);
