@@ -167,9 +167,6 @@ public class Robot extends IterativeRobot {
 		lightsCommand = new MakeLight(1);
 		lightsCommand.start();
 		
-		//Just creating the values in shuffleboard
-		RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
-		RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
 	}
 
 	/**
@@ -195,54 +192,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		//shuffleboard values
-		String a = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.sideKey);
-		String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
-		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
-		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
-		String c = driver.getGameSpecificMessage();
+		String path = getPath();
 		
-		boolean ignoreTarget = (boolean) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetAimID);
 		
-		autonFinalDecision = a.trim().toUpperCase() + b.trim().toUpperCase() + c.trim().toUpperCase();
-		String key = autonFinalDecision;
-		if(a == null || a.toLowerCase().equals("null") || a.isEmpty()) {
-			key = "DRIVEFORWARD";
-		}
-		if(b == null || b.toLowerCase().equals("null") || b.isEmpty()) {
-			key = "DRIVEFORWARD";
-		}
-		if(c == null || c.toLowerCase().equals("null") || c.isEmpty()) {
-			key = "DRIVEFORWARD";
-		}
 		
-		String closeSwitch = c.substring(0, 1);
-		String scale = c.substring(1, 2);
-		String farSwitch = c.substring(2, 3);
-		boolean isCloseSwitch = false;
-		boolean isCloseScale = false;
-		boolean isFarSwitch = false;
 		
-		if(closeSwitch.equals(a)) {
-			isCloseSwitch = true;
-		}
-		if(scale.equals(a)) {
-			isCloseScale = true;
-		}
-		if(farSwitch.equals(a)) {
-			isFarSwitch = true;
-		}
-		
-		if(ignoreTarget == true) {
-			if(!isCloseSwitch && b.trim().toUpperCase() == "SW") {
-				key = "DRIVEFORWARD";
-			}
-			if(!isCloseScale && b.trim().toUpperCase() == "SC") {
-				key = "DRIVEFORWARD";
-			}
-		}
-		
-		autonomousCommand = this.autonCommandGroup.get(key);
-		Logger.log("["  + a + "] [" + b + "] [" + c + "] [" + key + "]", this.getClass().getName());
+		//autonomousCommand = this.autonCommandGroup.get(key);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -284,5 +239,57 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+	}
+	public String getPath() {
+		String path = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy);
+		//String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
+		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
+		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
+		path = path.trim().toUpperCase();
+		String fms = driver.getGameSpecificMessage();
+		String strat = path.substring(0, path.length() -3);
+		Logger.log("Strategy "+"[" + strat + "] " + "Path [" + path + "]");
+		//parsing string
+		String location = strat.substring(0, 1).toUpperCase();
+		String mode = strat.substring(1, 2).toUpperCase();
+		String target1 = strat.substring(2, 4).toUpperCase();
+		String target2 = strat.substring(4, 6).toUpperCase();
+		String oppTarget1 = strat.substring(6,8).toUpperCase();
+		
+		String key;
+		if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
+			key = "DRIVEFORWARD";
+		}
+		if(fms == null || fms.toLowerCase().equals("null") || fms.isEmpty()) {
+			key = "DRIVEFORWARD";
+		}
+		
+		String ourSideSwitch = fms.substring(0, 1);
+		String scale = fms.substring(1, 2);
+		boolean isSwitchClose = false;
+		boolean isScaleClose = false;
+		key = location;
+		if(ourSideSwitch.equals(location)) {
+			isSwitchClose = true;
+		}
+		if(scale.equals(location)) {
+			isScaleClose = true;
+		}
+		
+		if(mode.toUpperCase() == "T") {
+			if(target1.equals("SW")) {
+				key += ourSideSwitch + target1;
+			}
+			else {
+				key = key + scale + target1;
+			}
+			if(target2.equals("SW")) {
+				key += ourSideSwitch + target2;
+			}
+			else {
+				key += scale + target2;
+			}
+		}
+		return key;
 	}
 }

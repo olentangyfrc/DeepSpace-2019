@@ -89,6 +89,7 @@ public class RobotMap {
 	public static final int TOSCALE = 270;
 	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
+	public static final int turnAngle2 = 180;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
 	public static final int crossToScale = 180;	
@@ -174,8 +175,7 @@ public class RobotMap {
 	public static String autonStrafeScalarID = "StrafeScalar";
 	public static String autonSubTable = "Auton Subtable";
 	public static String climberSpeed = "Climber Speed";
-	public static String targetKey = "Target";
-	public static String sideKey = "Position";
+	public static String strategy = "Strategy";
 	public static String converterID = "Converter";
 	
 	public static DefaultValues defaults;
@@ -334,11 +334,11 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, VARIANCELIMIT));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
-		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strartegy, "Null");
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
 		//Which type of drive train do you have?
 		//Smart dash board values
-		SmartDashboard.putString(sideKey, "C");
+		SmartDashboard.putString(strartegy, "C");
 		SmartDashboard.putString(targetKey, "SW");
 		
 		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
