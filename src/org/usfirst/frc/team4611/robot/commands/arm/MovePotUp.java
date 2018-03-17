@@ -12,7 +12,7 @@ public class MovePotUp extends Command{
 		}
 		
 		protected void execute() {
-			Robot.arm.movePotUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID), (double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID));
+			Robot.arm.moveArmUp((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID), (double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedUpID));
 		}
 		
 		

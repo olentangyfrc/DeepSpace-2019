@@ -12,7 +12,7 @@ public class MovePotDown extends Command{
 	}
 	
 	protected void execute() {
-		Robot.arm.movePotDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID), (double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID));
+		Robot.arm.moveArmDown((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID), (double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LASpeedDownID));
 	}
 	
 	
