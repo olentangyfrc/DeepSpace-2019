@@ -1,6 +1,10 @@
 package org.usfirst.frc.team4611.robot.commands.drive;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.utilities.ArrayReader;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,20 +22,33 @@ public class ReplayStrafe extends Command {
 	 * there is a left moving array and a right moving array. you will need to get an accurate driver
 	 * and accurate distance.
 	 */
-	private double [][] tenFeetStrafeRightVelocities = new double[][] {
-		 		{ 0.0, 0.0, 0.0, 0.0},
-		 		{ 0.0, 0.0, 0.0, 0.0}
-			};
-
-			
-	private double [][] tenFeetStrafeLeftVelocities = new double[][] {
-		 		{ 0.0, 0.0, 0.0, 0.0},
-		 		{ 0.0, 0.0, 0.0, 0.0}
-			};
+	private ArrayList<double[]> tenFeetStrafeRightVelocities = null;
+	private ArrayList<double []> tenFeetStrafeLeftVelocities = null;
 	
 	int distanceInInches;
 	Direction	dir;
 	
+	/**
+	 * read strafe recordings 1 time
+	 */
+	
+	public void initialize() {
+		
+		try {
+			if (tenFeetStrafeLeftVelocities == null)
+				tenFeetStrafeLeftVelocities		= ArrayReader.getInstance().getNumbers("TenFeetStrafeLeftRecording.txt");
+			if (tenFeetStrafeRightVelocities == null)
+				tenFeetStrafeRightVelocities	= ArrayReader.getInstance().getNumbers("TenFeetStrafeRightRecording.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param direction - which way to strafe
+	 * @param inches - how far
+	 */
 	public ReplayStrafe(Direction direction, int inches) {
 		requires(Robot.mecanum);
 		
@@ -42,19 +59,19 @@ public class ReplayStrafe extends Command {
 	public void execute() {
 		
 		// choose the right replay sequence
-		double [][] replay = tenFeetStrafeLeftVelocities;
+		ArrayList<double[]> replay = tenFeetStrafeLeftVelocities;
 		if (dir == Direction.RIGHT) {
 			replay	= tenFeetStrafeRightVelocities;
 		} 
 		
-		// prorate replay array by how far this command wants to go
-		int	howMuchToReplay = distanceInInches / replayInches * replay.length;
+		// pro-rate replay array by how far this command wants to go
+		int	howMuchToReplay = distanceInInches / replayInches * replay.size();
 
 		// holds velocities for 1 iteration
 		double [] velocities;
 		
 		for (int i = 0; i < howMuchToReplay; i++) {
-			velocities	= replay[i];
+			velocities	= replay.get(i);
 			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);			
 		}
 		
