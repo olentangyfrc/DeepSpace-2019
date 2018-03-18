@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 /**
  * this class is DANGEROUS. Use it SPARINGLY. It will stop the Bot from responding for the sleep period.
  * @author worthp
