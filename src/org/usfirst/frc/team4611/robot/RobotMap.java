@@ -176,6 +176,7 @@ public class RobotMap {
 	public static String climberSpeed = "Climber Speed";
 	public static String strategy = "Strategy";
 	public static String converterID = "Converter";
+	public static String  velocityRecordingTag = "Velocity Recording Tag";
 	
 	public static DefaultValues defaults;
 

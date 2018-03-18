@@ -3,9 +3,11 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
+import org.usfirst.frc.team4611.robot.commands.auton.AutonCommandGroup;
 import org.usfirst.frc.team4611.robot.commands.auton.JustDriveForward;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchLeftScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.logging.Logger;
@@ -74,7 +76,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		//Initialize utilities
-		PiLights.reset();
+		//PiLights.reset();
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		elevator = new Elevator();
@@ -87,15 +89,7 @@ public class Robot extends IterativeRobot {
 		fancyLight = new FancyLights();
 		climber = new Climber();
 		driver = DriverStation.getInstance();
-		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		autonCommandGroup.put("RRSWRSC", new StartRightRightSwitchRightScale());
-		autonCommandGroup.put("RRSWLSC", new StartRightRightSwitchLeftScale());
-		autonCommandGroup.put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
-		autonCommandGroup.put("LLSWRSC", new StartLeftLeftSwitchRightScale());
-		autonCommandGroup.put("TTRRR", new TestBlock());
-		
-		//Never go for scale in auton center
-		autonCommandGroup.put("DRIVEFORWARD", new JustDriveForward());
+		autonCommandGroup = new AutonCommandGroup<String, Command>();
 			
 		oi = new OI();
 		
@@ -103,11 +97,13 @@ public class Robot extends IterativeRobot {
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
 		camera.setExposureManual(35);
+//		
+//		lightsCommand = new MakeLight(1);
+//		lightsCommand.start();
 		
-		lightsCommand = new MakeLight(1);
-		lightsCommand.start();
-		
+		// Set up default values for auton
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.velocityRecordingTag, "");
 		
 	}
 
@@ -127,18 +123,17 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();		
-		((MakeLight)lightsCommand).setColor(4);
-		lightController.set(0.87);
+//		((MakeLight)lightsCommand).setColor(4);
+//		lightController.set(0.87);
 	}
 
 	@Override
 	public void autonomousInit() {
-		//shuffleboard values
 		String path = getPath();
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 
-		autonomousCommand = this.autonCommandGroup.get(path);
+		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -180,15 +175,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
+	
 	public String getPath() {
 		String path = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy);
-		//String b = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.targetKey);
-		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
-		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
 		path = path.trim().toUpperCase();
 		String fms = driver.getGameSpecificMessage().trim();
 		String strat = path;
-		Logger.log("Strategy "+"[" + strat + "] " + "Path [" + path + "]");
 		//parsing string
 		String location = strat.substring(0, 1).toUpperCase();
 		String mode = strat.substring(1, 2).toUpperCase();
@@ -205,8 +197,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		String ourSideSwitch = fms.substring(0, 1);
-		String scale = fms.substring(1, 2);
-		Logger.log("FMS [" + fms + "]" + "ourSideSwitch [" + ourSideSwitch + "] scale [" + scale + "]");
+		String ourSideScale = fms.substring(1, 2);
 		key = location;
 		
 		if(mode.toUpperCase().equals("T")) {
@@ -214,13 +205,13 @@ public class Robot extends IterativeRobot {
 				key = key + ourSideSwitch + target1;
 			}
 			else {
-				key = key + scale + target1;
+				key = key + ourSideScale + target1;
 			}
 			if(target2.equals("SW")) {
 				key = key + ourSideSwitch + target2;
 			}
 			else {
-				key = key + scale + target2;
+				key = key + ourSideScale + target2;
 			}
 		}
 		return key.trim().toUpperCase();

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.commands.auton.dualOptions;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
+import org.usfirst.frc.team4611.robot.commands.auton.Sleep;
 import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
@@ -42,9 +43,12 @@ public class StartRightRightSwitchRightSwitch extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonStrafeRight(20));
 		addSequential(new StopAndRepositionTalons());
+		addSequential(new Sleep(500)); // give Vision a chance to focus
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
 		addSequential(new Wait(2));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new StopAndRepositionTalons());
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new Wait(.1));
