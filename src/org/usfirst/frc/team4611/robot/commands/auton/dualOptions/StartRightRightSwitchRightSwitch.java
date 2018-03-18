@@ -45,21 +45,11 @@ public class StartRightRightSwitchRightSwitch extends CommandGroup {
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
 		addSequential(new Wait(2));
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addParallel(new MovePotPos(RobotMap.POTSWITCH));
-		addSequential(new AutonForward(30));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(30));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
+		addSequential(new Wait(.1));
 		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH));
 		addSequential(new ReleaseBox());
-		
 	}
 
 }
