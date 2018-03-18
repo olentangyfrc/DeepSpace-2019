@@ -23,6 +23,7 @@ public class ReplayVelocityDriveRecording extends Command {
 	 */
 	private ArrayList<double[]> recordedVelocities = null;
 	private Recording recording;
+	Iterator<double []>	velocityIterator	= null;
 
 	
 	/**
@@ -32,8 +33,10 @@ public class ReplayVelocityDriveRecording extends Command {
 	public void initialize() {
 		
 		try {
-			if (recordedVelocities == null)
+			if (recordedVelocities == null) {
 				recordedVelocities	= ArrayReader.getInstance().getNumbers(getRecordingFile(recording));
+				velocityIterator	= recordedVelocities.iterator();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,26 +48,26 @@ public class ReplayVelocityDriveRecording extends Command {
 		recording	= rec;
 	}
 
+	/**
+	 * send 1 set of velocities in each execute.
+	 */
 	public void execute() {
 		
-		// holds velocities for 1 iteration
 		double [] velocities;
 		
-		Iterator<double[]>	it = recordedVelocities.iterator();
-		while (it.hasNext()) {
-			velocities	= it.next(); 
-			try {
-				Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);	
-				Thread.sleep(30);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if (velocityIterator.hasNext()) {
+			velocities	= velocityIterator.next(); 
+			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);
 		}
 	}
+	
+	/**
+	 * we are finished when we have iteratated over all recorded velocities
+	 */
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return !velocityIterator.hasNext();
 	}
 	
 	private String getRecordingFile(Recording recording) {
