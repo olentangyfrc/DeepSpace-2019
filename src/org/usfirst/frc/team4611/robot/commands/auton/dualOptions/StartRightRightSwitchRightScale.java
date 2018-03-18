@@ -1,7 +1,8 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.auton.dualOptions;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
+import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeRight;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
+import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
@@ -34,15 +36,22 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY/2));
+		addSequential(new AutonForward(RobotMap.HALFWAY + 18));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(30));
+		addSequential(new AutonStrafeRight(20));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
-		
+		addSequential(new Wait(2));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new MovePotPos(RobotMap.POTMAX));
+		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
 
 }

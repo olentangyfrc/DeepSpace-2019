@@ -25,21 +25,20 @@ public class FindBox extends CommandGroup {
 		
 		addSequential(new StopAndRepositionTalons());
 		Logger.log("StopAndRepositionTalons", "FindBox");
-		addSequential(new VisionHorizontalDrive());
-		Logger.log("Horizontal", "FindBox");
 		addSequential(new Wait(1));
 		Logger.log("Wait", "FindBox");
+		addSequential(new VisionHorizontalDrive());
+		Logger.log("Horizontal", "FindBox");
 		addSequential(new PigeonAdjustVision());
 		Logger.log("Turning", "FindBox");
 		addSequential(new StopAndRepositionTalons());
 		Logger.log("StopAndRepositionTalons", "FindBox");
-		addSequential(new Wait(1));
-		Logger.log("Wait", "FindBox");
 		addSequential(new VisionVerticalDrive());
 		Logger.log("Vertical", "FindBox");
+		addParallel(new MovePotPos(RobotMap.POTMIN));
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
 		addSequential(new StopAndRepositionTalons());
 		Logger.log("StopAndRepositionTalons", "FindBox");
-		addSequential(new MovePotPos(RobotMap.POTMIN));
-		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
+		//addSequential(new AutonBackward(3));
 	}
 }

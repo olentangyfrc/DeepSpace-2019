@@ -4,8 +4,10 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.commands.auton.JustDriveForward;
-import org.usfirst.frc.team4611.robot.commands.auton.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -87,6 +89,9 @@ public class Robot extends IterativeRobot {
 		driver = DriverStation.getInstance();
 		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
 		autonCommandGroup.put("RRSWRSC", new StartRightRightSwitchRightScale());
+		autonCommandGroup.put("RRSWLSC", new StartRightRightSwitchLeftScale());
+		autonCommandGroup.put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
+		autonCommandGroup.put("LLSWRSC", new StartLeftLeftSwitchRightScale());
 		autonCommandGroup.put("TTRRR", new TestBlock());
 		
 		//Never go for scale in auton center
@@ -101,6 +106,8 @@ public class Robot extends IterativeRobot {
 		
 		lightsCommand = new MakeLight(1);
 		lightsCommand.start();
+		
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
 		
 	}
 
@@ -129,10 +136,9 @@ public class Robot extends IterativeRobot {
 		//shuffleboard values
 		String path = getPath();
 		
-		
-		
-		
-		//autonomousCommand = this.autonCommandGroup.get(key);
+		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
+
+		autonomousCommand = this.autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -142,7 +148,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 		}
 		
-		Logger.log("Auton Final Decision [ "+autonFinalDecision + "]", this.getClass().getName());
 	}
 
 	/**
@@ -181,15 +186,15 @@ public class Robot extends IterativeRobot {
 		//String a = SmartDashboard.getString(RobotMap.sideKey, "C");
 		//String b = SmartDashboard.getString(RobotMap.targetKey, "SW");
 		path = path.trim().toUpperCase();
-		String fms = driver.getGameSpecificMessage();
-		String strat = path.substring(0, path.length() -3);
+		String fms = driver.getGameSpecificMessage().trim();
+		String strat = path;
 		Logger.log("Strategy "+"[" + strat + "] " + "Path [" + path + "]");
 		//parsing string
 		String location = strat.substring(0, 1).toUpperCase();
 		String mode = strat.substring(1, 2).toUpperCase();
 		String target1 = strat.substring(2, 4).toUpperCase();
 		String target2 = strat.substring(4, 6).toUpperCase();
-		String oppTarget1 = strat.substring(6,8).toUpperCase();
+		String oppTarget1 = strat.substring(6).toUpperCase();
 		
 		String key;
 		if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
@@ -201,30 +206,23 @@ public class Robot extends IterativeRobot {
 		
 		String ourSideSwitch = fms.substring(0, 1);
 		String scale = fms.substring(1, 2);
-		boolean isSwitchClose = false;
-		boolean isScaleClose = false;
+		Logger.log("FMS [" + fms + "]" + "ourSideSwitch [" + ourSideSwitch + "] scale [" + scale + "]");
 		key = location;
-		if(ourSideSwitch.equals(location)) {
-			isSwitchClose = true;
-		}
-		if(scale.equals(location)) {
-			isScaleClose = true;
-		}
 		
-		if(mode.toUpperCase() == "T") {
+		if(mode.toUpperCase().equals("T")) {
 			if(target1.equals("SW")) {
-				key += ourSideSwitch + target1;
+				key = key + ourSideSwitch + target1;
 			}
 			else {
 				key = key + scale + target1;
 			}
 			if(target2.equals("SW")) {
-				key += ourSideSwitch + target2;
+				key = key + ourSideSwitch + target2;
 			}
 			else {
-				key += scale + target2;
+				key = key + scale + target2;
 			}
 		}
-		return key;
+		return key.trim().toUpperCase();
 	}
 }

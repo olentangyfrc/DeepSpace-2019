@@ -92,10 +92,10 @@ public class RobotMap {
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
 	public static final int crossToScale = 180;	
-	public static final double POTMIN = .19;
+	public static final double POTMIN = .13;
 	public static final double POTMAX = .8;
 	public static final double POTSWITCH = .6;
-	public static final double POTMIN2 = .19;
+	public static final double POTMIN2 = .13;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
 	private static final double VARIANCELIMIT = .02;	
@@ -322,6 +322,7 @@ public class RobotMap {
 		RobotMap.updateValue(autonSubTable, "Pigeon Angle", 90);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
 		//Potentiometer Values
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, POTMAX));
@@ -333,9 +334,6 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, VARIANCELIMIT));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
-		
-		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
-		driveTrain.setSafetyEnabled(false);
 
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
 		
