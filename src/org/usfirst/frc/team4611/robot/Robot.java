@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.MakeLight;
+import org.usfirst.frc.team4611.robot.commands.auton.AutonCommandGroup;
 import org.usfirst.frc.team4611.robot.commands.auton.JustDriveForward;
 import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchLeftScale;
@@ -88,15 +89,7 @@ public class Robot extends IterativeRobot {
 		fancyLight = new FancyLights();
 		climber = new Climber();
 		driver = DriverStation.getInstance();
-		autonCommandGroup = new HashMap<String, Command>(); //POSITION.TARGET.GAMEDATA
-		autonCommandGroup.put("RRSWRSC", new StartRightRightSwitchRightScale());
-		autonCommandGroup.put("RRSWLSC", new StartRightRightSwitchLeftScale());
-		autonCommandGroup.put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
-		autonCommandGroup.put("LLSWRSC", new StartLeftLeftSwitchRightScale());
-		autonCommandGroup.put("TTRRR", new TestBlock());
-		
-		//Never go for scale in auton center
-		autonCommandGroup.put("DRIVEFORWARD", new JustDriveForward());
+		autonCommandGroup = new AutonCommandGroup<String, Command>();
 			
 		oi = new OI();
 		
@@ -140,7 +133,7 @@ public class Robot extends IterativeRobot {
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 
-		autonomousCommand = this.autonCommandGroup.get(path);
+		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
