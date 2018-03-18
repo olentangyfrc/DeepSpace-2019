@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		//Initialize utilities
-		PiLights.reset();
+		//PiLights.reset();
 		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		elevator = new Elevator();
@@ -104,11 +104,13 @@ public class Robot extends IterativeRobot {
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
 		camera.setExposureManual(35);
+//		
+//		lightsCommand = new MakeLight(1);
+//		lightsCommand.start();
 		
-		lightsCommand = new MakeLight(1);
-		lightsCommand.start();
-		
+		// Set up default values for auton
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
+		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.velocityRecordingTag, "");
 		
 	}
 
@@ -128,8 +130,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();		
-		((MakeLight)lightsCommand).setColor(4);
-		lightController.set(0.87);
+//		((MakeLight)lightsCommand).setColor(4);
+//		lightController.set(0.87);
 	}
 
 	@Override
@@ -180,6 +182,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
+	
 	public String getPath() {
 		String path = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy);
 		path = path.trim().toUpperCase();
