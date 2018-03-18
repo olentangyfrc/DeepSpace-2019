@@ -52,8 +52,13 @@ public class ReplayVelocityDriveRecording extends Command {
 		
 		Iterator<double[]>	it = recordedVelocities.iterator();
 		while (it.hasNext()) {
-			velocities	= it.next();
-			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);	
+			velocities	= it.next(); 
+			try {
+				Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);	
+				Thread.sleep(30);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

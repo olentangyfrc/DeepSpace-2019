@@ -58,7 +58,6 @@ public class Robot extends IterativeRobot {
 	public static BoxPusher boxPusher;
 	public static DriverStation driver;
 	public static Climber climber;
-	public static Command test;
 	public static OI oi;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
@@ -100,8 +99,6 @@ public class Robot extends IterativeRobot {
 		camera.setFPS(20);
 		camera.setExposureManual(35);
 		
-		test = new ReplayVelocityDriveRecording(ReplayVelocityDriveRecording.Recording.RightSwitchDropToFarBox);
-//		
 //		lightsCommand = new MakeLight(1);
 //		lightsCommand.start();
 		
@@ -137,7 +134,8 @@ public class Robot extends IterativeRobot {
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 
-		autonomousCommand = autonCommandGroup.get(path);
+		//autonomousCommand = autonCommandGroup.get(path);
+		autonomousCommand =  new TestBlock();
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -164,7 +162,6 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		Robot.mecanum.setRampRate(0);
-		test.start();
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
 	}

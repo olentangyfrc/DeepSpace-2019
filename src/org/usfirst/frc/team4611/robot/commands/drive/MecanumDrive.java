@@ -21,11 +21,13 @@ public class MecanumDrive extends Command{
 	}
 	
 	protected void initialize() {
-		velocityRecordingTag	= (String) RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.velocityRecordingTag);
+		velocityRecordingTag	= (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.velocityRecordingTag);
+		Logger.log("VelocityRecording Val {" + velocityRecordingTag + "}", "velocity");
 	}
 	
 	@Override
 	protected void execute() {
+		
 		double YVal = -Robot.oi.filter(OI.leftJoy.getY()); 
 		double XVal = Robot.oi.strafeFilter(OI.leftJoy.getX());
 		double ZVal = Robot.oi.rotateFilter(OI.rightJoy.getX());
