@@ -103,7 +103,7 @@ public class Robot extends IterativeRobot {
 		
 		// Set up default values for auton
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
-		RobotMap.updateValue(RobotMap.mecanumSubTable, RobotMap.velocityRecordingTag, "");
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.velocityRecordingTag, "");
 		
 	}
 

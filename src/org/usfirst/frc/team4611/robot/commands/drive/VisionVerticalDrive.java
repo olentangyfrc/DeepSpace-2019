@@ -17,7 +17,6 @@ public class VisionVerticalDrive extends Command{
 	
 	public void initialize() {
 		verticalDistance = (double) RobotMap.networkManager.getVisionValue(RobotMap.distanceID);
-		verticalDistance = verticalDistance - 6;
 		angle = (double)RobotMap.networkManager.getVisionValue(RobotMap.angleID);
 		Robot.mecanum.resetEncoders();
     	Robot.mecanum.config_kP(1);
