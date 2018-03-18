@@ -32,7 +32,7 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
-		addParallel(new ReleaseBox());
+		addSequential(new ReleaseBox());
 		addSequential(new AutonBackward(RobotMap.TOWARDS_SWITCH));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
@@ -45,11 +45,11 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
-		addSequential(new Wait(.1));
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
-		addSequential(new StopAndRepositionTalons());
+		addSequential(new Sleep(100));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addParallel(new MovePotPos(RobotMap.POTMAX));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
+		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
