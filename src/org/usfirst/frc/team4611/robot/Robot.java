@@ -10,6 +10,7 @@ import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSw
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchLeftScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchRightScale;
+import org.usfirst.frc.team4611.robot.commands.drive.ReplayVelocityDriveRecording;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -57,6 +58,7 @@ public class Robot extends IterativeRobot {
 	public static BoxPusher boxPusher;
 	public static DriverStation driver;
 	public static Climber climber;
+	public static Command test;
 	public static OI oi;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
@@ -97,6 +99,8 @@ public class Robot extends IterativeRobot {
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
 		camera.setExposureManual(35);
+		
+		test = new ReplayVelocityDriveRecording(ReplayVelocityDriveRecording.Recording.RightSwitchDropToFarBox);
 //		
 //		lightsCommand = new MakeLight(1);
 //		lightsCommand.start();
@@ -160,6 +164,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		Robot.mecanum.setRampRate(0);
+		test.start();
 		if (autonomousCommand != null) 
 			autonomousCommand.cancel();
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.utilities.ArrayReader;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -52,7 +53,7 @@ public class ReplayVelocityDriveRecording extends Command {
 		Iterator<double[]>	it = recordedVelocities.iterator();
 		while (it.hasNext()) {
 			velocities	= it.next();
-			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);			
+			Robot.mecanum.velocityDrive(velocities[0], velocities[1], velocities[2], velocities[3]);	
 		}
 	}
 
@@ -62,14 +63,15 @@ public class ReplayVelocityDriveRecording extends Command {
 	}
 	
 	private String getRecordingFile(Recording recording) {
+		String directory	= "/home/lvuser/velocityrecordings/";
 		String	file	= "";
 			
 		switch (recording) {
 			case RightSwitchDropToNearBox:
-				file	= "RightSwitchDropToNearBox.txt";
+				file	= directory + "RightSwitchDropToNearBox.txt";
 				break;
 			case RightSwitchDropToFarBox:
-				file	= "RightSwitchDropToFarBox.txt";
+				file	= directory + "RightSwitchDropToFarBox.txt";
 				break;
 		}
 		

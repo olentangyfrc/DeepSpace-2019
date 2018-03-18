@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot.utilities;
 
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,8 +24,6 @@ public class ArrayReader {
 
 		ArrayList<double []>	numbers	= new ArrayList <double[]>();
 
-		InputStream	is = null;
-		InputStreamReader isr = null;
 		
 		BufferedReader br	= null;
 		double numberSet[]	= new double[4];
@@ -33,10 +32,8 @@ public class ArrayReader {
 		try {
 			String	line;
 			String[]	parts;
-			is	= this.getClass().getClassLoader().getResourceAsStream(filename);
-
-	        isr = new InputStreamReader(is);
-	        br = new BufferedReader(isr);		
+			
+	        br = new BufferedReader(new FileReader(filename));
 			
 	        while ((line = br.readLine()) != null) {
 	        	parts	= line.split(",");
