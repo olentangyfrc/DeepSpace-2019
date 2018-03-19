@@ -340,9 +340,6 @@ public class RobotMap {
 		//Smart dash board values
 		SmartDashboard.putString(sideKey, "C");
 		SmartDashboard.putString(targetKey, "SW");
-		
-		driveTrain = new MecanumDrive(driveTrainFL, driveTrainFR, driveTrainBL, driveTrainBR);
-		driveTrain.setSafetyEnabled(false);
 
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
 		
