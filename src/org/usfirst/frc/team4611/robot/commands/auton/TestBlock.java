@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
-import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision2;
+import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjustVision;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -10,7 +10,7 @@ public class TestBlock extends CommandGroup {
 		//addSequential(new StopAndRepositionTalons());
 		//addSequential(new VisionHorizontalDrive2());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjustVision2());
+		addSequential(new PigeonAdjustVision());
 	}
 }
 

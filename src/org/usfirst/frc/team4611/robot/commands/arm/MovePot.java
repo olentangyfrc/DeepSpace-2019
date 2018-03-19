@@ -17,10 +17,10 @@ public class MovePot extends Command{
 		double y = Robot.oi.LAFilter(Robot.oi.auxJoy.getY());
 		
 		if (y > 0) {
-			Robot.arm.movePotUp(y, y);
+			Robot.arm.moveArmUp(y, y);
 		}
 		else {
-			Robot.arm.movePotDown(-y, -y);
+			Robot.arm.moveArmDown(-y, -y);
 		}
 	}
 	
