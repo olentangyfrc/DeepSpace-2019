@@ -3,7 +3,9 @@ package org.usfirst.frc.team4611.robot.commands.auton;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchLeftSwitch;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftLeftSwitchRightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartLeftScaleLeftScaleLeft;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchLeftScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualOptions.StartRightScaleRightScaleRight;
@@ -22,7 +24,8 @@ public class AutonCommandGroup <K, V> extends HashMap<String, Command> {
 		put("RRSWLSC", new StartRightRightSwitchLeftScale());
 		put("RRSWRSW", new StartRightRightSwitchRightScale());
 		put("RRSCRSC", new StartRightScaleRightScaleRight());
-		put("RLSWLSC", new TestBlock());//Command  needs to be made
+		put("LLSCLSC", new StartLeftScaleLeftScaleLeft());
+		put("LLSWLSW", new StartLeftLeftSwitchLeftSwitch());
 		put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
 		put("LLSWRSC", new StartLeftLeftSwitchRightScale());
 		
