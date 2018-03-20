@@ -75,17 +75,66 @@ public class ReplayVelocityDriveRecording extends Command {
 		String	file	= "";
 			
 		switch (recording) {
-			case RightSwitchDropToNearBox:
-				file	= directory + "RightSwitchDropToNearBox.txt";
+			case CenterToRightSwitch:
+				file	= directory + "CenterToRightSwitch.txt";
 				break;
-			case RightSwitchDropToFarBox:
-				file	= directory + "RightSwitchDropToFarBox.txt";
+			case CenterToLeftSwitch:
+				file	= directory + "CenterToLeftSwitch.txt";
 				break;
+			case RightStartToSwitch:
+				file	= directory + "RightStartToSwitch.txt";
+				break;
+			case RightStartToScale:
+				file	= directory + "RightStartToScale.txt";
+				break;
+			case RightSwitchToBox2:
+				file	= directory + "RightSwitchToBox2.txt";
+				break;
+			case RightScaleToBox2:
+				file	= directory + "RightScaleToBox2.txt";
+				break;
+			case Box2ToRightSwitch:
+				file	= directory + "Box2ToRightSwitch.txt";
+				break;
+			case Box2ToRightScale:
+				file	= directory + "Box2ToRightScale.txt";
+				break;
+			case LeftStartToSwitch:
+				file	= directory + "LeftStartToSwitch.txt";
+				break;
+			case LeftStartToScale:
+				file	= directory + "LeftStartToScale.txt";
+				break;
+			case LeftSwitchToBox2:
+				file	= directory + "LeftSwitchToBox2.txt";
+				break;
+			case LeftScaleToBox2:
+				file	= directory + "LeftScaleToBox2.txt";
+				break;
+			case Box2ToLeftSwitch:
+				file	= directory + "Box2ToLeftSwitch.txt";
+				break;
+			case Box2ToLeftScale:
+				file	= directory + "Box2ToLeftScale.txt";
+				break;
+				
 		}
 		
 		return file;
 	}
 
-	static public enum Recording {RightSwitchDropToNearBox,
-									RightSwitchDropToFarBox};
+	static public enum Recording {	CenterToRightSwitch,
+									CenterToLeftSwitch,
+									RightStartToSwitch,
+									RightStartToScale,
+									RightSwitchToBox2,
+									RightScaleToBox2,
+									Box2ToRightSwitch,
+									Box2ToRightScale,
+									LeftStartToSwitch,
+									LeftStartToScale,
+									LeftSwitchToBox2,
+									LeftScaleToBox2,
+									Box2ToLeftSwitch,
+									Box2ToLeftScale};
 }
