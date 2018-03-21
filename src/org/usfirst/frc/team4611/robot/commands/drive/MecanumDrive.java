@@ -22,7 +22,6 @@ public class MecanumDrive extends Command{
 	
 	protected void initialize() {
 		velocityRecordingTag	= (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.velocityRecordingTag);
-		Logger.log("VelocityRecording Val {" + velocityRecordingTag + "}", "velocity");
 	}
 	
 	@Override

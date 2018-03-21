@@ -117,7 +117,15 @@ public class ReplayVelocityDriveRecording extends Command {
 			case Box2ToLeftScale:
 				file	= directory + "Box2ToLeftScale.txt";
 				break;
-				
+			case Forward:
+				file	= directory + "forward.txt";
+				break;
+			case Rotate:
+				file	= directory + "rotate.txt";
+				break;
+			case StrafeRight:
+				file	= directory + "straferight.txt";
+				break;
 		}
 		
 		return file;
@@ -136,5 +144,8 @@ public class ReplayVelocityDriveRecording extends Command {
 									LeftSwitchToBox2,
 									LeftScaleToBox2,
 									Box2ToLeftSwitch,
-									Box2ToLeftScale};
+									Box2ToLeftScale,
+									Forward,
+									Rotate,
+									StrafeRight};
 }

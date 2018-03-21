@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class TestBlock extends CommandGroup {
 	public TestBlock() {
-		addSequential(new ReplayVelocityDriveRecording(ReplayVelocityDriveRecording.Recording.RightSwitchDropToFarBox));
+		addSequential(new ReplayVelocityDriveRecording(ReplayVelocityDriveRecording.Recording.StrafeRight));
 	}
 }
 

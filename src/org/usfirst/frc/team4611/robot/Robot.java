@@ -183,39 +183,48 @@ public class Robot extends IterativeRobot {
 		path = path.trim().toUpperCase();
 		String fms = driver.getGameSpecificMessage().trim();
 		String strat = path;
+		String key = "";
 		//parsing string
-		String location = strat.substring(0, 1).toUpperCase();
-		String mode = strat.substring(1, 2).toUpperCase();
-		String target1 = strat.substring(2, 4).toUpperCase();
-		String target2 = strat.substring(4, 6).toUpperCase();
-		String oppTarget1 = strat.substring(6).toUpperCase();
+		try {
+			String location = strat.substring(0, 1).toUpperCase();
+			String mode = strat.substring(1, 2).toUpperCase();
+			String target1 = strat.substring(2, 4).toUpperCase();
+			String target2 = strat.substring(4, 6).toUpperCase();
+			String oppTarget1 = strat.substring(6).toUpperCase();
 		
-		String key;
-		if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
-			key = "DRIVEFORWARD";
-		}
-		if(fms == null || fms.toLowerCase().equals("null") || fms.isEmpty()) {
-			key = "DRIVEFORWARD";
-		}
 		
-		String ourSideSwitch = fms.substring(0, 1);
-		String ourSideScale = fms.substring(1, 2);
-		key = location;
-		
-		if(mode.toUpperCase().equals("T")) {
-			if(target1.equals("SW")) {
-				key = key + ourSideSwitch + target1;
+			
+			if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
+				key = "DRIVEFORWARD";
 			}
-			else {
-				key = key + ourSideScale + target1;
+			if(fms == null || fms.toLowerCase().equals("null") || fms.isEmpty()) {
+				key = "DRIVEFORWARD";
 			}
-			if(target2.equals("SW")) {
-				key = key + ourSideSwitch + target2;
+			
+			String ourSideSwitch = fms.substring(0, 1);
+			String ourSideScale = fms.substring(1, 2);
+			key = location;
+			
+			if(mode.toUpperCase().equals("T")) {
+				if(target1.equals("SW")) {
+					key = key + ourSideSwitch + target1;
+				}
+				else {
+					key = key + ourSideScale + target1;
+				}
+				if(target2.equals("SW")) {
+					key = key + ourSideSwitch + target2;
+				}
+				else {
+					key = key + ourSideScale + target2;
+				}
 			}
-			else {
-				key = key + ourSideScale + target2;
-			}
+		}catch(StringIndexOutOfBoundsException e) {
+			Logger.log("NPE at getPath substrings caught", "Auton selection");
 		}
-		return key.trim().toUpperCase();
+		if(!(key.equals(null))) {
+			return key.trim().toUpperCase();
+		}
+		return "Empty";
 	}
 }
