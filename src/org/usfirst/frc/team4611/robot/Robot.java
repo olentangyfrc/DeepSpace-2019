@@ -134,8 +134,7 @@ public class Robot extends IterativeRobot {
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 
-		//autonomousCommand = autonCommandGroup.get(path);
-		autonomousCommand =  new TestBlock();
+		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -192,6 +191,17 @@ public class Robot extends IterativeRobot {
 			String target2 = strat.substring(4, 6).toUpperCase();
 			String oppTarget1 = strat.substring(6).toUpperCase();
 		
+			
+			boolean isTarget1OnOurSide = false;
+			boolean isTarget2OnOurSide = false;
+			
+			
+			if(target1.equals(location)) {
+				isTarget1OnOurSide = true;
+			}
+			if(target2.equals(location)) {
+				isTarget2OnOurSide = true;
+			}
 		
 			
 			if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
@@ -202,8 +212,19 @@ public class Robot extends IterativeRobot {
 			}
 			
 			String ourSideSwitch = fms.substring(0, 1);
-			String ourSideScale = fms.substring(1, 2);
+			String ourSideScale = fms.substring(1, 2);	
+			String oppositeSide;
+			boolean split;
 			key = location;
+			
+			if(ourSideSwitch.equals("R")) {
+				oppositeSide = "L";
+			}
+			else {
+				oppositeSide = "R";
+			}
+			
+			if()
 			
 			if(mode.toUpperCase().equals("T")) {
 				if(target1.equals("SW")) {
@@ -217,6 +238,41 @@ public class Robot extends IterativeRobot {
 				}
 				else {
 					key = key + ourSideScale + target2;
+				}
+			}
+			if(mode.toUpperCase().equals("P")) {
+				if(isTarget1OnOurSide && isTarget2OnOurSide) {
+					if(target1.equals("SW")) {
+						key = key + ourSideSwitch + target1;
+					}
+					else if(target1.equals("SC")) {
+						key = key + ourSideScale + target1;
+					}
+					else
+					{
+						key = key + "XXX";
+					}
+					if(target2.equals("SW")) {
+						key = key + ourSideSwitch + target2;
+					}
+					else if(target2.equals("SC")) {
+						key = key + ourSideScale + target2;
+					}
+					else
+					{
+						key = key + "XXX";
+					}
+				}
+				else if(split) {
+					if(ourSideSwitch.equals(location)) {
+						key = key + location + "SW";
+					}
+					else if(ourSideScale.equals(location)) {
+						key = key + location + "SC";
+					}
+				}
+				else {
+					key = key + oppTarget1;
 				}
 			}
 		}catch(StringIndexOutOfBoundsException e) {

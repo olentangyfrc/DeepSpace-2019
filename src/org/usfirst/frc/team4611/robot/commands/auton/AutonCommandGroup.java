@@ -9,6 +9,16 @@ import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftScaleL
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchLeftScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightScaleRightScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartCenterSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartCenterSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartLeftScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartLeftScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartLeftSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartLeftSwitchRight;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartRightScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartRightScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartRightSwitchLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.singleTargets.StartRightSwitchRight;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,7 +38,18 @@ public class AutonCommandGroup <K, V> extends HashMap<String, Command> {
 		put("LLSWLSW", new StartLeftLeftSwitchLeftSwitch());
 		put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
 		put("LLSWRSC", new StartLeftLeftSwitchRightScale());
+		put("RRSC", new StartRightScaleRight());
+		put("RRSW", new StartRightSwitchRight());
+		put("RLSC", new StartRightScaleLeft());
+		put("RLSW", new StartRightSwitchLeft());
 		
+		put("LRSC", new StartLeftScaleRight());
+		put("LRSW", new StartLeftSwitchRight());
+		put("LLSC", new StartLeftScaleLeft());
+		put("LLSW", new StartLeftSwitchLeft());
+		
+		put("CLSW", new StartCenterSwitchLeft());
+		put("CRSW", new StartCenterSwitchRight());
 		
 		put("TTRRR", new TestBlock());
 		
