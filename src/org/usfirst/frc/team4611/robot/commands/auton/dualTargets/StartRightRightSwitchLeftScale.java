@@ -1,9 +1,8 @@
-package org.usfirst.frc.team4611.robot.commands.auton.dualOptions;
+package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
 import org.usfirst.frc.team4611.robot.commands.auton.Sleep;
-import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeRight;
@@ -19,9 +18,9 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartRightRightSwitchRightScale extends CommandGroup {
+public class StartRightRightSwitchLeftScale extends CommandGroup {
 
-	public StartRightRightSwitchRightScale() {
+	public StartRightRightSwitchLeftScale() {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
@@ -29,28 +28,32 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
 		addSequential(new ReleaseBox());
 		addSequential(new AutonBackward(RobotMap.TOWARDS_SWITCH));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY + 18));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle2));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(20));
+		addSequential(new AutonStrafeRight(30));
 		addSequential(new StopAndRepositionTalons());
+		addSequential(new Sleep(500)); // give Vision a chance to focus
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
-		addSequential(new Sleep(100));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addParallel(new MovePotPos(RobotMap.POTMAX));
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.crossToScale));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
 	}

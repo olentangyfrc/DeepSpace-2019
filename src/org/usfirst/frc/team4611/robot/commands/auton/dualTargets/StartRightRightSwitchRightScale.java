@@ -1,7 +1,8 @@
-package org.usfirst.frc.team4611.robot.commands.auton.dualOptions;
+package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
+import org.usfirst.frc.team4611.robot.commands.auton.Sleep;
 import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
@@ -14,47 +15,44 @@ import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
-import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartRightScaleRightScaleRight extends CommandGroup {
+public class StartRightRightSwitchRightScale extends CommandGroup {
 
-	public StartRightScaleRightScaleRight() {
+	public StartRightRightSwitchRightScale() {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.TOSCALE));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY/2), 1.5);// 1.85
-		addSequential(new ReleaseBox());
-		addSequential(new PushBox());
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonBackward(RobotMap.HALFWAY/2), 1.5);
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.WAY));
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonStrafeRight(30));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
+		addSequential(new ReleaseBox());
+		addSequential(new AutonBackward(RobotMap.TOWARDS_SWITCH));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.HALFWAY + 18));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonStrafeRight(20));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new FindBox());
 		addSequential(new GrabBox());
-		addSequential(new Wait(1));
-		addSequential(new PigeonAdjust(RobotMap.turnAngle2));
-		addSequential(new StopAndRepositionTalons());
+		addSequential(new Sleep(100));
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addParallel(new MovePotPos(RobotMap.POTMAX));
-		addSequential(new Wait(.1));
-		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle2));
 		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.HALFWAY));
 		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
 	}
-	protected void initialize() {
-		Logger.log("initialized", this.getClass().getName());
-	}
+
 }

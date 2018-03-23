@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.auton.singleTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
@@ -14,9 +14,9 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartRightSwitchLeft extends CommandGroup {
+public class StartLeftSwitchRight extends CommandGroup {
 
-	public StartRightSwitchLeft() {
+	public StartLeftSwitchRight() {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
@@ -24,11 +24,11 @@ public class StartRightSwitchLeft extends CommandGroup {
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
 		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.crossToScale));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), .5);
 		addSequential(new ReleaseBox());
