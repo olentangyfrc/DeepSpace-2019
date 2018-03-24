@@ -2,19 +2,15 @@ package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
-import org.usfirst.frc.team4611.robot.commands.auton.Sleep;
-import org.usfirst.frc.team4611.robot.commands.auton.Wait;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
-import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeLeft;
-import org.usfirst.frc.team4611.robot.commands.drive.FindBox;
 import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
 import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
-import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -50,10 +46,12 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
 		addSequential(new MovePotPos(RobotMap.POTMIN));
 		addSequential(new GrabBox());
-		//addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH));
-		//addSequential(new StopAndRepositionTalons());
-		addSequential(new GrabBox());
+
 		
 	}
 
+	protected void initialize() {
+		Logger.log("initialized", this.getClass().getName());
+	}
+	
 }

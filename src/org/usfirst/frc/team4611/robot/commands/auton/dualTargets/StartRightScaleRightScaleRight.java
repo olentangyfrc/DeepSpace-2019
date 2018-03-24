@@ -1,12 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
-import org.usfirst.frc.team4611.robot.commands.arm.MovePotPos;
-import org.usfirst.frc.team4611.robot.commands.auton.Wait;
-import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
-import org.usfirst.frc.team4611.robot.commands.drive.AutonStrafeRight;
-import org.usfirst.frc.team4611.robot.commands.drive.FindBox;
 import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
