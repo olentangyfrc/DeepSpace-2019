@@ -95,7 +95,7 @@ public class RobotMap {
 	public static final int crossToScale = 180;	
 	public static final double POTMIN = .13;
 	public static final double POTMAX = .8;
-	public static final double POTSWITCH = .6;
+	public static final double POTSWITCH = .5;
 	public static final double POTMIN2 = .13;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
