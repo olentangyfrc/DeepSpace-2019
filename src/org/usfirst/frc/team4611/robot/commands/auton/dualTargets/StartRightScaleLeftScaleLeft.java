@@ -39,7 +39,7 @@ public class StartRightScaleLeftScaleLeft extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(55));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle3));
+		addSequential(new PigeonAdjust(40));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
