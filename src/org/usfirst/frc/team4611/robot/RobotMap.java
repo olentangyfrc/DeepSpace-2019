@@ -89,6 +89,7 @@ public class RobotMap {
 	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
 	public static final int turnAngle2 = 180;
+	public static final int turnAngle3 = 45;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
 	public static final int crossToScale = 180;	
@@ -188,6 +189,7 @@ public class RobotMap {
 	public static int boxPusherClose = 3;
 	
 	public static PigeonIMU pigeon;
+	
 
 	public static void init() {
 

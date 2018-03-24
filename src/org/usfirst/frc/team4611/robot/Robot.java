@@ -2,15 +2,8 @@ package org.usfirst.frc.team4611.robot;
 
 import java.util.HashMap;
 
-import org.usfirst.frc.team4611.robot.commands.MakeLight;
 import org.usfirst.frc.team4611.robot.commands.auton.AutonCommandGroup;
-import org.usfirst.frc.team4611.robot.commands.auton.JustDriveForward;
-import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
-import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftLeftSwitchLeftScale;
-import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftLeftSwitchRightScale;
-import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchLeftScale;
-import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchRightScale;
-import org.usfirst.frc.team4611.robot.commands.drive.ReplayVelocityDriveRecording;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightScaleLeftScaleLeft;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -21,7 +14,6 @@ import org.usfirst.frc.team4611.robot.subsystems.FancyLights;
 import org.usfirst.frc.team4611.robot.subsystems.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.Solenoid;
 import org.usfirst.frc.team4611.robot.subsystems.UltrasonicSensor;
-import org.usfirst.frc.team4611.robot.utilities.PiLights;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTable;
@@ -133,8 +125,9 @@ public class Robot extends IterativeRobot {
 		String path = getPath();
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
-
-		autonomousCommand = autonCommandGroup.get(path);
+		
+		autonomousCommand = new StartRightScaleLeftScaleLeft();
+		//autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -214,8 +207,11 @@ public class Robot extends IterativeRobot {
 			String ourSideSwitch = fms.substring(0, 1);
 			String ourSideScale = fms.substring(1, 2);	
 			String oppositeSide;
-			boolean split;
+			boolean split = false;
 			key = location;
+			
+			if((isTarget1OnOurSide && !isTarget2OnOurSide) || (!isTarget1OnOurSide && isTarget2OnOurSide))
+				split = true;
 			
 			if(ourSideSwitch.equals("R")) {
 				oppositeSide = "L";
@@ -224,19 +220,18 @@ public class Robot extends IterativeRobot {
 				oppositeSide = "R";
 			}
 			
-			if()
 			
 			if(mode.toUpperCase().equals("T")) {
 				if(target1.equals("SW")) {
 					key = key + ourSideSwitch + target1;
 				}
-				else {
+				else if(target1.equals("SC")){
 					key = key + ourSideScale + target1;
 				}
 				if(target2.equals("SW")) {
 					key = key + ourSideSwitch + target2;
 				}
-				else {
+				else if(target2.equals("SC")) {
 					key = key + ourSideScale + target2;
 				}
 			}
