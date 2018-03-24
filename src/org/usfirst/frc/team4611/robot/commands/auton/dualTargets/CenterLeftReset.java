@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CenterLeftReset extends CommandGroup {
 
 	public CenterLeftReset() {
-		addSequential(new ResetElevator());
+		//addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY-10));
@@ -27,7 +27,7 @@ public class CenterLeftReset extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new MovePotPos(RobotMap.POTSWITCH));
+		//addSequential(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new AutonForward(RobotMap.HALFWAY+20), 1.5);
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
@@ -35,11 +35,10 @@ public class CenterLeftReset extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY-10));
+		addSequential(new AutonForward(RobotMap.HALFWAY+10));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY), 1);
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());

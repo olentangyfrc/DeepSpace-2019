@@ -18,20 +18,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftScaleRightScaleRight extends CommandGroup {
 
 	public StartLeftScaleRightScaleRight() {
-		addSequential(new ResetElevator());
+		//addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		//addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new AutonForward(RobotMap.MOREWAY));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 3));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 5));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.crossToScale+40));
+		addSequential(new AutonForward(RobotMap.crossToScale+50));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addParallel(new MovePotPos(RobotMap.POTMAX));
+		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		//addParallel(new MovePotPos(RobotMap.POTMAX));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(55));
 		addSequential(new StopAndRepositionTalons());

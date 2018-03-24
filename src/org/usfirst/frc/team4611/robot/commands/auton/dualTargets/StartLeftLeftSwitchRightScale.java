@@ -18,11 +18,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftLeftSwitchRightScale extends CommandGroup {
 
 	public StartLeftLeftSwitchRightScale() {
-		addSequential(new ResetElevator());
+		//addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		//addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new AutonForward(RobotMap.WAY));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));

@@ -126,8 +126,8 @@ public class Robot extends IterativeRobot {
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 		
-		autonomousCommand = new StartRightScaleLeftScaleLeft();
-		//autonomousCommand = autonCommandGroup.get(path);
+		//autonomousCommand = new StartRightScaleLeftScaleLeft();
+		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");

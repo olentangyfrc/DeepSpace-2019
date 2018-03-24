@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftScaleLeftScaleLeft extends CommandGroup {
 
 	public StartLeftScaleLeftScaleLeft() {
-		addSequential(new ResetElevator());
+		//addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.TOSCALE));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle3));
 		addSequential(new StopAndRepositionTalons());
