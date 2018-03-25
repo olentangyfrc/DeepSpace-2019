@@ -285,20 +285,6 @@ public class Robot extends IterativeRobot {
 			Logger.log("NPE at getPath substrings caught", "Auton selection");
 		}
 		
-		key = "RLSCLSC";
-		key = "RRSCRSC";
-		key = "LLSCLSC";
-		key = "LLSWLSC";
-		key = "LLSWRSC";
-		key = "LRSWRSC";
-		key = "LRSCRSC";
-		key = "CRSW";
-		key = "CLSW";
-		key = "CRSWSW";
-		key = "CLSWSW";
-		key = "RLSWLSC";
-		key = "RRSWLSC";
-		key = "RRSWRSC";
 		
 		if(!(key.equals(null))) {
 			return key.trim().toUpperCase();

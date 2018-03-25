@@ -46,6 +46,10 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
 		addSequential(new MovePotPos(RobotMap.POTMIN));
 		addSequential(new GrabBox());
+		addSequential(new AutonBackward(4));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new MovePotPos(RobotMap.POTMAX));
+		addSequential(new PigeonAdjust(-170));
 
 		
 	}

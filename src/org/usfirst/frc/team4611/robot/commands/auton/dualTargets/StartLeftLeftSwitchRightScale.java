@@ -18,11 +18,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftLeftSwitchRightScale extends CommandGroup {
 
 	public StartLeftLeftSwitchRightScale() {
-		//addSequential(new ResetElevator());
+		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		//addParallel(new MovePotPos(RobotMap.POTSWITCH));
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		addParallel(new MovePotPos(RobotMap.POTSWITCH));
 		addSequential(new AutonForward(RobotMap.WAY));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
@@ -36,13 +36,12 @@ public class StartLeftLeftSwitchRightScale extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.HALFWAY + 28 ));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 5));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 2));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.crossToScale - (RobotMap.TOWARDS_SWITCH/2) + 10));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(20), 1.5);// 1.85
 		
 	}
 

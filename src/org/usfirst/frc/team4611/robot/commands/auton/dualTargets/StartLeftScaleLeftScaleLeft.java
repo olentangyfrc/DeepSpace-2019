@@ -17,17 +17,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftScaleLeftScaleLeft extends CommandGroup {
 
 	public StartLeftScaleLeftScaleLeft() {
-		//addSequential(new ResetElevator());
+		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.TOSCALE));
-		//addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new AutonForward(342));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle3));
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY));// 1.85
+		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new AutonForward(13));
+		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());
