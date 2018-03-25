@@ -39,7 +39,7 @@ public class StartRightRightSwitchRightScale extends CommandGroup {
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		
-		addSequential(new AutonForward(RobotMap.HALFWAY-4));
+		addSequential(new AutonForward(RobotMap.HALFWAY-10));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());

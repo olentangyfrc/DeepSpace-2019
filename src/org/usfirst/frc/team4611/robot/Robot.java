@@ -3,7 +3,18 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AutonCommandGroup;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.CenterLeftReset;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.CenterRightReset;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftLeftSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftLeftSwitchRightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftRightSwitchRightScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftScaleLeftScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftScaleRightScaleRight;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightLeftSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchLeftScale;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightRightSwitchRightScale;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightScaleLeftScaleLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartRightScaleRightScaleRight;
 import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Arm;
 import org.usfirst.frc.team4611.robot.subsystems.BoxPusher;
@@ -273,9 +284,26 @@ public class Robot extends IterativeRobot {
 		}catch(StringIndexOutOfBoundsException e) {
 			Logger.log("NPE at getPath substrings caught", "Auton selection");
 		}
+		
+		key = "RLSCLSC";
+		key = "RRSCRSC";
+		key = "LLSCLSC";
+		key = "LLSWLSC";
+		key = "LLSWRSC";
+		key = "LRSWRSC";
+		key = "LRSCRSC";
+		key = "CRSW";
+		key = "CLSW";
+		key = "CRSWSW";
+		key = "CLSWSW";
+		key = "RLSWLSC";
+		key = "RRSWLSC";
+		key = "RRSWRSC";
+		
 		if(!(key.equals(null))) {
 			return key.trim().toUpperCase();
 		}
-		return "Empty";
+		// return "Empty";
+		return key;
 	}
 }
