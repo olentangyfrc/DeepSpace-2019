@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The RobotMap is where we declare what our constants are It's where we set
@@ -89,13 +88,15 @@ public class RobotMap {
 	public static final int TOSCALE = 270;
 	public static final int TOWARDS_SWITCH = 30;
 	public static final int turnAngle1 = 90;
+	public static final int turnAngle2 = 180;
+	public static final int turnAngle3 = 45;
 	public static final int strafeFromCenter = 60;
 	public static final int strafeToCloseTarget = 72;
 	public static final int crossToScale = 180;	
-	public static final double POTMIN = .19;
+	public static final double POTMIN = .13;
 	public static final double POTMAX = .8;
-	public static final double POTSWITCH = .6;
-	public static final double POTMIN2 = .19;
+	public static final double POTSWITCH = .5;
+	public static final double POTMIN2 = .13;
 	public static final double POTMAX2 = .8;
 	public static final double POTSWITCH2 = .35;
 	private static final double VARIANCELIMIT = .02;	
@@ -174,9 +175,9 @@ public class RobotMap {
 	public static String autonStrafeScalarID = "StrafeScalar";
 	public static String autonSubTable = "Auton Subtable";
 	public static String climberSpeed = "Climber Speed";
-	public static String targetKey = "Target";
-	public static String sideKey = "Position";
+	public static String strategy = "Strategy";
 	public static String converterID = "Converter";
+	public static String  velocityRecordingTag = "Velocity Recording Tag";
 	
 	public static DefaultValues defaults;
 
@@ -323,6 +324,7 @@ public class RobotMap {
 		RobotMap.updateValue(autonSubTable, "Pigeon Angle", 90);
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.inchPuMultipler, RobotMap.defaults.getDoubleDefaultValue(autonSubTable, inchPuMultipler, INCH_PU_MULTIPLIER));
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetAimID, false);
+		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
 		//Potentiometer Values
 		RobotMap.updateValue(potentiometerSubTable, potMaxID, 
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, potMaxID, POTMAX));
@@ -334,12 +336,6 @@ public class RobotMap {
 		RobotMap.updateValue(potentiometerSubTable, varianceLimitID,
 				RobotMap.defaults.getDoubleDefaultValue(potentiometerSubTable, varianceLimitID, VARIANCELIMIT));
 		RobotMap.updateValue(pigeonSubtable, pigeonAutonP, 0.009);
-		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.sideKey, "Null");
-		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.targetKey, "Null");
-		//Which type of drive train do you have?
-		//Smart dash board values
-		SmartDashboard.putString(sideKey, "C");
-		SmartDashboard.putString(targetKey, "SW");
 
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.converterID, 2);
 		

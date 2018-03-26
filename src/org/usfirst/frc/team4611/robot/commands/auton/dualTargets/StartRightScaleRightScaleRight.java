@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
@@ -14,25 +14,23 @@ import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartCenterScaleRight extends CommandGroup {
+public class StartRightScaleRightScaleRight extends CommandGroup {
 
-	
-	//Connor: "It's really screwed"
-	public StartCenterScaleRight() {
+	public StartRightScaleRightScaleRight() {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY));
+		addSequential(new AutonForward(342));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.WAY));
+		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addSequential(new AutonForward(13));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new AutonForward(RobotMap.MOREWAY));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());

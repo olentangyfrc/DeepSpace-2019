@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.commands.auton.singleTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
@@ -8,9 +8,9 @@ import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class StartRightNullZoneRightside extends CommandGroup {
+public class StartLeftNullZoneLeftside extends CommandGroup {
 
-	public StartRightNullZoneRightside() {
+	public StartLeftNullZoneLeftside() {
 		addSequential(new ResetElevator());
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new AutonForward(RobotMap.MOREWAY));

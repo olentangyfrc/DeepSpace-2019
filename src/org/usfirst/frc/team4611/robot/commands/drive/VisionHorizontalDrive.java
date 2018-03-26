@@ -27,7 +27,7 @@ public class VisionHorizontalDrive extends Command{
 		Robot.mecanum.resetEncoders();
     	Robot.mecanum.config_kP(1);
     	Robot.mecanum.resetRampRate();
-    	System.out.println("Initilizing Vision drive 3");
+    	System.out.println("Initilizing Vision drive");
     	
     	Logger.log(" H Dist [" + horizontalDistance +"] "
 				+ " Converter [" + converter +"] "

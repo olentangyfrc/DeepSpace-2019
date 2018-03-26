@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot.commands.drive;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,16 +14,19 @@ public class MecanumDrive extends Command{
 	int velocityInvert3 = -1;
 	int velocityInvert4 = 1;
 	int maxRPM = (int)(double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.maxRPMID);
+	String velocityRecordingTag	= null;
 	
 	public MecanumDrive(){
 		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
+		velocityRecordingTag	= (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.velocityRecordingTag);
 	}
 	
 	@Override
 	protected void execute() {
+		
 		double YVal = -Robot.oi.filter(OI.leftJoy.getY()); 
 		double XVal = Robot.oi.strafeFilter(OI.leftJoy.getX());
 		double ZVal = Robot.oi.rotateFilter(OI.rightJoy.getX());
@@ -47,7 +51,8 @@ public class MecanumDrive extends Command{
 		Robot.mecanum.setRampRate(0);
 		Robot.mecanum.velocityDrive(velocity1, velocity2, velocity3, velocity4);
 		
-		//Logger.log("{"+ velocity1 +", " + velocity2 + ", " + velocity3 + ", " + velocity4 + "}", "MecanumDrive.capturedVelocities");
+		if (velocityRecordingTag != null && !velocityRecordingTag.isEmpty())
+				Logger.log(velocity1 +", " + velocity2 + ", " + velocity3 + ", " + velocity4, velocityRecordingTag);
 		
 	}
 	@Override
