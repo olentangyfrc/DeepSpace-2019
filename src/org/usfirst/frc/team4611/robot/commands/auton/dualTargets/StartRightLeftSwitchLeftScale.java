@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.commands.pigeon.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.commands.solenoid.GrabBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.PushBox;
 import org.usfirst.frc.team4611.robot.commands.solenoid.ReleaseBox;
+import org.usfirst.frc.team4611.robot.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -37,6 +38,9 @@ public class StartRightLeftSwitchLeftScale extends CommandGroup {
 //		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH));
 //		addSequential(new ReleaseBox());
 		
+	}
+	protected void initialize() {
+		Logger.log("initialized", this.getClass().getName());
 	}
 
 }

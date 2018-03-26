@@ -187,100 +187,50 @@ public class Robot extends IterativeRobot {
 		String fms = driver.getGameSpecificMessage().trim();
 		String strat = path;
 		String key = "";
+		boolean split = false;
+		String sw = fms.substring(0, 1);
+		String sc = fms.substring(1, 2);
 		//parsing string
 		try {
 			String location = strat.substring(0, 1).toUpperCase();
 			String mode = strat.substring(1, 2).toUpperCase();
 			String target1 = strat.substring(2, 4).toUpperCase();
+			String target1Side = getSide(target1);
 			String target2 = strat.substring(4, 6).toUpperCase();
+			String target2Side = getSide(target2);
 			String oppTarget1 = strat.substring(6).trim().toUpperCase();
-		
+			String oppTarget1Side = getSide(oppTarget1);
 			
-			boolean isTarget1OnOurSide = false;
-			boolean isTarget2OnOurSide = false;
-			
-			if(target1.equals(location)) {
-				isTarget1OnOurSide = true;
-			}
-			
-			if(target2.equals(location)) {
-				isTarget2OnOurSide = true;
-			}
-		
-			
-			if(strat == null || strat.toLowerCase().equals("null") || strat.isEmpty()) {
-				key = "DRIVEFORWARD";
-			}
-			if(fms == null || fms.toLowerCase().equals("null") || fms.isEmpty()) {
-				key = "DRIVEFORWARD";
-			}
-			
-			String ourSideSwitch = fms.substring(0, 1);
-			String ourSideScale = fms.substring(1, 2);	
-			String oppositeSide;
-			boolean split = false;
-			key = location;
-			
-			if((isTarget1OnOurSide && !isTarget2OnOurSide) || (!isTarget1OnOurSide && isTarget2OnOurSide))
+			if(!(target1Side.equals(target2Side)))
 				split = true;
 			
-			if(ourSideSwitch.equals("R")) {
-				oppositeSide = "L";
-			}
-			else {
-				oppositeSide = "R";
+			if (mode.equals("T")) {
+			key = location + target1Side + target1 + target2Side + target2;
 			}
 			
+			if (mode.equals("P")) {
+				if (split = true) {
+					if (sw.equals(location)) {
+					key = location + sw + "SW" + location + "SC"; //Just to pick up box
+					}
+					else if (sc.equals(location)) {
+						key = location + sc + "SC" + location + "SC";
+					}
+				}
+				
+				else { // not split
+					if (sw.equals(location)) { //on our side
+						key = location + target1Side + target1 + target2Side + target2;
+					}
+					
+					else { //opp side
+						key = location + oppTarget1Side + oppTarget1 + oppTarget1Side + "SC";
+					}
+				}
+			}
 			
-			if(mode.toUpperCase().equals("T")) {
-				if(target1.equals("SW")) {
-					key = key + ourSideSwitch + target1;
-				}
-				else if(target1.equals("SC")){
-					key = key + ourSideScale + target1;
-				}
-				if(target2.equals("SW")) {
-					key = key + ourSideSwitch + target2;
-				}
-				else if(target2.equals("SC")) {
-					key = key + ourSideScale + target2;
-				}
-			}
-			if(mode.toUpperCase().equals("P")) {
-				if(isTarget1OnOurSide && isTarget2OnOurSide) {
-					if(target1.equals("SW")) {
-						key = key + ourSideSwitch + target1;
-					}
-					else if(target1.equals("SC")) {
-						key = key + ourSideScale + target1;
-					}
-					else
-					{
-						key = key + "XXX";
-					}
-					if(target2.equals("SW")) {
-						key = key + ourSideSwitch + target2;
-					}
-					else if(target2.equals("SC")) {
-						key = key + ourSideScale + target2;
-					}
-					else
-					{
-						key = key + "XXX";
-					}
-				}
-				else if(split) {
-					if(ourSideSwitch.equals(location)) {
-						key = key + location + "SW";
-					}
-					else if(ourSideScale.equals(location)) {
-						key = key + location + "SC";
-					}
-				}
-				else {
-					key = key + oppTarget1;
-				}
-			}
+			return key;
+			
 		}catch(StringIndexOutOfBoundsException e) {
 			Logger.log("NPE at getPath substrings caught", "Auton selection");
 		}
