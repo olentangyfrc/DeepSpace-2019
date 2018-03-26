@@ -18,31 +18,31 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftLeftSwitchRightScale extends CommandGroup {
 
 	public StartLeftLeftSwitchRightScale() {
-		addSequential(new ResetElevator());
-		addSequential(new GrabBox());
-		addSequential(new StopAndRepositionTalons());
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addParallel(new MovePotPos(RobotMap.POTSWITCH));
-		addSequential(new AutonForward(RobotMap.WAY));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new ReleaseBox());
-		addSequential(new AutonBackward(RobotMap.TOWARDS_SWITCH/2));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1+2));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY + 28 ));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 2));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.crossToScale - (RobotMap.TOWARDS_SWITCH/2) + 10));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		
+//		addSequential(new ResetElevator());
+//		addSequential(new GrabBox());
+//		addSequential(new StopAndRepositionTalons());
+//		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+//		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+//		addSequential(new AutonForward(RobotMap.WAY));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(RobotMap.TOWARDS_SWITCH), 1.5);// 1.85
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new ReleaseBox());
+//		addSequential(new AutonBackward(RobotMap.TOWARDS_SWITCH/2));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1+2));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(RobotMap.HALFWAY + 28 ));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 2));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(RobotMap.crossToScale - (RobotMap.TOWARDS_SWITCH/2) + 10));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		
 	}
 
 	protected void initialize() {

@@ -17,19 +17,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartRightScaleRightScaleRight extends CommandGroup {
 
 	public StartRightScaleRightScaleRight() {
-		addSequential(new ResetElevator());
-		addSequential(new GrabBox());
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(342));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addSequential(new AutonForward(13));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new ReleaseBox());
-		addSequential(new PushBox());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+//		addSequential(new ResetElevator());
+//		addSequential(new GrabBox());
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(342));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+//		addSequential(new AutonForward(13));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new ReleaseBox());
+//		addSequential(new PushBox());
+//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());

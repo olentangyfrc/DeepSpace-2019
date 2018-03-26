@@ -18,34 +18,34 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CenterLeftReset extends CommandGroup {
 
 	public CenterLeftReset() {
-		addSequential(new ResetElevator());
-		addSequential(new GrabBox());
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(RobotMap.HALFWAY-15));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(42));
-		addSequential(new StopAndRepositionTalons());
-		addParallel(new MovePotPos(RobotMap.POTSWITCH));
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(55), 1.5);
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new ReleaseBox());
-		addSequential(new AutonBackward(45));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
-		addSequential(new StopAndRepositionTalons());
-		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
-		addSequential(new AutonForward(42));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1 + 2));
-		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(6));
-		addSequential(new MovePotPos(RobotMap.POTMIN));
-		
+//		addSequential(new ResetElevator());
+//		addSequential(new GrabBox());
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(RobotMap.HALFWAY-15));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(42));
+//		addSequential(new StopAndRepositionTalons());
+//		addParallel(new MovePotPos(RobotMap.POTSWITCH));
+//		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+//		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(55), 1.5);
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new ReleaseBox());
+//		addSequential(new AutonBackward(45));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
+//		addSequential(new StopAndRepositionTalons());
+//		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
+//		addSequential(new AutonForward(42));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1 + 2));
+//		addSequential(new StopAndRepositionTalons());
+//		addSequential(new AutonForward(6));
+//		addSequential(new MovePotPos(RobotMap.POTMIN));
+
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());

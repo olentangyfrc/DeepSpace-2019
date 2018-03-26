@@ -193,16 +193,16 @@ public class Robot extends IterativeRobot {
 			String mode = strat.substring(1, 2).toUpperCase();
 			String target1 = strat.substring(2, 4).toUpperCase();
 			String target2 = strat.substring(4, 6).toUpperCase();
-			String oppTarget1 = strat.substring(6).toUpperCase();
+			String oppTarget1 = strat.substring(6).trim().toUpperCase();
 		
 			
 			boolean isTarget1OnOurSide = false;
 			boolean isTarget2OnOurSide = false;
 			
-			
 			if(target1.equals(location)) {
 				isTarget1OnOurSide = true;
 			}
+			
 			if(target2.equals(location)) {
 				isTarget2OnOurSide = true;
 			}
@@ -291,5 +291,17 @@ public class Robot extends IterativeRobot {
 		}
 		// return "Empty";
 		return key;
+	}
+	
+	public String getSide(String target) {
+		String fms = driver.getGameSpecificMessage().trim();
+		if (target.equals("SW")) {
+			return fms.substring(0, 1);
+		}
+		if (target.equals("SC")) {
+			return fms.substring(1, 2);
+		}
+		
+		return null;
 	}
 }
