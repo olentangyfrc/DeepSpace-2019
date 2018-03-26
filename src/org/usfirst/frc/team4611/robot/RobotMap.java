@@ -189,7 +189,6 @@ public class RobotMap {
 	public static int boxPusherClose = 3;
 	
 	public static PigeonIMU pigeon;
-	
 
 	public static void init() {
 
@@ -307,7 +306,7 @@ public class RobotMap {
 		
 		//Elevator Values
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorUpSpeed, 
-				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 0.95));
+				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorUpSpeed, 1));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, elevatorDownSpeed, 
 				RobotMap.defaults.getDoubleDefaultValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed, 0.75));
 		RobotMap.updateValue(RobotMap.elevatorSubtable, RobotMap.elevatorPos, 0);

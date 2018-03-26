@@ -80,8 +80,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init(); //Run the method "init" in RobotMap
 		//Initialize utilities
-		//PiLights.reset();
-		//Initialize the subsystems
 		mecanum = new DriveTrain();
 		elevator = new Elevator();
 		arm = new Arm();
@@ -101,9 +99,6 @@ public class Robot extends IterativeRobot {
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
 		camera.setExposureManual(35);
-		
-//		lightsCommand = new MakeLight(1);
-//		lightsCommand.start();
 		
 		// Set up default values for auton
 		RobotMap.updateValue(RobotMap.autonSubTable, RobotMap.strategy, "");
@@ -127,8 +122,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();		
-//		((MakeLight)lightsCommand).setColor(4);
-//		lightController.set(0.87);
 	}
 
 	@Override
@@ -136,8 +129,6 @@ public class Robot extends IterativeRobot {
 		String path = getPath();
 		
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
-		
-		//autonomousCommand = new StartRightScaleLeftScaleLeft();
 		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
@@ -182,53 +173,48 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public String getPath() {
-		String path = (String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy);
-		path = path.trim().toUpperCase();
 		String fms = driver.getGameSpecificMessage().trim();
-		String strat = path;
-		String key = "";
-		boolean split = false;
 		String sw = fms.substring(0, 1);
 		String sc = fms.substring(1, 2);
-		//parsing string
+		String key = "";
+		boolean split = false;
+		
 		try {
-			String location = strat.substring(0, 1).toUpperCase();
-			String mode = strat.substring(1, 2).toUpperCase();
-			String target1 = strat.substring(2, 4).toUpperCase();
-			String target1Side = getSide(target1);
-			String target2 = strat.substring(4, 6).toUpperCase();
-			String target2Side = getSide(target2);
-			String oppTarget1 = strat.substring(6).toUpperCase();
-			String oppTarget1Side = getSide(oppTarget1);
-			
-			Logger.log(location + mode + target1 + target2 + oppTarget1, "Auton key reconstruction");
-						
-			if(!(target1Side.equals(target2Side))) {
-				split = true;	
+			String strat = ((String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy)).trim().toUpperCase();
+			String position = strat.substring(0, 1).toUpperCase();  //L, R, C
+			String mode = strat.substring(1, 2).toUpperCase(); //P, T
+			String target1 = strat.substring(2, 4).toUpperCase(); //SW , SC
+			String target1Side = getSide(target1); //L, R
+			String target2 = strat.substring(4, 6).toUpperCase();//SW , SC
+			String target2Side = getSide(target2); //L, R
+			String oppTarget1 = strat.substring(6).toUpperCase();//SW , SC
+			String oppTarget1Side = getSide(oppTarget1); //L, R
+									
+			if(!(target1Side.equals(target2Side))) { //Are targets (not (same side))
+				split = true;
 			}
 			
-			if (mode.equals("T")) {
-				key = location + target1Side + target1 + target2Side + target2;
+			if (mode.equals("T")) { //Target construction follows L + S(T1) + T1 + S(T2) + T2
+				key = position + target1Side + target1 + target2Side + target2;
 			}
 			
 			if (mode.equals("P")) {
-				if (split == true) {
-					if (sw.equals(location)) {
-					key = location + sw + "SW" + location + "SC"; //Just to pick up box
+				if (split == true) { //If we're split
+					if (sw.equals(position)) { //and switch is close
+					key = position + sw + "SW" + position + "SC"; //go switch close then pick up box
 					}
-					else if (sc.equals(location)) {
-						key = location + sc + "SC" + location + "SC";
+					else if (sc.equals(position)) { //or scale is close
+						key = position + sc + "SC" + position + "SC"; //go scale then pick up box
 					}
 				}
 				
 				else { // not split
-					Logger.log("NOT SPLIT" , "Auton");
-					if (sw.equals(location) && sc.equals(location)) { //on our side
-						key = location + target1Side + target1 + target2Side + target2;
+					if (sw.equals(position) && sc.equals(position)) { //on our side
+						key = position + target1Side + target1 + target2Side + target2; //go for targets
 					}
 					
 					else { //opp side
-						key = location + oppTarget1Side + oppTarget1 + oppTarget1Side + "SC";
+						key = position + oppTarget1Side + oppTarget1 + oppTarget1Side + "SC"; //go for opp target then scale
 					}
 				}
 			}
@@ -243,7 +229,6 @@ public class Robot extends IterativeRobot {
 		if(!(key.equals(null))) {
 			return key.trim().toUpperCase();
 		}
-		// return "Empty";
 		return key;
 	}
 	
