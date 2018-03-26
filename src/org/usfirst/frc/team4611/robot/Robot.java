@@ -198,18 +198,21 @@ public class Robot extends IterativeRobot {
 			String target1Side = getSide(target1);
 			String target2 = strat.substring(4, 6).toUpperCase();
 			String target2Side = getSide(target2);
-			String oppTarget1 = strat.substring(6).trim().toUpperCase();
+			String oppTarget1 = strat.substring(6).toUpperCase();
 			String oppTarget1Side = getSide(oppTarget1);
 			
-			if(!(target1Side.equals(target2Side)))
-				split = true;
+			Logger.log(location + mode + target1 + target2 + oppTarget1, "Auton key reconstruction");
+						
+			if(!(target1Side.equals(target2Side))) {
+				split = true;	
+			}
 			
 			if (mode.equals("T")) {
-			key = location + target1Side + target1 + target2Side + target2;
+				key = location + target1Side + target1 + target2Side + target2;
 			}
 			
 			if (mode.equals("P")) {
-				if (split = true) {
+				if (split == true) {
 					if (sw.equals(location)) {
 					key = location + sw + "SW" + location + "SC"; //Just to pick up box
 					}
@@ -219,7 +222,8 @@ public class Robot extends IterativeRobot {
 				}
 				
 				else { // not split
-					if (sw.equals(location)) { //on our side
+					Logger.log("NOT SPLIT" , "Auton");
+					if (sw.equals(location) && sc.equals(location)) { //on our side
 						key = location + target1Side + target1 + target2Side + target2;
 					}
 					
@@ -244,7 +248,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public String getSide(String target) {
-		String fms = driver.getGameSpecificMessage().trim();
+		String fms = driver.getGameSpecificMessage();
 		if (target.equals("SW")) {
 			return fms.substring(0, 1);
 		}

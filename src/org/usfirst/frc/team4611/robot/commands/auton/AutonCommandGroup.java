@@ -28,12 +28,14 @@ public class AutonCommandGroup <K, V> extends HashMap<String, Command> {
 		put("RRSWRSC", new StartRightRightSwitchRightScale());
 		put("RRSWLSC", new StartRightRightSwitchLeftScale());
 		put("RLSWLSC", new StartRightLeftSwitchLeftScale());
+		put("RLSWRSC", new StartRightLeftSwitchLeftScale());
 		put("RLSCLSC", new StartRightScaleLeftScaleLeft());
 		put("RRSCRSC", new StartRightScaleRightScaleRight());
 		put("LLSCLSC", new StartLeftScaleLeftScaleLeft());
 		put("LLSWLSC", new StartLeftLeftSwitchLeftScale());
 		put("LLSWRSC", new StartLeftLeftSwitchRightScale());
 		put("LRSWRSC", new StartLeftRightSwitchRightScale());
+		put("LRSWLSC", new StartLeftRightSwitchRightScale());
 		put("LRSCRSC", new StartLeftScaleRightScaleRight());
 		put("CRSW", new CenterRightReset());
 		put("CLSW", new CenterLeftReset());
