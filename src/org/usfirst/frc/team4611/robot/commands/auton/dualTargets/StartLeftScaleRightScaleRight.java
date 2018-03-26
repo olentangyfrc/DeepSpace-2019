@@ -19,28 +19,28 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StartLeftScaleRightScaleRight extends CommandGroup {
 
 	public StartLeftScaleRightScaleRight() {
-//		addSequential(new ResetElevator());
-//		addSequential(new GrabBox());
-//		addSequential(new StopAndRepositionTalons());
-//		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
-//		addSequential(new AutonForward(RobotMap.MOREWAY + 7));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 3));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new AutonForward(RobotMap.crossToScale+37));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
-//		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-//		addParallel(new MovePotPos(RobotMap.POTMAX));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new AutonForward(55));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new ReleaseBox());
-//		addSequential(new PushBox());
-//		addSequential(new AutonBackward(6));
-//		addSequential(new StopAndRepositionTalons());
-//		addSequential(new PigeonAdjust(-100));
-//		addSequential(new StopAndRepositionTalons());
+		addSequential(new ResetElevator());
+		addSequential(new GrabBox());
+		addSequential(new StopAndRepositionTalons());
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP/2));
+		addSequential(new AutonForward(RobotMap.MOREWAY + 7));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(RobotMap.turnAngle1 + 3));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(RobotMap.crossToScale+37));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
+		addParallel(new MovePotPos(RobotMap.POTMAX));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonForward(55));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new ReleaseBox());
+		addSequential(new PushBox());
+		addSequential(new AutonBackward(6));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new PigeonAdjust(-100));
+		addSequential(new StopAndRepositionTalons());
 	}
 	protected void initialize() {
 		Logger.log("initialized", this.getClass().getName());
