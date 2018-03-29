@@ -103,10 +103,10 @@ public class RobotMap {
 	public static final double rotationDifference = 3.5;
 	
 	//Default motor speeds
-	public static final double LINEAR_ACTUATOR_SPEED = 0.5;
-	public static final double ELEVATOR_SPEED_SCALAR = 0.75;
-	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.75;
-	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.75;
+	public static final double LINEAR_ACTUATOR_SPEED = 0.8;
+	public static final double ELEVATOR_SPEED_SCALAR = 0.8;
+	public static final double LINEAR_ACTUATOR_UP_SPEED = 0.8;
+	public static final double LINEAR_ACTUATOR_DOWN_SPEED = 0.8;
 	
 	//Inches to Position Units Converter
 	public static final double INCH_PU_MULTIPLIER = 215.910640625;

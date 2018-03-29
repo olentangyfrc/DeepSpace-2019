@@ -12,7 +12,7 @@ public class ResetElevator extends Command{
 	}
 
 	protected void execute() {
-		Robot.elevator.move((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed));
+		Robot.elevator.move((double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed) * .4);
 	}	
 	@Override
 	protected boolean isFinished() {
