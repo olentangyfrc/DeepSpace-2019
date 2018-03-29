@@ -13,7 +13,7 @@ public class MecanumDrive extends Command{
 	int velocityInvert2 = -1;
 	int velocityInvert3 = -1;
 	int velocityInvert4 = 1;
-	int maxRPM = (int)(double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.maxRPMID);
+	int maxRPM = 1200;
 	String velocityRecordingTag	= null;
 	
 	public MecanumDrive(){
