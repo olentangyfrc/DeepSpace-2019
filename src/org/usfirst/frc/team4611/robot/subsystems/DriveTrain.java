@@ -96,10 +96,10 @@ public class DriveTrain extends Subsystem {
 	public void logSpeed() {
 	  	double blSpeed, brSpeed, flSpeed, frSpeed;
     	
-    	blSpeed	= RobotMap.driveTrainBL_Talon.get();
-    	brSpeed	= RobotMap.driveTrainBR_Talon.get();
-    	flSpeed	= RobotMap.driveTrainFL_Talon.get();
-    	frSpeed	= RobotMap.driveTrainFR_Talon.get();
+    	blSpeed	= RobotMap.driveTrainBL_Talon.getMotorOutputPercent();
+    	brSpeed	= RobotMap.driveTrainBR_Talon.getMotorOutputPercent();
+    	flSpeed	= RobotMap.driveTrainFL_Talon.getMotorOutputPercent();
+    	frSpeed	= RobotMap.driveTrainFR_Talon.getMotorOutputPercent();
 
     	Logger.log("motorSpeeds [bl, br, fl, fr] ["
 													+ blSpeed + ", "

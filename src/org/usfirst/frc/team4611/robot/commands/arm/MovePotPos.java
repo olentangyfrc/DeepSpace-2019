@@ -15,7 +15,6 @@ public class MovePotPos extends Command{
 		this.position = position;
 	}
 	protected void initialize() {
-		Logger.log("Moving to position: " + position, this.getClass().getName());
 	}
 	protected void execute() {
 		Robot.arm.movePotPos(position);
@@ -25,11 +24,9 @@ public class MovePotPos extends Command{
 	protected boolean isFinished() {
 		double posError = Math.abs(RobotMap.linearActuatorPot.get()-position);
 		if (posError < .05) {
-			Logger.log("finished", this.getClass().getName());
 			return true;
 		}
 		else {
-			Logger.log("not finished", this.getClass().getName());
 			return false;
 		}
 
