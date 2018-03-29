@@ -33,7 +33,7 @@ public class StartRightScaleLeftScaleLeft extends CommandGroup {
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
 		addParallel(new MovePotPos(RobotMap.POTMAX));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(55));
+		addSequential(new AutonForward(55-24));//-24 inches for buckeye
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(40));
 		addSequential(new StopAndRepositionTalons());

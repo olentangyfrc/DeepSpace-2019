@@ -20,7 +20,7 @@ public class StartRightScaleRightScaleRight extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(342));
+		addSequential(new AutonForward(342 - 24));// -24 for buckeye
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
