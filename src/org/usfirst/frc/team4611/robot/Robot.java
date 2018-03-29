@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.commands.auton.AutonCommandGroup;
+import org.usfirst.frc.team4611.robot.commands.auton.TestBlock;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.CenterLeftReset;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.CenterRightReset;
 import org.usfirst.frc.team4611.robot.commands.auton.dualTargets.StartLeftLeftSwitchLeftScale;
@@ -131,6 +132,7 @@ public class Robot extends IterativeRobot {
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 		autonomousCommand = autonCommandGroup.get(path);
 		
+		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
 		}
@@ -229,7 +231,7 @@ public class Robot extends IterativeRobot {
 			return key;
 			
 		}catch(StringIndexOutOfBoundsException e) {
-			Logger.log("NPE at getPath substrings caught", "Auton selection");
+			Logger.log("String out of bounds at getPath substrings caught", "Auton selection");
 		}
 		
 		
