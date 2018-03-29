@@ -181,6 +181,7 @@ public class Robot extends IterativeRobot {
 		
 		try {
 			String strat = ((String) RobotMap.getValue(RobotMap.autonSubTable, RobotMap.strategy)).trim().toUpperCase();
+			Logger.log(strat, "Auton Strat");
 			String position = strat.substring(0, 1).toUpperCase();  //L, R, C
 			String mode = strat.substring(1, 2).toUpperCase(); //P, T
 			String target1 = strat.substring(2, 4).toUpperCase(); //SW , SC
@@ -214,7 +215,13 @@ public class Robot extends IterativeRobot {
 					}
 					
 					else { //opp side
-						key = position + oppTarget1Side + oppTarget1 + oppTarget1Side + "SC"; //go for opp target then scale
+						if(oppTarget1.equals("XX") || oppTarget1.isEmpty()) {
+							key = "DRIVEFORWARD";
+						}
+						else {
+							key = position + oppTarget1Side + oppTarget1 + oppTarget1Side + "SC"; //go for opp target then scale
+						}
+						
 					}
 				}
 			}
