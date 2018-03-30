@@ -84,19 +84,21 @@ public class PigeonAdjust extends Command {
 		Logger.log("desired angle [" + desiredAngle + 
 				" ]current angle" + currentPigeonHeading,"PAV2 isFinished");
 		
-		//stop if you go over
-		/*if(dir == Direction.LEFT && currentPigeonHeading < desiredAngle) {
-			return true;
-		}
-		if(dir == Direction.RIGHT && currentPigeonHeading > desiredAngle) {
-			return true;
-		}*/
+		
 		
 		
 		if(!Robot.mecanum.isTargetSpeedWithinThreshold(speed)) {
 			return true;
 		}
 		if(Math.abs(this.desiredAngle-currentPigeonHeading) <= 1) {
+			return true;
+		}
+		
+		//stop if you go over
+		if(dir == Direction.LEFT && currentPigeonHeading < desiredAngle) {
+			return true;
+		}
+		if(dir == Direction.RIGHT && currentPigeonHeading > desiredAngle) {
 			return true;
 		}
 		return false;

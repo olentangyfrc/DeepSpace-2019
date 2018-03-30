@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
-	private String fms;
+	private String fms = null;
 	public HashMap<String, Command> autonCommandGroup;
 	//public SendableChooser chooser;
 
@@ -180,7 +180,9 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public String getPath() {
-		fms = driver.getGameSpecificMessage().trim();
+		for(int i = 0; (i < 100) && (fms == null) && (fms.isEmpty()); i++) {
+			fms = driver.getGameSpecificMessage().trim();
+		}
 		String sw = fms.substring(0, 1);
 		String sc = fms.substring(1, 2);
 		String key = "";
