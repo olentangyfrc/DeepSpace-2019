@@ -196,7 +196,7 @@ public class OI {
 		if (Math.abs(raw) < (double)RobotMap.getValue(RobotMap.mecanumSubTable, RobotMap.deadZoneID)) {
             return 0;
         } else {
-            return  raw * Math.min((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID), 1); //Set the output to a ceratin percent of of the input
+            return  raw;// * Math.min((double)RobotMap.getValue(RobotMap.linearActuatorSubTable, RobotMap.LAFilterID), 1); //Set the output to a ceratin percent of of the input
         }
 	}
 	
