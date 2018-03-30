@@ -169,8 +169,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();	
-		Logger.log("Elevator position: "+ RobotMap.elevator_Talon.getSelectedSensorPosition(0));		
+		Scheduler.getInstance().run();			
 	}
 
 	@Override

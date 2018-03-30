@@ -2,6 +2,8 @@ package org.usfirst.frc.team4611.robot.commands.elevator;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.logging.Logger;
+import org.usfirst.frc.team4611.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,7 +15,12 @@ public class MoveElevatorDown extends Command{
 
 	protected void execute() {	
 		double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed);
-		Robot.elevator.move(speed);
+		if(RobotMap.elevator_Talon.getSelectedSensorPosition(0) <= Elevator.ELEVATOR_TOP * .2) {
+			Robot.elevator.move(speed * 0.5);
+		}
+		else {
+			Robot.elevator.move(speed);
+		}
 	}
 
 	@Override
