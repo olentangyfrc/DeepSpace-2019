@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public boolean hasInitialized = false;
 	public String autonFinalDecision;
+	private String fms;
 	public HashMap<String, Command> autonCommandGroup;
 	//public SendableChooser chooser;
 
@@ -131,6 +132,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		String path = getPath();
 		
+		Logger.log("FMS INPUT [" + fms + "]");
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 		autonomousCommand = autonCommandGroup.get(path);
 		
@@ -169,7 +171,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();			
+		Scheduler.getInstance().run();	
+		//Logger.log("Elevator Position: " + RobotMap.elevator_Talon.getSelectedSensorPosition(0), "Elevator");
 	}
 
 	@Override
@@ -177,7 +180,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public String getPath() {
-		String fms = driver.getGameSpecificMessage().trim();
+		fms = driver.getGameSpecificMessage().trim();
 		String sw = fms.substring(0, 1);
 		String sc = fms.substring(1, 2);
 		String key = "";
@@ -207,7 +210,7 @@ public class Robot extends IterativeRobot {
 				if (split == true) { //If we're split
 					if (sw.equals(position)) { //and switch is close
 					key = position + sw + "SW" + position + "SC"; //go switch close then pick up box
-					}
+					} //RRSWRSC
 					else if (sc.equals(position)) { //or scale is close
 						key = position + sc + "SC" + position + "SC"; //go scale then pick up box
 					}

@@ -80,9 +80,19 @@ public class PigeonAdjust extends Command {
 		Logger.log("Speed [" + speed + "]", this.getClass().getName());
 	}
 	
-	protected boolean isFinished(){
+	protected boolean isFinished(){//
 		Logger.log("desired angle [" + desiredAngle + 
 				" ]current angle" + currentPigeonHeading,"PAV2 isFinished");
+		
+		//stop if you go over
+		/*if(dir == Direction.LEFT && currentPigeonHeading < desiredAngle) {
+			return true;
+		}
+		if(dir == Direction.RIGHT && currentPigeonHeading > desiredAngle) {
+			return true;
+		}*/
+		
+		
 		if(!Robot.mecanum.isTargetSpeedWithinThreshold(speed)) {
 			return true;
 		}
