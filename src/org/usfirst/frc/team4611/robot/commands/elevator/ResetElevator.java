@@ -22,7 +22,7 @@ public class ResetElevator extends Command{
 	
 	protected void end() {
 		RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.elevator_Talon.configReverseSoftLimitThreshold(-137328, 0); //upper limit
+		RobotMap.elevator_Talon.configReverseSoftLimitThreshold(-135000, 0); //upper limit
 		RobotMap.elevator_Talon.configForwardSoftLimitThreshold(0, 0); //lower limit
 		RobotMap.elevator_Talon.configForwardSoftLimitEnable(true, 0);
 		RobotMap.elevator_Talon.configReverseSoftLimitEnable(true, 0);
