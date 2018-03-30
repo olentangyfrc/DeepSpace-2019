@@ -150,7 +150,7 @@ public class OI {
 		//Magic Shaping Commands	
 		happyScale.whenPressed(new ScalePos());
 		happySwitch.whenPressed(new SwitchPos());
-		happyAttack.whenPressed(new AttackPos());
+		//happyAttack.whenPressed(new AttackPos());
 		happyStart.whenPressed(new StartingPos());
 		happyReset.whenPressed(new ResetElevator());
 		
