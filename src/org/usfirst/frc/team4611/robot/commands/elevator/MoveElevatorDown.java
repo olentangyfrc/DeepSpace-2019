@@ -17,7 +17,7 @@ public class MoveElevatorDown extends Command{
 		double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed);
 		if(RobotMap.elevator_Talon.getSelectedSensorPosition(0) <= Elevator.ELEVATOR_TOP * .2) {
 			double error = RobotMap.elevator_Talon.getSelectedSensorPosition(0)/((Robot.elevator.ELEVATOR_TOP)*.2);
-			Robot.elevator.move(Math.min(speed * 0.75, speed * error));
+			Robot.elevator.move(Math.max(Math.min(speed * 0.75, speed * error), .2));
 		}
 		else {
 			Robot.elevator.move(speed);
