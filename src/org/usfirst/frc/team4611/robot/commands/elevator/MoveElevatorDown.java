@@ -13,7 +13,14 @@ public class MoveElevatorDown extends Command{
 		this.requires(Robot.elevator); //This command uses this subsystem
 	}
 
+	protected void initialize () {
+		//RobotMap.elevator_Talon.configReverseSoftLimitEnable(false, 0);
+		RobotMap.elevator_Talon.configForwardSoftLimitEnable(false, 0);
+	}
+	
 	protected void execute() {	
+		
+		if(!isFinished()) {
 		double speed = (double)RobotMap.getValue(RobotMap.elevatorSubtable, RobotMap.elevatorDownSpeed);
 		if(RobotMap.elevator_Talon.getSelectedSensorPosition(0) >= Elevator.ELEVATOR_TOP * .2) {
 			Robot.elevator.move(speed * .4);
@@ -21,15 +28,19 @@ public class MoveElevatorDown extends Command{
 		else {
 			Robot.elevator.move(speed);
 		}
+		}
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return !Robot.elevator.isSwitchSet();
 		// TODO Auto-generated method stub
 	}
 	
 	protected void end() {
 		Robot.elevator.move(0);
+		RobotMap.elevator_Talon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.elevator_Talon.configReverseSoftLimitThreshold(-133000, 0); //upper limit
+		RobotMap.elevator_Talon.configReverseSoftLimitEnable(true, 0);
 	}
 }
