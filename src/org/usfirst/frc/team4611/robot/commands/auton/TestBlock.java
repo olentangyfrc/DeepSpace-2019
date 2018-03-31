@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class TestBlock extends CommandGroup {
 	public TestBlock() {
-		addSequential(new PigeonAdjust(90));
+		addSequential(new PigeonAdjust(30));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new PigeonAdjust(-90));
+		addSequential(new PigeonAdjust(-30));
 		addSequential(new StopAndRepositionTalons());
 	}
 }

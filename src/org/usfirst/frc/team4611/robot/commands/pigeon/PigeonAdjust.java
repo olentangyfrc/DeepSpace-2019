@@ -95,10 +95,10 @@ public class PigeonAdjust extends Command {
 		}
 		
 		//stop if you go over
-		if(dir == Direction.LEFT && currentPigeonHeading < desiredAngle) {
+		if(dir == Direction.RIGHT && currentPigeonHeading < desiredAngle) {
 			return true;
 		}
-		if(dir == Direction.RIGHT && currentPigeonHeading > desiredAngle) {
+		if(dir == Direction.LEFT && currentPigeonHeading > desiredAngle) {
 			return true;
 		}
 		return false;

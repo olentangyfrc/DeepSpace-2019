@@ -134,8 +134,8 @@ public class Robot extends IterativeRobot {
 		
 		Logger.log("FMS INPUT [" + fms + "]");
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
-		autonomousCommand = autonCommandGroup.get(path);
 		
+		autonomousCommand = autonCommandGroup.get(path);
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
@@ -180,8 +180,17 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public String getPath() {
-		for(int i = 0; (i < 100) && (fms == null) && (fms.isEmpty()); i++) {
+		fms= driver.getGameSpecificMessage();
+		for(int i = 0; (i < 10) && (fms == null || fms.isEmpty()); i++) {
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				Logger.log(e.getMessage(), "Sleep");
+			}
 			fms = driver.getGameSpecificMessage().trim();
+		}
+		if(fms == null || fms.isEmpty()) {
+			fms = "XXX";
 		}
 		String sw = fms.substring(0, 1);
 		String sc = fms.substring(1, 2);
@@ -245,6 +254,7 @@ public class Robot extends IterativeRobot {
 		if(!(key.equals(null))) {
 			return key.trim().toUpperCase();
 		}
+		
 		return key;
 	}
 	
