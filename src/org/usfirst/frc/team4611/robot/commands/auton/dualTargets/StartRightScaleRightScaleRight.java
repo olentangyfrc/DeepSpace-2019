@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.commands.auton.dualTargets;
 
 import org.usfirst.frc.team4611.robot.RobotMap;
+import org.usfirst.frc.team4611.robot.commands.drive.AutonBackward;
 import org.usfirst.frc.team4611.robot.commands.drive.AutonForward;
 import org.usfirst.frc.team4611.robot.commands.drive.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorToPos;
@@ -24,8 +25,10 @@ public class StartRightScaleRightScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1), 2);
 		addSequential(new StopAndRepositionTalons());
+		//addSequential(new AutonBackward(48), 2);
+		//addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addSequential(new AutonForward(13));
+		//addSequential(new AutonForward(13)); 45
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());

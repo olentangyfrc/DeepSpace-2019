@@ -34,12 +34,12 @@ public class CenterLeftReset extends CommandGroup {
 		addSequential(new AutonForward(55+6), 2.5);//boi 2
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
-		addSequential(new AutonBackward(45));
+		addSequential(new AutonBackward(61)); //check center right
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1));
 		addSequential(new StopAndRepositionTalons());
 		addParallel(new MoveElevatorToPos(Elevator.ELEVATOR_BOTTOM));
-		addSequential(new AutonForward(42));
+		addSequential(new AutonForward(42+10));//check center right
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1 + 2));
 		addSequential(new StopAndRepositionTalons());
