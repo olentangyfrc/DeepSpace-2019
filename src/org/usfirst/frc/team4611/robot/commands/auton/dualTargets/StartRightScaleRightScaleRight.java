@@ -25,14 +25,14 @@ public class StartRightScaleRightScaleRight extends CommandGroup {
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(-RobotMap.turnAngle1), 2);
 		addSequential(new StopAndRepositionTalons());
-		//addSequential(new AutonBackward(48), 2);
-		//addSequential(new StopAndRepositionTalons());
+		addSequential(new AutonBackward(48), 2);
+		addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		//addSequential(new AutonForward(13)); 45
+		addSequential(new AutonForward(45));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
-		addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
+		//addSequential(new PigeonAdjust(-RobotMap.turnAngle1));
 		
 	}
 	protected void initialize() {
