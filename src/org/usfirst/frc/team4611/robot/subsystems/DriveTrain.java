@@ -129,7 +129,12 @@ public class DriveTrain extends Subsystem {
 		       	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
 		return encoderPositionAverage;
 	}
-	
+	public void logVelocities() {
+		Logger.log("Velocity [" + RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0) +
+    	"] [" +RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0) +
+    	"] [" +RobotMap.driveTrainFL_Talon.getSelectedSensorVelocity(0) +
+    	"] [" +RobotMap.driveTrainFR_Talon.getSelectedSensorVelocity(0));
+	}
 	public double getAverageSpeed() {
 		double encoderSpeedAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorVelocity(0)) +
 		    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorVelocity(0)) +
