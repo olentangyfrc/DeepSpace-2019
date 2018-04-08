@@ -190,6 +190,9 @@ public class RobotMap {
 	
 	public static PigeonIMU pigeon;
 
+	public static int magicValuesAccel = 2000;
+	public static int motionmagicCruiseVelocity = 2000;
+	
 	public static void init() {
 
 		// Ultrasonic sensor
@@ -263,8 +266,7 @@ public class RobotMap {
 		driveTrainBR_Talon.config_kD(0, 0, 0);
 		
 		//Startup Motion Magic Values
-		int magicValuesAccel = 2000;
-		int motionmagicCruiseVelocity = 2000;
+		
 		driveTrainFL_Talon.configMotionAcceleration(magicValuesAccel, 0);
 		driveTrainFL_Talon.configMotionCruiseVelocity(motionmagicCruiseVelocity, 0);
 		driveTrainFR_Talon.configMotionAcceleration(magicValuesAccel, 0);

@@ -166,6 +166,22 @@ public class DriveTrain extends Subsystem {
 			return false;
 		}
 	}
+	public void setMotionMagicAcceleration(int leftAccel, int rightAccel) {
+		RobotMap.driveTrainFL_Talon.configMotionAcceleration(leftAccel, 0);
+		RobotMap.driveTrainFR_Talon.configMotionAcceleration(rightAccel, 0);
+		RobotMap.driveTrainBL_Talon.configMotionAcceleration(leftAccel, 0);
+		RobotMap.driveTrainBR_Talon.configMotionAcceleration(rightAccel, 0);
+	}
+	public void setMotionMagicVelocity(int leftVel, int rightVel) {
+		RobotMap.driveTrainFL_Talon.configMotionCruiseVelocity(leftVel, 0);
+		RobotMap.driveTrainFR_Talon.configMotionCruiseVelocity(rightVel, 0);
+		RobotMap.driveTrainBL_Talon.configMotionCruiseVelocity(leftVel, 0);
+		RobotMap.driveTrainBR_Talon.configMotionCruiseVelocity(rightVel, 0);
+	}
+	public void setMotionMagicValuesToDefault() {
+		setMotionMagicVelocity(RobotMap.motionmagicCruiseVelocity, RobotMap.motionmagicCruiseVelocity);
+		setMotionMagicAcceleration(RobotMap.magicValuesAccel, RobotMap.magicValuesAccel);
+	}
 	
 	@Override
 	protected void initDefaultCommand() {

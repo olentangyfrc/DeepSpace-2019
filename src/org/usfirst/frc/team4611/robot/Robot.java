@@ -135,7 +135,9 @@ public class Robot extends IterativeRobot {
 		Logger.log("FMS INPUT [" + fms + "]");
 		Logger.log("Auton Final Decision [ "+path + "]", this.getClass().getName());
 		
-		autonomousCommand = autonCommandGroup.get(path);
+		//autonomousCommand = autonCommandGroup.get(path);
+		
+		autonomousCommand = new TestBlock();
 		
 		if (autonomousCommand == null) {
 			autonomousCommand = this.autonCommandGroup.get("DRIVEFORWARD");
