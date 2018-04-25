@@ -7,7 +7,6 @@ import org.usfirst.frc.team4611.robot.commands.climber.WindUpClimber;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.commands.elevator.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.commands.elevator.ResetElevator;
-import org.usfirst.frc.team4611.robot.commands.happyshapes.AttackPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.ScalePos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.StartingPos;
 import org.usfirst.frc.team4611.robot.commands.happyshapes.SwitchPos;
