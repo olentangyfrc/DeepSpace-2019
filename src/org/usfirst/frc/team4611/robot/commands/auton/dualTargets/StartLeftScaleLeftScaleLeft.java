@@ -21,14 +21,12 @@ public class StartLeftScaleLeftScaleLeft extends CommandGroup {
 		addSequential(new ResetElevator());
 		addSequential(new GrabBox());
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(342-24-15));//-24 for buckeye
+		addSequential(new AutonForward(342-24-15));//-24 for buckeye CHECK
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new PigeonAdjust(RobotMap.turnAngle1), 2);
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonBackward(48), 2);
-		addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveElevatorToPos(Elevator.ELEVATOR_TOP));
-		addSequential(new AutonForward(45));
+		addSequential(new AutonForward(20));//NEEDS TO BE REMEASURED
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new ReleaseBox());
 		addSequential(new PushBox());
