@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TestBlock extends CommandGroup {
 	public TestBlock() {
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new AutonForward(35 * 12));
+		addSequential(new AutonForward(25*12));
 	}
 }
 
