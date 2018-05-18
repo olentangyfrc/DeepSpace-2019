@@ -54,14 +54,7 @@ public class AutonForward extends Command {
     	error = startingAngle - Math.abs(currentAngle);
       	Robot.mecanum.logVelocities();
     	Logger.log("Starting Angle [" + startingAngle + "] Current Angle [" + currentAngle + "]", "Angles");
-    	
-    	
-      	encoderPositionAverage = (Math.abs(RobotMap.driveTrainBL_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainBR_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainFL_Talon.getSelectedSensorPosition(0)) +
-    	Math.abs(RobotMap.driveTrainFR_Talon.getSelectedSensorPosition(0))) / 4;
-    	
-      
+    	     
       	int adjustedVelo = (int)(RobotMap.motionmagicCruiseVelocity + (error * pVal));
       	velo = Math.min(3000, adjustedVelo);
       	
@@ -85,9 +78,9 @@ public class AutonForward extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Logger.log(" targetPosition [" + targetPosition + "] encodePositionAverage [" + encoderPositionAverage + "]", "AutonForward");
+    	Logger.log(" targetPosition [" + targetPosition + "] encodePositionAverage [" + Robot.mecanum.getAveragePosition() + "]", "AutonForward");
 
-        return (targetPosition < encoderPositionAverage);
+        return (targetPosition < Robot.mecanum.getAveragePosition());
     }
 
     // Called once after isFinished returns true
