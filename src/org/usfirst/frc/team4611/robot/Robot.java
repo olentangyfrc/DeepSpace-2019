@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends IterativeRobot {
 
-	public String motorControllerType;
+	public String motorControllerType = "t";
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static iMecanum mecanum;
