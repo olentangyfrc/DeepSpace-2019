@@ -10,6 +10,5 @@
 	<classpathentry kind="lib" path="/home/worthp/wpilib/user/java/lib/CTRE_Phoenix.jar" sourcepath="/home/worthp/wpilib/user/java/lib/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
