@@ -1,11 +1,9 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import java.util.HashMap;
-
-import org.usfirst.frc.team4611.robot.subsytems.iMecanum;
-import org.usfirst.frc.team4611.robot.subsytems.tMecanum;
-import org.usfirst.frc.team4611.robot.subsytems.vMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.VictorMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,20 +13,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends IterativeRobot {
 
-	public String motorControllerType = "t";
+	public String motorControllerType;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static iMecanum mecanum;
+	public static MecanumBase mecanum;
 	public static OI oi;
 	
 	@Override
 	public void robotInit() {
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
-			mecanum = new tMecanum();
+			mecanum = new TalonMecanum();
 		}
 		else {
-			mecanum = new vMecanum();
+			mecanum = new VictorMecanum();
 		}
 		oi = new OI();
 	}
