@@ -12,14 +12,14 @@ public class Move extends Command {
 	
 	private MecanumBase mecanum;
 	
-	public Move(double speed, MecanumBase mecanum) {
+	public Move(MecanumBase mecanum) {
 		this.speed = speed;
 		this.mecanum = mecanum;
-		this.requires((Subsystem)mecanum);
+		this.requires(Robot.mecanum);
 	}
 	
 	protected void execute() {
-		Robot.mecanum.moveForward(speed);
+		Robot.mecanum.move();
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class TalonMecanum extends MecanumBase {
 	}
 	
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new Move(0, this));
+		Robot.mecanum.setDefaultCommand(new Move(this));
 	}
 
 	public void moveForward(double speed) {
@@ -48,7 +48,7 @@ public class TalonMecanum extends MecanumBase {
 		
 	}
 
-	public void move(double speed) {
+	public void move() {
 		double YVal = -Robot.oi.generalJoystickFilter(OI.leftJoy.getY()); 
 		double XVal = Robot.oi.generalJoystickFilter(OI.leftJoy.getX());
 		double ZVal = Robot.oi.generalJoystickFilter(OI.rightJoy.getX());

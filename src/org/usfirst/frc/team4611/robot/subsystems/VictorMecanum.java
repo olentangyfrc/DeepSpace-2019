@@ -28,10 +28,10 @@ public class VictorMecanum extends MecanumBase {
 	
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new Move(0, this));
+		this.setDefaultCommand(new Move(this));
 	}
 
-	public void move(double speed) {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}
