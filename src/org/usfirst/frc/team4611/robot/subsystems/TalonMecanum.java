@@ -59,7 +59,7 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		backRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-	/**	frontLeft.config_kP(0, .65, 0);
+		frontLeft.config_kP(0, .65, 0);
 		frontRight.config_kP(0, .65, 0);
 		backLeft.config_kP(0, .65, 0);
 		backRight.config_kP(0, .65, 0);
@@ -77,7 +77,7 @@ public class TalonMecanum extends MecanumBase {
 		frontLeft.setSensorPhase(true);
 		frontRight.setSensorPhase(true);
 		backLeft.setSensorPhase(true);
-		backRight.setSensorPhase(true);*/
+		backRight.setSensorPhase(true);
 	}
 	
 	public void moveBackward(double speed) {
