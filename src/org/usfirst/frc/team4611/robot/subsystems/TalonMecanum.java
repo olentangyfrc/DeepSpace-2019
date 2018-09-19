@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.commands.Move;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -45,8 +46,11 @@ public class TalonMecanum extends MecanumBase {
 	private String velocity3ID = "Velocity3";
 	private String velocity4ID = "Velocity4";
 	
+	//private Pigeon pigeon;
+	
 	public TalonMecanum() {
 		setupTalons();
+		//this.pigeon = pigeon;
 	}
 	
 	public void setupTalons() {
@@ -55,7 +59,7 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		backRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-		frontLeft.config_kP(0, .65, 0);
+	/**	frontLeft.config_kP(0, .65, 0);
 		frontRight.config_kP(0, .65, 0);
 		backLeft.config_kP(0, .65, 0);
 		backRight.config_kP(0, .65, 0);
@@ -73,7 +77,7 @@ public class TalonMecanum extends MecanumBase {
 		frontLeft.setSensorPhase(true);
 		frontRight.setSensorPhase(true);
 		backLeft.setSensorPhase(true);
-		backRight.setSensorPhase(true);
+		backRight.setSensorPhase(true);*/
 	}
 	
 	public void moveBackward(double speed) {
@@ -106,7 +110,11 @@ public class TalonMecanum extends MecanumBase {
 		values.put(velocity2ID, velocity2);
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
+	//	values.put("pigeon-angle", pigeon.getCurrentAngle());
+	//	values.put("pigeon-wrapped-angle", pigeon.getCurrentRelativeAngle());
+	//	values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
+				
 	}
 	
 	protected void initDefaultCommand() {

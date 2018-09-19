@@ -28,7 +28,6 @@ public class Robot extends IterativeRobot {
 		NetTableManager.startNetworkTables();
 		
 		//Initialize the sensor classes
-		pigeon = new Pigeon(21);
 		
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {

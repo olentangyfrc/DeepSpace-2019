@@ -42,8 +42,8 @@ public class NetTableManager {
 	}
 	
 	public static void updateValues(String subTable, HashMap<String, Object> objects) {
-		for(String key : (String[])objects.keySet().toArray()) {
-			updateValue(subTable, key, objects.get(key));
+		for(Object key : objects.keySet().toArray()) {
+			updateValue(subTable, (String)key, objects.get(key));
 		}
 	}
 	
