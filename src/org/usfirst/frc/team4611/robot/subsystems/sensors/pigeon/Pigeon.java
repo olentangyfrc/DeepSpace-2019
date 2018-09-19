@@ -7,17 +7,9 @@ public class Pigeon {
 
 	private PigeonIMU pigeon;
 	
-	//Used to tell when to report in degrees or radians
-	private AngleReporting report = AngleReporting.DEGREES;
-	
 	public Pigeon(int pigeonPort) {
 		pigeon = new PigeonIMU(pigeonPort);
 		pigeon.setFusedHeading(0, 0);
-	}
-	
-	public Pigeon(int pigeonPort, AngleReporting report) {
-		pigeon = new PigeonIMU(pigeonPort);
-		this.report = report;
 	}
 	
 	/**
@@ -26,23 +18,23 @@ public class Pigeon {
 	public double getCurrentAngle() {
 		FusionStatus status = new FusionStatus();
 		pigeon.getFusedHeading(status);
-		return report == AngleReporting.DEGREES ? status.heading : this.toRadians(status.heading);
+		return status.heading;
 	}
 	
 	/**
-	 * @return The current angle of the gyro adjusted to the range of -360/-2PI to 360/2PI 
+	 * @return The current angle of the gyro adjusted to the range of -360 to 360 
 	 */
 	public double getCurrentRelativeAngle() {
-		return report == AngleReporting.DEGREES ? this.getCurrentAngle()%360 : this.getCurrentAngle()%(2*Math.PI);
+		return this.getCurrentAngle()%360;
 	}
 	
 	/**
-	 * @return The current angle of the gyro adjusted to the range of 0 to 360/2PI
+	 * @return The current angle of the gyro adjusted to the range of 0 to 360
 	 */
 	public double getCurrentAbsoluteAngle() {
 		double angle = this.getCurrentAbsoluteAngle();
 		if(angle < 0) {
-			angle += report == AngleReporting.DEGREES ? 360 : 2*Math.PI;
+			angle += 360;
 		}
 		return angle;
 	}
@@ -62,22 +54,6 @@ public class Pigeon {
 	 */
 	public double getAbolsuteAngleError(double comAngle) {
 		return Math.abs(comAngle-getCurrentAngle());
-	}
-	
-	/**
-	 * @param value of the angle in degrees
-	 * @return The angle in radians
-	 */
-	public double toRadians(double val) {
-		return val*2*Math.PI/360;
-	}
-	
-	/**
-	 * @param value of the angle in radians
-	 * @return the angle in degrees
-	 */
-	public double toDegrees(double val) {
-		return val*360/(2*Math.PI);
 	}
 	
 }
