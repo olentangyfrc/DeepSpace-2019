@@ -4,6 +4,7 @@ package org.usfirst.frc.team4611.robot;
 import org.usfirst.frc.team4611.robot.subsystems.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.VictorMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,8 +20,11 @@ public class Robot extends IterativeRobot {
 	public static MecanumBase mecanum;
 	public static OI oi;
 	
+	private Pigeon pigeon;
+	
 	@Override
 	public void robotInit() {
+		pigeon = new Pigeon(21);
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
 			mecanum = new TalonMecanum();
@@ -29,6 +33,7 @@ public class Robot extends IterativeRobot {
 			mecanum = new VictorMecanum();
 		}
 		oi = new OI();
+		
 	}
 
 	@Override
