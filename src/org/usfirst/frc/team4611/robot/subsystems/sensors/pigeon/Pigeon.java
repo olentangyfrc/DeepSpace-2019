@@ -32,7 +32,7 @@ public class Pigeon {
 	 * @return The current angle of the gyro adjusted to the range of 0 to 360
 	 */
 	public double getCurrentAbsoluteAngle() {
-		double angle = this.getCurrentAbsoluteAngle();
+		double angle = this.getCurrentRelativeAngle();
 		if(angle < 0) {
 			angle += 360;
 		}

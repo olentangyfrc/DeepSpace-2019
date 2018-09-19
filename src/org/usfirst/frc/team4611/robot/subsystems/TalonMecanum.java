@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class TalonMecanum extends MecanumBase {
 	
-	private int maxRPM = 1200;
+	private int maxRPM = 300; //Reduced from 1200
 	
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
@@ -46,11 +46,11 @@ public class TalonMecanum extends MecanumBase {
 	private String velocity3ID = "Velocity3";
 	private String velocity4ID = "Velocity4";
 	
-	//private Pigeon pigeon;
+	private Pigeon pigeon;
 	
-	public TalonMecanum() {
+	public TalonMecanum(Pigeon pigeon) {
 		setupTalons();
-		//this.pigeon = pigeon;
+		this.pigeon = pigeon;
 	}
 	
 	public void setupTalons() {
@@ -114,7 +114,7 @@ public class TalonMecanum extends MecanumBase {
 	//	values.put("pigeon-wrapped-angle", pigeon.getCurrentRelativeAngle());
 	//	values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
-				
+		System.out.println(pigeon.getCurrentAngle() + "," + pigeon.getCurrentRelativeAngle() + "," + pigeon.getCurrentAbsoluteAngle());
 	}
 	
 	protected void initDefaultCommand() {
