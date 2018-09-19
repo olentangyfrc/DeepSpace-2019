@@ -7,19 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Move extends Command {
-	
-	public double speed;
-	
+		
 	private MecanumBase mecanum;
 	
 	public Move(MecanumBase mecanum) {
-		this.speed = speed;
 		this.mecanum = mecanum;
 		this.requires(Robot.mecanum);
 	}
 	
 	protected void execute() {
-		Robot.mecanum.move();
+		mecanum.move();
 	}
 
 	@Override

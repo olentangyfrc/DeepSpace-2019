@@ -1,22 +1,24 @@
 package org.usfirst.frc.team4611.robot.commands;
 
-import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveForward extends Command {
 	
-	public MoveForward() {
-		
+	private MecanumBase subsystem;
+	
+	public MoveForward(MecanumBase base) {
+		this.subsystem = base;
+		this.requires(base);
 	}
 	
 	protected void execute() {
-		Robot.mecanum.moveForward(1);
+		subsystem.moveForward(1);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
