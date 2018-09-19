@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.VictorMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
@@ -24,7 +25,11 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void robotInit() {
+		NetTableManager.startNetworkTables();
+		
+		//Initialize the sensor classes
 		pigeon = new Pigeon(21);
+		
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
 			mecanum = new TalonMecanum();
