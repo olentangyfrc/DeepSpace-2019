@@ -22,6 +22,10 @@ public class TalonMecanum extends MecanumBase {
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(2);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(3);
 	
+	private double pVal = .65;
+	private int interval = 10;
+	
+	private double inchPUMultiplier = 215.910640625;
 	
 	private double velocity1;
 	private double velocity2;
@@ -59,10 +63,15 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		backRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-		frontLeft.config_kP(0, .65, 0);
-		frontRight.config_kP(0, .65, 0);
-		backLeft.config_kP(0, .65, 0);
-		backRight.config_kP(0, .65, 0);
+		frontLeft.setSelectedSensorPosition(0);
+		frontRight.setSelectedSensorPosition(0);
+		backLeft.setSelectedSensorPosition(0);
+		backRight.setSelectedSensorPosition(0);
+		
+		frontLeft.config_kP(0, pVal, interval);
+		frontRight.config_kP(0, pVal, interval);
+		backLeft.config_kP(0, pVal, interval);
+		backRight.config_kP(0, pVal, interval);
 			
 		frontLeft.config_kI(0, 0.000, 0);
 		frontRight.config_kI(0, 0.000, 0);
@@ -85,8 +94,12 @@ public class TalonMecanum extends MecanumBase {
 	}
 	
 
-	public void moveForward(double speed) {
-		
+	public void moveForward(double inches) {
+		double pu = inches * inchPUMultiplier;
+		frontLeft.set(ControlMode.MotionMagic, pu);
+		frontRight.set(ControlMode.MotionMagic, -pu);
+		backLeft.set(ControlMode.MotionMagic, pu);
+		backRight.set(ControlMode.MotionMagic, -pu);
 	}
 
 	public void move() {
@@ -114,7 +127,7 @@ public class TalonMecanum extends MecanumBase {
 		values.put("pigeon--360-360-angle", pigeon.getCurrentRelativeAngle());
 		values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
-		System.out.println(pigeon.getCurrentAngle() + "," + pigeon.getCurrentRelativeAngle() + "," + pigeon.getCurrentAbsoluteAngle());
+		System.out.println(frontLeft.getSelectedSensorPosition(0) + " " + frontRight.getSelectedSensorPosition(0) + " " + backLeft.getSelectedSensorPosition(0) + " " + backRight.getSelectedSensorPosition(0));
 	}
 	
 	protected void initDefaultCommand() {
