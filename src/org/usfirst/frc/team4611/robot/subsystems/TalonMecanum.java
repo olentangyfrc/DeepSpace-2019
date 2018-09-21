@@ -110,9 +110,9 @@ public class TalonMecanum extends MecanumBase {
 		values.put(velocity2ID, velocity2);
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
-	//	values.put("pigeon-angle", pigeon.getCurrentAngle());
-	//	values.put("pigeon-wrapped-angle", pigeon.getCurrentRelativeAngle());
-	//	values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
+		values.put("pigeon-angle", pigeon.getCurrentAngle());
+		values.put("pigeon--360-360-angle", pigeon.getCurrentRelativeAngle());
+		values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
 		System.out.println(pigeon.getCurrentAngle() + "," + pigeon.getCurrentRelativeAngle() + "," + pigeon.getCurrentAbsoluteAngle());
 	}

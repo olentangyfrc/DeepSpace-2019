@@ -29,14 +29,13 @@ public class NetTableManager {
 	 * @param subTable The subtable it will be set in (WILL BE DETERMINED BY LOGGERTYPE IN THE FUTURE)
 	 * @param key The key that the value will be identified as
 	 * @param value The value to be saved/binded with the key
-	 * @return If it was successful in updating/creating the value
 	 */
 	public static void updateValue(String subTable, String key, Object value) {		
 		//Updates the value and returns a boolean that tells if it was successful
 		if(table.getSubTable(subTable).getEntry(key).setValue(value)) {
-			System.out.println("Successfully sent value: " + value + " to Shuffleboard with SubTable: " + subTable + " and key: " + key);
+			//System.out.println("Successfully sent value: " + value + " to Shuffleboard with SubTable: " + subTable + " and key: " + key);
 		}else {
-			System.out.println("Unable to send value: " + value + " to Shuffleboard with SubTable: " + subTable + " and key: " + key);
+			//System.out.println("Unable to send value: " + value + " to Shuffleboard with SubTable: " + subTable + " and key: " + key);
 
 		}
 	}
