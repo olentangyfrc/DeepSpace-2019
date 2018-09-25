@@ -25,7 +25,7 @@ public class TalonMecanum extends MecanumBase {
 	private double pVal = .65;
 	private int interval = 10;
 	
-	private double inchPUMultiplier = 215.910640625;
+	public final double INCH_PU_MULT = 215.910640625;
 	
 	private double velocity1;
 	private double velocity2;
@@ -95,11 +95,17 @@ public class TalonMecanum extends MecanumBase {
 	
 
 	public void moveForward(double inches) {
-		double pu = inches * inchPUMultiplier;
+		double pu = inches * INCH_PU_MULT;
 		frontLeft.set(ControlMode.MotionMagic, pu);
 		frontRight.set(ControlMode.MotionMagic, -pu);
 		backLeft.set(ControlMode.MotionMagic, pu);
 		backRight.set(ControlMode.MotionMagic, -pu);
+	}
+	public int getAverageSensorPos() {
+		return Math.abs(frontLeft.getSelectedSensorPosition(0)) + Math.abs(
+		frontRight.getSelectedSensorPosition(0)) + Math.abs(
+		backLeft.getSelectedSensorPosition(0)) + Math.abs(
+		backRight.getSelectedSensorPosition(0));
 	}
 
 	public void move() {
