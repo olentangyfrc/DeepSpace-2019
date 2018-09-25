@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
+import org.usfirst.frc.team4611.robot.commands.Box;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.VictorMecanum;
@@ -53,7 +54,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = new Box();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();

@@ -101,6 +101,14 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.set(ControlMode.MotionMagic, pu);
 		backRight.set(ControlMode.MotionMagic, -pu);
 	}
+	
+	public void resetEncoders() {
+		frontLeft.setSelectedSensorPosition(0);
+		frontRight.setSelectedSensorPosition(0);
+		backLeft.setSelectedSensorPosition(0);
+		backRight.setSelectedSensorPosition(0);
+	}
+	
 	public int getAverageSensorPos() {
 		return Math.abs(frontLeft.getSelectedSensorPosition(0)) + Math.abs(
 		frontRight.getSelectedSensorPosition(0)) + Math.abs(
@@ -134,6 +142,15 @@ public class TalonMecanum extends MecanumBase {
 		values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
 		System.out.println(frontLeft.getSelectedSensorPosition(0) + " " + frontRight.getSelectedSensorPosition(0) + " " + backLeft.getSelectedSensorPosition(0) + " " + backRight.getSelectedSensorPosition(0));
+	}
+	
+	public void moveAtSpeeddouble(double speed1, double speed2, double speed3, double speed4) {
+		
+		frontLeft.set(ControlMode.Velocity, speed1);
+		frontRight.set(ControlMode.Velocity, speed2);
+		backLeft.set(ControlMode.Velocity, speed4);
+		backRight.set(ControlMode.Velocity, speed3);
+		
 	}
 	
 	protected void initDefaultCommand() {

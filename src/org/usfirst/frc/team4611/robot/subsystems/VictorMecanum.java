@@ -35,4 +35,10 @@ public class VictorMecanum extends MecanumBase {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void resetEncoders() {
+		// TODO Auto-generated method stub
+		
+	}
 }
