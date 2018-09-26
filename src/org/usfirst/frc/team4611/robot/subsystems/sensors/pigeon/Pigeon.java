@@ -53,7 +53,7 @@ public class Pigeon {
 	 * @return The absolute distance between the given angle and the current angle of the gyro
 	 */
 	public double getAbolsuteAngleError(double comAngle) {
-		return Math.abs(comAngle-getCurrentAngle());
+		return Math.abs(this.getAngleError(comAngle));
 	}
 	
 }
