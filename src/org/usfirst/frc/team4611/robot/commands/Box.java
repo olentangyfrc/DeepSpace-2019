@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Box extends CommandGroup{
 	public Box() {
-		addSequential(new MoveForward(20));
+		addSequential(new StopAndRepositionTalons());
+		addSequential(new MoveForward(8*12));
 		addSequential(new StopAndRepositionTalons());
 	}
 }

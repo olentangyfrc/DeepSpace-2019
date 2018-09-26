@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class TalonMecanum extends MecanumBase {
 	
-	private int maxRPM = 300; //Reduced from 1200
+	private int maxRPM = 175; //Reduced from 1200
 	
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
@@ -49,6 +49,9 @@ public class TalonMecanum extends MecanumBase {
 	private String velocity2ID = "Velocity2";
 	private String velocity3ID = "Velocity3";
 	private String velocity4ID = "Velocity4";
+	
+	private int magicValuesAccel = 2000;
+	private int motionmagicCruiseVelocity = 2000;
 	
 	private Pigeon pigeon;
 	
@@ -87,6 +90,7 @@ public class TalonMecanum extends MecanumBase {
 		frontRight.setSensorPhase(true);
 		backLeft.setSensorPhase(true);
 		backRight.setSensorPhase(true);
+		
 	}
 	
 	public void moveBackward(double speed) {
