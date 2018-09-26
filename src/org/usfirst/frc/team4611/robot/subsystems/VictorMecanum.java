@@ -41,4 +41,10 @@ public class VictorMecanum extends MecanumBase {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void rotate(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
 }

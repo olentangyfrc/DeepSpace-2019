@@ -66,10 +66,10 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		backRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-		frontLeft.setSelectedSensorPosition(0);
-		frontRight.setSelectedSensorPosition(0);
-		backLeft.setSelectedSensorPosition(0);
-		backRight.setSelectedSensorPosition(0);
+		frontLeft.setSelectedSensorPosition(0, 0, 0);
+		frontRight.setSelectedSensorPosition(0, 0, 0);
+		backLeft.setSelectedSensorPosition(0, 0, 0);
+		backRight.setSelectedSensorPosition(0, 0, 0);
 		
 		frontLeft.config_kP(0, pVal, interval);
 		frontRight.config_kP(0, pVal, interval);
@@ -107,10 +107,10 @@ public class TalonMecanum extends MecanumBase {
 	}
 	
 	public void resetEncoders() {
-		frontLeft.setSelectedSensorPosition(0);
-		frontRight.setSelectedSensorPosition(0);
-		backLeft.setSelectedSensorPosition(0);
-		backRight.setSelectedSensorPosition(0);
+		frontLeft.setSelectedSensorPosition(0, 0, 0);
+		frontRight.setSelectedSensorPosition(0, 0, 0);
+		backLeft.setSelectedSensorPosition(0, 0, 0);
+		backRight.setSelectedSensorPosition(0, 0, 0);
 	}
 	
 	public int getAverageSensorPos() {
@@ -155,6 +155,13 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.set(ControlMode.Velocity, speed4);
 		backRight.set(ControlMode.Velocity, speed3);
 		
+	}
+	
+	public void rotate(double velocity) {
+		frontLeft.set(ControlMode.Velocity, velocity);
+		frontRight.set(ControlMode.Velocity, velocity);
+		backLeft.set(ControlMode.Velocity, velocity);
+		backRight.set(ControlMode.Velocity, velocity);
 	}
 	
 	protected void initDefaultCommand() {
