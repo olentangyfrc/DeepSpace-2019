@@ -111,6 +111,7 @@ public class TalonMecanum extends MecanumBase {
 		frontRight.setSelectedSensorPosition(0, 0, 0);
 		backLeft.setSelectedSensorPosition(0, 0, 0);
 		backRight.setSelectedSensorPosition(0, 0, 0);
+		System.out.println("Here");
 	}
 	
 	public int getAverageSensorPos() {

@@ -10,5 +10,5 @@ public abstract class MecanumBase extends Subsystem {
 	public abstract void resetEncoders();
 	
 	public abstract void rotate(double velocity);
-
+	public abstract int getAverageSensorPos();
 }

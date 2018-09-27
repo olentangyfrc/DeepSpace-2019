@@ -5,7 +5,7 @@ import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnRight extends Command {
+public class TurnLeft extends Command {
 
 	private double desiredAngle;
 	private double startingPigeonAngle;
@@ -18,21 +18,21 @@ public class TurnRight extends Command {
 	private Pigeon pigeon;
 	private final double rotationDifference = 0;
 
-	public TurnRight(Pigeon pig, double angle) {
+	public TurnLeft(Pigeon pig, double angle) {
 		this.angle = angle; 
 		this.pigeon = pig;
 		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
+		
 		startingPigeonAngle = pigeon.getCurrentAngle();
 
 		// desired angle is the difference between where we start and the angle to the box
-		desiredAngle = startingPigeonAngle - angle;
+		desiredAngle = startingPigeonAngle + angle;
 	
 		// Account for drifting
-		angle -= rotationDifference;
-		System.out.println("Starting to turn right with a esired angle of:" + desiredAngle);
+		angle += rotationDifference;
 
 	}
 	protected void execute() {
@@ -52,7 +52,7 @@ public class TurnRight extends Command {
 		 * we even move. we might be there.
 		 */
 		if(!isFinished()) {
-			Robot.mecanum.rotate(speed);
+			Robot.mecanum.rotate(-speed);
 		 }
 	}
 	
@@ -62,7 +62,7 @@ public class TurnRight extends Command {
 			return true;
 		}
 		
-		if(currentPigeonHeading < desiredAngle) {
+		if(currentPigeonHeading > desiredAngle) {
 			return true;
 		}
 		return false;

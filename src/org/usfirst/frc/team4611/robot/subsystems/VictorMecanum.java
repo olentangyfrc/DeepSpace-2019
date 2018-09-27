@@ -31,20 +31,16 @@ public class VictorMecanum extends MecanumBase {
 		this.setDefaultCommand(new Move(this));
 	}
 
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void move() {}
 
 	@Override
-	public void resetEncoders() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resetEncoders() {}
 
 	@Override
-	public void rotate(double velocity) {
-		// TODO Auto-generated method stub
-		
+	public void rotate(double velocity) {}
+
+	@Override
+	public int getAverageSensorPos() {
+		return 0;
 	}
 }
