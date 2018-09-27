@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new Box(mecanum, pigeon);
+		autonomousCommand = new Box(pigeon);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();

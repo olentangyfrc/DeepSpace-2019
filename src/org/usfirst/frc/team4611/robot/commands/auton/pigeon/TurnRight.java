@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton.pigeon;
 
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
+import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TurnRight extends Command {
 
 	private Pigeon pigeon;
-	private MecanumBase mecanum;
 	
 	private double angle;
 	
@@ -20,11 +19,10 @@ public class TurnRight extends Command {
 	private final double ANGLE_TOLERANCE = 1;
 	
 	
-	public TurnRight(MecanumBase mec, Pigeon pig, double angle) {
-		this.mecanum = mec;
+	public TurnRight(Pigeon pig, double angle) {
 		this.angle = angle; 
 		this.pigeon = pig;
-		this.requires(mecanum);
+		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
@@ -36,7 +34,6 @@ public class TurnRight extends Command {
 	
 		// Account for drifting
 		angle -= rotationDifference;
-		System.out.println("Starting to turn right with a esired angle of:" + desiredAngle);
 
 	}
 	protected void execute() {
@@ -51,7 +48,7 @@ public class TurnRight extends Command {
 
 		// Check to see if we are where we need to be before we even move. we might be there. 
 		if(!isFinished()) {
-			mecanum.rotate(speed);
+			Robot.mecanum.rotate(speed);
 		 }
 	}
 	

@@ -9,11 +9,11 @@ import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Box extends CommandGroup{
-	public Box(MecanumBase base, Pigeon pigeon) {
+	public Box(Pigeon pigeon) {
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new TurnRight(base, pigeon, 180));
+		addSequential(new TurnRight(pigeon, 180));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new TurnLeft(base, pigeon, 180));
+		addSequential(new TurnLeft(pigeon, 180));
 		addSequential(new StopAndRepositionTalons());
 	}
 }
