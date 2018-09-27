@@ -1,8 +1,9 @@
-package org.usfirst.frc.team4611.robot.commands;
+package org.usfirst.frc.team4611.robot.commands.blocks;
 
-import org.usfirst.frc.team4611.robot.commands.pigeon.TurnLeft;
-import org.usfirst.frc.team4611.robot.commands.pigeon.TurnRight;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
+import org.usfirst.frc.team4611.robot.commands.auton.StopAndRepositionTalons;
+import org.usfirst.frc.team4611.robot.commands.auton.pigeon.TurnLeft;
+import org.usfirst.frc.team4611.robot.commands.auton.pigeon.TurnRight;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

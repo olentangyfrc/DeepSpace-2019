@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands;
+package org.usfirst.frc.team4611.robot.commands.auton;
 
 import org.usfirst.frc.team4611.robot.Robot;
 
@@ -11,7 +11,6 @@ public class StopAndRepositionTalons extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 }

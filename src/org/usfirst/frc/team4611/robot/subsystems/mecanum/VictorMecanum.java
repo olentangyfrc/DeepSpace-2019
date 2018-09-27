@@ -1,6 +1,6 @@
-package org.usfirst.frc.team4611.robot.subsystems;
+package org.usfirst.frc.team4611.robot.subsystems.mecanum;
 
-import org.usfirst.frc.team4611.robot.commands.Move;
+import org.usfirst.frc.team4611.robot.commands.teleop.drive.Move;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 
 import edu.wpi.first.wpilibj.Victor;

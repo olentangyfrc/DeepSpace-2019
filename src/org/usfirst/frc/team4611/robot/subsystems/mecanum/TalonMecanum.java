@@ -1,13 +1,13 @@
-package org.usfirst.frc.team4611.robot.subsystems;
+package org.usfirst.frc.team4611.robot.subsystems.mecanum;
 
 import java.util.HashMap;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.commands.Move;
+import org.usfirst.frc.team4611.robot.commands.teleop.drive.Move;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;

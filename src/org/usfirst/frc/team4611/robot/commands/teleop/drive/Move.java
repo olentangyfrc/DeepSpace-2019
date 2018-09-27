@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.commands;
+package org.usfirst.frc.team4611.robot.commands.teleop.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
@@ -21,7 +21,6 @@ public class Move extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

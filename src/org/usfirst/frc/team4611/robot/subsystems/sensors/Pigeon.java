@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon;
+package org.usfirst.frc.team4611.robot.subsystems.sensors;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;

@@ -1,12 +1,12 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.Box;
+import org.usfirst.frc.team4611.robot.commands.blocks.Box;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.TalonMecanum;
-import org.usfirst.frc.team4611.robot.subsystems.VictorMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.mecanum.VictorMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

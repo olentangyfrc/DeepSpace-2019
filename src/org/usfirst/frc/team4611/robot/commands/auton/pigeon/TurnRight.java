@@ -1,7 +1,7 @@
-package org.usfirst.frc.team4611.robot.commands.pigeon;
+package org.usfirst.frc.team4611.robot.commands.auton.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.pigeon.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
