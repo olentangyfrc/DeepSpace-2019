@@ -50,9 +50,6 @@ public class TalonMecanum extends MecanumBase {
 	private String velocity3ID = "Velocity3";
 	private String velocity4ID = "Velocity4";
 	
-	private int magicValuesAccel = 2000;
-	private int motionmagicCruiseVelocity = 2000;
-	
 	private Pigeon pigeon;
 	
 	public TalonMecanum(Pigeon pigeon) {

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton.drive;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
 
 import edu.wpi.first.wpilibj.command.Command;
