@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnRight extends Command {
 
-	private Pigeon pigeon;
-	
 	private double angle;
 	
 	private double desiredAngle;
@@ -18,16 +16,14 @@ public class TurnRight extends Command {
 	private final double rotationDifference = 0;
 	private final double ANGLE_TOLERANCE = 1;
 	
-	
-	public TurnRight(Pigeon pig, double angle) {
+	public TurnRight(double angle) {
 		this.angle = angle; 
-		this.pigeon = pig;
 		this.requires(Robot.mecanum);
 	}
 	
 	protected void initialize() {
 		// Gets the angle once the command begins
-		startingPigeonAngle = pigeon.getCurrentAngle();
+		startingPigeonAngle = Pigeon.getCurrentAngle();
 
 		// Desired angle is the difference between where we start and the angle to the box
 		desiredAngle = startingPigeonAngle - angle;
@@ -38,7 +34,7 @@ public class TurnRight extends Command {
 	}
 	protected void execute() {
 		// How far do we have to go b4 we get to the target?
-		double errorAngle = pigeon.getAbolsuteAngleError(desiredAngle);
+		double errorAngle = Pigeon.getAbolsuteAngleError(desiredAngle);
 		
 		// How do we respond to that error?
 		double pVal = errorAngle * .15;
@@ -54,12 +50,12 @@ public class TurnRight extends Command {
 	
 	protected boolean isFinished(){
 		// Checks to see if the bot is within the designated tolerance
-		if(pigeon.getAbolsuteAngleError(desiredAngle) <= ANGLE_TOLERANCE) {
+		if(Pigeon.getAbolsuteAngleError(desiredAngle) <= ANGLE_TOLERANCE) {
 			return true;
 		}
 		
 		//Checks to see if the bot has turned farther than before
-		if(pigeon.getCurrentAngle() < desiredAngle) {
+		if(Pigeon.getCurrentAngle() < desiredAngle) {
 			return true;
 		}
 		return false;

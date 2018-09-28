@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.blocks.Box;
+import org.usfirst.frc.team4611.robot.commands.auton.blocks.Box;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
@@ -21,19 +21,15 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static MecanumBase mecanum;
 	public static OI oi;
-	
-	private Pigeon pigeon;
-	
+		
 	@Override
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
-		
-		//Initialize the sensor classes
-		pigeon = new Pigeon(21);
-		
+		Pigeon.resetAngle();
+	
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
-			mecanum = new TalonMecanum(pigeon);
+			mecanum = new TalonMecanum();
 		}
 		else {
 			mecanum = new VictorMecanum();
@@ -54,7 +50,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new Box(pigeon);
+		autonomousCommand = new Box();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
