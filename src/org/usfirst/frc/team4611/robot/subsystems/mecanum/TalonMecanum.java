@@ -112,10 +112,10 @@ public class TalonMecanum extends MecanumBase {
 	}
 	
 	public int getAverageSensorPos() {
-		return Math.abs(frontLeft.getSelectedSensorPosition(0)) + Math.abs(
+		return (Math.abs(frontLeft.getSelectedSensorPosition(0)) + Math.abs(
 		frontRight.getSelectedSensorPosition(0)) + Math.abs(
 		backLeft.getSelectedSensorPosition(0)) + Math.abs(
-		backRight.getSelectedSensorPosition(0));
+		backRight.getSelectedSensorPosition(0)))/4;
 	}
 
 	public void move() {

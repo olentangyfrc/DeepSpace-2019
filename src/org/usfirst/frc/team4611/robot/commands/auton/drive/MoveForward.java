@@ -15,12 +15,18 @@ public class MoveForward extends Command {
 		this.inches = inches;
 	}
 	
+	protected void initialize() {
+		System.out.println("Hereer");
+	}
+	
 	protected void execute() {
+		System.out.println(Robot.mecanum.getAverageSensorPos());
 		Robot.mecanum.moveForward(inches);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches) <= 10;
+		System.out.println(Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches));
+		return Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches) <= 100;
 	}
 }
