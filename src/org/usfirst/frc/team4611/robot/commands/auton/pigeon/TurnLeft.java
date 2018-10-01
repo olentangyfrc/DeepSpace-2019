@@ -11,7 +11,7 @@ public class TurnLeft extends Command {
 	
 	private double desiredAngle;
 	private double startingPigeonAngle;
-	private double maxRPM = 500;
+	private double maxRPM = 1000;
 	private double angle;
 	
 	private final double rotationDifference = 0;

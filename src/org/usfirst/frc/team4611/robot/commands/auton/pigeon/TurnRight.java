@@ -13,7 +13,7 @@ public class TurnRight extends Command {
 	
 	private double desiredAngle;
 	private double startingPigeonAngle;
-	private double maxRPM = 500;
+	private double maxRPM = 1000;
 	
 	private final double rotationDifference = 0;
 	private final double ANGLE_TOLERANCE = 1;

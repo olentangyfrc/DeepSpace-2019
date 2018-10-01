@@ -27,6 +27,6 @@ public class MoveForward extends Command {
 	@Override
 	protected boolean isFinished() {
 		System.out.println(Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches));
-		return Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches) <= 100;
+		return Math.abs((Robot.mecanum.getAverageSensorPos())-inches*this.INCH_PU_MULT) <= 70;
 	}
 }
