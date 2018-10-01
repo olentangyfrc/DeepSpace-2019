@@ -7,7 +7,6 @@ import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.commands.teleop.drive.Move;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -49,12 +48,9 @@ public class TalonMecanum extends MecanumBase {
 	private String velocity2ID = "Velocity2";
 	private String velocity3ID = "Velocity3";
 	private String velocity4ID = "Velocity4";
-	
-	private Pigeon pigeon;
-	
-	public TalonMecanum(Pigeon pigeon) {
+		
+	public TalonMecanum() {
 		setupTalons();
-		this.pigeon = pigeon;
 	}
 	
 	public void setupTalons() {
@@ -139,9 +135,6 @@ public class TalonMecanum extends MecanumBase {
 		values.put(velocity2ID, velocity2);
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
-		values.put("pigeon-angle", pigeon.getCurrentAngle());
-		values.put("pigeon--360-360-angle", pigeon.getCurrentRelativeAngle());
-		values.put("pigeon-0-360-angle", pigeon.getCurrentAbsoluteAngle());
 		NetTableManager.updateValues(mecanumSubtable, values);
 		System.out.println(frontLeft.getSelectedSensorPosition(0) + " " + frontRight.getSelectedSensorPosition(0) + " " + backLeft.getSelectedSensorPosition(0) + " " + backRight.getSelectedSensorPosition(0));
 	}
