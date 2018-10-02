@@ -6,9 +6,11 @@ import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.VictorMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -21,12 +23,15 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static MecanumBase mecanum;
 	public static OI oi;
+	public static Optical opt;
 		
 	@Override
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
 		Pigeon.resetAngle();
-	
+		opt = new Optical(Port.kMXP);
+		
+		
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
 			mecanum = new TalonMecanum();
@@ -74,6 +79,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		System.out.println(Robot.opt.getDistance());
 	}
 
 

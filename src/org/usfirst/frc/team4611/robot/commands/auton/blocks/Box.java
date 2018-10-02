@@ -10,20 +10,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Box extends CommandGroup{
 	public Box() {
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new MoveForward(150));
+		addSequential(new MoveForward(75));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new TurnRight(pigeon, 90));
+		addSequential(new TurnRight(90));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveForward(60));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new TurnRight(pigeon, 90));
+		addSequential(new TurnRight(90));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveForward(75));
 		addSequential(new StopAndRepositionTalons());
-		addSequential(new TurnRight(pigeon, 90));
+		addSequential(new TurnRight(90));
 		addSequential(new StopAndRepositionTalons());
 		addSequential(new MoveForward(60));
-		addSequential(new TurnRight(pigeon, 90));
+		addSequential(new TurnRight(90));
 
 
 	}
