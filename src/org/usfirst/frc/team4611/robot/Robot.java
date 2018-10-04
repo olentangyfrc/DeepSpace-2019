@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.auton.blocks.Box;
+import org.usfirst.frc.team4611.robot.commands.auton.blocks.Roomba;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
@@ -9,8 +9,8 @@ import org.usfirst.frc.team4611.robot.subsystems.mecanum.VictorMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -22,9 +22,10 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static MecanumBase mecanum;
-	public static OI oi;
 	public static Optical opt;
 		
+	public static OI oi;
+	
 	@Override
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
@@ -40,12 +41,10 @@ public class Robot extends IterativeRobot {
 			mecanum = new VictorMecanum();
 		}
 		oi = new OI();
-		
 	}
 
 	@Override
 	public void disabledInit() {
-
 	}
 
 	@Override
@@ -55,7 +54,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new Box();
+		
+		autonomousCommand = new Roomba();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -64,6 +64,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		System.out.println(opt.pidGet());
 	}
 
 	@Override
@@ -79,7 +80,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println(Robot.opt.getDistance());
+		opt.update();
+		System.out.println(opt.pidGet());
 	}
 
 

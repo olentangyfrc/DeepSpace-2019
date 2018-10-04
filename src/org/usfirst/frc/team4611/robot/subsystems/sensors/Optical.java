@@ -35,7 +35,7 @@ public class Optical extends Subsystem{
 			}
 			
 			// Distance in cm
-			public static int getDistance() {
+			public int getDistance() {
 				return (int)Integer.toUnsignedLong(distance[0] << 8) + Byte.toUnsignedInt(distance[1]);
 			}
 		 

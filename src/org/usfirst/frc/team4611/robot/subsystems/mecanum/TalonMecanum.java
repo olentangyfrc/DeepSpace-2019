@@ -114,6 +114,19 @@ public class TalonMecanum extends MecanumBase {
 		backRight.getSelectedSensorPosition(0)))/4;
 	}
 
+	public void moveVelocityAuton(double XVal, double YVal, double ZVal) {
+		double velocity1 = 4*(maxRPM * (YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1));
+		double velocity2 = 4*(maxRPM * (YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2)); 
+		double velocity3 = 4*(maxRPM * (YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3));
+		double velocity4 = 4*(maxRPM * (YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4));
+		
+		
+		frontLeft.set(ControlMode.Velocity, velocity1);
+		frontRight.set(ControlMode.Velocity, velocity2);
+		backLeft.set(ControlMode.Velocity, velocity4);
+		backRight.set(ControlMode.Velocity, velocity3);
+	}
+	
 	public void move() {
 		double YVal = -OI.generalJoystickFilter(OI.leftJoy.getY()); 
 		double XVal = OI.generalJoystickFilter(OI.leftJoy.getX());

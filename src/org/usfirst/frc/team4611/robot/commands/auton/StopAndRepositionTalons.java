@@ -13,4 +13,8 @@ public class StopAndRepositionTalons extends Command {
 	protected boolean isFinished() {
 		return true;
 	}
+	
+	protected void end() {
+		Robot.mecanum.moveVelocityAuton(0, 0, 0);
+	}
 }

@@ -11,4 +11,6 @@ public abstract class MecanumBase extends Subsystem {
 	
 	public abstract void rotate(double velocity);
 	public abstract int getAverageSensorPos();
+	
+	public abstract void moveVelocityAuton(double XVal, double YVal, double ZVal);
 }

@@ -43,4 +43,11 @@ public class VictorMecanum extends MecanumBase {
 	public int getAverageSensorPos() {
 		return 0;
 	}
+
+
+	@Override
+	public void moveVelocityAuton(double XVal, double YVal, double ZVal) {
+		// TODO Auto-generated method stub
+		
+	}
 }
