@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class TalonMecanum extends MecanumBase {
 	
-	private int maxRPM = 175; //Reduced from 1200
+	private int maxRPM = 400; //Reduced from 1200
 	
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);

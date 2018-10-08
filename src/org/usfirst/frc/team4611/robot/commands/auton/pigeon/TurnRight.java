@@ -11,10 +11,10 @@ public class TurnRight extends Command {
 	
 	private double desiredAngle;
 	private double startingPigeonAngle;
-	private double maxRPM = 1000;
+	private double maxRPM = 750;
 	
-	private final double rotationDifference = 0;
-	private final double ANGLE_TOLERANCE = 1;
+	private final double rotationDifference = 2.4;
+	private final double ANGLE_TOLERANCE = .5;
 	
 	public TurnRight(double angle) {
 		this.angle = angle; 
@@ -29,7 +29,7 @@ public class TurnRight extends Command {
 		desiredAngle = startingPigeonAngle - angle;
 	
 		// Account for drifting
-		angle -= rotationDifference;
+		desiredAngle -= rotationDifference;
 
 	}
 	protected void execute() {
