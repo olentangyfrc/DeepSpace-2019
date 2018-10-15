@@ -167,9 +167,10 @@ public class TalonMecanum extends MecanumBase {
 		backLeft.set(ControlMode.Velocity, velocity);
 		backRight.set(ControlMode.Velocity, velocity);
 	}
-	
+	private int t = 0;
 	protected void initDefaultCommand() {
 		Robot.mecanum.setDefaultCommand(new Move(this));
+		// ^NORMAL WAY TO DRIVE
 	}
 	
 

@@ -12,7 +12,7 @@ public class Roomba extends CommandGroup{
 
 	public Roomba() {
 			this.addSequential(new DriveUntilDistance(Robot.opt, 40, 0.5));
-			this.addSequential(new TurnRight(90));
+			this.addSequential(new TurnRight(180));
 			Robot.opt.update();
 			this.addSequential(new RoombaRepeat(this));
 	}

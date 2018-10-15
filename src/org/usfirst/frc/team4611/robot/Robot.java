@@ -10,6 +10,8 @@ import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -23,7 +25,8 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static MecanumBase mecanum;
 	public static Optical opt;
-		
+	public static UsbCamera camera;	
+	
 	public static OI oi;
 	
 	@Override
@@ -41,6 +44,13 @@ public class Robot extends IterativeRobot {
 			mecanum = new VictorMecanum();
 		}
 		oi = new OI();
+		
+		camera = CameraServer.getInstance().startAutomaticCapture();	
+		camera.setResolution(320, 240);
+		camera.setFPS(20);
+		camera.setExposureManual(35);
+		
+		
 	}
 
 	@Override
