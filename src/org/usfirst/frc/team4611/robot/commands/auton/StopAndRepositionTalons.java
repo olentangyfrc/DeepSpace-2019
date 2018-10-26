@@ -15,6 +15,6 @@ public class StopAndRepositionTalons extends Command {
 	}
 	
 	protected void end() {
-		Robot.mecanum.moveVelocityAuton(0, 0, 0);
+		Robot.mecanum.moveVelocityAuton(0);
 	}
 }

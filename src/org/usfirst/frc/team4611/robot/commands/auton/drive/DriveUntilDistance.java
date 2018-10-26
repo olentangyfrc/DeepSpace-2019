@@ -23,7 +23,7 @@ public class DriveUntilDistance extends Command{
 	}
 	
 	protected void execute() {
-		Robot.mecanum.moveVelocityAuton(0, speed, 0);
+		Robot.mecanum.moveVelocityAuton(speed);
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class DriveUntilDistance extends Command{
 	}
 	
 	protected void end() {
-		Robot.mecanum.moveVelocityAuton(0, 0, 0);
+		Robot.mecanum.moveVelocityAuton(0);
 	}
 }
