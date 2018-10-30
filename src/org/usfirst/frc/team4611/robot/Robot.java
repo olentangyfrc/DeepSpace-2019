@@ -12,6 +12,7 @@ import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
 
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.sensors.Potentiometer;
 
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.cscore.UsbCamera;
@@ -73,10 +74,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		Waypoint[] points = new Waypoint[] {
-			    new Waypoint(0, 0, 0),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-			    new Waypoint(3, 0, 0)                        // Waypoint @ x=-2, y=-2, exit angle=0 radians 												// Waypoint @ x=0, y=0,   exit angle=0 radians
+			    new Waypoint(0, 0, 0),      
+			    new Waypoint(1, 0, 0),                    
+			    //new Waypoint(2, -1, Pathfinder.d2r(90)),
 			};
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.02, 1.2, 2, 60);
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, 0.02, .25, 1, 20);
 		Trajectory traject = Pathfinder.generate(points, config);
 		
 		mecanum.followTrajectory(traject);
@@ -94,6 +96,8 @@ public class Robot extends IterativeRobot {
 		
 	}
 
+	Potentiometer pot = new Potentiometer(0);
+	
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
@@ -102,13 +106,14 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		/*if (autonomousCommand != null)
 			autonomousCommand.cancel();*/
+		pot = new Potentiometer(1);
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		opt.update();
-		System.out.println(opt.pidGet());
+		System.out.println(pot.getValue());
 	}
 
 

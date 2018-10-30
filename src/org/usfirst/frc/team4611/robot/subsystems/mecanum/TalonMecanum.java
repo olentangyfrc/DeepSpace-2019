@@ -25,10 +25,10 @@ public class TalonMecanum extends MecanumBase {
 	
 	private int maxRPM = 400; //Reduced from 1200
 	
-	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(10);
-	private WPI_TalonSRX frontRight = new WPI_TalonSRX(13);
-	private WPI_TalonSRX backLeft = new WPI_TalonSRX(12);
-	private WPI_TalonSRX backRight = new WPI_TalonSRX(11);
+	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
+	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
+	private WPI_TalonSRX backLeft = new WPI_TalonSRX(2);
+	private WPI_TalonSRX backRight = new WPI_TalonSRX(3);
 	
 	private double pVal = .65;
 	private int interval = 10;
@@ -104,8 +104,8 @@ public class TalonMecanum extends MecanumBase {
 		
 		left = new DistanceFollower();
 		right = new DistanceFollower();
-		left.configurePIDVA(1, 0, 0, 1/1.2, 0);
-		right.configurePIDVA(1, 0, 0, 1/1.2, 0);
+		left.configurePIDVA(1, 0, 0, 1/.25, 0);
+		right.configurePIDVA(1, 0, 0, 1/.25, 0);
 		
 	}
 	
@@ -170,9 +170,9 @@ public class TalonMecanum extends MecanumBase {
 
 	public void moveVelocityAuton(double speed) {
 		double velocity1 = 4*(maxRPM * speed * velocityInvert1);
-		double velocity2 = 4*(maxRPM * speed* velocityInvert2); 
+		double velocity2 = 4*(maxRPM * speed * velocityInvert2); 
 		double velocity3 = 4*(maxRPM * speed * velocityInvert3);
-		double velocity4 = 4*(maxRPM * velocityInvert4);
+		double velocity4 = 4*(maxRPM * speed * velocityInvert4);
 		
 		
 		frontLeft.set(ControlMode.Velocity, velocity1);
