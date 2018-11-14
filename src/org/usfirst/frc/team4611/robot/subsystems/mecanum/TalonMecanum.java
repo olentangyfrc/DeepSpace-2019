@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot.subsystems.mecanum;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Timer;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.DistanceFollower;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -65,6 +67,8 @@ public class TalonMecanum extends MecanumBase {
 	
 	private TankModifier modifier;
 	
+	private Timer driveT;
+	
 	private double wheelBase = .59;//IN METERS
 		
 	public TalonMecanum() {
@@ -72,6 +76,11 @@ public class TalonMecanum extends MecanumBase {
 	}
 	
 	public void setupTalons() {
+		driveT = new Timer();
+		driveT.start();
+		driveT.reset();
+		
+		
 		frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		frontRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -104,8 +113,9 @@ public class TalonMecanum extends MecanumBase {
 		
 		left = new DistanceFollower();
 		right = new DistanceFollower();
-		left.configurePIDVA(1, 0, 0, 1/.25, 0);
-		right.configurePIDVA(1, 0, 0, 1/.25, 0);
+		left.configurePIDVA(1, 0, 1, 1, 0);
+		right.configurePIDVA(1, 0, 1, 1, 0);
+		
 		
 	}
 	
@@ -203,7 +213,8 @@ public class TalonMecanum extends MecanumBase {
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
 		NetTableManager.updateValues(mecanumSubtable, values);
-		System.out.println(frontLeft.getSelectedSensorPosition(0) + " " + frontRight.getSelectedSensorPosition(0) + " " + backLeft.getSelectedSensorPosition(0) + " " + backRight.getSelectedSensorPosition(0));
+		logger.info(""+(frontRight.getSelectedSensorVelocity()));
+		logger.fine(""+frontRight.getBusVoltage());
 	}
 	
 	public void moveAtSpeeddouble(double speed1, double speed2, double speed3, double speed4) {
@@ -225,6 +236,14 @@ public class TalonMecanum extends MecanumBase {
 	protected void initDefaultCommand() {
 		Robot.mecanum.setDefaultCommand(new Move(this));
 		// ^NORMAL WAY TO DRIVE
+	}
+	
+	@Override
+	public double getVelocity() {
+		// TODO Auto-generated method stub
+		//returns in meters per second
+		
+		return getMetersTraveled()/(driveT.get()/1000);
 	}
 	
 
