@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		isOn = true;
-		/*Waypoint[] points = new Waypoint[] {
+		Waypoint[] points = new Waypoint[] {
 			    new Waypoint(0, 0, 0),      
 			    new Waypoint(1, 0, 0),                    
 			    //new Waypoint(3, 1, 0),
@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
 		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW, 0.02, 1.212, 1.37, 5.6);
 		Trajectory traject = Pathfinder.generate(points, config);
 		
-		mecanum.followTrajectory(traject);*/
+		mecanum.followTrajectory(traject);
 		
 //		autonomousCommand = new Roomba();
 
