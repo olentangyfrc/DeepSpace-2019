@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera camera;
 	
 	public static boolean isOn;
-	///public Command autonomousCommand;
+	public Command autonomousCommand;
 	
 	
 	public static OI oi;
@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		isOn = true;
 		Waypoint[] points = new Waypoint[] {
 			    new Waypoint(0, 0, 0),      
-			    new Waypoint(0, 1, 0),                    
+			    new Waypoint(1, 0, 0),                    
 			    //new Waypoint(3, 1, 0),
 			};
 		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.02, 1.212, 1.37, 5.6);
@@ -88,16 +88,16 @@ public class Robot extends IterativeRobot {
 		
 		mecanum.followTrajectory(traject);
 		
-//		autonomousCommand = new Roomba();
+		//autonomousCommand = new Roomba();
 
-	//	if (autonomousCommand != null)
-		//	autonomousCommand.start();
+		if (autonomousCommand != null)
+			autonomousCommand.start();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		//mecanum.setTrajectorySpeeds();
+		mecanum.setTrajectorySpeeds();
 		
 	}
 
@@ -112,7 +112,7 @@ public class Robot extends IterativeRobot {
 		isOn = true;
 		//if (autonomousCommand != null)
 			//autonomousCommand.cancel();
-		//pot = new Potentiometer(1);
+		pot = new Potentiometer(1);
 		
 	}
 

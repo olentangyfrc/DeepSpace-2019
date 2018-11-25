@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Roomba extends CommandGroup{
 
 	public Roomba() {
-		addSequential(new MoveForward(120));
+		addSequential(new MoveForward(60));
 		/*this.addSequential(new DriveUntilDistance(Robot.opt, 40, 0.5));
 			this.addSequential(new TurnRight(180.3));
 			Robot.opt.update();

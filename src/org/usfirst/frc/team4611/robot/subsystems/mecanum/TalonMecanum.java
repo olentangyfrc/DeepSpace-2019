@@ -213,7 +213,7 @@ public class TalonMecanum extends MecanumBase {
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
 		NetTableManager.updateValues(mecanumSubtable, values);
-		logger.info(""+(frontRight.getSelectedSensorVelocity()));
+		logger.info(""+(frontRight.getSelectedSensorVelocity()*600/4092));
 		logger.fine(""+frontRight.getBusVoltage());
 	}
 	
