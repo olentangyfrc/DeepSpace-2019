@@ -13,7 +13,7 @@ public class DriveUntilDistance extends Command{
 	private Optical opt;
 	
 	public DriveUntilDistance(Optical o, int centi, double speed) {
-		this.requires(Robot.mecanum);
+		this.requires(Robot.driveTrain);
 		this.centimeters = centi;
 		this.opt = o;
 		this.speed = speed;
@@ -23,7 +23,7 @@ public class DriveUntilDistance extends Command{
 	}
 	
 	protected void execute() {
-		Robot.mecanum.moveVelocityAuton(speed);
+		Robot.driveTrain.moveVelocityAuton(speed);
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class DriveUntilDistance extends Command{
 	}
 	
 	protected void end() {
-		Robot.mecanum.moveVelocityAuton(0);
+		Robot.driveTrain.moveVelocityAuton(0);
 	}
 }

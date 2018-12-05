@@ -234,7 +234,7 @@ public class TalonMecanum extends MecanumBase {
 	}
 	private int t = 0;
 	protected void initDefaultCommand() {
-		Robot.mecanum.setDefaultCommand(new Move(this));
+		Robot.driveTrain.setDefaultCommand(new Move(this));
 		// ^NORMAL WAY TO DRIVE
 	}
 	

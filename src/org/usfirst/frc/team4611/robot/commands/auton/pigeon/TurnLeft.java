@@ -17,7 +17,7 @@ public class TurnLeft extends Command {
 	
 	public TurnLeft(double angle) {
 		this.angle = angle; 
-		this.requires(Robot.mecanum);
+		this.requires(Robot.driveTrain);
 	}
 	
 	protected void initialize() {
@@ -45,7 +45,7 @@ public class TurnLeft extends Command {
 
 		// Check to see if we are where we need to be before we even move. we might be there.
 		if(!isFinished()) {
-			Robot.mecanum.rotate(-speed);
+			Robot.driveTrain.rotate(-speed);
 		 }
 	}
 	

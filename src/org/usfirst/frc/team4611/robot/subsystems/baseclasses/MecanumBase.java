@@ -3,7 +3,7 @@ package org.usfirst.frc.team4611.robot.subsystems.baseclasses;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import jaci.pathfinder.Trajectory;
 
-public abstract class MecanumBase extends Subsystem {
+public abstract class MecanumBase extends Drivetrain {
 
 	public abstract void move();
 	public abstract void moveForward(double speed);

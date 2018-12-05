@@ -6,12 +6,15 @@ import java.util.logging.Level;
 import org.usfirst.frc.team4611.robot.commands.auton.StopAndRepositionTalons;
 import org.usfirst.frc.team4611.robot.commands.auton.blocks.Roomba;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.baseclasses.Drivetrain;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.MecanumBase;
+import org.usfirst.frc.team4611.robot.subsystems.baseclasses.TankdriveBase;
 import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
 
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Potentiometer;
+import org.usfirst.frc.team4611.robot.subsystems.tank.TalonTankdrive;
 
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.cscore.UsbCamera;
@@ -31,7 +34,7 @@ public class Robot extends IterativeRobot {
 
 	public String motorControllerType = "t";
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static MecanumBase mecanum;
+	public static TankdriveBase driveTrain = new TalonTankdrive();
 	public static Optical opt;
 	public static UsbCamera camera;
 	
@@ -49,10 +52,10 @@ public class Robot extends IterativeRobot {
 		opt = new Optical(Port.kMXP);
 		//Initialize the subsystems
 		if(motorControllerType.toLowerCase().equals("t")) {
-			mecanum = new TalonMecanum();
+			driveTrain = new TalonTankdrive();
 		}
 		else {
-			mecanum = new TalonMecanum();
+		//	drive = new TalonMecanum();
 		}
 		oi = new OI();
 		
@@ -67,7 +70,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		isOn = false;
-		mecanum.resetEncoders();
+		driveTrain.resetEncoders();
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class Robot extends IterativeRobot {
 		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.02, 1.212, 1.37, 5.6);
 		Trajectory traject = Pathfinder.generate(points, config);
 		
-		mecanum.followTrajectory(traject);
+		//mecanum.followTrajectory(traject);
 		
 		//autonomousCommand = new Roomba();
 
@@ -97,7 +100,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		mecanum.setTrajectorySpeeds();
+		//mecanum.setTrajectorySpeeds();
 		
 	}
 

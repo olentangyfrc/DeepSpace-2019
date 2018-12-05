@@ -11,7 +11,7 @@ public class MoveForward extends Command {
 	public final double INCH_PU_MULT = 215.910640625;
 	
 	public MoveForward(int inches) {
-		this.requires(Robot.mecanum);
+		this.requires(Robot.driveTrain);
 		this.inches = inches;
 	}
 	
@@ -20,13 +20,13 @@ public class MoveForward extends Command {
 	}
 	
 	protected void execute() {
-		System.out.println(Robot.mecanum.getAverageSensorPos());
-		Robot.mecanum.moveForward(inches);
+		System.out.println(Robot.driveTrain.getAverageSensorPos());
+		Robot.driveTrain.moveForward(inches);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		System.out.println(Math.abs((Robot.mecanum.getAverageSensorPos()*(((TalonMecanum)Robot.mecanum)).INCH_PU_MULT)-inches));
-		return Math.abs((Robot.mecanum.getAverageSensorPos())-inches*this.INCH_PU_MULT) <= 70;
+
+		return Math.abs((Robot.driveTrain.getAverageSensorPos())-inches*this.INCH_PU_MULT) <= 70;
 	}
 }

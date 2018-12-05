@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class StopAndRepositionTalons extends Command {
 	protected void execute() {
-    	Robot.mecanum.resetEncoders();
+    	Robot.driveTrain.resetEncoders();
     }
 
 	@Override
@@ -15,6 +15,6 @@ public class StopAndRepositionTalons extends Command {
 	}
 	
 	protected void end() {
-		Robot.mecanum.moveVelocityAuton(0);
+		Robot.driveTrain.moveVelocityAuton(0);
 	}
 }
