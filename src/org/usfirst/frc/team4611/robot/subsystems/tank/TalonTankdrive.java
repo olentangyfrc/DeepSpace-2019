@@ -27,6 +27,8 @@ public class TalonTankdrive extends TankdriveBase {
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(2);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(3);
+	private WPI_TalonSRX powerFrontRight = new WPI_TalonSRX(4);
+	private WPI_TalonSRX powerFrontLeft = new WPI_TalonSRX(5);
 	
 	private double pVal = .65;
 	private int interval = 10;
@@ -98,17 +100,28 @@ public class TalonTankdrive extends TankdriveBase {
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		double RYVal = -OI.generalJoystickFilter(OI.leftJoy.getY()); 
-		double LYVal = -OI.generalJoystickFilter(OI.rightJoy.getY());
+		double LYVal = -OI.generalJoystickFilter(OI.leftJoy.getY()); 
+		double RYVal = -OI.generalJoystickFilter(OI.rightJoy.getY());
 	
 		velocity1 = 4*(maxRPM * (LYVal * YValScaler1) * (velocityInvert1));
 		velocity2 = 4*(maxRPM * (RYVal * YValScaler2) * (velocityInvert2)); 
 		
-		backLeft.follow(frontLeft);
-		backRight.follow(frontRight);
 		
-		frontLeft.set(ControlMode.Velocity, velocity1);
-		frontRight.set(ControlMode.Velocity, velocity2);
+		
+		if(OI.leftJoy.getTrigger()) {
+			backLeft.follow(powerFrontLeft);
+			backRight.follow(powerFrontRight);
+			
+			powerFrontLeft.set(ControlMode.Velocity, velocity1);
+			powerFrontRight.set(ControlMode.Velocity, velocity2);
+		}
+		else {
+			backLeft.follow(frontLeft);
+			backRight.follow(frontRight);
+			
+			frontLeft.set(ControlMode.Velocity, velocity1);
+			frontRight.set(ControlMode.Velocity, velocity2);
+		}
 		
 		
 		
@@ -120,12 +133,6 @@ public class TalonTankdrive extends TankdriveBase {
 		NetTableManager.updateValues(mecanumSubtable, values);
 		logger.info(""+(frontRight.getSelectedSensorVelocity()*600/4092));
 		logger.fine(""+frontRight.getBusVoltage());
-	}
-
-	@Override
-	public void turn() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
