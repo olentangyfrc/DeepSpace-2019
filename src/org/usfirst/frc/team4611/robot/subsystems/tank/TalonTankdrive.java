@@ -14,6 +14,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 import jaci.pathfinder.followers.DistanceFollower;
 
@@ -22,6 +24,8 @@ public class TalonTankdrive extends TankdriveBase {
 	final Logger	logger	= Logger.getLogger(LogTest.class.getName());
 	
 	private int maxRPM = 400; //Reduced from 1200
+	
+	private DigitalOutput sol = new DigitalOutput(0);
 	
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
@@ -105,23 +109,18 @@ public class TalonTankdrive extends TankdriveBase {
 	
 		velocity1 = 4*(maxRPM * (LYVal * YValScaler1) * (velocityInvert1));
 		velocity2 = 4*(maxRPM * (RYVal * YValScaler2) * (velocityInvert2)); 
+
+		if(OI.leftJoy.getTrigger())
+			sol.set(true);
+		else
+			sol.set(false);
 		
-		
-		
-		if(OI.leftJoy.getTrigger()) {
-			backLeft.follow(powerFrontLeft);
-			backRight.follow(powerFrontRight);
+		backLeft.follow(frontLeft);
+		backRight.follow(frontRight);
 			
-			powerFrontLeft.set(ControlMode.Velocity, velocity1);
-			powerFrontRight.set(ControlMode.Velocity, velocity2);
-		}
-		else {
-			backLeft.follow(frontLeft);
-			backRight.follow(frontRight);
-			
-			frontLeft.set(ControlMode.Velocity, velocity1);
-			frontRight.set(ControlMode.Velocity, velocity2);
-		}
+		frontLeft.set(ControlMode.Velocity, velocity1);
+		frontRight.set(ControlMode.Velocity, velocity2);
+		
 		
 		
 		
