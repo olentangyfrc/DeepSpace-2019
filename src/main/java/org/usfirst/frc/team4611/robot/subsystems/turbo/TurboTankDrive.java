@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.OI;
@@ -23,9 +24,9 @@ public class TurboTankDrive extends DriveTrain {
     private final int turboSolClosePort = 1;
 
     private final int frontLeftTalonPort = 10;
-    private final int frontRightTalonPort = 10;
-    private final int backLeftTalonPort = 10;
-    private final int backRightTalonPort = 10;
+    private final int frontRightTalonPort = 11;
+    private final int backLeftTalonPort = 13;
+    private final int backRightTalonPort = 12;
 
     public final double INCH_PU_MULT = 215.910640625;
 
@@ -34,6 +35,8 @@ public class TurboTankDrive extends DriveTrain {
     final Logger logger = Logger.getLogger(LogTest.class.getName());
 
     private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
+
+   
 
     private WPI_TalonSRX frontLeft = new WPI_TalonSRX(frontLeftTalonPort);
     private WPI_TalonSRX frontRight = new WPI_TalonSRX(frontRightTalonPort);
@@ -54,7 +57,7 @@ public class TurboTankDrive extends DriveTrain {
     private int velocityInvert1 = 1;
     private int velocityInvert2 = -1;
 
-    private String mecanumSubtable = "Mecanum";
+    private String tankSubtable = "Tank";
 
     private String velocity1ID = "Velocity1";
     private String velocity2ID = "Velocity2";
@@ -97,15 +100,18 @@ public class TurboTankDrive extends DriveTrain {
         backLeft.follow(frontLeft);
         backRight.follow(frontRight);
 
+        backLeft.setInverted(false);
+        backRight.setInverted(false);
+
     }
 
     @Override
     public void move() {
         double LYVal = -OI.generalJoystickFilter(OI.leftJoy.getY());
-        double RYVal = -OI.generalJoystickFilter(OI.rightJoy.getY());
+        double RYVal = OI.generalJoystickFilter(OI.rightJoy.getY());
 
-        velocity1 = 4 * (maxRPM * (LYVal * YValScaler1) * (velocityInvert1));
-        velocity2 = 4 * (maxRPM * (RYVal * YValScaler2) * (velocityInvert2));
+        velocity1 = 4 * (maxRPM * (LYVal * YValScaler1));
+        velocity2 = 4 * (maxRPM * (RYVal * YValScaler2));
 
         frontLeft.set(ControlMode.Velocity, velocity1);
         frontRight.set(ControlMode.Velocity, velocity2);
@@ -113,9 +119,9 @@ public class TurboTankDrive extends DriveTrain {
         HashMap<String, Object> values = new HashMap<String, Object>();
         values.put(velocity1ID, velocity1);
         values.put(velocity2ID, velocity2);
-        NetTableManager.updateValues(mecanumSubtable, values);
-        logger.info("" + (frontRight.getSelectedSensorVelocity(0) * 600 / 4092));
-        logger.fine("" + frontRight.getBusVoltage());
+        NetTableManager.updateValues(tankSubtable, values);
+        //logger.info("" + (frontRight.getSelectedSensorVelocity(0) * 600 / 4092));
+        //logger.fine("" + frontRight.getBusVoltage());
     }
 
     @Override
@@ -172,11 +178,11 @@ public class TurboTankDrive extends DriveTrain {
 
     public void activateTurbo() {
         turboSol.set(Value.kForward);
-        turboSol.set(Value.kOff);
+        //turboSol.set(Value.kOff);
     }
 
     public void deactivateTurbo() {
         turboSol.set(Value.kReverse);
-        turboSol.set(Value.kOff);
+        //turboSol.set(Value.kOff);
     }
 }

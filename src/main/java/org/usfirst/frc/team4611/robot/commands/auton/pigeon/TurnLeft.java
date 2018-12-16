@@ -20,9 +20,6 @@ public class TurnLeft extends Command {
 		this.requires(Robot.driveTrain);
 	}
 
-	/**
-	 * 
-	 */
 	protected void initialize() {
 		// Gets the current angle once the command begins
 		startingPigeonAngle = Robot.rotationPigeon.getCurrentAngle();

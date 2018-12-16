@@ -8,6 +8,7 @@ import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 import org.usfirst.frc.team4611.robot.subsystems.sensors.Potentiometer;
+import org.usfirst.frc.team4611.robot.subsystems.turbo.TurboTankDrive;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends IterativeRobot {
 
-	public String motorControllerType = "t";
+	public String motorControllerType = "r";
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static DriveTrain driveTrain;
 	public static Optical opt;
@@ -44,7 +45,7 @@ public class Robot extends IterativeRobot {
 		if (motorControllerType.toLowerCase().equals("t")) {
 			driveTrain = new TalonMecanum();
 		} else {
-			driveTrain = new TalonMecanum();
+			driveTrain = new TurboTankDrive();
 		}
 		oi = new OI();
 
@@ -91,7 +92,7 @@ public class Robot extends IterativeRobot {
 
 	}
 
-	Potentiometer pot = new Potentiometer(0);
+	Potentiometer pot = new Potentiometer(1);
 
 	@Override
 	public void teleopInit() {
@@ -102,14 +103,13 @@ public class Robot extends IterativeRobot {
 		isOn = true;
 		// if (autonomousCommand != null)
 		// autonomousCommand.cancel();
-		// pot = new Potentiometer(1);
-
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		opt.update();
+		//System.out.println(pot.getValue());
 
 	}
 
