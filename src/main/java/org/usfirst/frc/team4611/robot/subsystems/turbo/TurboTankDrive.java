@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.OI;
@@ -23,30 +22,17 @@ public class TurboTankDrive extends DriveTrain {
     private final int turboSolOpenPort = 0;
     private final int turboSolClosePort = 1;
 
-    private final int frontLeftTalonPort = 10;
-    private final int frontRightTalonPort = 11;
-    private final int backLeftTalonPort = 13;
-    private final int backRightTalonPort = 12;
-
-    public final double INCH_PU_MULT = 215.910640625;
-
-    public final double METER_PU_MULT = 39.3701 * 215.910640625;
-
-    final Logger logger = Logger.getLogger(LogTest.class.getName());
-
     private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
-
-   
 
     private WPI_TalonSRX frontLeft = new WPI_TalonSRX(frontLeftTalonPort);
     private WPI_TalonSRX frontRight = new WPI_TalonSRX(frontRightTalonPort);
     private WPI_TalonSRX backLeft = new WPI_TalonSRX(backLeftTalonPort);
     private WPI_TalonSRX backRight = new WPI_TalonSRX(backRightTalonPort);
 
-    private double pVal = .65;
-    private int interval = 10;
-
     private int maxRPM = 400; // Reduced from 1200
+
+    public double pVal = .65;
+    public int interval = 10;
 
     private double velocity1;
     private double velocity2;
@@ -120,17 +106,27 @@ public class TurboTankDrive extends DriveTrain {
         values.put(velocity1ID, velocity1);
         values.put(velocity2ID, velocity2);
         NetTableManager.updateValues(tankSubtable, values);
-        //logger.info("" + (frontRight.getSelectedSensorVelocity(0) * 600 / 4092));
-        //logger.fine("" + frontRight.getBusVoltage());
+        // logger.info("" + (frontRight.getSelectedSensorVelocity(0) * 600 / 4092));
+        // logger.fine("" + frontRight.getBusVoltage());
     }
 
     @Override
-    public void moveForward(double d) {
+    public void moveLateral(double speed) {
 
     }
 
     @Override
-    public void moveBackward(double d) {
+    public void moveHorizontal(double speed) {
+
+    }
+
+    @Override
+    public void moveLateralInches(double inches) {
+
+    }
+
+    @Override
+    public void moveHorizontalInches(double inches) {
 
     }
 
@@ -178,11 +174,9 @@ public class TurboTankDrive extends DriveTrain {
 
     public void activateTurbo() {
         turboSol.set(Value.kForward);
-        //turboSol.set(Value.kOff);
     }
 
     public void deactivateTurbo() {
         turboSol.set(Value.kReverse);
-        //turboSol.set(Value.kOff);
     }
 }

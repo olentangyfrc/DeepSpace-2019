@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,6 +19,10 @@ public class TurnLeft extends Command {
 		this.requires(Robot.driveTrain);
 	}
 
+	/**
+	 * Called when the command is first instantiated or resumed from termination.
+	 * Only called once
+	 */
 	protected void initialize() {
 		// Gets the current angle once the command begins
 		startingPigeonAngle = Robot.rotationPigeon.getCurrentAngle();
@@ -33,6 +36,9 @@ public class TurnLeft extends Command {
 
 	}
 
+	/**
+	 * Called about every 20 milliseconds
+	 */
 	protected void execute() {
 		System.out.println(desiredAngle);
 		System.out.println(Robot.rotationPigeon.getCurrentAngle());
@@ -52,6 +58,9 @@ public class TurnLeft extends Command {
 		}
 	}
 
+	/**
+	 * Checks to see if the command is done based on the specified criteria
+	 */
 	protected boolean isFinished() {
 
 		// Checks to see if the bot has turned the desired amount within a certain

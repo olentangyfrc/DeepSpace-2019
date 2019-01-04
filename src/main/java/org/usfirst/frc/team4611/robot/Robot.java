@@ -40,7 +40,6 @@ public class Robot extends IterativeRobot {
 
 		opt = new Optical(Port.kMXP);
 		rotationPigeon = new Pigeon(Pigeon.ROTATE_PIGEON_PORT);
-
 		// Initialize the subsystems
 		if (motorControllerType.toLowerCase().equals("t")) {
 			driveTrain = new TalonMecanum();
@@ -52,6 +51,7 @@ public class Robot extends IterativeRobot {
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(320, 240);
 		camera.setFPS(20);
+
 		camera.setExposureManual(35);
 
 	}
@@ -109,7 +109,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		opt.update();
-		//System.out.println(pot.getValue());
+		// System.out.println(pot.getValue());
 
 	}
 

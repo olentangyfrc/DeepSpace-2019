@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot.commands.auton.pigeon;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,6 +20,10 @@ public class TurnRight extends Command {
 		this.requires(Robot.driveTrain);
 	}
 
+	/**
+	 * Called when the command is first instantiated or resumed from termination.
+	 * Only called once
+	 */
 	protected void initialize() {
 		// Gets the angle once the command begins
 		startingPigeonAngle = Robot.rotationPigeon.getCurrentAngle();
@@ -34,6 +37,9 @@ public class TurnRight extends Command {
 
 	}
 
+	/**
+	 * Called about every 20 milliseconds
+	 */
 	protected void execute() {
 		// How far do we have to go b4 we get to the target?
 		double errorAngle = Robot.rotationPigeon.getAbolsuteAngleError(desiredAngle);
@@ -51,6 +57,9 @@ public class TurnRight extends Command {
 		}
 	}
 
+	/**
+	 * Checks to see if the command is done based on the specified criteria
+	 */
 	protected boolean isFinished() {
 		// Checks to see if the bot is within the designated tolerance
 		if (Robot.rotationPigeon.getAbolsuteAngleError(desiredAngle) <= ANGLE_TOLERANCE) {

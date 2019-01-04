@@ -18,21 +18,15 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class TalonMecanum extends DriveTrain {
 
-	final Logger logger = Logger.getLogger(LogTest.class.getName());
-
 	private int maxRPM = 400; // Reduced from 1200
 
-	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(10);
-	private WPI_TalonSRX frontRight = new WPI_TalonSRX(11);
-	private WPI_TalonSRX backLeft = new WPI_TalonSRX(12);
-	private WPI_TalonSRX backRight = new WPI_TalonSRX(13);
+	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(frontLeftTalonPort);
+	private WPI_TalonSRX frontRight = new WPI_TalonSRX(frontRightTalonPort);
+	private WPI_TalonSRX backLeft = new WPI_TalonSRX(backLeftTalonPort);
+	private WPI_TalonSRX backRight = new WPI_TalonSRX(backRightTalonPort);
 
-	private double pVal = .65;
-	private int interval = 10;
-
-	public final double INCH_PU_MULT = 215.910640625;
-
-	public final double METER_PU_MULT = 39.3701 * 215.910640625;
+	public double pVal = .65;
+	public int interval = 10;
 
 	private double velocity1;
 	private double velocity2;
@@ -111,10 +105,6 @@ public class TalonMecanum extends DriveTrain {
 		 */
 	}
 
-	public void moveBackward(double speed) {
-
-	}
-
 	public void setTrajectorySpeeds() {
 
 		/**
@@ -143,12 +133,32 @@ public class TalonMecanum extends DriveTrain {
 	 * right.setTrajectory(modifier.getRightTrajectory()); }
 	 */
 
-	public void moveForward(double inches) {
+	public void moveLateralInches(double inches) {
+		// Converts the given inches to position units for the encoders to understand
 		double pu = inches * INCH_PU_MULT;// probably needs to change to metric system
+
 		frontLeft.set(ControlMode.MotionMagic, pu);
 		frontRight.set(ControlMode.MotionMagic, -pu);
 		backLeft.set(ControlMode.MotionMagic, pu);
 		backRight.set(ControlMode.MotionMagic, -pu);
+	}
+
+	public void moveHorizontalInches(double inches) {
+		// Converts the given inches to position units for the encoders to understand
+		double pu = inches * INCH_PU_MULT;// probably needs to change to metric system
+
+		frontLeft.set(ControlMode.MotionMagic, pu);
+		frontRight.set(ControlMode.MotionMagic, -pu);
+		backLeft.set(ControlMode.MotionMagic, pu);
+		backRight.set(ControlMode.MotionMagic, -pu);
+	}
+
+	public void moveLateral(double speed) {
+
+	}
+
+	public void moveHorizontal(double speed) {
+
 	}
 
 	public void resetEncoders() {
@@ -164,6 +174,12 @@ public class TalonMecanum extends DriveTrain {
 				/ 4;
 	}
 
+	/**
+	 * Converts the average sensor position from position units to meters based of
+	 * experimented {@value #METER_PU_MULT}
+	 * 
+	 * @return The approximate average distance traveled in meters
+	 */
 	public double getMetersTraveled() {
 		return getAverageSensorPos() / METER_PU_MULT;
 
@@ -206,7 +222,7 @@ public class TalonMecanum extends DriveTrain {
 		logger.fine("" + frontRight.getBusVoltage());
 	}
 
-	public void moveAtSpeeddouble(double speed1, double speed2, double speed3, double speed4) {
+	public void moveAtSpeed(double speed1, double speed2, double speed3, double speed4) {
 
 		frontLeft.set(ControlMode.Velocity, speed1);
 		frontRight.set(ControlMode.Velocity, speed2);
@@ -222,18 +238,15 @@ public class TalonMecanum extends DriveTrain {
 		backRight.set(ControlMode.Velocity, velocity);
 	}
 
-	private int t = 0;
-
+	/**
+	 * Defines the command to start when the bot is enabled. For TalonMecanum, this
+	 * begins the command for normal driving procedure
+	 */
 	protected void initDefaultCommand() {
 		Robot.driveTrain.setDefaultCommand(new Move(this));
-		// ^NORMAL WAY TO DRIVE
 	}
 
-	@Override
 	public double getVelocity() {
-		// TODO Auto-generated method stub
-		// returns in meters per second
-
 		return getMetersTraveled() / (driveT.get() / 1000);
 	}
 
