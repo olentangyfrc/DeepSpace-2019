@@ -21,7 +21,7 @@ public class MoveForward extends Command {
 
 	protected void execute() {
 		System.out.println(Robot.driveTrain.getAverageSensorPos());
-		Robot.driveTrain.moveForward(inches);
+		//Robot.driveTrain.moveForward(inches);
 	}
 
 	@Override
