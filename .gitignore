@@ -156,5 +156,16 @@ gradle-app.setting
 .settings/
 bin/
 
+# FRC WPILib files from https://github.com/wpilibsuite/allwpilib/releases
+documentation/
+frccode/
+installUtils/
+jdk/
+jdk-11.0.1.jdk/
+maven/
+roborio/
+tools/
+utility/
+vsCodeExtensions/
 
 # End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
