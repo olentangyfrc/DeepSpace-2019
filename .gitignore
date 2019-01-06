@@ -109,9 +109,6 @@ Temporary Items
 !.vscode/launch.json
 !.vscode/extensions.json
 
-### Vendor dependencies
-vendordeps
-
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
