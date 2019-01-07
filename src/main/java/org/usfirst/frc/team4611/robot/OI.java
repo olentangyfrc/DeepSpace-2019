@@ -22,12 +22,9 @@ public class OI {
         leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
         rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
 
-        if (Robot.driveTrain instanceof TurboTankDrive) {
-            // Setup of the turbo for tank drive ONLY
-            Button turboToggle = new JoystickButton(leftJoy, 1);
-            turboToggle.whenPressed(new ActivateTurbo());
-            turboToggle.whenReleased(new DeactivateTurbo());
-        }
+        Button turboToggle = new JoystickButton(leftJoy, 1);
+        turboToggle.whenPressed(new ActivateTurbo());
+        turboToggle.whenReleased(new DeactivateTurbo());
     }
 
     public static double generalJoystickFilter(double raw) // We pass joystick values through the filter here and edit
