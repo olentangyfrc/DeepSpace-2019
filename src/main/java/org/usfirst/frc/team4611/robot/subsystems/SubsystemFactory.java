@@ -1,15 +1,18 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 class SubsystemFactory {
     private Subsystem   s;
     private static SubsystemFactory    me;
     private static String   botMacAddress;  // value of environment variable for MAC Address
-    private static String   bot1MacAddress   = "themacaddressofbot1";
-    private static String   bot2MacAddress   = "themacaddressofbot2";
-    private static String   bot3MacAddress   = "themacaddressofbot3";
+    
+    private String   bot1MacAddress   = "themacaddressofbot1";
+    private String   bot2MacAddress   = "themacaddressofbot2";
+    private String   bot3MacAddress   = "themacaddressofbot3";
+
+    private PortMan portMan  = new PortMan();
     
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
