@@ -74,6 +74,7 @@ public class SubsystemFactory {
      * init subsystems specific to Bot3
      */
     private void initBot3() {
+
     }
 
     public Navigation getNavigation(){
