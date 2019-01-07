@@ -33,29 +33,11 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
 		OzoneJavaLogger.getInstance().init(Level.FINE);
-
-		opt = new Optical(Port.kMXP);
-		rotationPigeon = new Pigeon(Pigeon.ROTATE_PIGEON_PORT);
-		// Initialize the subsystems
-		if (motorControllerType.toLowerCase().equals("t")) {
-			driveTrain = new TalonMecanum();
-		} else {
-			driveTrain = new TurboTankDrive();
-		}
-		oi = new OI();
-
-		camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(320, 240);
-		camera.setFPS(20);
-
-		camera.setExposureManual(35);
-
 	}
 
 	@Override
 	public void disabledInit() {
 		isOn = false;
-		driveTrain.resetEncoders();
 	}
 
 	@Override
@@ -104,9 +86,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		opt.update();
-		// System.out.println(pot.getValue());
-
 	}
 
 	@Override
