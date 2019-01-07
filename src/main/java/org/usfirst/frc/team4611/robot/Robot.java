@@ -23,10 +23,6 @@ public class Robot extends IterativeRobot {
 
 	public String motorControllerType = "r";
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static DriveTrain driveTrain;
-	public static Optical opt;
-	public static UsbCamera camera;
-	public static Pigeon rotationPigeon;
 
 	public static boolean isOn;
 	/// public Command autonomousCommand;

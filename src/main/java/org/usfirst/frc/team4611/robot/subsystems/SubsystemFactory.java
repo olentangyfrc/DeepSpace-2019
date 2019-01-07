@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
-class SubsystemFactory {
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
+
+public class SubsystemFactory {
     private Subsystem   s;
     private static SubsystemFactory    me;
     private static String   botMacAddress;  // value of environment variable for MAC Address
@@ -14,6 +16,8 @@ class SubsystemFactory {
 
     private PortMan portMan  = new PortMan();
     
+    private Navigation nav;
+
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
     }
@@ -50,7 +54,6 @@ class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-
     }
 
     /**
@@ -64,7 +67,7 @@ class SubsystemFactory {
      * init subsystems specific to Bot2
      */
     private void initBot2() {
-
+        nav = new Navigation();
     }
 
     /**
@@ -73,4 +76,7 @@ class SubsystemFactory {
     private void initBot3() {
     }
 
+    public Navigation getNavigation(){
+        return nav;
+    }
 }
