@@ -1,7 +1,9 @@
-package org.usfirst.frc.team4611.robot.commands.auton.drive;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Optical;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,9 +13,11 @@ public class DriveUntilDistance extends Command {
 	private double speed;
 
 	private Optical opt;
+	private DriveTrain driveTrain;
 
 	public DriveUntilDistance(Optical o, int centi, double speed) {
-		this.requires(Robot.driveTrain);
+		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
+		this.requires(driveTrain);
 		this.centimeters = centi;
 		this.opt = o;
 		this.speed = speed;
@@ -23,7 +27,7 @@ public class DriveUntilDistance extends Command {
 	}
 
 	protected void execute() {
-		Robot.driveTrain.moveVelocityAuton(speed);
+		driveTrain.moveVelocityAuton(speed);
 	}
 
 	@Override
@@ -33,6 +37,6 @@ public class DriveUntilDistance extends Command {
 	}
 
 	protected void end() {
-		Robot.driveTrain.moveVelocityAuton(0);
+		driveTrain.moveVelocityAuton(0);
 	}
 }

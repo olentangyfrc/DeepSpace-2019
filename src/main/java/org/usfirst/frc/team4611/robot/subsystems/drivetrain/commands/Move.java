@@ -1,21 +1,20 @@
-package org.usfirst.frc.team4611.robot.commands.teleop.drive;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Move extends Command {
 
-	private DriveTrain mecanum;
+	private DriveTrain driveTrain;
 
-	public Move(DriveTrain mecanum) {
-		this.mecanum = mecanum;
-		this.requires(Robot.driveTrain);
+	public Move() {
+		this.requires(driveTrain);
 	}
 
 	protected void execute() {
-		mecanum.move();
+		driveTrain.move();
 	}
 
 	@Override
