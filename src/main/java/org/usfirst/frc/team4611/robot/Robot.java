@@ -3,12 +3,13 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.DriveTrain;
-import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Potentiometer;
-import org.usfirst.frc.team4611.robot.subsystems.turbo.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Optical;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -23,10 +24,6 @@ public class Robot extends IterativeRobot {
 
 	public String motorControllerType = "r";
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static DriveTrain driveTrain;
-	public static Optical opt;
-	public static UsbCamera camera;
-	public static Pigeon rotationPigeon;
 
 	public static boolean isOn;
 	/// public Command autonomousCommand;
@@ -37,29 +34,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
 		OzoneJavaLogger.getInstance().init(Level.FINE);
-
-		opt = new Optical(Port.kMXP);
-		rotationPigeon = new Pigeon(Pigeon.ROTATE_PIGEON_PORT);
-		// Initialize the subsystems
-		if (motorControllerType.toLowerCase().equals("t")) {
-			driveTrain = new TalonMecanum();
-		} else {
-			driveTrain = new TurboTankDrive();
-		}
+		SubsystemFactory.getInstance();
 		oi = new OI();
-
-		camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(320, 240);
-		camera.setFPS(20);
-
-		camera.setExposureManual(35);
-
 	}
 
 	@Override
 	public void disabledInit() {
 		isOn = false;
-		driveTrain.resetEncoders();
 	}
 
 	@Override
@@ -108,9 +89,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		opt.update();
-		// System.out.println(pot.getValue());
-
 	}
 
 	@Override

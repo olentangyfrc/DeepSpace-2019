@@ -31,7 +31,26 @@ public class PortMan {
     public static final String digital8_label   = "DIGITAL8";
     public static final String digital9_label   = "DIGITAL9";
 
-    /** @TODO: add all the other ports */
+    public static final String analog0_label = "ANALOG0";
+    public static final String analog1_label = "ANALOG1";
+    public static final String analog2_label = "ANALOG2";
+    public static final String analog3_label = "ANALOG3";
+
+    public static final String relay0_label = "RELAY0";
+    public static final String relay1_label = "RELAY1";
+    public static final String relay2_label = "RELAY2";
+    public static final String relay3_label = "RELAY3";
+
+    public static final String pwm0_label = "PWM0";
+    public static final String pwm1_label = "PWM1";
+    public static final String pwm2_label = "PWM2";
+    public static final String pwm3_label = "PWM3";
+    public static final String pwm4_label = "PWM4";
+    public static final String pwm5_label = "PWM5";
+    public static final String pwm6_label = "PWM6";
+    public static final String pwm7_label = "PWM7";
+    public static final String pwm8_label = "PWM8";
+    public static final String pwm9_label = "PWM9";
 
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
@@ -57,6 +76,28 @@ public class PortMan {
             case digital7_label: return 7;
             case digital8_label: return 8;
             case digital9_label: return 9;
+
+            case analog0_label: return 0;
+            case analog1_label: return 1;
+            case analog2_label: return 2;
+            case analog3_label: return 3;
+
+            case relay0_label: return 0;
+            case relay1_label: return 1;
+            case relay2_label: return 2;
+            case relay3_label: return 3;
+
+            case pwm0_label: return 0;
+            case pwm1_label: return 1;
+            case pwm2_label: return 2;
+            case pwm3_label: return 3;
+            case pwm4_label: return 4;
+            case pwm5_label: return 5;
+            case pwm6_label: return 6;
+            case pwm7_label: return 7;
+            case pwm8_label: return 8;
+            case pwm9_label: return 9;
+
         }
 
         throw new Exception ("Unknown port identifier [" + label + "]") ;
