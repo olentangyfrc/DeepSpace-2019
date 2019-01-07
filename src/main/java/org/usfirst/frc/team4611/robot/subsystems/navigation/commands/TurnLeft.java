@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
 
-import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,12 +16,13 @@ public class TurnLeft extends Command {
 	private final double rotationDifference = 0;
 	private final double ANGLE_TOLERANCE = 1;
 
+	private DriveTrain driveTrain;
 	private Pigeon rotationPigeon;
 
 	public TurnLeft(double angle) {
 		this.angle = angle;
-		this.requires(SubsystemFactory.getInstance().getDriveTrain());
-
+		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
+		this.requires(driveTrain);
 
 	}
 
@@ -60,7 +61,7 @@ public class TurnLeft extends Command {
 		// Check to see if we are where we need to be before we even move. we might be
 		// there.
 		if (!isFinished()) {
-			SubsystemFactory.getInstance().getDriveTrain().rotate(-speed);
+			driveTrain.rotate(-speed);
 		}
 	}
 

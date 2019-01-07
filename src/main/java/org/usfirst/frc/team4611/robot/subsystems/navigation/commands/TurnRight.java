@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,9 +18,13 @@ public class TurnRight extends Command {
 	private final double rotationDifference = 3;
 	private final double ANGLE_TOLERANCE = .5;
 
+	private DriveTrain driveTrain;
+	private Pigeon rotationPigeon;
 	public TurnRight(double angle) {
+		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
+		
 		this.angle = angle;
-		this.requires(Robot.driveTrain);
+		this.requires(driveTrain);
 	}
 
 	/**
@@ -26,7 +33,7 @@ public class TurnRight extends Command {
 	 */
 	protected void initialize() {
 		// Gets the angle once the command begins
-		startingPigeonAngle = Robot.rotationPigeon.getCurrentAngle();
+		startingPigeonAngle = rotationPigeon.getCurrentAngle();
 
 		// Desired angle is the difference between where we start and the angle to the
 		// box
@@ -42,7 +49,7 @@ public class TurnRight extends Command {
 	 */
 	protected void execute() {
 		// How far do we have to go b4 we get to the target?
-		double errorAngle = Robot.rotationPigeon.getAbolsuteAngleError(desiredAngle);
+		double errorAngle = rotationPigeon.getAbolsuteAngleError(desiredAngle);
 
 		// How do we respond to that error?
 		double pVal = errorAngle * .15;
@@ -53,7 +60,7 @@ public class TurnRight extends Command {
 		// Check to see if we are where we need to be before we even move. we might be
 		// there.
 		if (!isFinished()) {
-			Robot.driveTrain.rotate(speed);
+			driveTrain.rotate(speed);
 		}
 	}
 
@@ -62,12 +69,12 @@ public class TurnRight extends Command {
 	 */
 	protected boolean isFinished() {
 		// Checks to see if the bot is within the designated tolerance
-		if (Robot.rotationPigeon.getAbolsuteAngleError(desiredAngle) <= ANGLE_TOLERANCE) {
+		if (rotationPigeon.getAbolsuteAngleError(desiredAngle) <= ANGLE_TOLERANCE) {
 			return true;
 		}
 
 		// Checks to see if the bot has turned farther than before
-		if (Robot.rotationPigeon.getCurrentAngle() < desiredAngle) {
+		if (rotationPigeon.getCurrentAngle() < desiredAngle) {
 			return true;
 		}
 		return false;

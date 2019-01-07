@@ -147,7 +147,7 @@ public class TurboTankDrive extends DriveTrain {
 
     @Override
     protected void initDefaultCommand() {
-        Robot.driveTrain.setDefaultCommand(new Move(this));
+        this.setDefaultCommand(new Move());
     }
 
     public void moveVelocityAuton(double speed) {

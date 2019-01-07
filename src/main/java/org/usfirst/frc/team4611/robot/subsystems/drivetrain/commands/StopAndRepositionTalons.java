@@ -31,6 +31,6 @@ public class StopAndRepositionTalons extends Command {
 	 * finished)
 	 */
 	protected void end() {
-		.driveTrain.moveVelocityAuton(0);
+		driveTrain.moveVelocityAuton(0);
 	}
 }

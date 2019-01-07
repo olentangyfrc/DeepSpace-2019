@@ -243,7 +243,7 @@ public class TalonMecanum extends DriveTrain {
 	 * begins the command for normal driving procedure
 	 */
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new Move(this));
+		this.setDefaultCommand(new Move());
 	}
 
 	public double getVelocity() {
