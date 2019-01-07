@@ -9,6 +9,7 @@ public class Move extends Command {
 	private DriveTrain driveTrain;
 
 	public Move() {
+		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
 		this.requires(driveTrain);
 	}
 

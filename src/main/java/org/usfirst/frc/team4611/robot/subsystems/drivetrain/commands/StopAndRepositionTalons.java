@@ -1,13 +1,21 @@
-package org.usfirst.frc.team4611.robot.commands.auton;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands;
 
 import org.usfirst.frc.team4611.robot.Robot;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class StopAndRepositionTalons extends Command {
 
+	private DriveTrain driveTrain;
+
+	public StopAndRepositionTalons(){
+		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
+	}
+
 	protected void execute() {
-		Robot.driveTrain.resetEncoders();
+		driveTrain.resetEncoders();
 	}
 
 	/**
@@ -23,6 +31,6 @@ public class StopAndRepositionTalons extends Command {
 	 * finished)
 	 */
 	protected void end() {
-		Robot.driveTrain.moveVelocityAuton(0);
+		.driveTrain.moveVelocityAuton(0);
 	}
 }
