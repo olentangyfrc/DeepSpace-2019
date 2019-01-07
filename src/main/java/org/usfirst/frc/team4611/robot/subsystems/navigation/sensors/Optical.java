@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.sensors;
+package org.usfirst.frc.team4611.robot.subsystems.navigation.sensors;
 
 import java.util.TimerTask;
 
@@ -30,7 +30,7 @@ public class Optical extends Subsystem{
 				distance = new byte[2];
 				readyCheck = new byte[1];
 				
-				task = new LIDARUpdater();
+				task = new LIDARUpdater(this);
 				updater = new java.util.Timer();
 			}
 			
@@ -76,8 +76,12 @@ public class Optical extends Subsystem{
 			}
 			// Timer task to keep distance updated
 			private class LIDARUpdater extends TimerTask {
+				private Optical opt;
+				public LIDARUpdater(Optical o){
+					opt = o;
+				}
 				public void run() {
-					Robot.opt.update();
+					opt.update();
 				}
 			}
 	}
