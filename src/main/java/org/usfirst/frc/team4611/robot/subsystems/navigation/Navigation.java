@@ -8,7 +8,7 @@ public class Navigation extends Subsystem {
 
     
     public Navigation(){
-
+        
     }
 
     protected void initDefaultCommand() {

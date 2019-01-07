@@ -27,7 +27,7 @@ public class SubsystemFactory {
 
     public static SubsystemFactory getInstance() {
         if (me == null) {
-            botMacAddress   = System.getenv("macAddress");
+            botMacAddress   = "themacaddressofbot2";//System.getenv("macAddress");
             // this should throw Exception there is a null value
             if (botMacAddress != null) {
                 me  = new SubsystemFactory();
@@ -71,7 +71,7 @@ public class SubsystemFactory {
      */
     private void initBot2() {
         driveTrain = new TalonMecanum();
-        nav = new Navigation();
+        //nav = new Navigation();
     }
 
     /**

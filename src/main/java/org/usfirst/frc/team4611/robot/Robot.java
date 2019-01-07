@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -33,6 +34,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
 		OzoneJavaLogger.getInstance().init(Level.FINE);
+		SubsystemFactory.getInstance();
+		oi = new OI();
 	}
 
 	@Override
