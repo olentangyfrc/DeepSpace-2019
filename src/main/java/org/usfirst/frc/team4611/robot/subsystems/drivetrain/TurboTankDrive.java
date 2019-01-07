@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.turbo;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -10,9 +10,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
 import org.usfirst.frc.team4611.robot.Robot;
-import org.usfirst.frc.team4611.robot.commands.teleop.drive.Move;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;

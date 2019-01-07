@@ -3,12 +3,12 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.baseclasses.DriveTrain;
-import org.usfirst.frc.team4611.robot.subsystems.mecanum.TalonMecanum;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Optical;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Pigeon;
-import org.usfirst.frc.team4611.robot.subsystems.sensors.Potentiometer;
-import org.usfirst.frc.team4611.robot.subsystems.turbo.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Optical;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;

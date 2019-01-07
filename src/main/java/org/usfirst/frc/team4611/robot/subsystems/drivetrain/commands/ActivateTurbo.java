@@ -1,6 +1,5 @@
-package org.usfirst.frc.team4611.robot.commands.teleop.drive;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands;
 
-import org.usfirst.frc.team4611.robot.subsystems.turbo.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,7 +10,7 @@ public class ActivateTurbo extends Command {
     }
 
     protected void execute() {
-        ((TurboTankDrive) Robot.driveTrain).activateTurbo();
+        Robot.driveTrain.activateTurbo();
     }
 
     protected boolean isFinished() {

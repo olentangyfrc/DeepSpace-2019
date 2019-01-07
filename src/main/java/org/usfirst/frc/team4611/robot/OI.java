@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.commands.teleop.drive.ActivateTurbo;
-import org.usfirst.frc.team4611.robot.commands.teleop.drive.DeactivateTurbo;
-import org.usfirst.frc.team4611.robot.subsystems.turbo.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.ActivateTurbo;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.DeactivateTurbo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.baseclasses;
+package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
 import java.util.logging.Logger;
@@ -83,4 +83,8 @@ public abstract class DriveTrain extends Subsystem {
      * @return The approximate velocity of the wheels (in m/s)
      */
     public abstract double getVelocity();
+
+    public abstract void activateTurbo();
+
+    public abstract void deactivateTurbo();
 }
