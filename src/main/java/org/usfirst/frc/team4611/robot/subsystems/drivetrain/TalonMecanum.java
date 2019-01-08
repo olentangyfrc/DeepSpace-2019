@@ -198,7 +198,7 @@ public class TalonMecanum extends DriveTrain {
 	}
 
 	public void move() {
-		double YVal = OI.generalJoystickFilter(OI.leftJoy.getY());
+		double YVal = -OI.generalJoystickFilter(OI.leftJoy.getY());
 		double XVal = OI.generalJoystickFilter(OI.leftJoy.getX());
 		double ZVal = OI.generalJoystickFilter(OI.rightJoy.getX());
 
@@ -209,8 +209,8 @@ public class TalonMecanum extends DriveTrain {
 
 		frontLeft.set(ControlMode.Velocity, velocity1);
 		frontRight.set(ControlMode.Velocity, velocity2);
-		backLeft.set(ControlMode.Velocity, velocity4);
-		backRight.set(ControlMode.Velocity, velocity3);
+		backLeft.set(ControlMode.Velocity, velocity3);
+		backRight.set(ControlMode.Velocity, velocity4);
 
 		HashMap<String, Object> values = new HashMap<String, Object>();
 		values.put(velocity1ID, velocity1);
