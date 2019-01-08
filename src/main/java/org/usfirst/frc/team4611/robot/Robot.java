@@ -28,14 +28,11 @@ public class Robot extends IterativeRobot {
 	public static boolean isOn;
 	/// public Command autonomousCommand;
 
-	public static OI oi;
-
 	@Override
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
 		OzoneJavaLogger.getInstance().init(Level.FINE);
 		SubsystemFactory.getInstance();
-		oi = new OI();
 	}
 
 	@Override

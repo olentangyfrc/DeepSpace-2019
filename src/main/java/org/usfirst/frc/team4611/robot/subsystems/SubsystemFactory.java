@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -15,6 +16,8 @@ public class SubsystemFactory {
     private String   bot1MacAddress   = "themacaddressofbot1";
     private String   bot2MacAddress   = "themacaddressofbot2";
     private String   bot3MacAddress   = "themacaddressofbot3";
+
+    private OI oi;
 
     private PortMan portMan  = new PortMan();
 
@@ -57,6 +60,7 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
+        oi = new OI();
     }
 
     /**
