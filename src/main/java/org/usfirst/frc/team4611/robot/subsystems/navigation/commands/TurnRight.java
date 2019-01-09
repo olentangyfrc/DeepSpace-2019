@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
 
-import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
@@ -22,7 +21,7 @@ public class TurnRight extends Command {
 	private Pigeon rotationPigeon;
 	public TurnRight(double angle) {
 		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
-		
+		rotationPigeon = SubsystemFactory.getInstance().getNavigation().getRotationPigeon();
 		this.angle = angle;
 		this.requires(driveTrain);
 	}

@@ -22,6 +22,7 @@ public class TurnLeft extends Command {
 	public TurnLeft(double angle) {
 		this.angle = angle;
 		driveTrain = SubsystemFactory.getInstance().getDriveTrain();
+		rotationPigeon = SubsystemFactory.getInstance().getNavigation().getRotationPigeon();
 		this.requires(driveTrain);
 
 	}
