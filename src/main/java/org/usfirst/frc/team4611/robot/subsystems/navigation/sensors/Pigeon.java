@@ -5,8 +5,6 @@ import com.ctre.phoenix.sensors.PigeonIMU.FusionStatus;
 
 public class Pigeon {
 
-	public static final int ROTATE_PIGEON_PORT = 21;
-
 	private PigeonIMU pigeon;
 
 	public Pigeon(int pigeonPort) {
