@@ -26,10 +26,13 @@ public class Navigation extends Subsystem {
         }
     }
 
-    public Pigeon getRotationPigeon() {
-        return rotationPigeon;
+    public double getCurentHeading() {
+        return rotationPigeon.getCurrentAngle();
     }
 
+    public double getCurrentAbsoluteHeadingError(double angle) {
+        return rotationPigeon.getAbolsuteAngleError(angle);
+    }
 
     public void log() {
         logger.info("Current Pigeon Heading:" + rotationPigeon.getCurrentAngle());
