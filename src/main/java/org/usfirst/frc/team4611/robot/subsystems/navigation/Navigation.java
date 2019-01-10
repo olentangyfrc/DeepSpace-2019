@@ -18,9 +18,11 @@ public class Navigation extends Subsystem {
     private Pigeon rotationPigeon;
     private final String SHUFFLE_ROTATE_PIGEON_HEADING = "Rotation Pigeon Heading";
 
+    private final String PORTMAN_PIGEON_TAG = "Navigation.Pigeon";
+
     public Navigation(PortMan pm){
         try {
-            rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_rotation_pigeon_angle, "Navigation"));
+            rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_rotation_pigeon_angle, PORTMAN_PIGEON_TAG));
         } catch (Exception e) {
             e.printStackTrace();
         }
