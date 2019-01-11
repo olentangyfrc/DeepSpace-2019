@@ -52,6 +52,8 @@ public class PortMan {
     public static final String pwm8_label = "PWM8";
     public static final String pwm9_label = "PWM9";
 
+    public static final String can_rotation_pigeon_angle = "CAN21";
+
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
     }
@@ -98,6 +100,7 @@ public class PortMan {
             case pwm8_label: return 8;
             case pwm9_label: return 9;
 
+            case can_rotation_pigeon_angle: return 21;
         }
 
         throw new Exception ("Unknown port identifier [" + label + "]") ;

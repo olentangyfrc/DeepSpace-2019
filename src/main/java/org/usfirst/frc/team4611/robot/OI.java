@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.ActivateTurbo;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.DeactivateTurbo;
 
