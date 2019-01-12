@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -23,6 +24,7 @@ public class SubsystemFactory {
 
     private DriveTrain driveTrain;
     private Navigation nav;
+    private TriangleHatch triangleHatch;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -90,5 +92,9 @@ public class SubsystemFactory {
     
     public Navigation getNavigation(){
         return nav;
+    }
+
+    public TriangleHatch getTriangleHatch(){
+        return triangleHatch;
     }
 }
