@@ -15,7 +15,7 @@ public class SubsystemFactory {
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
     private String   bot1MacAddress   = "themacaddressofbot1";
-    private String   bot2MacAddress   = "themacaddressofbot2";
+    private String   footballMacAddress   = "themacaddressofbot2";
     private String   bot3MacAddress   = "themacaddressofbot3";
 
     private OI oi;
@@ -34,8 +34,9 @@ public class SubsystemFactory {
         if (me == null) {
             botMacAddress   = System.getenv("macAddress");
             // this should throw Exception there is a null value
-            if (botMacAddress != null) {
+            if (botMacAddress != null || true) {
                 me  = new SubsystemFactory();
+                me.botMacAddress = me.footballMacAddress;
                 me.init();
             }
         }
@@ -45,17 +46,17 @@ public class SubsystemFactory {
 
     private void init() {
         
-        initCommon();
 
         if (botMacAddress.equals(bot1MacAddress)) {
             initBot1();
-        } else if (botMacAddress.equals(bot2MacAddress)) {
-            initBot2();
+        } else if (botMacAddress.equals(footballMacAddress)) {
+            initFootball();
         } if (botMacAddress.equals(bot3MacAddress)) {
             initBot3();
         } else {}
             System.err.println("Unrecognized MAC Address [" + botMacAddress + "]");
                 // should throw an Exception here
+            initCommon();
         }
 
     /**
@@ -75,7 +76,7 @@ public class SubsystemFactory {
     /**
      * init subsystems specific to Bot2
      */
-    private void initBot2() {
+    private void initFootball() {
         driveTrain = new TalonMecanum();
         //nav = new Navigation();
     }
