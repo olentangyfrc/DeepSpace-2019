@@ -6,6 +6,7 @@ import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 
 public class SubsystemFactory {
@@ -22,6 +23,7 @@ public class SubsystemFactory {
     private PortMan portMan  = new PortMan();
 
     private DriveTrain driveTrain;
+    private Petal petal;
     private Navigation nav;
 
     private SubsystemFactory() {
@@ -86,6 +88,10 @@ public class SubsystemFactory {
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
+    }
+
+    public Petal getPetal(){
+        return petal;
     }
     
     public Navigation getNavigation(){
