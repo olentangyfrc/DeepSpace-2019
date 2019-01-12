@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot;
 
-import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.ActivateTurbo;
-import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.DeactivateTurbo;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -18,12 +17,11 @@ public class OI {
     public static Joystick rightJoy;
 
     public OI() {
-        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
-        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
+       leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
+       rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
 
-        Button turboToggle = new JoystickButton(leftJoy, 1);
-        turboToggle.whenPressed(new ActivateTurbo());
-        turboToggle.whenReleased(new DeactivateTurbo());
+       Button pushHatch = new JoystickButton(leftJoy, 1);
+       pushHatch.whenPressed(new PushHatch());
     }
 
     public static double generalJoystickFilter(double raw) // We pass joystick values through the filter here and edit
