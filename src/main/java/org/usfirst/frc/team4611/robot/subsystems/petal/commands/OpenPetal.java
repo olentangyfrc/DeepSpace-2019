@@ -18,7 +18,7 @@ public class OpenPetal extends Command {
     }
 
     protected void execute() {
-        petal.setForward();
+        petal.openPetal();
     }
 
     protected boolean isFinished() {

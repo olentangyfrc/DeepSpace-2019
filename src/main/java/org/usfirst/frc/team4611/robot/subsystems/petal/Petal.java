@@ -1,30 +1,30 @@
 package org.usfirst.frc.team4611.robot.subsystems.petal;
 
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-//import java.util.HashMap;
-
-//import com.ctre.phoenix.motorcontrol.ControlMode;
-
-//import org.usfirst.frc.team4611.robot.OI;
-
-//import edu.wpi.first.wpilibj.Timer;
 
 public class Petal extends Subsystem{
 	DoubleSolenoid petalSole;
 
-	public Petal() {
-		//setupTalons();
-		petalSole = new DoubleSolenoid(1, 2); //TO:DO set port numbers
-		
+	public Petal() {	
 	}
 
-	public void setForward(){
+	public void init(PortMan pm) {
+        try{
+            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+    } 
+
+	public void openPetal(){
 		petalSole.set(DoubleSolenoid.Value.kForward);
 	}
 
-	public void setReverse(){
+	public void closePetal(){
 		petalSole.set(DoubleSolenoid.Value.kReverse);
 	}	
 

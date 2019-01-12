@@ -18,7 +18,7 @@ public class ClosePetal extends Command {
     }
 
     protected void execute() {
-        petal.setReverse();
+        petal.closePetal();
     }
 
     protected boolean isFinished() {
