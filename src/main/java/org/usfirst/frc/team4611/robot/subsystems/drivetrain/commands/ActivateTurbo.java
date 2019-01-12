@@ -10,10 +10,10 @@ public class ActivateTurbo extends Command {
     private DriveTrain driveTrain;
 
     public ActivateTurbo(){
-        driveTrain = SubsystemFactory.getInstance().getDriveTrain();
     }
-    protected void initialize() {
 
+    protected void initialize() {
+        driveTrain = SubsystemFactory.getInstance().getDriveTrain();
     }
 
     protected void execute() {
@@ -21,6 +21,7 @@ public class ActivateTurbo extends Command {
     }
 
     protected boolean isFinished() {
+        driveTrain.deactivateTurbo();
         return true;
     }
 

@@ -74,7 +74,7 @@ public class PortMan {
             throw new Exception ("Port [" + label + "] already allocated to device [" + device + "]");
         }
         // remember that we allocated it
-        allocatedPorts.put(label, device);
+        allocatedPorts.put(label, requestedDevice);
 
         switch (label) {
             case digital0_label: return 0;
@@ -107,7 +107,16 @@ public class PortMan {
             case pwm6_label: return 6;
             case pwm7_label: return 7;
             case pwm8_label: return 8;
-            case pwm9_label: return 9;
+            case pwm9_label: return 9;  
+            
+            case pcm0_label: return 0;
+            case pcm1_label: return 1;
+            case pcm2_label: return 2;
+            case pcm3_label: return 3;
+            case pcm4_label: return 4;
+            case pcm5_label: return 5;
+            case pcm6_label: return 6;
+            case pcm7_label: return 7;
 
             case can_rotation_pigeon_angle: return 21;
         }
