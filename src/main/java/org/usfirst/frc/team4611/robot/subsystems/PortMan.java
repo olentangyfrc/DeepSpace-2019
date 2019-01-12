@@ -52,6 +52,15 @@ public class PortMan {
     public static final String pwm8_label = "PWM8";
     public static final String pwm9_label = "PWM9";
 
+    public static final String pcm0_label = "PCM0";
+    public static final String pcm1_label = "PCM1";
+    public static final String pcm2_label = "PCM2";
+    public static final String pcm3_label = "PCM3";
+    public static final String pcm4_label = "PCM4";
+    public static final String pcm5_label = "PCM5";
+    public static final String pcm6_label = "PCM6";
+    public static final String pcm7_label = "PCM7";
+
     public static final String can_rotation_pigeon_angle = "CAN21";
 
     public PortMan() {
