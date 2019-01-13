@@ -44,17 +44,19 @@ public class OI {
     public static final int LeftJoyButton8  = 8;
     public static final int LeftJoyButton9  = 9;
     public static final int LeftJoyButton10  = 10;
+    public static final int LeftJoyButton11 = 11;
 
-    public static final int RightJoyButton1  = 11;
-    public static final int RightJoyButton2  = 12;
-    public static final int RightJoyButton3  = 13;
-    public static final int RightJoyButton4  = 14;
-    public static final int RightJoyButton5  = 15;
-    public static final int RightJoyButton6  = 16;
-    public static final int RightJoyButton7  = 17;
-    public static final int RightJoyButton8  = 18;
-    public static final int RightJoyButton9  = 19;
-    public static final int RightJoyButton10  = 20;
+    public static final int RightJoyButton1  = 12;
+    public static final int RightJoyButton2  = 13;
+    public static final int RightJoyButton3  = 14;
+    public static final int RightJoyButton4  = 15;
+    public static final int RightJoyButton5  = 16;
+    public static final int RightJoyButton6  = 17;
+    public static final int RightJoyButton7  = 18;
+    public static final int RightJoyButton8  = 19;
+    public static final int RightJoyButton9  = 20;
+    public static final int RightJoyButton10  = 21;
+    public static final int RightJoyButton11  = 22;
 
     public static final int WhenPressed         = 1;
     public static final int WhenReleased        = 2;
@@ -96,11 +98,11 @@ public class OI {
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
         // Joystick button values 11-20 are for righ joystick
-        if (button >= 1 && button <= 10) {
+        if (button >= 1 && button <= 11) {
             j   = leftJoy;
-        } else if (button >= 11 && button <= 20 ) {
+        } else if (button >= 12 && button <= 21 ) {
             j   = rightJoy;
-            button  -= 10; // adjust the actual button. joystick button ids start at 1
+            button  -= 11; // adjust the actual button. joystick button ids start at 1
         } else {
             throw new Exception ("Unrecognized joystick button [" + button + "]");
         }

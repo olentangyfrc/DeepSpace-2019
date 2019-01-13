@@ -28,7 +28,7 @@ public class SubsystemFactory {
     private PortMan portMan  = new PortMan();
 
     private DriveTrain driveTrain;
-    private Petal petal;
+    private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
 
@@ -68,9 +68,7 @@ public class SubsystemFactory {
             initTurbo();
         } else {
             System.err.println("Unrecognized MAC Address [" + botMacAddress + "]");
-        }
-        
-        // do this last. OI commands need Subsystems to be alive before they init 
+        } 
     }
 
     /**
@@ -120,7 +118,7 @@ public class SubsystemFactory {
         triangleHatch.init(portMan);
 
         try {
-            oi.bind(new PushHatch(), OI.LeftJoyButton1, OI.WhenPressed);
+            oi.bind(new PushHatch(), OI.LeftJoyButton1, OI.ToggleWhenPressed);
         } catch (Exception e) {
             e.printStackTrace();
         }
