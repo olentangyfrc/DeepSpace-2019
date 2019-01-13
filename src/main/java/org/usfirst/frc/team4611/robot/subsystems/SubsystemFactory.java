@@ -10,6 +10,7 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrai
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -48,6 +49,10 @@ public class SubsystemFactory {
         if (botMacAddress == null) {
             throw new Exception("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
+
+        oi  = OI.getInstance();
+        oi.init();
+
         // subsystems common to every bot
         initCommon();
 
@@ -66,7 +71,6 @@ public class SubsystemFactory {
         }
         
         // do this last. OI commands need Subsystems to be alive before they init 
-        oi = new OI();
     }
 
     /**
@@ -114,6 +118,12 @@ public class SubsystemFactory {
         System.out.println("initializing Football");
         triangleHatch   = new TriangleHatch();
         triangleHatch.init(portMan);
+
+        try {
+            oi.bind(new PushHatch(), OI.LeftJoyButton1, OI.WhenPressed);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public DriveTrain getDriveTrain(){

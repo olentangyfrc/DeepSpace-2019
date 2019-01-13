@@ -198,9 +198,9 @@ public class TalonMecanum extends DriveTrain {
 	}
 
 	public void move() {
-		double YVal = -OI.generalJoystickFilter(OI.leftJoy.getY());
-		double XVal = OI.generalJoystickFilter(OI.leftJoy.getX());
-		double ZVal = OI.generalJoystickFilter(OI.rightJoy.getX());
+		double YVal = -OI.getInstance().getLeftJoystickYValue();
+		double XVal = OI.getInstance().getLeftJoystickXValue();
+		double ZVal = OI.getInstance().getRightJoystickXValue();
 
 		velocity1 = 4 * (maxRPM * (XVal * YValScaler1 + ZVal * XValScaler1 + YVal * ZValScaler) * (velocityInvert1));
 		velocity2 = 4 * (maxRPM * (XVal * YValScaler2 - ZVal * XValScaler2 - YVal * ZValScaler) * (velocityInvert2));
