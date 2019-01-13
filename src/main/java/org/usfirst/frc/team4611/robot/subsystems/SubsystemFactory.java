@@ -7,6 +7,9 @@ import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
@@ -31,6 +34,7 @@ public class SubsystemFactory {
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
+    private Kicker kicker;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -114,11 +118,12 @@ public class SubsystemFactory {
      */
     private void initFootball() {
         System.out.println("initializing Football");
-        triangleHatch   = new TriangleHatch();
-        triangleHatch.init(portMan);
+        kicker = new Kicker();
+        kicker.init(portMan);
 
         try {
-            oi.bind(new PushHatch(), OI.LeftJoyButton1, OI.ToggleWhenPressed);
+            oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+            // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,5 +143,9 @@ public class SubsystemFactory {
 
     public TriangleHatch getTriangleHatch(){
         return triangleHatch;
+    }
+
+    public Kicker getKicker(){
+        return kicker;
     }
 }
