@@ -18,7 +18,11 @@ import java.util.HashMap;
  */
 
 public class PortMan {
-    private HashMap <String, String> allocatedPorts;
+    public static String pcm0_label;
+
+	public static String pcm1_label;
+
+	private HashMap <String, String> allocatedPorts;
 
     public static final String digital0_label   = "DIGITAL0";
     public static final String digital1_label   = "DIGITAL1";
@@ -52,16 +56,8 @@ public class PortMan {
     public static final String pwm8_label = "PWM8";
     public static final String pwm9_label = "PWM9";
 
-    public static final String pcm0_label = "PCM0";
-    public static final String pcm1_label = "PCM1";
-    public static final String pcm2_label = "PCM2";
-    public static final String pcm3_label = "PCM3";
-    public static final String pcm4_label = "PCM4";
-    public static final String pcm5_label = "PCM5";
-    public static final String pcm6_label = "PCM6";
-    public static final String pcm7_label = "PCM7";
-
     public static final String can_rotation_pigeon_angle = "CAN21";
+    public static final String can_kicker = "CAN17";
 
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
@@ -74,7 +70,7 @@ public class PortMan {
             throw new Exception ("Port [" + label + "] already allocated to device [" + device + "]");
         }
         // remember that we allocated it
-        allocatedPorts.put(label, requestedDevice);
+        allocatedPorts.put(label, device);
 
         switch (label) {
             case digital0_label: return 0;
@@ -107,18 +103,10 @@ public class PortMan {
             case pwm6_label: return 6;
             case pwm7_label: return 7;
             case pwm8_label: return 8;
-            case pwm9_label: return 9;  
-            
-            case pcm0_label: return 0;
-            case pcm1_label: return 1;
-            case pcm2_label: return 2;
-            case pcm3_label: return 3;
-            case pcm4_label: return 4;
-            case pcm5_label: return 5;
-            case pcm6_label: return 6;
-            case pcm7_label: return 7;
+            case pwm9_label: return 9;
 
             case can_rotation_pigeon_angle: return 21;
+            case can_kicker: return 17;
         }
 
         throw new Exception ("Unknown port identifier [" + label + "]") ;
