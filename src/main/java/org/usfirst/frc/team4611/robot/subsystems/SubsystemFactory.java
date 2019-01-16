@@ -13,7 +13,7 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
+import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -35,6 +35,7 @@ public class SubsystemFactory {
     private Navigation nav;
     private TriangleHatch triangleHatch;
     private Kicker kicker;
+    private Vision vision;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -121,6 +122,9 @@ public class SubsystemFactory {
         kicker = new Kicker();
         kicker.init(portMan);
 
+        vision  = new Vision();
+        vision.init();
+
         try {
             oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
             // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
@@ -147,5 +151,9 @@ public class SubsystemFactory {
 
     public Kicker getKicker(){
         return kicker;
+    }
+
+    public Vision getVision() {
+        return vision;
     }
 }
