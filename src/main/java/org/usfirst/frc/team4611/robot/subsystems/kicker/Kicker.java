@@ -16,7 +16,7 @@ public class Kicker extends Subsystem
 
     public void init(PortMan pm) {
         try{
-            kicker = new WPI_TalonSRX(pm.acquirePort(PortMan.can_kicker, "Kicker.talon"));
+            kicker = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Kicker.talon"));
             kicker.setSensorPhase(true);  
             kicker.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
             kicker.setSelectedSensorPosition(0);
