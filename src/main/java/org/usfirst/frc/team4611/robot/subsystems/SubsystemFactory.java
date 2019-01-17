@@ -87,6 +87,7 @@ public class SubsystemFactory {
     private void initJanky() {
         System.out.println("initializing Janky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
@@ -95,6 +96,7 @@ public class SubsystemFactory {
     private void initWonky() {
         System.out.println("initializing Wonky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     } 
 
     /**
