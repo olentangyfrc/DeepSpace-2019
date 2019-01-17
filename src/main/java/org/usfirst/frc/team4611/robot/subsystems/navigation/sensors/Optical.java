@@ -32,6 +32,7 @@ public class Optical extends Subsystem{
 				
 				task = new LIDARUpdater(this);
 				updater = new java.util.Timer();
+				updater.scheduleAtFixedRate(task, 500, 1000);
 			}
 			
 			// Distance in cm
