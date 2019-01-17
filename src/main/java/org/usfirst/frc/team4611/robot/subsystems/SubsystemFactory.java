@@ -9,7 +9,6 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
@@ -104,6 +103,7 @@ public class SubsystemFactory {
     private void initZippy() {
         System.out.println("initializing Zippy");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
@@ -112,6 +112,7 @@ public class SubsystemFactory {
     private void initTurbo() {
         System.out.println("initializing Turbo");
         driveTrain = new TurboTankDrive();
+        driveTrain.init(portMan);
     }
 
     /**
