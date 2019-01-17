@@ -21,6 +21,10 @@ public class Navigation extends Subsystem {
     private final String PORTMAN_PIGEON_TAG = "Navigation.Pigeon";
 
     public Navigation(PortMan pm){
+        
+    }
+
+    public void init(PortMan pm) {
         try {
             rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_rotation_pigeon_angle, PORTMAN_PIGEON_TAG));
         } catch (Exception e) {

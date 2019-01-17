@@ -20,14 +20,17 @@ public class Petal extends Subsystem{
         
     } 
 
-	public void openPetal(){
-		petalSole.set(DoubleSolenoid.Value.kForward);
+	public void togglePetal(){
+		if(isOpen()){
+			petalSole.set(DoubleSolenoid.Value.kReverse);
+		} else {
+			petalSole.set(DoubleSolenoid.Value.kForward);
+		}
 	}
-
-	public void closePetal(){
-		petalSole.set(DoubleSolenoid.Value.kReverse);
-	}	
-
+	
+	public boolean isOpen() {
+		return petalSole.get().equals(DoubleSolenoid.Value.kForward);
+	}
 	public void setOff(){
 		petalSole.set(DoubleSolenoid.Value.kOff);
 	}
