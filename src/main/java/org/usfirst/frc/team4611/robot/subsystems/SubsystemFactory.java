@@ -15,6 +15,7 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -38,6 +39,7 @@ public class SubsystemFactory {
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
+    private WheelIntake intake;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
