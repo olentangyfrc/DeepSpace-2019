@@ -13,7 +13,7 @@ public class Petal extends Subsystem{
 
 	public void init(PortMan pm) {
         try{
-            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
+            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Petal.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "Petal.outDoubleSolenoid"));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -42,6 +42,4 @@ public class Petal extends Subsystem{
 	protected void initDefaultCommand() {
 		//this.setDefaultCommand(new Move());
 	}
-
-
 }

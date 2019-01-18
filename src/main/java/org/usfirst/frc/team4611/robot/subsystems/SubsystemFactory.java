@@ -9,7 +9,9 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
+import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
@@ -33,6 +35,7 @@ public class SubsystemFactory {
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
+    private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
 
@@ -87,7 +90,6 @@ public class SubsystemFactory {
     private void initJanky() {
         System.out.println("initializing Janky");
         driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
     }
     
     /**
@@ -96,7 +98,6 @@ public class SubsystemFactory {
     private void initWonky() {
         System.out.println("initializing Wonky");
         driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
     } 
 
     /**
@@ -105,7 +106,6 @@ public class SubsystemFactory {
     private void initZippy() {
         System.out.println("initializing Zippy");
         driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
     }
     
     /**
@@ -114,7 +114,6 @@ public class SubsystemFactory {
     private void initTurbo() {
         System.out.println("initializing Turbo");
         driveTrain = new TurboTankDrive();
-        driveTrain.init(portMan);
     }
 
     /**
@@ -152,6 +151,10 @@ public class SubsystemFactory {
         return triangleHatch;
     }
 
+   public Spatula getSpatula(){
+        return spatula;
+    }
+
     public Kicker getKicker(){
         return kicker;
     }
@@ -159,5 +162,4 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
-    
 }
