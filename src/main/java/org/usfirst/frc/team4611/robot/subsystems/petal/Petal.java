@@ -39,6 +39,4 @@ public class Petal extends Subsystem{
 	protected void initDefaultCommand() {
 		//this.setDefaultCommand(new Move());
 	}
-
-
 }

@@ -11,21 +11,24 @@ public class PushHatch extends Command {
 
     public PushHatch() {
         triangleHatch = SubsystemFactory.getInstance().getTriangleHatch();
+        this.requires(triangleHatch);
     }
 
     @Override
     protected void execute() {
+        System.out.println("Trying to push hatch");
         triangleHatch.pushHatch();
     }
 
     @Override
     protected void end() {
+        System.out.println("Ending push hatch");
         triangleHatch.retractPistons();
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return !triangleHatch.isRetracted();
     }
 
 }

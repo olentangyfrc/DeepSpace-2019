@@ -37,6 +37,4 @@ public class Spatula extends Subsystem {
     protected void initDefaultCommand() {
 
     }
-    
-    
 }

@@ -93,8 +93,9 @@ public class TurboTankDrive extends DriveTrain {
 
     @Override
     public void move() {
-        double LYVal = -OI.generalJoystickFilter(OI.leftJoy.getY());
-        double RYVal = OI.generalJoystickFilter(OI.rightJoy.getY());
+        double LYVal = -OI.getInstance().getLeftJoystickYValue();
+        double RYVal = OI.getInstance().getRightJoystickYValue();
+
 
         velocity1 = 4 * (maxRPM * (LYVal * YValScaler1));
         velocity2 = 4 * (maxRPM * (RYVal * YValScaler2));
