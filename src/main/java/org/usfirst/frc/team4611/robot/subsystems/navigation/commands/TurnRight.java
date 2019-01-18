@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Pigeon;
 
 import edu.wpi.first.wpilibj.command.Command;
 

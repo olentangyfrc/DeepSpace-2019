@@ -1,24 +1,45 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+
 import java.util.logging.Logger;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public abstract class DriveTrain extends Subsystem {
-
-    public final int frontLeftTalonPort = 10;
-    public final int frontRightTalonPort = 11;
-    public final int backLeftTalonPort = 13;
-    public final int backRightTalonPort = 12;
 
     public final double INCH_PU_MULT = 215.910640625;
 
     public final double METER_PU_MULT = 39.3701 * INCH_PU_MULT;
 
     public final Logger logger = Logger.getLogger(LogTest.class.getName());
+    
+    public WPI_TalonSRX frontLeft;
+	public WPI_TalonSRX frontRight;
+	public WPI_TalonSRX backLeft;
+	public WPI_TalonSRX backRight;
 
     public abstract void move();
+
+    public void init(PortMan pm) {
+        try{
+			frontLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_10_label, "DriveTrain.FrontLeft"));
+			frontRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_11_label, "DriveTrain.FrontRight"));
+			backLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_13_label, "DriveTrain.BackLeft"));
+			backRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_12_label, "DriveTrain.BackRight"));
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		setupTalons();
+    }
+
+    /**
+     * Used to setup DriveTrian talons as needed
+     */
+    public abstract void setupTalons();
 
     /**
      * Resets the drive talon encoders to zero position units
