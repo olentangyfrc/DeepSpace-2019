@@ -62,6 +62,8 @@ public class PortMan {
     public static final String pcm7_label = "PCM7";
 
     public static final String can_rotation_pigeon_angle = "CAN21";
+    public static final String can_22_label = "CAN22";
+    public static final String can_23_label = "CAN23";
 
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
@@ -119,6 +121,8 @@ public class PortMan {
             case pcm7_label: return 7;
 
             case can_rotation_pigeon_angle: return 21;
+            case can_22_label: return 22;
+            case can_23_label: return 23;
         }
 
         throw new Exception ("Unknown port identifier [" + label + "]") ;
