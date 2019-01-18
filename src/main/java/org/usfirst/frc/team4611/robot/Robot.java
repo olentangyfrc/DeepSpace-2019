@@ -5,9 +5,7 @@ import java.util.logging.Level;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,13 +56,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		isOn = true;
-		// if (autonomousCommand != null)
-		// autonomousCommand.cancel();
 	}
 	@Override
 	public void teleopPeriodic() {

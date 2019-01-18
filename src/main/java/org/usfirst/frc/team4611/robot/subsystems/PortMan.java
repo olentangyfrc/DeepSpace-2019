@@ -18,7 +18,8 @@ import java.util.HashMap;
  */
 
 public class PortMan {
-    private HashMap <String, String> allocatedPorts;
+    
+	private HashMap <String, String> allocatedPorts;
 
     public static final String digital0_label   = "DIGITAL0";
     public static final String digital1_label   = "DIGITAL1";
@@ -53,7 +54,7 @@ public class PortMan {
     public static final String pwm9_label = "PWM9";
 
     public static final String pcm0_label = "PCM0";
-    public static final String pcm1_label = "PCM1";
+	public static final String pcm1_label = "PCM1";
     public static final String pcm2_label = "PCM2";
     public static final String pcm3_label = "PCM3";
     public static final String pcm4_label = "PCM4";
@@ -61,9 +62,14 @@ public class PortMan {
     public static final String pcm6_label = "PCM6";
     public static final String pcm7_label = "PCM7";
 
-    public static final String can_rotation_pigeon_angle = "CAN21";
-    public static final String can_22_label = "CAN22";
-    public static final String can_23_label = "CAN23";
+
+    public static final String can_10_label = "CAN10";
+    public static final String can_11_label = "CAN11";
+    public static final String can_12_label = "CAN12";
+    public static final String can_13_label = "CAN13";
+    public static final String can_21_label = "CAN21";
+    public static final String can_17_label = "CAN17";
+
 
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
@@ -109,8 +115,8 @@ public class PortMan {
             case pwm6_label: return 6;
             case pwm7_label: return 7;
             case pwm8_label: return 8;
-            case pwm9_label: return 9;  
-            
+            case pwm9_label: return 9;
+
             case pcm0_label: return 0;
             case pcm1_label: return 1;
             case pcm2_label: return 2;
@@ -120,9 +126,13 @@ public class PortMan {
             case pcm6_label: return 6;
             case pcm7_label: return 7;
 
-            case can_rotation_pigeon_angle: return 21;
-            case can_22_label: return 22;
-            case can_23_label: return 23;
+            case can_10_label: return 10;
+            case can_11_label: return 11;
+            case can_12_label: return 12;
+            case can_13_label: return 13;
+            case can_21_label: return 21;
+            case can_17_label: return 17;
+
         }
 
         throw new Exception ("Unknown port identifier [" + label + "]") ;

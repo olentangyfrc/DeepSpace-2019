@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.trianglehatch;
 
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -34,6 +35,6 @@ public class TriangleHatch extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        this.setDefaultCommand(new RetractHatch());
     }   
 }

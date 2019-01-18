@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -7,12 +8,14 @@ import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
+import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
+import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -31,10 +34,11 @@ public class SubsystemFactory {
 
     private DriveTrain driveTrain;
     private Petal petal; 
-    private Elevator elevator;
-    private Spatula spatula;
     private Navigation nav;
     private TriangleHatch triangleHatch;
+    private Spatula spatula;
+    private Kicker kicker;
+    private Vision vision;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -118,11 +122,15 @@ public class SubsystemFactory {
      */
     private void initFootball() {
         System.out.println("initializing Football");
-        triangleHatch   = new TriangleHatch();
-        triangleHatch.init(portMan);
+        kicker = new Kicker();
+        kicker.init(portMan);
+
+        vision  = new Vision();
+        vision.init();
 
         try {
-            oi.bind(new PushHatch(), OI.LeftJoyButton1, OI.ToggleWhenPressed);
+            oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+            // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,12 +143,6 @@ public class SubsystemFactory {
     public Petal getPetal(){
         return petal;
     }
-    public Elevator getElevator(){
-        return elevator;
-    }
-    public Spatula getSpatula(){
-        return spatula;
-    }
     
     public Navigation getNavigation(){
         return nav;
@@ -149,4 +151,21 @@ public class SubsystemFactory {
     public TriangleHatch getTriangleHatch(){
         return triangleHatch;
     }
+
+   public Spatula getSpatula(){
+        return spatula;
+    }
+
+    public Kicker getKicker(){
+        return kicker;
+    }
+
+    public Vision getVision() {
+        return vision;
+    }
+
+    public Elevator getElevator(){
+        return elevator;
+    }
+
 }

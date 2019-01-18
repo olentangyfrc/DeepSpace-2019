@@ -21,14 +21,8 @@ public class PushHatch extends Command {
     }
 
     @Override
-    protected void end() {
-        System.out.println("Ending push hatch");
-        triangleHatch.retractPistons();
-    }
-
-    @Override
     protected boolean isFinished() {
-        return !triangleHatch.isRetracted();
+        return true;
     }
 
 }

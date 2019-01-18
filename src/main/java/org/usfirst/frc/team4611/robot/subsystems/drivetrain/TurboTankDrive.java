@@ -1,15 +1,11 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.OI;
-import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
-import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -23,11 +19,6 @@ public class TurboTankDrive extends DriveTrain {
     private final int turboSolClosePort = 1;
 
     private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
-
-    private WPI_TalonSRX frontLeft = new WPI_TalonSRX(frontLeftTalonPort);
-    private WPI_TalonSRX frontRight = new WPI_TalonSRX(frontRightTalonPort);
-    private WPI_TalonSRX backLeft = new WPI_TalonSRX(backLeftTalonPort);
-    private WPI_TalonSRX backRight = new WPI_TalonSRX(backRightTalonPort);
 
     private int maxRPM = 400; // Reduced from 1200
 
@@ -49,7 +40,6 @@ public class TurboTankDrive extends DriveTrain {
     private String velocity2ID = "Velocity2";
 
     public TurboTankDrive() {
-        setupTalons();
     }
 
     public void setupTalons() {

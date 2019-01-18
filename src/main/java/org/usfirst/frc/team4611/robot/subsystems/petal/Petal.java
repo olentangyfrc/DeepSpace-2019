@@ -13,21 +13,24 @@ public class Petal extends Subsystem{
 
 	public void init(PortMan pm) {
         try{
-            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
+            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Petal.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "Petal.outDoubleSolenoid"));
         } catch(Exception e) {
             e.printStackTrace();
         }
         
     } 
 
-	public void openPetal(){
-		petalSole.set(DoubleSolenoid.Value.kForward);
+	public void togglePetal(){
+		if(isOpen()){
+			petalSole.set(DoubleSolenoid.Value.kReverse);
+		} else {
+			petalSole.set(DoubleSolenoid.Value.kForward);
+		}
 	}
-
-	public void closePetal(){
-		petalSole.set(DoubleSolenoid.Value.kReverse);
-	}	
-
+	
+	public boolean isOpen() {
+		return petalSole.get().equals(DoubleSolenoid.Value.kForward);
+	}
 	public void setOff(){
 		petalSole.set(DoubleSolenoid.Value.kOff);
 	}
@@ -39,6 +42,4 @@ public class Petal extends Subsystem{
 	protected void initDefaultCommand() {
 		//this.setDefaultCommand(new Move());
 	}
-
-
 }
