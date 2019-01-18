@@ -8,6 +8,8 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
+import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
@@ -29,6 +31,8 @@ public class SubsystemFactory {
 
     private DriveTrain driveTrain;
     private Petal petal; 
+    private Elevator elevator;
+    private Spatula spatula;
     private Navigation nav;
     private TriangleHatch triangleHatch;
 
@@ -130,6 +134,12 @@ public class SubsystemFactory {
 
     public Petal getPetal(){
         return petal;
+    }
+    public Elevator getElevator(){
+        return elevator;
+    }
+    public Spatula getSpatula(){
+        return spatula;
     }
     
     public Navigation getNavigation(){
