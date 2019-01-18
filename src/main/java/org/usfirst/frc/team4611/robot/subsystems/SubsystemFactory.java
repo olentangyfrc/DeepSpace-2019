@@ -11,6 +11,7 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
+import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
@@ -34,6 +35,7 @@ public class SubsystemFactory {
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
+    private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
 
@@ -149,6 +151,10 @@ public class SubsystemFactory {
         return triangleHatch;
     }
 
+   public Spatula getSpatula(){
+        return spatula;
+    }
+
     public Kicker getKicker(){
         return kicker;
     }
@@ -156,5 +162,4 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
-    
 }
