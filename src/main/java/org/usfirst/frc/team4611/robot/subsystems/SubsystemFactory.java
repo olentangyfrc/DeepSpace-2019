@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -162,4 +163,9 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
+
+    public Elevator getElevator(){
+        return elevator;
+    }
+
 }

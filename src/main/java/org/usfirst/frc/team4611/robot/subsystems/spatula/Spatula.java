@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4611.robot.subsystems.spatula;
 
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
@@ -37,4 +38,3 @@ public class Spatula extends Subsystem {
     protected void initDefaultCommand() {
 
     }
-}
