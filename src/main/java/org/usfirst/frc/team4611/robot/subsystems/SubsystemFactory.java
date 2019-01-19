@@ -16,6 +16,8 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 public class SubsystemFactory {
     private Subsystem   s;
@@ -39,6 +41,7 @@ public class SubsystemFactory {
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
+    private Elevator elevator;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -129,8 +132,9 @@ public class SubsystemFactory {
         vision.init();
 
         try {
-            oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+            //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
             // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
+            oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
         } catch (Exception e) {
             e.printStackTrace();
         }
