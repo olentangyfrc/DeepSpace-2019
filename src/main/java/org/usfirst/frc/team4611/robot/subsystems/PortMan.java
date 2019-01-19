@@ -67,8 +67,10 @@ public class PortMan {
     public static final String can_11_label = "CAN11";
     public static final String can_12_label = "CAN12";
     public static final String can_13_label = "CAN13";
-    public static final String can_21_label = "CAN21";
     public static final String can_17_label = "CAN17";
+    public static final String can_21_label = "CAN21";
+    public static final String can_22_label = "CAN22";
+    public static final String can_23_label = "CAN23";
 
 
     public PortMan() {

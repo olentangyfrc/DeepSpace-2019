@@ -6,8 +6,9 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PollNetworkTabl
 
 public class Vision extends Subsystem{
 
-    boolean tapeFound = false;
-    boolean ballFound = false;
+    boolean tapeFound   = false;
+    boolean ballFound   = false;
+    double angle  = 180;
 
     public void Vision() {
         
@@ -31,6 +32,15 @@ public class Vision extends Subsystem{
 
     public void setBallFound(Boolean f) {
         ballFound   = f;
+    }
+
+    public void setAngle(double a) {
+        angle = a;
+    }
+    
+    public boolean isCentered() {
+        System.out.println("angle [" + angle + "]");
+        return angle == 0.0;
     }
 
     protected void initDefaultCommand() {
