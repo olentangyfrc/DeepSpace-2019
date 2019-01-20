@@ -325,6 +325,36 @@ def picamvidopencv():
 
         # clear the stream in preparation for the next frame
         #rawCapture.truncate(0)
+
+        if options.usekb:
+            # Keyboard input
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord("S"):  # Shutter
+                camera.shutter_speed += 1000
+            if key == ord("s"):
+                camera.shutter_speed += -1000
+            if key == ord("t"):  # Toggle
+                toggle_rectangles = not toggle_rectangles
+            if key == ord("i"):  # Marker
+                crosshair[1] += -1 #up 
+            if key == ord("k"): 
+                crosshair[1] += 1 #down
+            if key == ord("j"): 
+                crosshair[0] += -1 #left
+            if key == ord("l"): 
+                crosshair[0] += 1 #right
+            if key == ord("I"):
+                crosshair[1] += -10
+            if key == ord("K"):
+                crosshair[1] += 10
+            if key == ord("J"):
+                crosshair[0] += -10
+            if key == ord("L"):
+                crosshair[0] += 10
+
+            # if the `q` key was pressed, break from the loop
+            if key == ord("q"):
+                break
         
 
 
@@ -334,6 +364,7 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--show', action='store_true', dest='show', default=False)
+    parser.add_argument('--usekb', action='store_true', dest='usekb', default=False)
     options = parser.parse_args()
     readConfig()
     main()
