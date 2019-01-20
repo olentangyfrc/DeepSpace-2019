@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
+
 public class OzoneJavaLogger {
 	
 	private static OzoneJavaLogger instance	= null;
@@ -40,12 +42,14 @@ public class OzoneJavaLogger {
 		try {
 			logger.setLevel(logLevel);
 			
+			/*
 			Handler	consoleHandler	= new ConsoleHandler();
 			consoleHandler.setFormatter(new OzoneLogFormatter());
 			consoleHandler.setLevel(Level.SEVERE);
 			logger.addHandler(consoleHandler);
+			*/
 			
-			Handler fileHandler = new FileHandler("/tmp/PlayLogger-%g",
+			Handler fileHandler = new FileHandler("/tmp/OzoneLogs-%g",
 					20*1024*1024,
 					10,
 					false);
@@ -70,6 +74,10 @@ public class OzoneJavaLogger {
 
 		@Override
 		public String format(LogRecord record)  {
+			//String []parts	= record.getSourceClassName().split(".");
+
+			System.out.println("wtf?");
+
 			b.setLength(0);
 		
 			b.append("[" + record.getLevel()).append("]")

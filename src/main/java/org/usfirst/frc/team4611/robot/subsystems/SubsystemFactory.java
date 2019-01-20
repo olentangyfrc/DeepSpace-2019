@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4611.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
@@ -20,8 +20,9 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 public class SubsystemFactory {
-    private Subsystem   s;
     private static SubsystemFactory    me;
+    //static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
     private String   jankyMacAddress    = "00:80:2F:17:F8:3F";
@@ -55,6 +56,9 @@ public class SubsystemFactory {
     }
 
     public void init() throws Exception {
+
+        //logger.info("intializing");
+        System.err.println("WTF?");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         if (botMacAddress == null) {
@@ -78,7 +82,7 @@ public class SubsystemFactory {
         } else if (botMacAddress.equals(turboMacAddress)) {
             initTurbo();
         } else {
-            System.err.println("Unrecognized MAC Address [" + botMacAddress + "]");
+            //logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
         } 
     }
 
@@ -92,7 +96,7 @@ public class SubsystemFactory {
      * init subsytems specific to Janky
      */
     private void initJanky() {
-        System.out.println("initializing Janky");
+        //logger.info("initalizing Janky");
         driveTrain = new TalonMecanum();
     }
     
@@ -100,7 +104,7 @@ public class SubsystemFactory {
      * init subsytems specific to Wonky
      */
     private void initWonky() {
-        System.out.println("initializing Wonky");
+        //logger.info("initalizing Wonky");
         driveTrain = new TalonMecanum();
     } 
 
@@ -108,7 +112,7 @@ public class SubsystemFactory {
      * init subsytems specific to Zippy
      */
     private void initZippy() {
-        System.out.println("initializing Zippy");
+        //logger.info("initalizing Zippy");
         driveTrain = new TalonMecanum();
     }
     
@@ -116,7 +120,7 @@ public class SubsystemFactory {
      * init subsytems specific to Turbo
      */
     private void initTurbo() {
-        System.out.println("initializing Turbo");
+        //logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
     }
 
@@ -124,7 +128,7 @@ public class SubsystemFactory {
      * init subsystems specific to Football
      */
     private void initFootball() {
-        System.out.println("initializing Football");
+        //logger.severe("initalizing Football");
         kicker = new Kicker();
         kicker.init(portMan);
 
@@ -171,5 +175,4 @@ public class SubsystemFactory {
     public Elevator getElevator(){
         return elevator;
     }
-
 }
