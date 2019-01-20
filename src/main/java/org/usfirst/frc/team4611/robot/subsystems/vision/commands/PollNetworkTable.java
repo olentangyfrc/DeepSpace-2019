@@ -22,15 +22,8 @@ public class PollNetworkTable extends Command{
     }
 
     public void execute() {
-       /*
-        vision.setTapeFound((Boolean)NetTableManager
-                .getValue("Vision", "tapeFound", new Boolean(false)))
-                ;
-        vision.setBallFound((Boolean)NetTableManager
-                .getValue("Vision", "tapeFound", new Boolean(false)));
-        */
-
         vision.setAngle((double)NetTableManager.getValue("Vision", "angle", 180.0));
+        vision.setTargetCount((double)NetTableManager.getValue("Vision", "targetCount", 0));    
     }
 
     public void end() {

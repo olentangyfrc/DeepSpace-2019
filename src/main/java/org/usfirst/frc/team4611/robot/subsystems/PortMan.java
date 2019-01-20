@@ -67,11 +67,42 @@ public class PortMan {
     public static final String can_11_label = "CAN11";
     public static final String can_12_label = "CAN12";
     public static final String can_13_label = "CAN13";
+    public static final String can_14_label = "CAN14";
+    public static final String can_15_label = "CAN15";
+    public static final String can_16_label = "CAN16";
     public static final String can_17_label = "CAN17";
+    public static final String can_18_label = "CAN18";
+    public static final String can_19_label = "CAN19";
+    public static final String can_20_label = "CAN20";
     public static final String can_21_label = "CAN21";
     public static final String can_22_label = "CAN22";
     public static final String can_23_label = "CAN23";
-
+    public static final String can_24_label = "CAN24";
+    public static final String can_25_label = "CAN25";
+    public static final String can_26_label = "CAN26";
+    public static final String can_27_label = "CAN27";
+    public static final String can_28_label = "CAN28";
+    public static final String can_29_label = "CAN29";
+    public static final String can_30_label = "CAN30";
+    public static final String can_31_label = "CAN31";
+    public static final String can_32_label = "CAN32";
+    public static final String can_33_label = "CAN33";
+    public static final String can_34_label = "CAN34";
+    public static final String can_35_label = "CAN35";
+    public static final String can_36_label = "CAN36";
+    public static final String can_37_label = "CAN37";
+    public static final String can_38_label = "CAN38";
+    public static final String can_39_label = "CAN39";
+    public static final String can_40_label = "CAN40";
+    public static final String can_41_label = "CAN41";
+    public static final String can_42_label = "CAN42";
+    public static final String can_43_label = "CAN43";
+    public static final String can_44_label = "CAN44";
+    public static final String can_45_label = "CAN45";
+    public static final String can_46_label = "CAN46";
+    public static final String can_47_label = "CAN47";
+    public static final String can_48_label = "CAN48";
+    public static final String can_49_label = "CAN49";
 
     public PortMan() {
         allocatedPorts  = new HashMap<String, String> ();
