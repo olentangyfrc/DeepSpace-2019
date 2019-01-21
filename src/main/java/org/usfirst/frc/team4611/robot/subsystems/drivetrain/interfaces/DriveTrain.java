@@ -27,7 +27,6 @@ public abstract class DriveTrain extends Subsystem {
     public WPI_TalonSRX backRight;
     
     private ShuffleboardTab tab; 
-    private NetworkTableEntry activeDrive;
 
     public abstract void move();
 
@@ -40,8 +39,9 @@ public abstract class DriveTrain extends Subsystem {
         backRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_12_label, "DriveTrain.BackRight"));
         setupTalons();
         
-        tab = Shuffleboard.getTab("Drive Train");
-        NetTableManager.updateValue("Drive Train", "Drive Train Initialize", true);
+        tab = Shuffleboard.getTab("Health Map");
+
+        NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
 
     }
 

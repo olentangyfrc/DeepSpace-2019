@@ -10,8 +10,10 @@ import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class TurboTankDrive extends DriveTrain {
 
@@ -20,7 +22,7 @@ public class TurboTankDrive extends DriveTrain {
 
     private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
 
-    private int maxRPM = 400; // Reduced from 1200
+    private int maxRPM = 1200; // Reduced from 1200
 
     public double pVal = .65;
     public int interval = 10;
@@ -38,6 +40,10 @@ public class TurboTankDrive extends DriveTrain {
 
     private String velocity1ID = "Velocity1";
     private String velocity2ID = "Velocity2";
+
+    private ShuffleboardTab tab; 
+    private NetworkTableEntry leftSideEntry;
+    private NetworkTableEntry rightSideEntry;
 
     public TurboTankDrive() {
     }
@@ -79,6 +85,8 @@ public class TurboTankDrive extends DriveTrain {
         backLeft.setInverted(false);
         backRight.setInverted(false);
 
+        leftSideEntry = tab.add("Leftside Velocity", -1.0).getEntry();
+        rightSideEntry = tab.add("Rightside Velocity", -1.0).getEntry();
     }
 
     @Override
@@ -93,12 +101,8 @@ public class TurboTankDrive extends DriveTrain {
         frontLeft.set(ControlMode.Velocity, velocity1);
         frontRight.set(ControlMode.Velocity, velocity2);
 
-        HashMap<String, Object> values = new HashMap<String, Object>();
-        values.put(velocity1ID, velocity1);
-        values.put(velocity2ID, velocity2);
-        NetTableManager.updateValues(tankSubtable, values);
-        // logger.info("" + (frontRight.getSelectedSensorVelocity(0) * 600 / 4092));
-        // logger.fine("" + frontRight.getBusVoltage());
+        leftSideEntry.setDouble(velocity1);
+        rightSideEntry.setDouble(velocity2);
     }
 
     @Override
