@@ -31,8 +31,8 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeRight.setInverted(true);
     }
 
-    public void spinMotorsIntake(){
-        wheelIntakeLeft.set(ControlMode.Velocity, wheelVelocity);
+    public void spinMotorsIntake(int speed){
+        wheelIntakeLeft.set(ControlMode.Velocity, speed);
     }
 
     public void spinMotorOutTake() {

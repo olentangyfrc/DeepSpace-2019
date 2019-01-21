@@ -5,12 +5,13 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class  OutTakeBall extends Command {
+public class  OuttakeBall extends Command {
 
     private DoubleWheel doubleWheel;
 
-    public  OutTakeBall() {
+    public  OuttakeBall() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
+        this.requires(doubleWheel);
     }
 
     @Override

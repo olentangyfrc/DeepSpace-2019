@@ -5,12 +5,12 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeBall extends Command {
+public class IntakeBallSlow extends Command {
 
     private DoubleWheel doubleWheel;
-    private int intakeVelocity = 480;
+    private int intakeVelocity = 240;
 
-    public IntakeBall() {
+    public IntakeBallSlow() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
         this.requires(doubleWheel);
     }
