@@ -15,7 +15,7 @@ public class  OutTakeBall extends Command {
 
     @Override
     protected void execute() {
-        doubleWheel.spinMotors(-.5);
+        doubleWheel.spinMotorOutTake();
     }
 
     @Override

@@ -15,7 +15,7 @@ public class IntakeBall extends Command {
 
     @Override
     protected void execute() {
-        doubleWheel.spinMotors(.5);
+        doubleWheel.spinMotorsIntake();
     }
 
     @Override
