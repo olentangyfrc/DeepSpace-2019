@@ -1,17 +1,21 @@
-package org.usfirst.frc.team4611.robot.subsystems.WheelIntake;
+package org.usfirst.frc.team4611.robot.subsystems.wheelintake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class WheelIntake extends Subsystem {
 
     private WPI_TalonSRX wheelIntakeTalon;
     private double pVal=0.5;
 
+    private ShuffleboardTab tab;
 
     public WheelIntake() {
 
@@ -25,10 +29,12 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.config_kI(0, 0.000, 0);
         wheelIntakeTalon.config_kD(0, 0, 0);
 
+        tab = Shuffleboard.getTab("WheelIntake");
+        NetTableManager.updateValue("Wheel Intake", "Wheel Intake Initialization", true);
     }
 
-    public void moveIntake() {
-        wheelIntakeTalon.set(ControlMode.Velocity, 480);
+    public void moveIntake(int speed) {
+        wheelIntakeTalon.set(ControlMode.Velocity, speed);
     }
 
 

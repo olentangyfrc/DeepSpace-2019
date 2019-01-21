@@ -1,21 +1,21 @@
-package org.usfirst.frc.team4611.robot.subsystems.WheelIntake.Commands;
+package org.usfirst.frc.team4611.robot.subsystems.wheelintake.commands;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.wheelintake.WheelIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SpinIntakeWheel extends Command {
+public class TakeInBall extends Command {
 
     private WheelIntake wheelIntake;
 
-    public SpinIntakeWheel() {
+    public TakeInBall() {
         SubsystemFactory.getInstance().getWheelIntake();
     }
 
     @Override
     protected void execute() {
-        wheelIntake.moveIntake();
+        wheelIntake.moveIntake(480);
     }
 
     @Override
