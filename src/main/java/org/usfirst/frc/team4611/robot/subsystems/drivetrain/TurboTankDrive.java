@@ -41,7 +41,6 @@ public class TurboTankDrive extends DriveTrain {
     private String velocity1ID = "Velocity1";
     private String velocity2ID = "Velocity2";
 
-    private ShuffleboardTab tab; 
     private NetworkTableEntry leftSideEntry;
     private NetworkTableEntry rightSideEntry;
 
