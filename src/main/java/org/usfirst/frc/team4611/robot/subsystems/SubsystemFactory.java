@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import java.util.logging.Logger;
@@ -17,8 +16,10 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
@@ -44,6 +45,7 @@ public class SubsystemFactory {
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
+    private WheelIntake intake;
     private Elevator elevator;
 
     private SubsystemFactory() {
@@ -180,7 +182,11 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
-
+  
+    public WheelIntake getWheelIntake(){
+        return intake;
+    }
+    
     public Elevator getElevator(){
         return elevator;
     }

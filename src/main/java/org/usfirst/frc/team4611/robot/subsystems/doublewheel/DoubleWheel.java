@@ -12,6 +12,8 @@ public class DoubleWheel extends Subsystem {
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
 
+    private int wheelVelocity = 480;
+
     public void init(PortMan pm) throws Exception {
         wheelIntakeLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_18_label, "DoubleWheel.leftWheelIntake"));
         wheelIntakeRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_19_label, "DoubleWheel.rightWheelIntake"));
@@ -27,16 +29,16 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeRight.setInverted(true);
     }
 
-    public void spinMotors(double speed){
-        wheelIntakeLeft.set(ControlMode.PercentOutput, speed);
+    public void spinMotorsIntake(){
+        wheelIntakeLeft.set(ControlMode.Velocity, wheelVelocity);
     }
 
+    public void spinMotorOutTake() {
+        wheelIntakeLeft.set(ControlMode.Velocity, -wheelVelocity);
+    }
 
     @Override
     protected void initDefaultCommand() {
 
     }
-
-
-
 }
