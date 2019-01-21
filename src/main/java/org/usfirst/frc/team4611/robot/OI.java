@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
@@ -81,6 +82,21 @@ public class OI {
 
     public double getRightJoystickYValue() {
         return getFilteredValue (rightJoy.getY());
+    }
+
+    public void rumbleJoystick(int j) {
+
+        System.out.print("Trying to rumble");
+        switch (j) {
+            case 0:
+                leftJoy.setRumble(RumbleType.kLeftRumble , 0.5);
+                break;
+            case 1:
+                rightJoy.setRumble(RumbleType.kRightRumble, 0.5 );
+                break;
+            default:
+                System.err.println("Invalid Joystick id [" + j + "]");
+        }
     }
 
     /**

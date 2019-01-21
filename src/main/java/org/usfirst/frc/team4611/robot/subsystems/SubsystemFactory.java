@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
@@ -14,12 +14,17 @@ import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
+import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+
 
 public class SubsystemFactory {
-    private Subsystem   s;
     private static SubsystemFactory    me;
+    static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
     private String   jankyMacAddress    = "00:80:2F:17:F8:3F";
@@ -36,10 +41,12 @@ public class SubsystemFactory {
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
+    private Stick stick;
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
     private WheelIntake intake;
+    private Elevator elevator;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -53,31 +60,37 @@ public class SubsystemFactory {
     }
 
     public void init() throws Exception {
+
+        logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         if (botMacAddress == null) {
             throw new Exception("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
 
-        oi  = OI.getInstance();
-        oi.init();
+        try {
+            oi  = OI.getInstance();
+            oi.init();
 
-        // subsystems common to every bot
-        initCommon();
+            // subsystems common to every bot
+            initCommon();
 
-        if (botMacAddress.equals(jankyMacAddress)) {
-            initJanky();
-        } else if (botMacAddress.equals(footballMacAddress)) {
-            initFootball();
-        } else if (botMacAddress.equals(wonkyMacAddress)) {
-            initWonky();
-        } else if (botMacAddress.equals(zippyMacAddress)) {
-            initZippy();
-        } else if (botMacAddress.equals(turboMacAddress)) {
-            initTurbo();
-        } else {
-            System.err.println("Unrecognized MAC Address [" + botMacAddress + "]");
-        } 
+            if (botMacAddress.equals(jankyMacAddress)) {
+                initJanky();
+            } else if (botMacAddress.equals(footballMacAddress)) {
+                initFootball();
+            } else if (botMacAddress.equals(wonkyMacAddress)) {
+                initWonky();
+            } else if (botMacAddress.equals(zippyMacAddress)) {
+                initZippy();
+            } else if (botMacAddress.equals(turboMacAddress)) {
+                initTurbo();
+            } else {
+                logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
+            } 
+        } catch (Exception e) {
+            logger.throwing(SubsystemFactory.class.getName(), "init", e);
+        }
     }
 
     /**
@@ -89,52 +102,53 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Janky
      */
-    private void initJanky() {
-        System.out.println("initializing Janky");
+    private void initJanky() throws Exception{
+        logger.info("initalizing Janky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
      * init subsytems specific to Wonky
      */
-    private void initWonky() {
-        System.out.println("initializing Wonky");
+    private void initWonky() throws Exception {
+        logger.info("initalizing Wonky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     } 
 
     /**
      * init subsytems specific to Zippy
      */
-    private void initZippy() {
-        System.out.println("initializing Zippy");
+    private void initZippy() throws Exception {
+        logger.info("initalizing Zippy");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
      * init subsytems specific to Turbo
      */
-    private void initTurbo() {
-        System.out.println("initializing Turbo");
+    private void initTurbo() throws Exception {
+        logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
+        driveTrain.init(portMan);
     }
 
     /**
      * init subsystems specific to Football
      */
-    private void initFootball() {
-        System.out.println("initializing Football");
+    private void initFootball() throws Exception {
+        logger.info("initializing Football");
         kicker = new Kicker();
         kicker.init(portMan);
 
         vision  = new Vision();
         vision.init();
 
-        try {
-            oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
-            // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+        // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
+        oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){
@@ -157,6 +171,10 @@ public class SubsystemFactory {
         return spatula;
     }
 
+    public Stick getStick(){
+        return stick;
+    }
+
     public Kicker getKicker(){
         return kicker;
     }
@@ -164,13 +182,12 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
-
+  
     public WheelIntake getWheelIntake(){
         return intake;
     }
-
-}
-
-
-
     
+    public Elevator getElevator(){
+        return elevator;
+    }
+}

@@ -1,13 +1,21 @@
 package org.usfirst.frc.team4611.robot.subsystems.vision;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PollNetworkTable;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Vision extends Subsystem{
+    Logger logger = Logger.getLogger(Vision.class.getName());
 
-    boolean tapeFound = false;
-    boolean ballFound = false;
+    double angle  = 180;
+    double targetCount = 0.0;
+    private ShuffleboardTab tab;
+    private NetworkTableEntry angleEntry;
 
     public void Vision() {
         
@@ -15,22 +23,19 @@ public class Vision extends Subsystem{
 
     public void init() {
 
-    }
+        logger.info("initializing");
+        tab = Shuffleboard.getTab("Vision");
 
-    public boolean isTapeFound() {
-        return tapeFound;
-    }
+        angleEntry = tab.add("angle", -1.0).getEntry();
+      }
 
-    public boolean isBallFound() {
-        return ballFound;
+    public void setAngle(double a) {
+        angle = a;
+        angleEntry.setDouble(a);
     }
-
-    public void setTapeFound(Boolean f) {
-        tapeFound   = f;
-    }
-
-    public void setBallFound(Boolean f) {
-        ballFound   = f;
+    
+    public boolean isCentered() {
+        return angle == 0.0;
     }
 
     protected void initDefaultCommand() {

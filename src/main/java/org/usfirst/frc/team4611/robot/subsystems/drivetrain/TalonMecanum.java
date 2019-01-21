@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -13,10 +14,9 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrai
 import edu.wpi.first.wpilibj.Timer;
 
 public class TalonMecanum extends DriveTrain {
+	private static Logger logger = Logger.getLogger(TalonMecanum.class.getName());
 
 	private int maxRPM = 400; // Reduced from 1200
-
-	
 	public double pVal = .65;
 	public int interval = 10;
 

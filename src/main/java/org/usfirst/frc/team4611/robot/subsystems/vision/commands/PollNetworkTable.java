@@ -10,7 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class PollNetworkTable extends Command{
 
+    private double lastUpdateTime = 0;
+    private int noChangeCount = 0;
     private Vision  vision;
+
     public PollNetworkTable() {
         vision = SubsystemFactory.getInstance().getVision();
         requires(vision);
@@ -21,15 +24,17 @@ public class PollNetworkTable extends Command{
     }
 
     public void execute() {
-       /*
-        vision.setTapeFound((Boolean)NetTableManager
-                .getValue("Vision", "tapeFound", new Boolean(false)))
-                ;
-        vision.setBallFound((Boolean)NetTableManager
-                .getValue("Vision", "tapeFound", new Boolean(false)));
-        */
+        double thisTime = (double)NetTableManager.getValue("Vision", "rPi last update", 0.0);
 
-        System.out.println(NetTableManager.getValue("Vision", "connected", "no"));
+        if ((thisTime - lastUpdateTime) == 0.00) {
+            noChangeCount += 1;
+        } else {
+            noChangeCount = 0;
+        }
+        NetTableManager.updateValue("Vision", "rPi connected", noChangeCount <= 10);
+
+        vision.setAngle((double)NetTableManager.getValue("Vision", "angle", 180.0));
+        lastUpdateTime = thisTime;
     }
 
     public void end() {

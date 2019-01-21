@@ -12,7 +12,7 @@ public class NetTableManager {
 
 	private static final int teamID = 4611;
 	private static final String netTableServerAdd = "10.46.11.2";
-	private static final String netTableID = "Ozone Values";
+	private static final String netTableID = "Shuffleboard";
 
 	public static void startNetworkTables() {
 		instance = NetworkTableInstance.getDefault();
