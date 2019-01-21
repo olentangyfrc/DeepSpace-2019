@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot.subsystems.doublewheel;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
@@ -24,6 +25,10 @@ public class DoubleWheel extends Subsystem {
     
         wheelIntakeRight.follow(wheelIntakeLeft);
         wheelIntakeRight.setInverted(true);
+    }
+
+    public void spinMotors(double speed){
+        wheelIntakeLeft.set(ControlMode.PercentOutput, speed);
     }
 
 
