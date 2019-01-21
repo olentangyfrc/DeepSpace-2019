@@ -1,3 +1,5 @@
+package org.usfirst.frc.team4611.robot.subsystems.WheelIntake;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -15,13 +17,10 @@ public class WheelIntake extends Subsystem {
 
     }
 
-    public void init(PortMan pm) {
-        try {
-            wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_14_label, "wheelIntake.talon"));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void init(PortMan pm) throws Exception {
+
+        wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_14_label, "wheelIntake.talon"));
+      
         wheelIntakeTalon.config_kP(0,pVal, 0);
         wheelIntakeTalon.config_kI(0, 0.000, 0);
         wheelIntakeTalon.config_kD(0, 0, 0);

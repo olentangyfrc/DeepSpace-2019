@@ -164,4 +164,13 @@ public class SubsystemFactory {
     public Vision getVision() {
         return vision;
     }
+
+    public WheelIntake getWheelIntake(){
+        return intake;
+    }
+
 }
+
+
+
+    
