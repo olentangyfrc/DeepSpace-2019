@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.vision;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PollNetworkTable;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -8,11 +10,10 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Vision extends Subsystem{
+    Logger logger = Logger.getLogger(Vision.class.getName());
 
-    boolean tapeFound   = false;
-    boolean ballFound   = false;
     double angle  = 180;
-    double targetCount = 0;
+    double targetCount = 0.0;
     private ShuffleboardTab tab;
     private NetworkTableEntry angleEntry;
     private NetworkTableEntry countEntry;
@@ -22,6 +23,8 @@ public class Vision extends Subsystem{
     }
 
     public void init() {
+
+        logger.info("initializing");
         tab = Shuffleboard.getTab("Vision");
 
         angleEntry = tab.add("Angle to target", 180.0).getEntry();
@@ -36,7 +39,6 @@ public class Vision extends Subsystem{
     public void setTargetCount(double c) {
         targetCount = c;
         countEntry.setValue(c);
-        System.out.println("targetCount [" + targetCount + "]");
     }
     
     public boolean isCentered() {

@@ -23,7 +23,7 @@ public class PollNetworkTable extends Command{
 
     public void execute() {
         vision.setAngle((double)NetTableManager.getValue("Vision", "angle", 180.0));
-        vision.setTargetCount((double)NetTableManager.getValue("Vision", "targetCount", 0));    
+        vision.setTargetCount((double)NetTableManager.getValue("Vision", "targetCount", 0.0));    
     }
 
     public void end() {
