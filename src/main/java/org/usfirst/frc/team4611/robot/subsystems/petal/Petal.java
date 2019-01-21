@@ -1,23 +1,23 @@
 package org.usfirst.frc.team4611.robot.subsystems.petal;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Petal extends Subsystem{
+public class Petal extends Subsystem {
+	private static Logger logger = Logger.getLogger(Petal.class.getName());
+
 	DoubleSolenoid petalSole;
 
 	public Petal() {	
 	}
 
-	public void init(PortMan pm) {
-        try{
-            petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Petal.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "Petal.outDoubleSolenoid"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        
+	public void init(PortMan pm) throws Exception {
+		logger.info("initializing");
+        petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Petal.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "Petal.outDoubleSolenoid"));
     } 
 
 	public void togglePetal(){

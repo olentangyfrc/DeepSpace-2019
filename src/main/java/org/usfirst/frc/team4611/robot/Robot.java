@@ -23,8 +23,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		NetTableManager.startNetworkTables();
-		//OzoneJavaLogger.getInstance().init(Level.FINE);
-		System.err.println("WTF?");
+		OzoneJavaLogger.getInstance().init(Level.FINE);
 		try {
 			SubsystemFactory.getInstance().init();
 		} catch (Exception e) {

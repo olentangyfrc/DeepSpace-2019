@@ -21,7 +21,7 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
-    //static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+    static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
@@ -57,33 +57,36 @@ public class SubsystemFactory {
 
     public void init() throws Exception {
 
-        //logger.info("intializing");
-        System.err.println("WTF?");
+        logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         if (botMacAddress == null) {
             throw new Exception("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
 
-        oi  = OI.getInstance();
-        oi.init();
+        try {
+            oi  = OI.getInstance();
+            oi.init();
 
-        // subsystems common to every bot
-        initCommon();
+            // subsystems common to every bot
+            initCommon();
 
-        if (botMacAddress.equals(jankyMacAddress)) {
-            initJanky();
-        } else if (botMacAddress.equals(footballMacAddress)) {
-            initFootball();
-        } else if (botMacAddress.equals(wonkyMacAddress)) {
-            initWonky();
-        } else if (botMacAddress.equals(zippyMacAddress)) {
-            initZippy();
-        } else if (botMacAddress.equals(turboMacAddress)) {
-            initTurbo();
-        } else {
-            //logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
-        } 
+            if (botMacAddress.equals(jankyMacAddress)) {
+                initJanky();
+            } else if (botMacAddress.equals(footballMacAddress)) {
+                initFootball();
+            } else if (botMacAddress.equals(wonkyMacAddress)) {
+                initWonky();
+            } else if (botMacAddress.equals(zippyMacAddress)) {
+                initZippy();
+            } else if (botMacAddress.equals(turboMacAddress)) {
+                initTurbo();
+            } else {
+                logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
+            } 
+        } catch (Exception e) {
+            logger.throwing(SubsystemFactory.class.getName(), "init", e);
+        }
     }
 
     /**
@@ -95,53 +98,53 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Janky
      */
-    private void initJanky() {
-        //logger.info("initalizing Janky");
+    private void initJanky() throws Exception{
+        logger.info("initalizing Janky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
      * init subsytems specific to Wonky
      */
-    private void initWonky() {
-        //logger.info("initalizing Wonky");
+    private void initWonky() throws Exception {
+        logger.info("initalizing Wonky");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     } 
 
     /**
      * init subsytems specific to Zippy
      */
-    private void initZippy() {
-        //logger.info("initalizing Zippy");
+    private void initZippy() throws Exception {
+        logger.info("initalizing Zippy");
         driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
     }
     
     /**
      * init subsytems specific to Turbo
      */
-    private void initTurbo() {
-        //logger.info("initalizing Turbo");
+    private void initTurbo() throws Exception {
+        logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
+        driveTrain.init(portMan);
     }
 
     /**
      * init subsystems specific to Football
      */
-    private void initFootball() {
-        //logger.severe("initalizing Football");
+    private void initFootball() throws Exception {
+        logger.info("initializing Football");
         kicker = new Kicker();
         kicker.init(portMan);
 
         vision  = new Vision();
         vision.init();
 
-        try {
-            //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
-            // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-            oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+        // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
+        oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){
