@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems.elevator;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -10,6 +11,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
+
+    public final Logger logger = Logger.getLogger(Elevator.class.getName());
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -27,6 +30,8 @@ public class Elevator extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
     
+        logger.info("initializing");
+
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
         hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardStopTopA"));
@@ -47,8 +52,7 @@ public class Elevator extends Subsystem {
 
         elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
         elevatorLeftTalon.configMotionAcceleration(4096,0);
-    
-        elevatorLeftTalon.configForwardSoftLimitEnable(true , 0);
+
     }
 
     public void move(double speed) {
@@ -113,6 +117,14 @@ public class Elevator extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
+
+    }
+
+    public void writeToShuffleboard() {
+
+    }
+
+    public void log() {
 
     }
 
