@@ -14,6 +14,8 @@ import json
 import time
 import sys
 import argparse
+from datetime import datetime
+
 
 from cscore import CameraServer, VideoSource
 from networktables import NetworkTablesInstance
@@ -169,18 +171,14 @@ def picamvidopencv():
     # Get a CvSink. This will capture images from the camera
     cvSink = cameraServer.getVideo()
 
-
-
     # (optional) Setup a CvSource. This will send images back to the Dashboard
     outputStream = cameraServer.putVideo("stream", image_width, image_height)
     # Allocating new images is very expensive, always try to preallocate
     img = np.zeros(shape=(image_height, image_width, 3), dtype=np.uint8)
 
-
-
     # initialize network tables
     NetworkTables.initialize(server='10.46.11.2')
-    nettable = NetworkTables.getTable("Vision")
+    nettable = NetworkTables.getTable("Shuffleboard").getSubTable("Vision")
 
     # allow the camera to warmup
     time.sleep(0.1)
@@ -298,6 +296,8 @@ def picamvidopencv():
 
 
         # Publish Angle & Distance
+        
+        nettable.putNumber('rPi last update', datetime.utcnow().timestamp())
         nettable.putNumber('angle', float(angle))
         nettable.putNumber('distance', float(hypoDist))
         nettable.putBoolean('found', found)

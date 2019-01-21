@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class PollNetworkTable extends Command{
 
+    private double lastUpdateTime = 0;
+    private int noChangeCount = 0;
     private Vision  vision;
 
     public PollNetworkTable() {
@@ -22,8 +24,17 @@ public class PollNetworkTable extends Command{
     }
 
     public void execute() {
+        double thisTime = (double)NetTableManager.getValue("Vision", "rPi last update", 0.0);
+
+        if ((thisTime - lastUpdateTime) == 0.00) {
+            noChangeCount += 1;
+        } else {
+            noChangeCount = 0;
+        }
+        NetTableManager.updateValue("Vision", "rPi connected", noChangeCount <= 10);
+
         vision.setAngle((double)NetTableManager.getValue("Vision", "angle", 180.0));
-        vision.setTargetCount((double)NetTableManager.getValue("Vision", "targetCount", 0.0));    
+        lastUpdateTime = thisTime;
     }
 
     public void end() {
