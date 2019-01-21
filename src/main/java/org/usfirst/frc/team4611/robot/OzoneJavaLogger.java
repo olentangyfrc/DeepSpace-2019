@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+
 public class OzoneJavaLogger {
 	
 	private static OzoneJavaLogger instance	= null;
@@ -45,7 +46,7 @@ public class OzoneJavaLogger {
 			consoleHandler.setLevel(Level.SEVERE);
 			logger.addHandler(consoleHandler);
 			
-			Handler fileHandler = new FileHandler("/tmp/PlayLogger-%g",
+			Handler fileHandler = new FileHandler("/tmp/OzoneLogs-%g",
 					20*1024*1024,
 					10,
 					false);
@@ -70,11 +71,13 @@ public class OzoneJavaLogger {
 
 		@Override
 		public String format(LogRecord record)  {
+			String []parts	= record.getSourceClassName().split("\\.");
+
 			b.setLength(0);
 		
 			b.append("[" + record.getLevel()).append("]")
 				.append('[').append(LocalDateTime.now().minus(startupTime, ChronoUnit.MILLIS).format(DateTimeFormatter.ofPattern("mm:ss.SSS"))).append(']')
-				.append('[').append(record.getSourceClassName()).append(']')
+				.append('[').append(parts[parts.length-1]).append(']')
 				.append('[').append(record.getMessage()).append(']')
 				.append('\n');
 			 return b.toString();

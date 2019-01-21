@@ -24,12 +24,9 @@ public class Navigation extends Subsystem {
         
     }
 
-    public void init(PortMan pm) {
-        try {
-            rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, PORTMAN_PIGEON_TAG));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void init(PortMan pm) throws Exception {
+        logger.info("initializing");
+        rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, PORTMAN_PIGEON_TAG));
     }
 
     public double getCurentHeading() {
@@ -51,7 +48,4 @@ public class Navigation extends Subsystem {
     protected void initDefaultCommand() {
         this.setDefaultCommand(new NavLog());
     }
-
-
-
 }
