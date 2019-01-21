@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DoubleWheel extends Subsystem {
 
-
-
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
 
@@ -32,7 +30,7 @@ public class DoubleWheel extends Subsystem {
     }
 
     public void spinMotorsIntake(int speed){
-        wheelIntakeLeft.set(ControlMode.Velocity, speed);
+        wheelIntakeLeft.set(ControlMode.Velocity, speed);   
     }
 
     public void spinMotorOutTake() {
@@ -43,7 +41,4 @@ public class DoubleWheel extends Subsystem {
     protected void initDefaultCommand() {
 
     }
-
-
-
 }
