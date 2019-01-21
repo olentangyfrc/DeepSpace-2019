@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -45,6 +46,7 @@ public class SubsystemFactory {
     private Kicker kicker;
     private Vision vision;
     private Elevator elevator;
+    private DoubleWheel doubleWheel;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -183,5 +185,9 @@ public class SubsystemFactory {
 
     public Elevator getElevator(){
         return elevator;
+    }
+
+    public DoubleWheel getDoubleWheel(){
+        return doubleWheel;
     }
 }
