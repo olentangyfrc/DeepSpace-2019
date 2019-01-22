@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.wheelintake;
+package org.usfirst.frc.team4611.robot.subsystems.WheelIntake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;

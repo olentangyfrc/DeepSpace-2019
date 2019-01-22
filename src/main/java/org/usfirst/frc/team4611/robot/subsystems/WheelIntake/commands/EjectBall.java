@@ -1,7 +1,7 @@
-package org.usfirst.frc.team4611.robot.subsystems.wheelintake.commands;
+package org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.wheelintake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
