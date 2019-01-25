@@ -24,6 +24,9 @@ public class Elevator extends Subsystem {
     private ElevatorUpdater speedUpdater;
     private Timer speedTimer;
 
+    private boolean upperSoftLimtToggle = false;
+    private boolean lowerSoftLimitToggle = false;
+
     public Elevator(){
 
     }
@@ -34,10 +37,10 @@ public class Elevator extends Subsystem {
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
-        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardStopTopA"));
-        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.hardStopTopB"));
-        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softStopTopA"));
-        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.softStopTopB"));
+        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.upperHardLimit"));
+        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.upperSoftLimit"));
+        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.lowerSoftLimit"));
+        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.lowerHardLimit"));
 
         speedUpdater = new ElevatorUpdater(this);
         speedTimer = new Timer();
@@ -57,26 +60,32 @@ public class Elevator extends Subsystem {
 
     public void move(double speed) {
 
+        if(softLimitTop.get()) {
+            upperSoftLimtToggle = !upperSoftLimtToggle;
+        } else if(softLimitBottom.get()) {
+            lowerSoftLimitToggle = !lowerSoftLimitToggle;
+        }
+ 
         if(hardLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
+            if(speed >= 0) {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
             } else {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
             }
-        } else if(softLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
+        } else if(upperSoftLimtToggle) {
+            if(speed >= 0) {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
             } else {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
             }
-        } else if(softLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
+        } else if(lowerSoftLimitToggle) {
+            if(speed <= 0) {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
             } else {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
             }
         } else if(hardLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
+            if(speed <= 0) {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
             } else {
                 elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
