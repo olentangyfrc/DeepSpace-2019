@@ -36,7 +36,7 @@ public class Elevator extends Subsystem {
         logger.info("initializing");
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Elevator.elevatorLeftTalon"));
-        //elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
+        elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
         hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardLimitTop"));
         softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.softLimitTop"));
         softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softLimitBottom"));
@@ -46,7 +46,8 @@ public class Elevator extends Subsystem {
         speedTimer = new Timer();
         speedTimer.scheduleAtFixedRate(speedUpdater, 0, 20);
 
-        //elevatorRightTalon.follow(elevatorLeftTalon);
+        elevatorRightTalon.follow(elevatorLeftTalon);
+        elevatorRightTalon.setInverted(true);
 
         elevatorLeftTalon.config_kP(0, .5, 0);
         elevatorLeftTalon.config_kI(0, 0, 0);
@@ -99,7 +100,7 @@ public class Elevator extends Subsystem {
 
     public void resetEncoders() {
         elevatorLeftTalon.setSelectedSensorPosition(0, 0 ,0);
-        //elevatorRightTalon.setSelectedSensorPosition(0, 0, 0);
+        elevatorRightTalon.setSelectedSensorPosition(0, 0, 0);
     }
 
     public void updateElevator(){
