@@ -5,20 +5,18 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveElevator extends Command {
+public class StopElevator extends Command {
 
     private Elevator elevator;
-    private double speed;
 
-    public MoveElevator(double s) {
+    public StopElevator() {
         elevator = SubsystemFactory.getInstance().getElevator();
-        speed = s;
 
         this.requires(elevator);
     }
 
     protected void execute() {
-        elevator.move(speed);
+        elevator.move(0);
     }
 
     protected boolean isFinished() {
