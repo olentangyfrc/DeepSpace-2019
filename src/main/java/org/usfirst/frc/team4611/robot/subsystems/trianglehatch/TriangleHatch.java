@@ -2,11 +2,15 @@ package org.usfirst.frc.team4611.robot.subsystems.trianglehatch;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class TriangleHatch extends Subsystem {
     private static Logger logger = Logger.getLogger(TriangleHatch.class.getName());
@@ -16,9 +20,19 @@ public class TriangleHatch extends Subsystem {
     public TriangleHatch() {  
     }
 
+    private ShuffleboardTab tab;
+    private NetworkTableEntry triangleStatus;
+    
+
+
     public void init(PortMan pm) throws Exception {
            logger.info("initializing");
            pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
+
+           tab = Shuffleboard.getTab("Health Map");
+        NetTableManager.updateValue("Health Map", "Triangle Initialize", true);
+        
+        triangleStatus = tab.add("Triangle Engaged", false).getEntry();
     } 
 
     public void pushHatch() {
