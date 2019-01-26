@@ -165,6 +165,7 @@ public class PortMan {
             case can_13_label: return 13;
             case can_21_label: return 21;
             case can_17_label: return 17;
+            case can_33_label: return 33;
 
         }
 
