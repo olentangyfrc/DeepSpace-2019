@@ -21,6 +21,8 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
 public class SubsystemFactory {
@@ -144,18 +146,22 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("initializing Football");
-        // kicker = new Kicker();
-        // kicker.init(portMan);
-        
-        lineTracker = new LineTracker();
-        lineTracker.init();
+        //kicker = new Kicker();
+        //kicker.init(portMan);
+
+        elevator = new Elevator();
+        elevator.init(portMan);
 
         vision  = new Vision();
         vision.init();
 
         //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        //oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveElevator(.7), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-.7), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     }
 
     public DriveTrain getDriveTrain(){
