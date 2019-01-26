@@ -10,10 +10,12 @@
 
 # This is meant to be used in conjuction with WPILib Raspberry Pi image: https://github.com/wpilibsuite/FRCVision-pi-gen
 #----------------------------------------------------------------------------
-
 import json
 import time
 import sys
+import argparse
+from datetime import datetime
+
 
 from cscore import CameraServer, VideoSource
 from networktables import NetworkTablesInstance
@@ -22,305 +24,45 @@ import numpy as np
 from networktables import NetworkTables
 import math
 
+#merge
 
-###################### PROCESSING OPENCV ################################
+"""Start running the camera."""
+def startCamera(config):
+    print("Starting camera '{}' on {}".format(config.name, config.path))
+    cs = CameraServer.getInstance()
+    camera = cs.startAutomaticCapture(name=config.name, path=config.path)
 
-#Angles in radians
+    camera.setConfigJson(json.dumps(config.config))
 
-#image size ratioed to 16:9
-image_width = 480
-image_height = 270
-
-#Lifecam 3000 from datasheet
-#Datasheet: https://dl2jx7zfbtwvr.cloudfront.net/specsheets/WEBC1010.pdf
-diagonalView = math.radians(68.5)
-
-#16:9 aspect ratio
-horizontalAspect = 16
-verticalAspect = 9
-
-#Reasons for using diagonal aspect is to calculate horizontal field of view.
-diagonalAspect = math.hypot(horizontalAspect, verticalAspect)
-#Calculations: http://vrguy.blogspot.com/2013/04/converting-diagonal-field-of-view-and.html
-horizontalView = math.atan(math.tan(diagonalView/2) * (horizontalAspect / diagonalAspect)) * 2
-verticalView = math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAspect)) * 2
-
-#Focal Length calculations: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_165
-H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
-V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
-
-#Flip image if camera mounted upside down
-def flipImage(frame):
-    return cv2.flip( frame, -1 )
-
-# Masks the video based on a range of hsv colors
-# Takes in a frame, returns a masked frame
-def threshold_video(frame):
-    img = frame.copy()
-    blur = cv2.medianBlur(img, 5)
-
-    # Convert BGR to HSV
-    hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
-    # define range of red in HSV
-    lower_color = np.array([0,220,25])
-    upper_color = np.array([101, 255, 255])
-    # hold the HSV image to get only red colors
-    mask = cv2.inRange(hsv, lower_color, upper_color)
-
-    # Returns the masked imageBlurs video to smooth out image
-
-    return mask
+    return cs, camera
 
 
+"""Read configuration file."""
+def readConfig():
+    global team
+    global server
 
-# Finds the contours from the masked image and displays them on original stream
-def findContours(frame, mask):
-    # Finds contours
-    _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_TC89_KCOS)
-    # Take each frame
-    # Gets the shape of video
-    screenHeight, screenWidth, _ = frame.shape
-    # Gets center of height and width
-    centerX = (screenWidth / 2) - .5
-    centerY = (screenHeight / 2) - .5
-    # Copies frame and stores it in image
-    image = frame.copy()
-    # Processes the contours, takes in (contours, output_image, (centerOfImage) #TODO finding largest
-    if len(contours) != 0:
-        image = findTargets(contours, image, centerX, centerY)
-    # Shows the contours overlayed on the original video
-    return image
-
-
-
-# Draws Contours and finds center and yaw of vision targets
-# centerX is center x coordinate of image
-# centerY is center y coordinate of image
-def findTargets(contours, image, centerX, centerY):
-    screenHeight, screenWidth, channels = image.shape;
-    #Seen vision targets (correct angle, adjacent to each other)
-    targets = []
-
-    if len(contours) >= 2:
-        #Sort contours by area size (biggest to smallest)
-        cntsSorted = sorted(contours, key=lambda x: cv2.contourArea(x), reverse=True)
-
-        biggestCnts = []
-        for cnt in cntsSorted:
-            # Get moments of contour; mainly for centroid
-            M = cv2.moments(cnt)
-            # Get convex hull (bounding polygon on contour)
-            hull = cv2.convexHull(cnt)
-            # Calculate Contour area
-            cntArea = cv2.contourArea(cnt)
-            # calculate area of convex hull
-            hullArea = cv2.contourArea(hull)
-            # Filters contours based off of size
-            if (checkContours(cntArea, hullArea)):
-                ### MOSTLY DRAWING CODE, BUT CALCULATES IMPORTANT INFO ###
-                # Gets the centeroids of contour
-                if M["m00"] != 0:
-                    cx = int(M["m10"] / M["m00"])
-                    cy = int(M["m01"] / M["m00"])
-                else:
-                    cx, cy = 0, 0
-                if(len(biggestCnts) < 13):
-                    #### CALCULATES ROTATION OF CONTOUR BY FITTING ELLIPSE ##########
-                    rotation = getEllipseRotation(image, cnt)
-
-                    # Calculates yaw of contour (horizontal position in degrees)
-                    yaw = calculateYaw(cx, centerX, H_FOCAL_LENGTH)
-                    # Calculates yaw of contour (horizontal position in degrees)
-                    pitch = calculatePitch(cy, centerY, V_FOCAL_LENGTH)
-
-                    ##### DRAWS CONTOUR######
-                    # Gets rotated bounding rectangle of contour
-                    rect = cv2.minAreaRect(cnt)
-                    # Creates box around that rectangle
-                    box = cv2.boxPoints(rect)
-                    # Not exactly sure
-                    box = np.int0(box)
-                    # Draws rotated rectangle
-                    cv2.drawContours(image, [box], 0, (23, 184, 80), 3)
-
-
-                    # Calculates yaw of contour (horizontal position in degrees)
-                    yaw = calculateYaw(cx, centerX, H_FOCAL_LENGTH)
-                    # Calculates yaw of contour (horizontal position in degrees)
-                    pitch = calculatePitch(cy, centerY, V_FOCAL_LENGTH)
-
-
-                    # Draws a vertical white line passing through center of contour
-                    cv2.line(image, (cx, screenHeight), (cx, 0), (255, 255, 255))
-                    # Draws a white circle at center of contour
-                    cv2.circle(image, (cx, cy), 6, (255, 255, 255))
-
-                    # Draws the contours
-                    cv2.drawContours(image, [cnt], 0, (23, 184, 80), 1)
-
-                    # Gets the (x, y) and radius of the enclosing circle of contour
-                    (x, y), radius = cv2.minEnclosingCircle(cnt)
-                    # Rounds center of enclosing circle
-                    center = (int(x), int(y))
-                    # Rounds radius of enclosning circle
-                    radius = int(radius)
-                    # Makes bounding rectangle of contour
-                    rx, ry, rw, rh = cv2.boundingRect(cnt)
-                    boundingRect = cv2.boundingRect(cnt)
-                    # Draws countour of bounding rectangle and enclosing circle in green
-                    cv2.rectangle(image, (rx, ry), (rx + rw, ry + rh), (23, 184, 80), 1)
-
-                    cv2.circle(image, center, radius, (23, 184, 80), 1)
-
-                    # Appends important info to array
-                    if [cx, cy, rotation, cnt] not in biggestCnts:
-                         biggestCnts.append([cx, cy, rotation, cnt])
-
-
-        # Sorts array based on coordinates (leftmost to rightmost) to make sure contours are adjacent
-        biggestCnts = sorted(biggestCnts, key=lambda x: x[0])
-        # Target Checking
-        for i in range(len(biggestCnts) - 1):
-            #Rotation of two adjacent contours
-            tilt1 = biggestCnts[i][2]
-            tilt2 = biggestCnts[i + 1][2]
-
-            #x coords of contours
-            cx1 = biggestCnts[i][0]
-            cx2 = biggestCnts[i + 1][0]
-
-            cy1 = biggestCnts[i][1]
-            cy2 = biggestCnts[i + 1][1]
-            # If contour angles are opposite
-            if (np.sign(tilt1) != np.sign(tilt2)):
-                centerOfTarget = math.floor((cx1 + cx2) / 2)
-                #ellipse negative tilt means rotated to right
-                #Note: if using rotated rect (min area rectangle)
-                #      negative tilt means rotated to left
-                # If left contour rotation is tilted to the left then skip iteration
-                if (tilt1 > 0):
-                    if (cx1 < cx2):
-                        continue
-                # If left contour rotation is tilted to the left then skip iteration
-                if (tilt2 > 0):
-                    if (cx2 < cx1):
-                        continue
-                #Angle from center of camera to target (what you should pass into gyro)
-                yawToTarget = calculateYaw(centerOfTarget, centerX, H_FOCAL_LENGTH)
-                #Make sure no duplicates, then append
-                if [centerOfTarget, yawToTarget] not in targets:
-                    targets.append([centerOfTarget, yawToTarget])
-    #Check if there are targets seen
-    if (len(targets) > 0):
-        #Sorts targets based on x coords to break any angle tie
-        targets.sort(key=lambda x: math.fabs(x[0]))
-        finalTarget = min(targets, key=lambda x: math.fabs(x[1]))
-        # Puts the yaw on screen
-        #Draws yaw of target + line where center of target is
-        cv2.putText(image, "Yaw: " + str(finalTarget[1]), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
-                    (255, 255, 255))
-        cv2.line(image, (finalTarget[0], screenHeight), (finalTarget[0], 0), (255, 0, 0), 2)
-
-        currentAngleError = finalTarget[1]
-        #TODO send currentAngleError to robot program
-    cv2.line(image, (round(centerX), screenHeight), (round(centerX), 0), (255, 255, 255), 2)
-
-    return image
-
-
-# Checks if contours are worthy based off of contour area and (not currently) hull area
-def checkContours(cntSize, hullSize):
-    return cntSize > 200
-
-
-#Forgot how exactly it works, but it works!
-def translateRotation(rotation, width, height):
-    if (width < height):
-        rotation = -1 * (rotation - 90)
-    if (rotation > 90):
-        rotation = -1 * (rotation - 180)
-    rotation *= -1
-    return round(rotation)
-
-
-def calculateDistance(heightOfCamera, heightOfTarget, pitch):
-    heightOfTargetFromCamera = heightOfTarget - heightOfCamera
-
-    # Uses trig and pitch to find distance to target
-    '''
-    d = distance
-    h = height between camera and target
-    a = angle = pitch
-
-    tan a = h/d (opposite over adjacent)
-
-    d = h / tan a
-
-                         .
-                        /|
-                       / |
-                      /  |h
-                     /a  |
-              camera -----
-                       d
-    '''
-    distance = math.fabs(heightOfCameraFromTarget / math.tan(math.radians(pitch)))
-
-    return distance
-
-
-# Uses trig and focal length of camera to find yaw.
-# Link to further explanation: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_298
-def calculateYaw(pixelX, centerX, hFocalLength):
-    yaw = math.degrees(math.atan((pixelX - centerX) / hFocalLength))
-    return round(yaw)
-
-
-# Link to further explanation: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_298
-def calculatePitch(pixelY, centerY, vFocalLength):
-    pitch = math.degrees(math.atan((pixelY - centerY) / vFocalLength))
-    # Just stopped working have to do this:
-    pitch *= -1
-    return round(pitch)
-
-def getEllipseRotation(image, cnt):
+    # parse file
     try:
-        # Gets rotated bounding ellipse of contour
-        ellipse = cv2.fitEllipse(cnt)
-        centerE = ellipse[0]
-        # Gets rotation of ellipse; same as rotation of contour
-        rotation = ellipse[2]
-        # Gets width and height of rotated ellipse
-        widthE = ellipse[1][0]
-        heightE = ellipse[1][1]
-        # Maps rotation to (-90 to 90). Makes it easier to tell direction of slant
-        rotation = translateRotation(rotation, widthE, heightE)
+        with open(configFile, "rt") as f:
+            j = json.load(f)
+    except OSError as err:
+        print("could not open '{}': {}".format(configFile, err), file=sys.stderr)
+        return False
 
-        # Gets smaller side
-        if widthE > heightE:
-            smaller_side = heightE
-        else:
-            smaller_side = widthE
+    # top level must be an object
+    if not isinstance(j, dict):
+        parseError("must be JSON object")
+        return False
 
-        cv2.ellipse(image, ellipse, (23, 184, 80), 3)
-        return rotation
-    except:
-        # Gets rotated bounding rectangle of contour
-        rect = cv2.minAreaRect(cnt)
-        # Creates box around that rectangle
-        box = cv2.boxPoints(rect)
-        # Not exactly sure
-        box = np.int0(box)
-        # Gets center of rotated rectangle
-        center = rect[0]
-        # Gets rotation of rectangle; same as rotation of contour
-        rotation = rect[2]
-        # Gets width and height of rotated rectangle
-        width = rect[1][0]
-        height = rect[1][1]
-        # Maps rotation to (-90 to 90). Makes it easier to tell direction of slant
-        rotation = translateRotation(rotation, width, height)
-        return rotation
+    # team number
+    try:
+        team = j["team"]
+    except KeyError:
+        parseError("could not read team number")
+        return False
+
+
 
 #################### FRC VISION PI Image Specific #############
 configFile = "/boot/frc.json"
@@ -404,34 +146,157 @@ def readConfig():
             return False
 
     return True
+    #merge
 
-"""Start running the camera."""
-def startCamera(config):
-    print("Starting camera '{}' on {}".format(config.name, config.path))
-    cs = CameraServer.getInstance()
-    camera = cs.startAutomaticCapture(name=config.name, path=config.path)
 
-    camera.setConfigJson(json.dumps(config.config))
 
-    return cs, camera
+def picamvidopencv(image, nettable):
+    # initialize the camera and grab a reference to the raw camera capture
+    # camera.shutter_speed = 7300 #18000  # 0 to 31163; 0 is auto
+    # rawCapture = PiRGBArray(camera, size=(640, 480))
+    crosshair = [320, 240]
+    toggle_rectangles = True
+    image_width = 640
+    image_height = 480
+    minArea = 250 # ~350 pixels when 7 feet away
+    maxDist = 3 # distance between 1 contour and another in widths
 
-if __name__ == "__main__":
-    if len(sys.argv) >= 2:
-        configFile = sys.argv[1]
-    # read configuration
-    if not readConfig():
-        sys.exit(1)
+    angle = 0.0
+    hypoDist = 0.0
+    straightDist = 0.0
+    found = False
 
-    # start NetworkTables
-    ntinst = NetworkTablesInstance.getDefault()
-    if server:
-        print("Setting up NetworkTables server")
-        ntinst.startServer()
-    else:
-        print("Setting up NetworkTables client for team {}".format(team))
-        ntinst.startClientTeam(team)
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    # start cameras
+    # Adjust image
+    #mask = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
+    mask = cv2.erode(hsv, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
+    mask = cv2.inRange(mask, np.array([50, 50, 125]), np.array([100, 255, 255]))
+
+    phase1 = mask.copy()
+    im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    leftContours = []
+    rightContours = []
+    contourPairs = []
+    largeCrop = phase1[100:300, 100:500]
+
+    #Center Pair and Variables
+    bestContourPair = None
+    centerX = None
+    centerY = None
+    avgHeight = None
+
+    numContours = 0
+    if len(contours) > 0:
+        for contour in contours:
+            rect = cv2.minAreaRect(contour)
+            
+            rotAngle = abs(rect[2]) #returns between 0 & 90
+            if rotAngle < 45:
+                x, y = rect[0] # center[0] = xPos,   center[1] = yPos 
+                w, h = rect[1]   # size[0] = xSize     size[1] = ySize
+            else:
+                x, y = rect[0]
+                h, w = rect[1]
+
+            if (w * h) > minArea: #if the area is greater than minArea, used to remove single pixels
+                if (h / w) > (5.5 / 2) - 1 and (h / w) < (5.5 / 2) + 1: # ideally h = 5.5 and w = 2
+
+                    #Draw
+                    box = cv2.boxPoints(rect)  # cv2.boxPoints(rect) for OpenCV 3.x
+                    box = np.int0(box)
+
+                    if options.show:
+                        cv2.drawContours(image,[box],0,(0,0,255),2)
+
+                    if rotAngle > 75.5 - 7 and rotAngle < 75.5 + 7:
+                        leftContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
+                    elif (rotAngle > 14.5 - 10 and rotAngle < 14.5 + 10):
+                        rightContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
+
+
+        #Match Contours
+        for leftContour in leftContours:
+            for rightContour in rightContours:
+                if leftContour['x'] < rightContour['x'] and abs(rightContour['y'] - leftContour['y']) < 0.5 * leftContour['y'] \
+                    and (rightContour['x'] - leftContour['x']) < (2.5 * leftContour['h']) + .5 * leftContour['h']:
+                    contourPairs.append({'Left': leftContour, 'Right': rightContour})
+
+
+        #Find best pair
+        closestDistAway = 999
+        for contourPair in contourPairs:
+            if abs(((contourPair['Left']['x'] + contourPair['Right']['x']) / 2) - (640/2)) < closestDistAway:
+                closestDistAway = abs(((contourPair['Left']['x'] + contourPair['Right']['x']) / 2) - (640/2))
+                bestContourPair = contourPair
+
+        #For best pair
+        if bestContourPair is not None:
+            centerX = (bestContourPair['Left']['x'] + bestContourPair['Right']['x']) / 2
+            centerY = (bestContourPair['Left']['y'] + bestContourPair['Right']['y']) / 2
+            avgHeight = (bestContourPair['Left']['h'] + bestContourPair['Right']['h']) / 2  #all in pixels
+            verticalHeightPixels = (bestContourPair['Left']['verticalHeight'] + bestContourPair['Right']['verticalHeight']) / 2 
+
+            #Find angle and distance
+            offset = centerX - 320
+            angle = offset * (62.2 / 640) #Horizontal angle
+
+            verticalHeightTape = 2 * math.sin(math.radians(14.5)) + 5.5 * math.cos(math.radians(14.5)) # in inches
+
+            heightTape = 5.5 # in inches
+            fieldOfView = math.radians(48.8/2)
+
+            #perpDist = ((heightTape * 480/2)/avgHeight)/(math.tan(fieldOfView)) #Perpendicular Distance
+            #hypoDist = perpDist/math.cos(abs(math.radians(angle)))              #Hypotenuse Distance
+
+            straightDist = ((480/2) * (verticalHeightTape / verticalHeightPixels)) / (math.tan(fieldOfView))
+            hypoDist = straightDist/math.cos(abs(math.radians(angle)))
+
+            found = True
+
+
+    # Publish Angle & Distance
+    
+    nettable.putNumber('rPi last update', datetime.utcnow().timestamp())
+    nettable.putNumber('angle', float(angle))
+    nettable.putNumber('distance', float(hypoDist))
+    nettable.putBoolean('found', found)
+
+    # show the frame
+    if options.show:
+        if bestContourPair is not None:
+            cv2.circle(image, (int(centerX), int(centerY)), 5, (255, 0, 255), 3)
+
+        cv2.putText(image, "LeftContours: " + str(len(leftContours)), (200, 380), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 3, 8)
+        cv2.putText(image, "RightContours: " + str(len(rightContours)), (200, 360), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 3, 8)
+        cv2.putText(image, "Angle: " + str(angle), (200, 400), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 3, 8)
+        cv2.putText(image, "Distance: " + str(hypoDist), (200, 420), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 3, 8)
+        cv2.putText(image, str(found), (200, 440), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 3, 8)
+
+        cv2.putText(image, "Contours:" + str(len(contours)), (0, 20), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 255), 1, 8)
+        #cv2.putText(image, "(S)hutter: " + str(camera.shutter_speed), (0, 40), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 255), 1, 8)
+        cv2.line(image, (crosshair[0]-10, crosshair[1]), (crosshair[0]+10, crosshair[1]), (255, 255, 255), thickness=1)
+        cv2.line(image, (crosshair[0], crosshair[1]-10), (crosshair[0], crosshair[1]+10), (255, 255, 255), thickness=1)
+        cv2.putText(image, "HSV: " + str(hsv[crosshair[0], crosshair[1]]), (0, 60), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 255), 1, 8)
+
+        # show the frame
+        #cv2.imshow("Image", image)
+        #cv2.imshow("Mask", phase1)
+
+    # clear the stream in preparation for the next frame
+    #rawCapture.truncate(0)
+
+    return image
+
+
+
+def main():
+
+    readConfig()
+     # start cameras
+    image_width = 640
+    image_height = 480
     cameras = []
     streams = []
     for cameraConfig in cameraConfigs:
@@ -448,12 +313,27 @@ if __name__ == "__main__":
     # Allocating new images is very expensive, always try to preallocate
     img = np.zeros(shape=(image_height, image_width, 3), dtype=np.uint8)
 
+    # initialize network tables
+    # start NetworkTables
+    ntinst = NetworkTablesInstance.getDefault()
+    if server:
+        print("Setting up NetworkTables server")
+        ntinst.startServer()
+    else:
+        print("Setting up NetworkTables client for team {}".format(team))
+        ntinst.startClientTeam(team)
+
+    nettable = ntinst.getTable("Shuffleboard").getSubTable('Vision')
+    nettable.getEntry('connected').setValue('true')
+
+    # allow the camera to warmup
+    time.sleep(0.1)
+
     # loop forever
     while True:
         # Tell the CvSink to grab a frame from the camera and put it
         # in the source image.  If there is an error notify the output.
         timestamp, img = cvSink.grabFrame(img)
-        frame = img
         #frame = flipImage(img)
         if timestamp == 0:
             # Send the output the error.
@@ -461,9 +341,15 @@ if __name__ == "__main__":
             # skip the rest of the current iteration
             continue
 
-
-        #threshold = threshold_video(frame)
-        #processed = findContours(frame, threshold)
+        frame = picamvidopencv(img, nettable)
         # (optional) send some image back to the dashboard
-        outputStream.putFrame(img)
+        outputStream.putFrame(frame)
 
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--show', action='store_true', dest='show', default=True)
+    parser.add_argument('--usekb', action='store_true', dest='usekb', default=False)
+    options = parser.parse_args()
+    main()
