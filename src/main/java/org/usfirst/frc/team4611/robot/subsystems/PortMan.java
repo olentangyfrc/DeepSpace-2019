@@ -111,6 +111,8 @@ public class PortMan {
     public int acquirePort(String label, String requestedDevice) throws Exception {
         String device   = allocatedPorts.get(label);
 
+        System.out.println(requestedDevice + " asking for " + label);
+
         if (device != null) {
             throw new Exception ("Port [" + label + "] already allocated to device [" + device + "]");
         }
@@ -165,6 +167,7 @@ public class PortMan {
             case can_13_label: return 13;
             case can_21_label: return 21;
             case can_17_label: return 17;
+            case can_33_label: return 33;
 
         }
 

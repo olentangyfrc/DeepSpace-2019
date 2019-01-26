@@ -15,6 +15,7 @@ public class TakeInBall extends Command {
 
     @Override
     protected void execute() {
+        System.out.println("alive");
         wheelIntake.moveIntake(480);
     }
 

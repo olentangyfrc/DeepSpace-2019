@@ -12,12 +12,16 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
+import org.usfirst.frc.team4611.robot.subsystems.sparktest.sparktest;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.EjectBall;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBallSlow;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
@@ -49,6 +53,7 @@ public class SubsystemFactory {
     private WheelIntake intake;
     private Elevator elevator;
     private DoubleWheel doubleWheel;
+    private sparktest spark;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -77,6 +82,8 @@ public class SubsystemFactory {
             // subsystems common to every bot
             initCommon();
 
+
+
             if (botMacAddress.equals(jankyMacAddress)) {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
@@ -85,13 +92,14 @@ public class SubsystemFactory {
                 initWonky();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
-            } else if (botMacAddress.equals(turboMacAddress)) {
+            } else if (botMacAddress == null || botMacAddress.equals("") || botMacAddress.equals(turboMacAddress)) {
                 initTurbo();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
         } catch (Exception e) {
             logger.throwing(SubsystemFactory.class.getName(), "init", e);
+            e.printStackTrace();
         }
     }
 
@@ -123,7 +131,7 @@ public class SubsystemFactory {
      * init subsytems specific to Zippy
      */
     private void initZippy() throws Exception {
-        logger.info("initalizing Zippy");
+        System.out.println("initalizing Zippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
     }
@@ -132,9 +140,14 @@ public class SubsystemFactory {
      * init subsytems specific to Turbo
      */
     private void initTurbo() throws Exception {
-        logger.info("initalizing Turbo");
+        System.out.println("initalizing Turbo");
         driveTrain = new TurboTankDrive();
         driveTrain.init(portMan);
+        intake = new WheelIntake();
+        intake.init(portMan);
+        oi.bind(new EjectBall(), OI.LeftJoyButton1, OI.WhileHeld);
+        oi.bind(new TakeInBallSlow(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton3, OI.WhileHeld);
     }
 
     /**
@@ -195,5 +208,9 @@ public class SubsystemFactory {
 
     public DoubleWheel getDoubleWheel(){
         return doubleWheel;
+    }
+
+    public sparktest getSparkTest() {
+        return spark;
     }
 }

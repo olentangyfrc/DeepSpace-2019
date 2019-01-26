@@ -107,7 +107,7 @@ public class OI {
      */
     public void bind(Command c, int button, int action) throws Exception {
         Joystick    j;
-
+        System.out.println(c.getName() + " " + button);
         // see constants in this file LeftJoyButton1  = 1;
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
