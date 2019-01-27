@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.vision.commands;
 
-import org.usfirst.frc.team4611.robot.Robot;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -26,15 +25,17 @@ public class PigeonAdjust extends Command {
 	private Direction dir;
 	 
 	public PigeonAdjust() { 
+		System.out.println("BigeonAdjust");
 		nav = SubsystemFactory.getInstance().getNavigation();
 		drive = SubsystemFactory.getInstance().getDriveTrain();
 		vis = SubsystemFactory.getInstance().getVision();
-		this.requires(drive);
-		this.requires(nav);
-		this.requires(vis);
+		//this.requires(drive);
+		//this.requires(nav);
+		//this.requires(vis);
 	}
 	
 	protected void initialize() {
+		System.out.println("initialize");
 		angle = vis.getAngle();
 		startingPigeonAngle = nav.getCurentHeading();
 
@@ -54,6 +55,7 @@ public class PigeonAdjust extends Command {
 
 	
 	protected void execute() {
+		System.out.println("execute");
 		initialize();
 
 		// where are we now?
