@@ -14,15 +14,19 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.PrintLineTracker;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
+
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
@@ -153,22 +157,18 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("initializing Football");
-        //kicker = new Kicker();
-        //kicker.init(portMan);
-
-        elevator = new Elevator();
-        elevator.init(portMan);
+        // kicker = new Kicker();
+        // kicker.init(portMan);
+        
+        lineTracker = new LineTracker();
+        lineTracker.init();
 
         vision  = new Vision();
         vision.init();
 
-        //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+        oi.bind(new PrintLineTracker(), OI.LeftJoyButton1, OI.WhenPressed);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        //oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveElevator(.7), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-.7), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
+        // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){
