@@ -1,73 +1,89 @@
 package org.usfirst.frc.team4611.robot;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
+import org.usfirst.frc.team4611.robot.OzoneJavaLogger;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends TimedRobot {
 
-	public String motorControllerType = "r";
+	private static Logger logger;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
-	public static boolean isOn;
-	/// public Command autonomousCommand;
 
 	@Override
 	public void robotInit() {
-		NetTableManager.startNetworkTables();
-		OzoneJavaLogger.getInstance().init(Level.FINE);
 		try {
+			logger	= Logger.getLogger(Robot.class.getName());
+			logger.entering(Robot.class.getName(), "robotInit()");
+
+			NetTableManager.startNetworkTables();
+			OzoneJavaLogger.getInstance().init(Level.FINE);
+		
 			SubsystemFactory.getInstance().init();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.severe(e.getMessage());
 			System.exit(1);
+		} finally {
+			logger.exiting(Robot.class.getName(), "robotInit()");
 		}
 	}
 
 	@Override
 	public void disabledInit() {
-		isOn = false;
+		logger.entering(Robot.class.getName(), "disabledInit()");
+		logger.exiting(Robot.class.getName(), "disabledInit()");
 	}
 
 	@Override
 	public void disabledPeriodic() {
+		logger.entering(Robot.class.getName(), "disabledPeriodic()");
 		Scheduler.getInstance().run();
+		logger.exiting(Robot.class.getName(), "disabledPeriodic()");
 	}
 
 	@Override
 	public void autonomousInit() {
-		
+		logger.entering(Robot.class.getName(), "autonomousInit()");
+		logger.exiting(Robot.class.getName(), "autonomousInit()");
 	}
 
 	@Override
 	public void autonomousPeriodic() {
+		logger.entering(Robot.class.getName(), "autonomousPeriodic()");
 		Scheduler.getInstance().run();
+		logger.exiting(Robot.class.getName(), "autonomousPeriodic()");
 	}
-
-	Potentiometer pot = new Potentiometer(1);
 
 	@Override
 	public void teleopInit() {
+		logger.entering(Robot.class.getName(), "teleopInit()");
+		logger.exiting(Robot.class.getName(), "teleopInit()");
 	}
+
 	@Override
 	public void teleopPeriodic() {
+		logger.entering(Robot.class.getName(), "teleopPeriodic()");
 		Scheduler.getInstance().run();
+		logger.exiting(Robot.class.getName(), "teleopPeriodic()");
 	}
 
 	@Override
 	public void testInit() {
+		logger.entering(Robot.class.getName(), "testInit()");
+		logger.exiting(Robot.class.getName(), "testInit()");
 	}
 
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+		logger.entering(Robot.class.getName(), "testPeriodic()");
+		logger.exiting(Robot.class.getName(), "testPeriodic()");
 	}
 }
