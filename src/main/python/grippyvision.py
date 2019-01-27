@@ -158,6 +158,8 @@ def findTargets(contours, frame):
             # If contour angles are opposite
             if (np.sign(tilt1) != np.sign(tilt2)):
                 centerOfTarget = math.floor((cx1 + cx2) / 2)
+                print ("targetYaw [" + str(calculateYaw(centerOfTarget, centerX, H_FOCAL_LENGTH)) + "]")
+                table.getSubTable('Vision').getEntry('targetYaw').setValue(len(targets))
                 #ellipse negative tilt means rotated to right
                 #Note: if using rotated rect (min area rectangle)
                 #      negative tilt means rotated to left
@@ -399,7 +401,7 @@ if __name__ == "__main__":
     else:
         print("Setting up NetworkTables client for team {}".format(team))
         ntinst.startClientTeam(team)
-    table = ntinst.getTable("Ozone Values")
+    table = ntinst.getTable("Shuffleboard")
     table.getSubTable('Vision').getEntry('connected').setValue('true')
 
     # start cameras

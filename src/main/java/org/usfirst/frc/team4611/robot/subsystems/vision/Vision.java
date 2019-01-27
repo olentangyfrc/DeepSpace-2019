@@ -33,6 +33,10 @@ public class Vision extends Subsystem{
         angle = a;
         angleEntry.setDouble(a);
     }
+
+    public double getAngle(){
+        return angle;
+    }
     
     public boolean isCentered() {
         return angle == 0.0;

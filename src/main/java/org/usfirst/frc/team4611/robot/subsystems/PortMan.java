@@ -163,8 +163,42 @@ public class PortMan {
             case can_11_label: return 11;
             case can_12_label: return 12;
             case can_13_label: return 13;
-            case can_21_label: return 21;
+            case can_14_label: return 14;
+            case can_15_label: return 15;
+            case can_16_label: return 16;
             case can_17_label: return 17;
+            case can_18_label: return 18;
+            case can_19_label: return 19;
+            case can_20_label: return 20;
+            case can_21_label: return 21;
+            case can_22_label: return 22;
+            case can_23_label: return 23;
+            case can_24_label: return 24;
+            case can_25_label: return 25;
+            case can_26_label: return 26;
+            case can_27_label: return 27;
+            case can_28_label: return 28;
+            case can_29_label: return 29;
+            case can_30_label: return 30;
+            case can_31_label: return 31;
+            case can_32_label: return 32;
+            case can_33_label: return 33;
+            case can_34_label: return 34;
+            case can_35_label: return 35;
+            case can_36_label: return 36;
+            case can_37_label: return 37;
+            case can_38_label: return 38;
+            case can_39_label: return 39;
+            case can_40_label: return 40;
+            case can_41_label: return 42;
+            case can_42_label: return 42;
+            case can_43_label: return 43;
+            case can_44_label: return 44;
+            case can_45_label: return 45;
+            case can_46_label: return 46;
+            case can_47_label: return 47;
+            case can_48_label: return 48;
+            case can_49_label: return 49;
 
         }
 
