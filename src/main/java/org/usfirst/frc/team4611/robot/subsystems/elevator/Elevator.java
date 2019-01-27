@@ -24,6 +24,9 @@ public class Elevator extends Subsystem {
     private ElevatorUpdater speedUpdater;
     private Timer speedTimer;
 
+    private boolean upperSoftLimitToggle = false;
+    private boolean lowerSoftLimitToggle = false;
+
     public Elevator(){
 
     }
@@ -32,18 +35,19 @@ public class Elevator extends Subsystem {
     
         logger.info("initializing");
 
-        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Elevator.elevatorLeftTalon"));
+        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
-        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardStopTopA"));
-        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.hardStopTopB"));
-        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softStopTopA"));
-        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.softStopTopB"));
+        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardLimitTop"));
+        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.softLimitTop"));
+        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softLimitBottom"));
+        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.hardLimitBottom"));
 
         speedUpdater = new ElevatorUpdater(this);
         speedTimer = new Timer();
         speedTimer.scheduleAtFixedRate(speedUpdater, 0, 20);
 
         elevatorRightTalon.follow(elevatorLeftTalon);
+        elevatorRightTalon.setInverted(true);
 
         elevatorLeftTalon.config_kP(0, .5, 0);
         elevatorLeftTalon.config_kI(0, 0, 0);
@@ -57,33 +61,37 @@ public class Elevator extends Subsystem {
 
     public void move(double speed) {
 
-        if(hardLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            }
-        } else if(softLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
-            }
-        } else if(softLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
-            }
-        } else if(hardLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            }
-        } else {
-            elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
+        if(!softLimitBottom.get()) {
+            lowerSoftLimitToggle = speed < 0;
         }
+
+        if(!softLimitTop.get()) {
+            upperSoftLimitToggle = speed > 0;
+        }
+        
+        if(!hardLimitTop.get()) {
+            if(speed >= 0) {
+                speed = 0;
+            }
+        }
+        if(upperSoftLimitToggle) {
+            if(speed >= 0) {
+                speed = speed/2;
+            }
+        }
+        if(lowerSoftLimitToggle) {
+            if(speed <= 0) {
+                speed = speed/2;
+            }
+        }
+        if(!hardLimitBottom.get()) {
+            if(speed <= 0) {
+                speed = 0;
+            }
+        }
+
+        elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
+
     }
 
     public void moveToPos(double position) {

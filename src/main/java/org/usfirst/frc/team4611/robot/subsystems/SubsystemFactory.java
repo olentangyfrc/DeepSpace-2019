@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -20,7 +21,8 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PigeonAdjust;
-
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
@@ -48,6 +50,7 @@ public class SubsystemFactory {
     private Vision vision;
     private WheelIntake intake;
     private Elevator elevator;
+    private DoubleWheel doubleWheel;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -150,15 +153,22 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("initializing Football");
-        kicker = new Kicker();
-        kicker.init(portMan);
+        //kicker = new Kicker();
+        //kicker.init(portMan);
+
+        elevator = new Elevator();
+        elevator.init(portMan);
 
         vision  = new Vision();
         vision.init();
 
         //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        //oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveElevator(.7), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-.7), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     }
 
     public DriveTrain getDriveTrain(){
@@ -199,5 +209,9 @@ public class SubsystemFactory {
     
     public Elevator getElevator(){
         return elevator;
+    }
+
+    public DoubleWheel getDoubleWheel(){
+        return doubleWheel;
     }
 }
