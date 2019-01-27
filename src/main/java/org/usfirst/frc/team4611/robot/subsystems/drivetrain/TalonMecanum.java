@@ -210,8 +210,8 @@ public class TalonMecanum extends DriveTrain {
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
 		NetTableManager.updateValues(mecanumSubtable, values);
-		logger.info(""+(frontRight.getSelectedSensorVelocity()));
-		logger.fine(""+frontRight.getBusVoltage());
+		//logger.info(""+(frontRight.getSelectedSensorVelocity()));
+		//logger.fine(""+frontRight.getBusVoltage());
 	}
 
 	public void moveAtSpeed(double speed1, double speed2, double speed3, double speed4) {
