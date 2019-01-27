@@ -7,12 +7,15 @@ import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class WheelIntake extends Subsystem {
+
+    public double ejectBallDuration = 0.3;
 
     private WPI_TalonSRX wheelIntakeTalon;
     private double pVal=0.5;
@@ -31,8 +34,8 @@ public class WheelIntake extends Subsystem {
     private NetworkTableEntry wheelIntakeSoftThrow;
     private NetworkTableEntry wheelIntakeAdjustSpeed;
 
-    private AnalogInput switch1;
-    private AnalogInput switch2;
+    private DigitalInput switch1;
+    private DigitalInput switch2;
 
     private String spinSpeed = "Wheel Intake Spin Initialize";
     private String attackSpeed = "Wheel Intake Attack Initialize";
@@ -41,7 +44,8 @@ public class WheelIntake extends Subsystem {
     
 
     public WheelIntake() {
-
+        switch1 = new DigitalInput(0);
+        switch2 = new DigitalInput(1);
     }
    
     
@@ -87,6 +91,14 @@ public class WheelIntake extends Subsystem {
 
 
 
+    }
+
+    public boolean isSwitch1Set(){
+        return switch1.get();
+    }
+
+    public boolean isSwitch2Set(){
+        return switch2.get();
     }
 
 

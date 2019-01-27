@@ -19,6 +19,8 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.EjectBall;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.IntakeGroup;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TopLoader;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
@@ -140,9 +142,10 @@ public class SubsystemFactory {
         driveTrain.init(portMan);
         intake = new WheelIntake();
         intake.init(portMan);
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
         oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new StopWheelIntake(), OI.LeftJoyButton3, OI.WhenReleased);
+        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
+        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
         oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
