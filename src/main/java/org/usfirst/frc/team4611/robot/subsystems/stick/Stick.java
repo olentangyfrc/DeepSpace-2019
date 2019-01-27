@@ -1,14 +1,21 @@
 package org.usfirst.frc.team4611.robot.subsystems.stick;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.RetractHatch;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Stick extends Subsystem {
 
     private DoubleSolenoid pusher;
+
+    private ShuffleboardTab tab;
+	private NetworkTableEntry stickStatus;
 
     public Stick() {  
     }
@@ -19,14 +26,22 @@ public class Stick extends Subsystem {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        tab = Shuffleboard.getTab("Health Map");
+		NetTableManager.updateValue("Health Map", "StickInitialize", true);
+
+		stickStatus = tab.add("Stick Engaged", false).getEntry();
     } 
 
     public void pushHatch() {
         pusher.set(DoubleSolenoid.Value.kForward);
+
+        stickStatus.setBoolean(true);
     }
 
     public void retractPistons() {
         pusher.set(DoubleSolenoid.Value.kReverse);
+
+        stickStatus.setBoolean(false);
     }
 
     public boolean isRetracted() {
