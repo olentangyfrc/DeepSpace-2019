@@ -14,7 +14,7 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.PrintLineTracker;
+
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
@@ -159,14 +159,9 @@ public class SubsystemFactory {
         logger.info("initializing Football");
         // kicker = new Kicker();
         // kicker.init(portMan);
-        
-        lineTracker = new LineTracker();
-        lineTracker.init();
 
         vision  = new Vision();
         vision.init();
-
-        oi.bind(new PrintLineTracker(), OI.LeftJoyButton1, OI.WhenPressed);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
         // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
