@@ -6,23 +6,23 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeStage3 extends Command {
+public class StopWheelIntake extends Command {
 
     private WheelIntake wheelIntake;
+    private String attackSpeed = "Wheel Intake Attack Initialize";
 
-    public IntakeStage3() {
+    public StopWheelIntake() {
         wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
     }
 
     @Override
     protected void execute() {
-        System.out.println("stage 3");
-        wheelIntake.moveIntake(-.05);
+        wheelIntake.moveIntake(0);
     }
 
     @Override
     protected boolean isFinished() {
-        return !wheelIntake.isSwitch1Set();
+        return true;
     }
     
 }
