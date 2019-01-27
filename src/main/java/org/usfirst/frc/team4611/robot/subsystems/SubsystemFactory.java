@@ -20,9 +20,9 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
-
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
@@ -78,7 +78,7 @@ public class SubsystemFactory {
 
             // subsystems common to every bot
             initCommon();
-
+            System.out.println("["+botMacAddress+"]");
             if (botMacAddress.equals(jankyMacAddress)) {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
@@ -126,8 +126,17 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
+        System.out.println("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
+        
+        vision = new Vision();
+        vision.init();
+
+        nav = new Navigation();
+        nav.init(portMan);
+        
+        oi.bind(new PigeonAdjust(), OI.LeftJoyButton1, OI.WhenPressed);
     }
     
     /**
