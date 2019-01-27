@@ -40,6 +40,10 @@ public class Vision extends Subsystem{
         angle = a;
         angleEntry.setDouble(a);
     }
+
+    public double getAngle(){
+        return angle;
+    }
     
     public void setDistance(double d){
         distance = d;

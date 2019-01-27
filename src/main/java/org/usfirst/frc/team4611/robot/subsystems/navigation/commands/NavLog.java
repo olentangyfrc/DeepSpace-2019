@@ -13,6 +13,7 @@ public class NavLog extends Command {
 
     public NavLog(){
         navigation = SubsystemFactory.getInstance().getNavigation();
+        requires(navigation);
     }
 
     @Override
