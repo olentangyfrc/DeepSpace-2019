@@ -19,10 +19,8 @@ public class LineTracker extends Subsystem
 
     @Override
     protected void initDefaultCommand() {
-
     }
 
     public void init() {
-
     }
-}
+} 
