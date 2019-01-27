@@ -252,4 +252,12 @@ public class TalonMecanum extends DriveTrain {
 
 	}
 
+	@Override
+	public void moveSideways(double pu) {
+		frontRight.set(ControlMode.MotionMagic, pu);
+		backRight.set(ControlMode.MotionMagic, -pu);
+		frontLeft.set(ControlMode.MotionMagic, pu);
+		backLeft.set(ControlMode.MotionMagic, -pu);
+	}
+
 }

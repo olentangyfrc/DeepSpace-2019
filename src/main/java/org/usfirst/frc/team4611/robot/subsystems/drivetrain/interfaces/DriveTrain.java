@@ -116,4 +116,24 @@ public abstract class DriveTrain extends Subsystem {
     public abstract void activateTurbo();
 
     public abstract void deactivateTurbo();
+
+    public abstract void moveSideways(double pu);
+    
+    public void configTalonsSideways() {
+       
+        backLeft.setSelectedSensorPosition(0, 0, 0);
+		backRight.setSelectedSensorPosition(0, 0, 0);
+		frontLeft.setSelectedSensorPosition(0, 0, 0);
+        frontRight.setSelectedSensorPosition(0, 0, 0);
+        
+		backRight.config_kP(0, 1, 0);
+    	backLeft.config_kP(0, 1, 0);
+    	frontRight.config_kP(0, 1, 0);
+        frontLeft.config_kP(0, 1, 0);
+        
+    	backRight.configOpenloopRamp(5, 0);
+    	backLeft.configOpenloopRamp(5, 0);
+    	frontRight.configOpenloopRamp(5, 0);
+    	frontLeft.configOpenloopRamp(5, 0);
+    }
 }
