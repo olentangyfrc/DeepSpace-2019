@@ -5,6 +5,7 @@ import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -35,28 +36,39 @@ public class Elevator extends Subsystem {
     
         logger.info("initializing");
 
-        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Elevator.elevatorLeftTalon"));
-        elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
+        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
+        elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
         hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardLimitTop"));
         softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.softLimitTop"));
         softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softLimitBottom"));
         hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.hardLimitBottom"));
 
+        elevatorLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        elevatorRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+
         speedUpdater = new ElevatorUpdater(this);
         speedTimer = new Timer();
         speedTimer.scheduleAtFixedRate(speedUpdater, 0, 20);
-
-        elevatorRightTalon.follow(elevatorLeftTalon);
-        elevatorRightTalon.setInverted(true);
 
         elevatorLeftTalon.config_kP(0, .5, 0);
         elevatorLeftTalon.config_kI(0, 0, 0);
         elevatorLeftTalon.config_kD(0, 0, 0);
         elevatorLeftTalon.config_kF(0, 0, 0);
 
+        elevatorRightTalon.config_kP(0, .5, 0);
+        elevatorRightTalon.config_kI(0, 0, 0);
+        elevatorRightTalon.config_kD(0, 0, 0);
+        elevatorRightTalon.config_kF(0, 0, 0);
+
         elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
         elevatorLeftTalon.configMotionAcceleration(4096,0);
+        elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
+        elevatorRightTalon.configMotionAcceleration(4096,0);
 
+        this.resetEncoders();
+
+        elevatorRightTalon.follow(elevatorLeftTalon);
+        elevatorRightTalon.setInverted(true);
     }
 
     public void move(double speed) {
@@ -90,7 +102,9 @@ public class Elevator extends Subsystem {
             }
         }
 
-        elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
+        logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
+        logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
+        elevatorLeftTalon.set(ControlMode.Velocity, speed * 1000);
 
     }
 

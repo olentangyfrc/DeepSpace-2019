@@ -119,6 +119,14 @@ public class SubsystemFactory {
         logger.info("initalizing Wonky");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
+        oi.bind(new MoveElevator(.7), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-.7), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     } 
 
     /**
