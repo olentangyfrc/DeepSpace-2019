@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class WheelIntake extends Subsystem {
 
+    public double ejectBallDuration = 0.3;
+
     private WPI_TalonSRX wheelIntakeTalon;
     private double pVal=0.5;
 
@@ -35,9 +37,6 @@ public class WheelIntake extends Subsystem {
     private DigitalInput switch1;
     private DigitalInput switch2;
 
-    private Counter switch1Counter;
-    private Counter switch2Counter;
-
     private String spinSpeed = "Wheel Intake Spin Initialize";
     private String attackSpeed = "Wheel Intake Attack Initialize";
     private String softSpeed = "Wheel Intake SoftThrow Initialize";
@@ -47,12 +46,6 @@ public class WheelIntake extends Subsystem {
     public WheelIntake() {
         switch1 = new DigitalInput(0);
         switch2 = new DigitalInput(1);
-
-        switch1Counter = new Counter(switch1);
-        switch2Counter = new Counter(switch2);
-
-        switch1Counter.reset();
-        switch2Counter.reset();
     }
    
     
@@ -101,13 +94,10 @@ public class WheelIntake extends Subsystem {
     }
 
     public boolean isSwitch1Set(){
-        //return switch1Counter.get() > 0;
-        //System.out.println(switch1.get());
         return switch1.get();
     }
 
     public boolean isSwitch2Set(){
-        //return switch2Counter.get() > 0;
         return switch2.get();
     }
 

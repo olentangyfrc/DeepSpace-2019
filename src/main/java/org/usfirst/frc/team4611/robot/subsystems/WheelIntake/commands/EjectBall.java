@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class EjectBall extends Command {
 
-    private final double duration = .3;
+    private double duration;
     private double currentDuration;
     private WheelIntake wheelIntake;
     private String attackSpeed = "Wheel Intake Attack Initialize";
@@ -16,6 +16,7 @@ public class EjectBall extends Command {
     public EjectBall() {
         currentDuration = 0;
         wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
+        duration = wheelIntake.ejectBallDuration;
     }
 
     @Override
@@ -36,7 +37,6 @@ public class EjectBall extends Command {
 
     @Override
     protected boolean isFinished() {
-        System.out.println(currentDuration);
         if (currentDuration >= duration){
             return true;
         } else {

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class TopLoader extends CommandGroup {

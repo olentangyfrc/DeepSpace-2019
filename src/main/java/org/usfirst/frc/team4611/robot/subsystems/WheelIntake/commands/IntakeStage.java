@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 
@@ -20,7 +19,6 @@ public class IntakeStage extends Command {
 
     @Override
     protected void execute() {
-        System.out.println(speed);
         wheelIntake.moveIntake(speed);
     }
 

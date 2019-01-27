@@ -146,7 +146,6 @@ public class SubsystemFactory {
         oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
         oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
         oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
-        //oi.bind(new StopWheelIntake(), OI.LeftJoyButton3, OI.WhenReleased);
         oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
