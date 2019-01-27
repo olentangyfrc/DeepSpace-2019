@@ -15,6 +15,8 @@ public class StrafeVision extends Command {
     private Vision vision;  
     private DriveTrain driveTrain;
 
+    private double maxRPM = 1500;
+
     public StrafeVision() {
 
         logger.entering(StrafeVision.class.getName(), "StrafeVision()");
@@ -25,24 +27,41 @@ public class StrafeVision extends Command {
         driveTrain.configTalonsSideways();
 
         logger.exiting(StrafeVision.class.getName(), "StrafeVision()");
+        
+        this.requires(driveTrain);
     }
 
     @Override
     protected void execute() {
         
-        logger.entering(StrafeVision.class.getName(), "execute()");
+        logger.info("execute() ENTERING");
 
-        driveTrain.moveSideways(vision.getDistance());
+        logger.info("Is Tape Found " + vision.isTapeFound() + " Distance from Target: " + vision.getDistance() + " Current Angle:" + vision.getAngle());
 
-        logger.exiting(StrafeVision.class.getName(), "execute()");
+		// how do we respond to that error?
+		double pVal = Math.abs(vision.getAngle()) * .06;
+		
+		// set our speed to that adjusted speed
+		double speed = Math.min(maxRPM, maxRPM * pVal);
+
+
+        if(vision.getAngle() > 0) {
+            logger.info("execute() : Moving right");
+            driveTrain.moveSideways(-speed);
+        } else if(vision.getAngle() < 0) {
+            logger.info("execute() : Moving left");
+            driveTrain.moveSideways(speed);
+        }
+
+        logger.info("execute() LEAVING");
     }
 
     @Override
     protected boolean isFinished() {
         
-        logger.info("isFinished :" + vision.getDistance());
+        logger.info("isFinished : " + (Math.abs(vision.getAngle()) <= 3) + " with angle: " + vision.getAngle());
 
-        return vision.getDistance() <= 200;
+        return Math.abs(vision.getAngle()) <= 3;
     }
 
 }

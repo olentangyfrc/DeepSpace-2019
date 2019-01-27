@@ -19,6 +19,7 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
@@ -136,7 +137,7 @@ public class SubsystemFactory {
         nav = new Navigation();
         nav.init(portMan);
         
-        oi.bind(new PigeonAdjust(), OI.LeftJoyButton1, OI.WhenPressed);
+        oi.bind(new StrafeVision(), OI.LeftJoyButton1, OI.WhenPressed);
     }
     
     /**

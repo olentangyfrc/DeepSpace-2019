@@ -253,11 +253,22 @@ public class TalonMecanum extends DriveTrain {
 	}
 
 	@Override
-	public void moveSideways(double pu) {
-		frontRight.set(ControlMode.MotionMagic, pu);
-		backRight.set(ControlMode.MotionMagic, -pu);
-		frontLeft.set(ControlMode.MotionMagic, pu);
-		backLeft.set(ControlMode.MotionMagic, -pu);
+	public void moveSideways(double velocity) {
+
+		logger.info("moveSideways(" + velocity + ") ENTERING");
+
+		logger.info("Velocity being sent to frontRight/Left:" + -velocity);
+		logger.info("Velocity being sent to backRight/Left:" + velocity);
+
+		frontRight.set(ControlMode.Velocity, -velocity);
+		backRight.set(ControlMode.Velocity, velocity);
+		frontLeft.set(ControlMode.Velocity, -velocity);
+		backLeft.set(ControlMode.Velocity, velocity);
+		
+		logger.info("moveSideways(" + velocity + ") EXITING");
+
 	}
+
+
 
 }
