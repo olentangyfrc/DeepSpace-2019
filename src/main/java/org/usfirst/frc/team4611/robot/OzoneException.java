@@ -24,9 +24,9 @@ public class OzoneException extends Exception {
 
         if (exceptionMessageEntry == null) {
             exceptionMessageEntry = Shuffleboard.getTab("Health Tab").add("ExceptionMessage", "No Exception").getEntry();
-            exceptionIndicatorEntry = Shuffleboard.getTab("Health Tab").add("ExceptionIndicator", false).getEntry();
+            exceptionIndicatorEntry = Shuffleboard.getTab("Health Tab").add("ExceptionIndicator", true).getEntry();
         }
         exceptionMessageEntry.setString(message);
-        exceptionIndicatorEntry.setBoolean(true);
+        exceptionIndicatorEntry.setBoolean(false);
     }
 }

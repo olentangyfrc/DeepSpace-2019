@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.HashMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -20,6 +22,8 @@ public class OI {
 
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
+
+    private HashMap<Integer, String> allocatedJoyButtons = new HashMap<Integer, String>();
 
     private OI() {
         // private constructor to enforce Singleton pattern
@@ -105,20 +109,30 @@ public class OI {
      * @param button - which Joystick button to bind
      * @param action - the button action that invokes the Command
      */
-    public void bind(Command c, int button, int action) throws Exception {
+    public void bind(Command c, int button, int action) throws OzoneException {
         Joystick    j;
         System.out.println("Binding command to " + button + " with action " + action);
         // see constants in this file LeftJoyButton1  = 1;
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
         // Joystick button values 11-20 are for righ joystick
+        
+        if(allocatedJoyButtons.get(button) != null) {
+            throw new OzoneException(
+                (button >= 1 && button <= 11 ? "Left" : "Right") +
+                 " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button) + 
+                 "] is already taken by [" + allocatedJoyButtons.get(button) + "] when asked for by [ " + c.getClass().getName() + "]");
+        }
+        
+        allocatedJoyButtons.put(button, c.getClass().getName());
+
         if (button >= 1 && button <= 11) {
             j   = leftJoy;
         } else if (button >= 12 && button <= 21 ) {
             j   = rightJoy;
             button  -= 11; // adjust the actual button. joystick button ids start at 1
         } else {
-            throw new Exception ("Unrecognized joystick button [" + button + "]");
+            throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }
 
         Button  b = new JoystickButton(j, button);
@@ -141,7 +155,7 @@ public class OI {
                 b.cancelWhenPressed(c);
                 return;
             default:
-                throw new Exception ("Unrecognized Button Action [" + action + "]");
+                throw new OzoneException ("Unrecognized Button Action [" + action + "]");
         }
     }
 
