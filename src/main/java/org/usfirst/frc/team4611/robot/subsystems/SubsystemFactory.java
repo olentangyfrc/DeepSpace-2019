@@ -3,28 +3,24 @@ package org.usfirst.frc.team4611.robot.subsystems;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
+import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
-import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
-import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PigeonAdjust;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
@@ -74,7 +70,7 @@ public class SubsystemFactory {
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         if (botMacAddress == null) {
-            throw new Exception("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
+            throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
 
         try {
@@ -98,7 +94,7 @@ public class SubsystemFactory {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
         } catch (Exception e) {
-            logger.throwing(SubsystemFactory.class.getName(), "init", e);
+            throw new OzoneException(e.getMessage());
         }
     }
 
