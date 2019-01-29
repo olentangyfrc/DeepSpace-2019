@@ -2,6 +2,8 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.team4611.robot.OzoneException;
+
 /**
  * Portman provides a control mechanism for subsystems to acquire ports for their
  * devices. It does it my keeping track of ports that have been allocated and throws
@@ -108,11 +110,11 @@ public class PortMan {
         allocatedPorts  = new HashMap<String, String> ();
     }
 
-    public int acquirePort(String label, String requestedDevice) throws Exception {
+    public int acquirePort(String label, String requestedDevice) throws OzoneException {
         String device   = allocatedPorts.get(label);
 
         if (device != null) {
-            throw new Exception ("Port [" + label + "] already allocated to device [" + device + "]");
+            throw new OzoneException ("Port [" + label + "] already allocated to device [" + device + "] when asked for by [" + requestedDevice + "]");
         }
         // remember that we allocated it
         allocatedPorts.put(label, requestedDevice);
@@ -202,6 +204,6 @@ public class PortMan {
 
         }
 
-        throw new Exception ("Unknown port identifier [" + label + "]") ;
+        throw new OzoneException ("Unknown port identifier [" + label + "]") ;
     }
 }
