@@ -118,10 +118,10 @@ public class OI {
         // Joystick button values 11-20 are for righ joystick
         
         if(allocatedJoyButtons.get(button) != null) {
-            throw new OzoneException(
-                (button >= 1 && button <= 11 ? "Left" : "Right") +
+            throw new OzoneException((button >= 1 && button <= 11 ? "Left" : "Right") +
                  " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button) + 
-                 "] is already taken by [" + allocatedJoyButtons.get(button) + "] when asked for by [ " + c.getClass().getName() + "]");
+                 "] is already taken by [" + allocatedJoyButtons.get(button) + 
+                 "] when asked for by [ " + c.getClass().getName() + "]");
         }
         
         allocatedJoyButtons.put(button, c.getClass().getName());
