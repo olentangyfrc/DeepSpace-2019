@@ -110,7 +110,7 @@ public class PortMan {
         allocatedPorts  = new HashMap<String, String> ();
     }
 
-    public int acquirePort(String label, String requestedDevice) throws Exception {
+    public int acquirePort(String label, String requestedDevice) throws OzoneException {
         String device   = allocatedPorts.get(label);
 
         if (device != null) {
@@ -204,6 +204,6 @@ public class PortMan {
 
         }
 
-        throw new Exception ("Unknown port identifier [" + label + "]") ;
+        throw new OzoneException ("Unknown port identifier [" + label + "]") ;
     }
 }
