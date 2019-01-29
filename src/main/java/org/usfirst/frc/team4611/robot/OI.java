@@ -19,7 +19,8 @@ public class OI {
 
     private Joystick leftJoy;
     private Joystick rightJoy;
-
+    private Joystick auxJoy;
+    
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
 
@@ -61,6 +62,18 @@ public class OI {
     public static final int RightJoyButton10  = 21;
     public static final int RightJoyButton11  = 22;
 
+    public static final int AuxJoyButton1  = 23;
+    public static final int AuxJoyButton2  = 24;
+    public static final int AuxJoyButton3  = 25;
+    public static final int AuxJoyButton4  = 26;
+    public static final int AuxJoyButton5  = 27;
+    public static final int AuxJoyButton6  = 28;
+    public static final int AuxJoyButton7  = 29;
+    public static final int AuxJoyButton8  = 30;
+    public static final int AuxJoyButton9  = 31;
+    public static final int AuxJoyButton10  = 32;
+    public static final int AuxJoyButton11  = 33;
+
     public static final int WhenPressed         = 1;
     public static final int WhenReleased        = 2;
     public static final int WhileHeld           = 3;
@@ -70,6 +83,7 @@ public class OI {
     public void init() {
        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
+       auxJoy = new Joystick(2);
     }
 
     public double getLeftJoystickXValue() {
@@ -118,8 +132,8 @@ public class OI {
         // Joystick button values 11-20 are for righ joystick
         
         if(allocatedJoyButtons.get(button) != null) {
-            throw new OzoneException((button >= 1 && button <= 11 ? "Left" : "Right") +
-                 " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button) + 
+            throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
+                 " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
                  "] is already taken by [" + allocatedJoyButtons.get(button) + 
                  "] when asked for by [ " + c.getClass().getName() + "]");
         }
@@ -128,9 +142,12 @@ public class OI {
 
         if (button >= 1 && button <= 11) {
             j   = leftJoy;
-        } else if (button >= 12 && button <= 21 ) {
+        } else if (button >= 12 && button <= 22 ) {
             j   = rightJoy;
             button  -= 11; // adjust the actual button. joystick button ids start at 1
+        } else if (button >= 23 && button <= 33) {
+            j = auxJoy;
+            button -= 22;
         } else {
             throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }
