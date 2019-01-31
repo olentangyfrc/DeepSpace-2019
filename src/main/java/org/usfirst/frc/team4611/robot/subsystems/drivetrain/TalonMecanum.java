@@ -9,11 +9,11 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
-import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.TalonDriveTrain;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class TalonMecanum extends DriveTrain {
+public class TalonMecanum extends TalonDriveTrain {
 	private static Logger logger = Logger.getLogger(TalonMecanum.class.getName());
 
 	private int maxRPM = 1200; // Reduced from 1200
