@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -157,7 +158,7 @@ public class Elevator extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        this.setDefaultCommand(new StopElevator());
     }
 
     public void writeToShuffleboard() {

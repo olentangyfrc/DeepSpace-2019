@@ -165,8 +165,16 @@ public class SubsystemFactory {
         // kicker = new Kicker();
         // kicker.init(portMan);
 
+        elevator = new Elevator();
+        elevator.init(portMan);
+
         vision  = new Vision();
         vision.init();
+
+        oi.bind(new MoveElevator(200), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-200), OI.LeftJoyButton2, OI.WhileHeld);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
         // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }

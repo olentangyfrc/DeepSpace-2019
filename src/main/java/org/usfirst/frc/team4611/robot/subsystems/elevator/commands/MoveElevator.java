@@ -25,7 +25,13 @@ public class MoveElevator extends Command {
         return true;
     }
 
-    protected void canceled() {
+    @Override
+    public void cancel() {
+        elevator.move(0);
+    }
+
+    @Override
+    protected void interrupted() {
         elevator.move(0);
     }
 }

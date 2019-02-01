@@ -1,5 +1,9 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.logging.Logger;
+
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,6 +24,8 @@ public class OI {
     private Joystick leftJoy;
     private Joystick rightJoy;
     private Joystick auxJoy;
+
+    static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
     
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
@@ -136,9 +142,10 @@ public class OI {
                  " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
                  "] is already taken by [" + allocatedJoyButtons.get(button) + 
                  "] when asked for by [ " + c.getClass().getName() + "]");
+                 //logger.log("MULTI BUTTON LINKAGE");
         }
         
-        //allocatedJoyButtons.put(button, c.getClass().getName());
+        allocatedJoyButtons.put(button, c.getClass().getName());
 
         if (button >= 1 && button <= 11) {
             j   = leftJoy;
