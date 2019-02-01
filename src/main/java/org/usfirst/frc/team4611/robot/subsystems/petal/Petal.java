@@ -45,7 +45,7 @@ public class Petal extends Subsystem {
 			petalStatus.setBoolean(false);
 
 		} else {
-			
+
 			petalSole.set(DoubleSolenoid.Value.kForward);
 
 			petalStatus.setBoolean(true);
