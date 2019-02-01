@@ -22,6 +22,10 @@ public class MoveElevator extends Command {
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
+    }
+
+    protected void canceled() {
+        elevator.move(0);
     }
 }

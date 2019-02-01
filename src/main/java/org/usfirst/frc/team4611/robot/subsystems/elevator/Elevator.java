@@ -90,27 +90,31 @@ public class Elevator extends Subsystem {
         if(!hardLimitTop.get()) {
             if(speed >= 0) {
                 speed = 0;
+                logger.info("Hard Limit Top");
             }
         }
         if(upperSoftLimitToggle) {
             if(speed >= 0) {
                 speed = speed/2;
+                logger.info("Soft Limit Top");
             }
         }
         if(lowerSoftLimitToggle) {
             if(speed <= 0) {
                 speed = speed/2;
+                logger.info("Soft Limit Bottom");
             }
         }
         if(!hardLimitBottom.get()) {
             if(speed <= 0) {
                 speed = 0;
+                logger.info("Hard Limit Bottom");
             }
         }
 
-        logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
-        logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
-        elevatorLeftTalon.set(ControlMode.Velocity, speed * 1000);
+        //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
+        //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
+        elevatorLeftTalon.set(ControlMode.Velocity, speed);
 
     }
 
