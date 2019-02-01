@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -24,6 +26,8 @@ public class Elevator extends Subsystem {
 
     private ElevatorUpdater speedUpdater;
     private Timer speedTimer;
+
+    private Potentiometer pot;
 
     private boolean upperSoftLimitToggle = false;
     private boolean lowerSoftLimitToggle = false;
@@ -69,6 +73,8 @@ public class Elevator extends Subsystem {
 
         elevatorRightTalon.follow(elevatorLeftTalon);
         elevatorRightTalon.setInverted(true);
+
+        pot = new Potentiometer(pm.acquirePort(pm.analog0_label, "Elevator Pot"));
     }
 
     public void move(double speed) {
@@ -109,7 +115,15 @@ public class Elevator extends Subsystem {
     }
 
     public void moveToPos(double position) {
-        elevatorLeftTalon.set(ControlMode.MotionMagic, position);
+        if(position - pot.getValue() < -.05) {
+            this.move(-800);
+        }
+        else if(position - pot.getValue() > .05) {
+            this.move(800);
+        }
+        else{
+            this.move(0);
+        }
     }
 
     public void resetEncoders() {
