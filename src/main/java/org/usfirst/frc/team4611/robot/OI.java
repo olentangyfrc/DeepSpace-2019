@@ -138,7 +138,7 @@ public class OI {
                  "] when asked for by [ " + c.getClass().getName() + "]");
         }
         
-        allocatedJoyButtons.put(button, c.getClass().getName());
+        //allocatedJoyButtons.put(button, c.getClass().getName());
 
         if (button >= 1 && button <= 11) {
             j   = leftJoy;

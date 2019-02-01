@@ -22,7 +22,7 @@ public class MoveElevator extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     protected void canceled() {
