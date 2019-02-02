@@ -8,17 +8,18 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorToPos extends Command {
 
     private Elevator elevator;
-    private int positionUnits;
+    private double pos;
 
-    public MoveElevatorToPos(int pos){
+    //MUST SEND A NUMBER FROM 0 TO 1
+    public MoveElevatorToPos(double pos){
         elevator = SubsystemFactory.getInstance().getElevator();
-        positionUnits = pos;
+        this.pos = pos;
         
         this.requires(elevator);
     }
 
     protected void execute() {
-        elevator.moveToPos(positionUnits);
+        elevator.moveToPos(pos);
     }
 
     @Override
