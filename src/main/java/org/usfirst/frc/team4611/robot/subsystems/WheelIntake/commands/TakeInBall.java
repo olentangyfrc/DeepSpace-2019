@@ -7,20 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TakeInBall extends Command {
 
+
     private WheelIntake wheelIntake;
 
     public TakeInBall() {
-        SubsystemFactory.getInstance().getWheelIntake();
+        wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
     }
 
     @Override
     protected void execute() {
-        wheelIntake.moveIntake(480);
+        wheelIntake.moveIntake(1);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
     
 }
