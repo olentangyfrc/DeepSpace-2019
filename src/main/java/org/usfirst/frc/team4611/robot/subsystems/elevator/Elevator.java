@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
 
-    public final Logger logger = Logger.getLogger(Elevator.class.getName());
+    private final Logger logger = Logger.getLogger(Elevator.class.getName());
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -78,7 +78,7 @@ public class Elevator extends Subsystem {
         pot = new Potentiometer(pm.acquirePort(pm.analog0_label, "Elevator Pot"));
     }
 
-    public void move(double speed) {
+    public boolean move(double speed) {
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -96,7 +96,7 @@ public class Elevator extends Subsystem {
         }
         if(upperSoftLimitToggle) {
             if(speed >= 0) {
-                speed = speed/2;
+                speed = speed;
                 logger.info("Soft Limit Top");
             }
         }
@@ -115,8 +115,10 @@ public class Elevator extends Subsystem {
 
         //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
         //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
+        logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
-
+        //elevatorRightTalon.set(ControlMode.Velocity, speed);
+        return speed == 0;
     }
 
     public void moveToPos(double position) {
@@ -158,7 +160,7 @@ public class Elevator extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        this.setDefaultCommand(new StopElevator());
+        //this.setDefaultCommand(new StopElevator());
     }
 
     public void writeToShuffleboard() {

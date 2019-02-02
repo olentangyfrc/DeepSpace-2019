@@ -22,6 +22,7 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator1;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
@@ -116,6 +117,8 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Wonky
      */
+
+    
     private void initWonky() throws Exception {
         logger.info("initalizing Wonky");
         //driveTrain = new TalonMecanum();
@@ -126,8 +129,11 @@ public class SubsystemFactory {
 
         oi.bind(new MoveElevator(800), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevator(-800), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
+
+
+
+       // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     } 
 
     /**
