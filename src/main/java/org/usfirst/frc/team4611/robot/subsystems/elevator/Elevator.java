@@ -5,14 +5,28 @@ import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Elevator extends Subsystem {
 
-    public final Logger logger = Logger.getLogger(Elevator.class.getName());
+    private final Logger logger = Logger.getLogger(Elevator.class.getName());
+
+    private ShuffleboardTab tab;
+    private NetworkTableEntry elevatorPercent;
+
+    public static double maxRPM = 1700;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -24,6 +38,11 @@ public class Elevator extends Subsystem {
     private ElevatorUpdater speedUpdater;
     private Timer speedTimer;
 
+    private Potentiometer pot;
+
+    private boolean upperSoftLimitToggle = false;
+    private boolean lowerSoftLimitToggle = false;
+
     public Elevator(){
 
     }
@@ -32,62 +51,125 @@ public class Elevator extends Subsystem {
     
         logger.info("initializing");
 
-        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Elevator.elevatorLeftTalon"));
-        elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Elevator.elevatorRightTalon"));
-        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardStopTopA"));
-        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.hardStopTopB"));
-        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softStopTopA"));
-        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.softStopTopB"));
+        tab = Shuffleboard.getTab("Health Map");
+        NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
+
+        elevatorPercent = tab.add("Elevator Percent", 1.0).getEntry();
+
+        elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
+        elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
+        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardLimitTop"));
+        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.softLimitTop"));
+        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softLimitBottom"));
+        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.hardLimitBottom"));
+
+        elevatorLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        elevatorRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
         speedUpdater = new ElevatorUpdater(this);
         speedTimer = new Timer();
         speedTimer.scheduleAtFixedRate(speedUpdater, 0, 20);
-
-        elevatorRightTalon.follow(elevatorLeftTalon);
 
         elevatorLeftTalon.config_kP(0, .5, 0);
         elevatorLeftTalon.config_kI(0, 0, 0);
         elevatorLeftTalon.config_kD(0, 0, 0);
         elevatorLeftTalon.config_kF(0, 0, 0);
 
+        elevatorRightTalon.config_kP(0, .5, 0);
+        elevatorRightTalon.config_kI(0, 0, 0);
+        elevatorRightTalon.config_kD(0, 0, 0);
+        elevatorRightTalon.config_kF(0, 0, 0);
+
         elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
         elevatorLeftTalon.configMotionAcceleration(4096,0);
+        elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
+        elevatorRightTalon.configMotionAcceleration(4096,0);
 
+        this.resetEncoders();
+
+        elevatorRightTalon.follow(elevatorLeftTalon);
+        elevatorRightTalon.setInverted(true);
+
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
+    }
+/*
+    public void setPercent(double p){
+        percent = p;
+        elevatorPercent.setDouble(p);
     }
 
-    public void move(double speed) {
+    public double getPercent(){
+        return percent;
+    }
+*/
+    public boolean move(double speed) {
 
-        if(hardLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            }
-        } else if(softLimitTop.get()) {
-            if(elevatorLeftTalon.get() >= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
-            }
-        } else if(softLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
-            }
-        } else if(hardLimitBottom.get()) {
-            if(elevatorLeftTalon.get() <= 0) {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, 0);
-            } else {
-                elevatorLeftTalon.set(ControlMode.PercentOutput, speed / 2);
-            }
-        } else {
-            elevatorLeftTalon.set(ControlMode.PercentOutput, speed);
+        if (speed > 0){
+            speed = maxRPM;
         }
+        else if (speed < 0){
+            speed = -maxRPM;
+        }
+
+        //speed = speed * elevatorPercent.getDouble(1.0);
+
+        logger.info("First Speed: " + speed);
+
+        if(speed < 0){
+            speed = speed * .7;
+        }
+
+        if(!softLimitBottom.get()) {
+            lowerSoftLimitToggle = speed < 0;
+        }
+
+        if(!softLimitTop.get()) {
+            upperSoftLimitToggle = speed > 0;
+        }
+        
+        if(!hardLimitTop.get()) {
+            if(speed >= 0) {
+                speed = 0;
+                logger.info("Hard Limit Top");
+            }
+        }
+        if(upperSoftLimitToggle) {
+            if(speed >= 0) {
+                speed = speed/2;//for non changed soft upward movement
+                logger.info("Soft Limit Top");
+            }
+        }
+        if(lowerSoftLimitToggle) {
+            if(speed <= 0) {
+                speed = (speed/2)*.7;
+                logger.info("Soft Limit Bottom");
+            }
+        }
+        if(!hardLimitBottom.get()) {
+            if(speed <= 0) {
+                speed = 0;
+                logger.info("Hard Limit Bottom");
+            }
+        }
+
+        //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
+        //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
+        logger.info("Speed: " + speed);
+        elevatorLeftTalon.set(ControlMode.Velocity, speed);
+        //elevatorRightTalon.set(ControlMode.Velocity, speed);
+        return speed == 0;
     }
 
     public void moveToPos(double position) {
-        elevatorLeftTalon.set(ControlMode.MotionMagic, position);
+        if(position - pot.getValue() < -.05) {
+            this.move(-800);
+        }
+        else if(position - pot.getValue() > .05) {
+            this.move(800);
+        }
+        else{
+            this.move(0);
+        }
     }
 
     public void resetEncoders() {
@@ -117,7 +199,7 @@ public class Elevator extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        //this.setDefaultCommand(new StopElevator());
     }
 
     public void writeToShuffleboard() {

@@ -33,6 +33,7 @@ public class WheelIntake extends Subsystem {
     private NetworkTableEntry wheelIntakeAttack;
     private NetworkTableEntry wheelIntakeSoftThrow;
     private NetworkTableEntry wheelIntakeAdjustSpeed;
+    private NetworkTableEntry velocity;
 
     private DigitalInput switch1;
     private DigitalInput switch2;
@@ -64,33 +65,12 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.config_kD(0, 0, 0);
 
         tab = Shuffleboard.getTab("WheelIntake");
+        velocity = tab.add("Velocity", -1.0).getEntry();
         NetTableManager.updateValue("Wheel Intake", "Wheel Intake Initialization", true);
     }
 
     public void moveIntake(double speed) {
-
-        /*if(switch1.getValue() == 0 && switch2.getValue() == 0) {
-            wheelIntakeTalon.set(ControlMode.PercentOutput, (double)(NetTableManager.getValue("Health Map", spinSpeed, 0.0)));
-        }
-        else if(switch1.getValue() == 1 && switch2.getValue() == 0) {
-            wheelIntakeTalon.set(ControlMode.PercentOutput, (double)(NetTableManager.getValue("Health Map", adjustmentSpeed, 0.0)));
-        }
-        else if(switch1.getValue() == 0 && switch2.getValue() == 1) {
-            wheelIntakeTalon.set(ControlMode.PercentOutput, -(double)(NetTableManager.getValue("Health Map", adjustmentSpeed, 0.0)));
-        }
-        else {
-            wheelIntakeTalon.set(ControlMode.PercentOutput, (double)(NetTableManager.getValue("Health Map", attackSpeed, 0.0)));
-        }*/
-        
         wheelIntakeTalon.set(ControlMode.PercentOutput, speed);
-
-        //wheelIntakeSpin.setDouble(speed);
-        //wheelIntakeAttack.setDouble(speed);
-        //wheelIntakeSoftThrow.setDouble(speed);
-        //wheelIntakeAdjustSpeed.setDouble(speed);
-
-
-
     }
 
     public boolean isSwitch1Set(){
@@ -99,6 +79,12 @@ public class WheelIntake extends Subsystem {
 
     public boolean isSwitch2Set(){
         return switch2.get();
+    }
+  
+    public void moveIntake(int speed) {
+        wheelIntakeTalon.set(ControlMode.Velocity, speed);
+
+        velocity.setDouble(speed);  
     }
 
 

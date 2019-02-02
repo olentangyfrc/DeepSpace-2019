@@ -173,4 +173,9 @@ public class TurboTankDrive extends DriveTrain {
     public void deactivateTurbo() {
         turboSol.set(Value.kReverse);
     }
+
+    @Override
+    public void moveSideways(double speed) {
+
+    }
 }

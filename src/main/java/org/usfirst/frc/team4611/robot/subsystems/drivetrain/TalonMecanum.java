@@ -210,8 +210,8 @@ public class TalonMecanum extends DriveTrain {
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
 		NetTableManager.updateValues(mecanumSubtable, values);
-		logger.info(""+(frontRight.getSelectedSensorVelocity()));
-		logger.fine(""+frontRight.getBusVoltage());
+		//logger.info(""+(frontRight.getSelectedSensorVelocity()));
+		//logger.fine(""+frontRight.getBusVoltage());
 	}
 
 	public void moveAtSpeed(double speed1, double speed2, double speed3, double speed4) {
@@ -251,5 +251,24 @@ public class TalonMecanum extends DriveTrain {
 	public void deactivateTurbo() {
 
 	}
+
+	@Override
+	public void moveSideways(double velocity) {
+
+		logger.info("moveSideways(" + velocity + ") ENTERING");
+
+		logger.info("Velocity being sent to frontRight/Left:" + -velocity);
+		logger.info("Velocity being sent to backRight/Left:" + velocity);
+
+		frontRight.set(ControlMode.Velocity, -velocity);
+		backRight.set(ControlMode.Velocity, velocity);
+		frontLeft.set(ControlMode.Velocity, -velocity);
+		backLeft.set(ControlMode.Velocity, velocity);
+		
+		logger.info("moveSideways(" + velocity + ") EXITING");
+
+	}
+
+
 
 }

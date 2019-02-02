@@ -34,6 +34,9 @@ public class PollNetworkTable extends Command{
         NetTableManager.updateValue("Vision", "rPi connected", noChangeCount <= 10);
 
         vision.setAngle((double)NetTableManager.getValue("Vision", "angle", 180.0));
+        vision.setDistance((double)NetTableManager.getValue("Vision", "distance", 0));
+        vision.setTapeFound((boolean)NetTableManager.getValue("Vision", "found", false));
+
         lastUpdateTime = thisTime;
     }
 

@@ -3,17 +3,17 @@ package org.usfirst.frc.team4611.robot.subsystems;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
+import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.KickBall;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.commands.ResetKicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
+
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
@@ -24,7 +24,11 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TopLoader;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
 public class SubsystemFactory {
@@ -33,7 +37,7 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   jankyMacAddress    = "00:80:2F:17:F8:3F";
+    private String   jankyMacAddress    = "00:80:2F:17:F8:3F";   
     private String   wonkyMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
@@ -72,7 +76,7 @@ public class SubsystemFactory {
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         if (botMacAddress == null) {
-            throw new Exception("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
+            throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
 
         try {
@@ -81,7 +85,7 @@ public class SubsystemFactory {
 
             // subsystems common to every bot
             initCommon();
-
+            System.out.println("["+botMacAddress+"]");
             if (botMacAddress.equals(jankyMacAddress)) {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
@@ -96,7 +100,7 @@ public class SubsystemFactory {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
         } catch (Exception e) {
-            logger.throwing(SubsystemFactory.class.getName(), "init", e);
+            throw new OzoneException(e.getMessage());
         }
     }
 
@@ -118,10 +122,23 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Wonky
      */
+
+    
     private void initWonky() throws Exception {
         logger.info("initalizing Wonky");
-        driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
+        //driveTrain = new TalonMecanum();
+        //driveTrain.init(portMan);
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
+        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
+
+
+
+       // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     } 
 
     /**
@@ -129,8 +146,17 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
+        System.out.println("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
+        
+        vision = new Vision();
+        vision.init();
+
+        nav = new Navigation();
+        nav.init(portMan);
+        
+        oi.bind(new StrafeVision(), OI.LeftJoyButton1, OI.WhenPressed);
     }
     
     /**
@@ -154,15 +180,21 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("initializing Football");
-        kicker = new Kicker();
-        kicker.init(portMan);
+        // kicker = new Kicker();
+        // kicker.init(portMan);
+
+        elevator = new Elevator();
+        elevator.init(portMan);
 
         vision  = new Vision();
         vision.init();
 
-        //oi.bind(new KickBall(), OI.LeftJoyButton1, OI.WhenPressed);
+        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
+        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
         // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){

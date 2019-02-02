@@ -5,18 +5,25 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveElevator1 extends Command {
+public class MoveElevatorToPos extends Command {
 
     private Elevator elevator;
+    private double pos;
 
-    public MoveElevator1(){
+    //MUST SEND A NUMBER FROM 0 TO 1
+    public MoveElevatorToPos(double pos){
         elevator = SubsystemFactory.getInstance().getElevator();
+        this.pos = pos;
+        
         this.requires(elevator);
+    }
+
+    protected void execute() {
+        elevator.moveToPos(pos);
     }
 
     @Override
     protected boolean isFinished() {
-        //NOT DONE
         return true;
     }
 
@@ -24,8 +31,5 @@ public class MoveElevator1 extends Command {
         
     }
 
-    protected void execute() {
-        elevator.moveToPos(10);
-    }
-
+   
 }

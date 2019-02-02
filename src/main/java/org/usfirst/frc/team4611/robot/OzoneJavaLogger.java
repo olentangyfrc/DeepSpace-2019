@@ -43,21 +43,9 @@ public class OzoneJavaLogger {
 			
 			Handler	consoleHandler	= new ConsoleHandler();
 			consoleHandler.setFormatter(new OzoneLogFormatter());
-			consoleHandler.setLevel(Level.SEVERE);
+			consoleHandler.setLevel(Level.ALL);
 			logger.addHandler(consoleHandler);
-			
-			Handler fileHandler = new FileHandler("/tmp/OzoneLogs-%g",
-					20*1024*1024,
-					10,
-					false);
-			
-			fileHandler.setFormatter(new OzoneLogFormatter());
-			fileHandler.setLevel(Level.FINEST);
-			logger.addHandler(fileHandler);
-			
 		} catch (SecurityException e) {
-			logger.log(Level.SEVERE, "XX", e);
-		} catch (IOException e) {
 			logger.log(Level.SEVERE, "XX", e);
 		} finally {
 			initted	= true;

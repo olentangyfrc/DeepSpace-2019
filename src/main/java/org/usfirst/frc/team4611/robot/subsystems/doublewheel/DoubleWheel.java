@@ -3,14 +3,23 @@ package org.usfirst.frc.team4611.robot.subsystems.doublewheel;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class DoubleWheel extends Subsystem {
 
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
+
+    private ShuffleboardTab tab;
+    private NetworkTableEntry doubleWheelLeftVelocity;
+    private NetworkTableEntry doubleWheelRightVelocity;
+    private NetworkTableEntry doubleWheelIntakeVelocity;
 
     private int wheelVelocity = 480;
 
@@ -27,14 +36,28 @@ public class DoubleWheel extends Subsystem {
     
         wheelIntakeRight.follow(wheelIntakeLeft);
         wheelIntakeRight.setInverted(true);
+
+        tab = Shuffleboard.getTab("Health Map");
+		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
+
+        doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
+        doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
+        doubleWheelIntakeVelocity = tab.add("Wheel Intake Velocity", (double)wheelVelocity).getEntry();
+
     }
 
     public void spinMotorsIntake(int speed){
-        wheelIntakeLeft.set(ControlMode.Velocity, speed);   
+        wheelIntakeLeft.set(ControlMode.Velocity, speed); 
+        
+        doubleWheelLeftVelocity.setDouble(speed);
+        doubleWheelRightVelocity.setDouble(-speed);
+
     }
 
     public void spinMotorOutTake() {
-        wheelIntakeLeft.set(ControlMode.Velocity, -wheelVelocity);
+        wheelIntakeLeft.set(ControlMode.Velocity, -doubleWheelIntakeVelocity.getDouble(wheelVelocity));
+
+        
     }
 
     @Override
