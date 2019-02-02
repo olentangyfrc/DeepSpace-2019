@@ -96,7 +96,7 @@ public class Elevator extends Subsystem {
         }
         if(upperSoftLimitToggle) {
             if(speed >= 0) {
-                speed = speed;
+                speed = speed;//for non changed soft upward movement
                 logger.info("Soft Limit Top");
             }
         }

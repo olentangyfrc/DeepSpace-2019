@@ -138,11 +138,16 @@ public class OI {
         // Joystick button values 11-20 are for righ joystick
         
         if(allocatedJoyButtons.get(button) != null) {
-            throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
-                 " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
-                 "] is already taken by [" + allocatedJoyButtons.get(button) + 
-                 "] when asked for by [ " + c.getClass().getName() + "]");
-                 //logger.log("MULTI BUTTON LINKAGE");
+            if(action == 2) {
+                logger.info("ONLY OK BECAUSE THIS IS A WHEN RELEASED COMMAND");
+            }
+            else {
+                throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
+                    " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
+                    "] is already taken by [" + allocatedJoyButtons.get(button) + 
+                    "] when asked for by [ " + c.getClass().getName() + "]");
+                    //logger.log("MULTI BUTTON LINKAGE");
+            }
         }
         
         allocatedJoyButtons.put(button, c.getClass().getName());
