@@ -111,7 +111,7 @@ public class Elevator extends Subsystem {
             speed = -maxRPM;
         }
 
-        speed = speed * elevatorPercent.getDouble(1.0);
+        //speed = speed * elevatorPercent.getDouble(1.0);
 
         logger.info("First Speed: " + speed);
 
@@ -155,7 +155,7 @@ public class Elevator extends Subsystem {
         //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
         //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
         logger.info("Speed: " + speed);
-        //elevatorLeftTalon.set(ControlMode.Velocity, speed);
+        elevatorLeftTalon.set(ControlMode.Velocity, speed);
         //elevatorRightTalon.set(ControlMode.Velocity, speed);
         return speed == 0;
     }
