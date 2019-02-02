@@ -24,7 +24,7 @@ public class LineTracker extends Subsystem
     {
         return lineTracker.getValue();
     }
-    public NetworkTableEntry getCsolorIsWhite()
+    public NetworkTableEntry getColorIsWhite()
     {
         return colorIsWhite;
     }
