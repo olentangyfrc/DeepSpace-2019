@@ -13,7 +13,7 @@ import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
-
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
@@ -58,6 +58,7 @@ public class SubsystemFactory {
     private WheelIntake intake;
     private Elevator elevator;
     private DoubleWheel doubleWheel;
+    private LineTracker lineTracker;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -239,5 +240,9 @@ public class SubsystemFactory {
 
     public DoubleWheel getDoubleWheel(){
         return doubleWheel;
+    }
+
+    public LineTracker getLineTracker() {
+        return lineTracker;
     }
 }
