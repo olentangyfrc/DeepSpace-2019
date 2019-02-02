@@ -7,16 +7,26 @@ import java.util.logging.Logger;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Elevator extends Subsystem {
 
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
+
+    private ShuffleboardTab tab;
+    private NetworkTableEntry elevatorPercent;
+
+    public static double maxRPM = 1700;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -40,6 +50,11 @@ public class Elevator extends Subsystem {
     public void init(PortMan pm) throws Exception {
     
         logger.info("initializing");
+
+        tab = Shuffleboard.getTab("Health Map");
+        NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
+
+        elevatorPercent = tab.add("Elevator Percent", 1.0).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -75,10 +90,34 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.follow(elevatorLeftTalon);
         elevatorRightTalon.setInverted(true);
 
-        pot = new Potentiometer(pm.acquirePort(pm.analog0_label, "Elevator Pot"));
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
+    }
+/*
+    public void setPercent(double p){
+        percent = p;
+        elevatorPercent.setDouble(p);
     }
 
+    public double getPercent(){
+        return percent;
+    }
+*/
     public boolean move(double speed) {
+
+        if (speed > 0){
+            speed = maxRPM;
+        }
+        else if (speed < 0){
+            speed = -maxRPM;
+        }
+
+        speed = speed * elevatorPercent.getDouble(1.0);
+
+        logger.info("First Speed: " + speed);
+
+        if(speed < 0){
+            speed = speed * .7;
+        }
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -96,13 +135,13 @@ public class Elevator extends Subsystem {
         }
         if(upperSoftLimitToggle) {
             if(speed >= 0) {
-                speed = speed;//for non changed soft upward movement
+                speed = speed/2;//for non changed soft upward movement
                 logger.info("Soft Limit Top");
             }
         }
         if(lowerSoftLimitToggle) {
             if(speed <= 0) {
-                speed = speed/2;
+                speed = (speed/2)*.7;
                 logger.info("Soft Limit Bottom");
             }
         }
@@ -116,7 +155,7 @@ public class Elevator extends Subsystem {
         //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
         //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
         logger.info("Speed: " + speed);
-        elevatorLeftTalon.set(ControlMode.Velocity, speed);
+        //elevatorLeftTalon.set(ControlMode.Velocity, speed);
         //elevatorRightTalon.set(ControlMode.Velocity, speed);
         return speed == 0;
     }

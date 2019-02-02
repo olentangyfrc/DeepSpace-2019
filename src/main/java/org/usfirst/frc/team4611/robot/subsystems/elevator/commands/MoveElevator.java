@@ -13,30 +13,31 @@ public class MoveElevator extends Command {
     
     private Elevator elevator;
     private double speed;
+    private double pVal;
     private double defaultSpeed;
     private boolean stop = false;
 
     public MoveElevator(double s) {
         elevator = SubsystemFactory.getInstance().getElevator();
-        speed = s;
         defaultSpeed = speed;
+        speed = s;
 
         this.requires(elevator);
     }
 
     protected void initialize() {
-        logger.info("Init");
+        //logger.info("Init");
     }
 
     protected void execute() {
-        logger.info("Exe");
+        //logger.info("Exe");
         if (stop)
             return;
         stop = elevator.move(speed);
     }
 
     protected boolean isFinished() {
-        logger.info("is finsished");
+        //logger.info("is finsished");
         speed = defaultSpeed;
         stop = false;
         return !stop;
