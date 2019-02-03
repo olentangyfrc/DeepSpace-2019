@@ -118,6 +118,13 @@ public class SubsystemFactory {
         logger.info("initalizing Janky");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
+
+        intake = new WheelIntake();
+        intake.init(portMan);
+
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
+        
     }
     
     /**

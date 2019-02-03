@@ -1,10 +1,13 @@
 package org.usfirst.frc.team4611.robot.subsystems.WheelIntake;
 
+import java.util.logging.Logger;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Counter;
@@ -16,6 +19,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class WheelIntake extends Subsystem {
 
     private WPI_TalonSRX wheelIntakeTalon;
+
+    Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
 
     private DigitalInput switch1;
     private DigitalInput switch2;
@@ -47,6 +52,7 @@ public class WheelIntake extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
 
+        logger.info("init");
         switch1 = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "WheelIntake.switch1"));
         switch2 = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "WheelIntake.switch2"));
 
@@ -65,6 +71,7 @@ public class WheelIntake extends Subsystem {
     }
 
     public void moveIntake(double speed) {
+        
         wheelIntakeTalon.set(ControlMode.PercentOutput, speed);
     }
 
@@ -83,7 +90,7 @@ public class WheelIntake extends Subsystem {
     }
 
     public void ejectBall() {
-
+        logger.info("eject");
         double endTime = System.currentTimeMillis() + ejectBallDuration;
 
         while (System.currentTimeMillis() < endTime) {
@@ -91,30 +98,40 @@ public class WheelIntake extends Subsystem {
         }
     }
 
+
+    private boolean stage1 = true;
+    private boolean stage2 = false;
+    private boolean stage3 = false;
+    private boolean finished = false;
+
     public void captureBall() {
-        boolean stage1 = true;
-        boolean stage2 = false;
-        boolean stage3 = false;
-        boolean finished = false;
+        logger.info("capture");
+        stage1 = true;
+        stage2 = false;
+        stage3 = false;
+        finished = false;
 
         while (!finished) {
             if (stage1) {
-                moveIntake(0.1);
-                if (switch1.get()) {
+                moveIntake(-0.2);
+                if (!switch1.get()) {
                     stage1 = false;
                     stage2 = true;
+                    logger.info("Switch 1");
                 }
             } else if (stage2) {
-                moveIntake(0.1);
-                if (switch2.get()) {
+                moveIntake(0.3);
+                if (!switch2.get()) {
                     stage2 = false;
                     stage3 = true;
+                    logger.info("Switch 2");
                 }
             } else if (stage3) {
-                moveIntake(-0.05);
-                if (switch1.get()) {
+                moveIntake(-0.2);
+                if (!switch1.get()) {
                     stage3 = false;
                     finished = true;
+                    logger.info("Switch 3");
                 }
             }
         }
