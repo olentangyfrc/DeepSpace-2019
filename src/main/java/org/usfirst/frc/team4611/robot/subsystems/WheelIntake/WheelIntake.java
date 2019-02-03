@@ -27,7 +27,7 @@ public class WheelIntake extends Subsystem {
 
     private double pVal=0.5;
 
-    public double ejectBallDuration = 0.3;
+    public double ejectBallDuration = 1500; // spin for 1.5 seconds
     private double spin;
     private double attack;
     private double softThrow;
@@ -97,6 +97,7 @@ public class WheelIntake extends Subsystem {
         while (System.currentTimeMillis() < endTime) {
             moveIntake(1);
         }
+        moveIntake(0);
     }
 
 
