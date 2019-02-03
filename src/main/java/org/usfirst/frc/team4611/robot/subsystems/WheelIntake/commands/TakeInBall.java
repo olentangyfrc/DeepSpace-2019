@@ -12,11 +12,12 @@ public class TakeInBall extends Command {
 
     public TakeInBall() {
         wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
+        requires(wheelIntake);
     }
 
     @Override
     protected void execute() {
-        wheelIntake.moveIntake(1);
+        wheelIntake.captureBall();
     }
 
     @Override
