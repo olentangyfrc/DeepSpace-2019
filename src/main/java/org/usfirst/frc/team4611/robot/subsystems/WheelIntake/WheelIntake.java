@@ -40,6 +40,7 @@ public class WheelIntake extends Subsystem {
     private String softSpeed = "Wheel Intake SoftThrow Initialize";
     private String adjustmentSpeed = "Wheel Intake AdjustSpeed Initialize";
     
+    
 
     public WheelIntake() {
     }
@@ -119,6 +120,44 @@ public class WheelIntake extends Subsystem {
             }
         }
         moveIntake(0.0);
+    }
+
+    
+    boolean stage1 = true;
+    boolean stage2 = false;
+    boolean stage3 = false;
+    boolean finished = false;
+
+    public void reset() {
+            stage1 = true;
+            stage2 = false;
+            stage3 = false;
+            finished = false;
+    }
+
+    public boolean captureBallContinuous() {
+
+            if (stage1) {
+                moveIntake(0.1);
+                if (switch1.get()) {
+                    stage1 = false;
+                    stage2 = true;
+                }
+            } else if (stage2) {
+                moveIntake(0.1);
+                if (switch2.get()) {
+                    stage2 = false;
+                    stage3 = true;
+                }
+            } else if (stage3) {
+                moveIntake(-0.05);
+                if (switch1.get()) {
+                    stage3 = false;
+                    moveIntake(0.0);
+                    finished = true;
+                }
+            }
+         return finished;
     }
 
 
