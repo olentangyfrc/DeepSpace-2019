@@ -15,17 +15,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class WheelIntake extends Subsystem {
 
-    public double ejectBallDuration = 0.3;
-
     private WPI_TalonSRX wheelIntakeTalon;
+
+    private DigitalInput switch1;
+    private DigitalInput switch2;
+
     private double pVal=0.5;
 
+    public double ejectBallDuration = 0.3;
     private double spin;
-
     private double attack;
-
     private double softThrow;
-
     private double adjustSpeed;
 
     private ShuffleboardTab tab;
@@ -35,9 +35,6 @@ public class WheelIntake extends Subsystem {
     private NetworkTableEntry wheelIntakeAdjustSpeed;
     private NetworkTableEntry velocity;
 
-    private DigitalInput switch1;
-    private DigitalInput switch2;
-
     private String spinSpeed = "Wheel Intake Spin Initialize";
     private String attackSpeed = "Wheel Intake Attack Initialize";
     private String softSpeed = "Wheel Intake SoftThrow Initialize";
@@ -45,18 +42,13 @@ public class WheelIntake extends Subsystem {
     
 
     public WheelIntake() {
-        switch1 = new DigitalInput(0);
-        switch2 = new DigitalInput(1);
     }
    
-    
 
     public void init(PortMan pm) throws Exception {
-       tab = Shuffleboard.getTab("Health Map");
-       NetTableManager.updateValue("Health Map", spinSpeed, 0.0);
-       NetTableManager.updateValue("Health Map", softSpeed, 0.0);
-       NetTableManager.updateValue("Health Map", adjustmentSpeed, 0.0);
 
+        switch1 = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "WheelIntake.switch1"));
+        switch2 = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "WheelIntake.switch2"));
 
         wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_33_label, "wheelIntake.talon"));
         
@@ -65,6 +57,9 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.config_kD(0, 0, 0);
 
         tab = Shuffleboard.getTab("WheelIntake");
+        NetTableManager.updateValue("Health Map", spinSpeed, 0.0);
+        NetTableManager.updateValue("Health Map", softSpeed, 0.0);
+        NetTableManager.updateValue("Health Map", adjustmentSpeed, 0.0);
         velocity = tab.add("Velocity", -1.0).getEntry();
         NetTableManager.updateValue("Wheel Intake", "Wheel Intake Initialization", true);
     }
@@ -85,6 +80,45 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.set(ControlMode.Velocity, speed);
 
         velocity.setDouble(speed);  
+    }
+
+    public void ejectBall() {
+
+        double endTime = System.currentTimeMillis() + ejectBallDuration;
+
+        while (System.currentTimeMillis() < endTime) {
+            moveIntake(1);
+        }
+    }
+
+    public void captureBall() {
+        boolean stage1 = true;
+        boolean stage2 = false;
+        boolean stage3 = false;
+        boolean finished = false;
+
+        while (!finished) {
+            if (stage1) {
+                moveIntake(0.1);
+                if (switch1.get()) {
+                    stage1 = false;
+                    stage2 = true;
+                }
+            } else if (stage2) {
+                moveIntake(0.1);
+                if (switch2.get()) {
+                    stage2 = false;
+                    stage3 = true;
+                }
+            } else if (stage3) {
+                moveIntake(-0.05);
+                if (switch1.get()) {
+                    stage3 = false;
+                    finished = true;
+                }
+            }
+        }
+        moveIntake(0.0);
     }
 
 
