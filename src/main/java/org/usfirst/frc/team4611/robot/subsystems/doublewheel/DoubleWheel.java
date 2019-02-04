@@ -61,6 +61,20 @@ public class DoubleWheel extends Subsystem {
         indiWheelBackVelocity = tab.add("Indi Wheel Back Velocity", indiWheelDefaultVelocity).getEntry();
         doubleWheelIntakeVelocity = tab.add("Wheel Intake Velocity", (double)wheelVelocity).getEntry();
 
+        indiWheelBack.config_kP(0, .5, 0);
+        indiWheelBack.config_kI(0, 0, 0);
+        indiWheelBack.config_kD(0, 0, 0);
+        indiWheelBack.config_kF(0, 0, 0);
+        indiWheelBack.configMotionCruiseVelocity(4096, 0);
+        indiWheelBack.configMotionAcceleration(4096,0);
+
+        indiWheelFront.config_kP(0, .5, 0);
+        indiWheelFront.config_kI(0, 0, 0);
+        indiWheelFront.config_kD(0, 0, 0);
+        indiWheelFront.config_kF(0, 0, 0);
+        indiWheelFront.configMotionCruiseVelocity(4096, 0);
+        indiWheelFront.configMotionAcceleration(4096,0);
+
         logger.exiting(DoubleWheel.class.getName(), "init()");
 
     }
