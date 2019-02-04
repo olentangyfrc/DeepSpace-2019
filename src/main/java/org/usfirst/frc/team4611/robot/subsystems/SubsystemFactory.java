@@ -6,6 +6,9 @@ import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -143,7 +146,10 @@ public class SubsystemFactory {
         oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
 
-
+        oi.bind(new IntakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new StopBall(), OI.LeftJoyButton4, OI.WhenReleased);
+        oi.bind(new StopBall(), OI.LeftJoyButton5, OI.WhenReleased);
 
        // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
         //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
