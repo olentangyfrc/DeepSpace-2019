@@ -116,14 +116,14 @@ public class SubsystemFactory {
      */
     private void initJanky() throws Exception{
         logger.info("initalizing Janky");
-        driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
+        //driveTrain = new TalonMecanum();
+        //driveTrain.init(portMan);
 
         intake = new WheelIntake();
         intake.init(portMan);
 
         oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhenPressed);
         
     }
     

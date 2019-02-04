@@ -94,42 +94,39 @@ public class WheelIntake extends Subsystem {
         logger.info("eject");
         double endTime = System.currentTimeMillis() + ejectBallDuration;
 
-        while (System.currentTimeMillis() < endTime) {
-            moveIntake(1);
+        while (System.currentTimeMillis() < (long)endTime) {
+            logger.info("in the while");
+            moveIntake(-.95);
         }
         moveIntake(0);
     }
 
 
-    private boolean stage1 = true;
-    private boolean stage2 = false;
-    private boolean stage3 = false;
-    private boolean finished = false;
 
     public void captureBall() {
         logger.info("capture");
-        stage1 = true;
-        stage2 = false;
-        stage3 = false;
-        finished = false;
+        boolean stage1 = true;
+        boolean stage2 = false;
+        boolean stage3 = false;
+        boolean finished = false;
 
         while (!finished) {
             if (stage1) {
-                moveIntake(-0.2);
+                moveIntake(-0.15);
                 if (!switch1.get()) {
                     stage1 = false;
                     stage2 = true;
                     logger.info("Switch 1");
                 }
             } else if (stage2) {
-                moveIntake(0.3);
+                moveIntake(-0.1);
                 if (!switch2.get()) {
                     stage2 = false;
                     stage3 = true;
                     logger.info("Switch 2");
                 }
             } else if (stage3) {
-                moveIntake(-0.2);
+                moveIntake(0.1);
                 if (!switch1.get()) {
                     stage3 = false;
                     finished = true;
