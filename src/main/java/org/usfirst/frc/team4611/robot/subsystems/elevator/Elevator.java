@@ -35,6 +35,9 @@ public class Elevator extends Subsystem {
     private DigitalInput softLimitBottom;
     private DigitalInput hardLimitBottom;
 
+    private double potTop = .83;
+    private double potBot = .14;
+
     private ElevatorUpdater speedUpdater;
     private Timer speedTimer;
 
@@ -104,16 +107,16 @@ public class Elevator extends Subsystem {
 */
     public boolean move(double speed) {
 
-        if (speed > 0){
+        /*if (speed > 0){
             speed = maxRPM;
         }
         else if (speed < 0){
             speed = -maxRPM;
-        }
+        }*/
 
         //speed = speed * elevatorPercent.getDouble(1.0);
-
-        logger.info("First Speed: " + speed);
+        logger.info(""+pot.getValue());
+        //logger.info("First Speed: " + speed);
 
         if(speed < 0){
             speed = speed * .7;
@@ -160,12 +163,16 @@ public class Elevator extends Subsystem {
         return speed == 0;
     }
 
-    public void moveToPos(double position) {
-        if(position - pot.getValue() < -.05) {
-            this.move(-800);
+    public void moveToPos1(double finalTarget) {
+        //double given;
+        //double target;
+        //double finalTarget = (target/(potTop-potBot))+potBot;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(-1600);
         }
-        else if(position - pot.getValue() > .05) {
-            this.move(800);
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(1600);
         }
         else{
             this.move(0);

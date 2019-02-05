@@ -31,6 +31,7 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
@@ -136,8 +137,13 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
-        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
+        doubleWheel = new DoubleWheel();
+        doubleWheel.init(portMan);
+
+        oi.bind(new MoveElevator(1600), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(-1600), OI.LeftJoyButton2, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorToPos(.5), OI.LeftJoyButton6, OI.WhenPressed);
 
         oi.bind(new IntakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
