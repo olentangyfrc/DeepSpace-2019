@@ -19,8 +19,8 @@ public class MoveElevator extends Command {
 
     public MoveElevator(double s) {
         elevator = SubsystemFactory.getInstance().getElevator();
-        defaultSpeed = speed;
         speed = s;
+        defaultSpeed = speed;
 
         this.requires(elevator);
     }
@@ -31,8 +31,9 @@ public class MoveElevator extends Command {
 
     protected void execute() {
         //logger.info("Exe");
-        if (stop)
+        if (stop) {
             return;
+        }
         stop = elevator.move(speed);
     }
 

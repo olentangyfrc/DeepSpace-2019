@@ -19,7 +19,7 @@ public class MoveElevatorToPos extends Command {
     }
 
     protected void execute() {
-        elevator.moveToPos(pos);
+        elevator.moveToPos1(pos);
     }
 
     @Override
