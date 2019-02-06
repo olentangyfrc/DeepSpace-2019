@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
@@ -25,6 +26,7 @@ public class Elevator extends Subsystem {
 
     private ShuffleboardTab tab;
     private NetworkTableEntry elevatorPercent;
+    private NetworkTableEntry elevatorPosition1;
 
     public static double maxRPM = 1700;
 
@@ -58,6 +60,7 @@ public class Elevator extends Subsystem {
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
         elevatorPercent = tab.add("Elevator Percent", 1.0).getEntry();
+        elevatorPosition1 = tab.add("Elevator Position", .5).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -107,12 +110,12 @@ public class Elevator extends Subsystem {
 */
     public boolean move(double speed) {
 
-        /*if (speed > 0){
-            speed = maxRPM;
+        if (speed > 0){
+            speed = speed * 3;
         }
         else if (speed < 0){
-            speed = -maxRPM;
-        }*/
+            speed = speed;
+        }
 
         //speed = speed * elevatorPercent.getDouble(1.0);
         logger.info(""+pot.getValue());
@@ -163,10 +166,16 @@ public class Elevator extends Subsystem {
         return speed == 0;
     }
 
-    public void moveToPos1(double finalTarget) {
+    public void stopElevator() {
+        elevatorLeftTalon.stopMotor();
+    }
+
+    public boolean moveToPos1() {
         //double given;
         //double target;
-        //double finalTarget = (target/(potTop-potBot))+potBot;
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
 
         if(finalTarget - pot.getValue() < -.05) {
             this.move(-1600);
@@ -176,7 +185,9 @@ public class Elevator extends Subsystem {
         }
         else{
             this.move(0);
+            stop = true;
         }
+        return stop;
     }
 
     public void resetEncoders() {
@@ -204,9 +215,14 @@ public class Elevator extends Subsystem {
         }
     }
 
+    public void keepInPlace() {
+        //logger.info("keeping in place");
+        elevatorLeftTalon.set(ControlMode.PercentOutput, .05);
+    }
+
     @Override
     protected void initDefaultCommand() {
-        //this.setDefaultCommand(new StopElevator());
+        //this.setDefaultCommand(new KeepElevatorInPlace());
     }
 
     public void writeToShuffleboard() {
