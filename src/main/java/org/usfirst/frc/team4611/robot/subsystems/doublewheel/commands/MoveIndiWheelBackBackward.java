@@ -9,7 +9,7 @@ public class MoveIndiWheelBackBackward extends Command {
     private DoubleWheel doubleWheel; 
 
     public MoveIndiWheelBackBackward(){
-        SubsystemFactory.getInstance().getDoubleWheel();
+        doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
         this.requires(doubleWheel);
     }
 
