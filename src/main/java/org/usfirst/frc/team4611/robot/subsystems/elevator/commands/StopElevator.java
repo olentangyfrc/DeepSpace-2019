@@ -16,7 +16,7 @@ public class StopElevator extends Command {
     }
 
     protected void execute() {
-        elevator.move(0);
+        elevator.stop();
     }
 
     protected boolean isFinished() {
