@@ -145,8 +145,8 @@ public class SubsystemFactory {
         doubleWheel = new DoubleWheel();
         doubleWheel.init(portMan);
 
-        oi.bind(new MoveElevator(1600), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-1600), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveElevator(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(), OI.LeftJoyButton2, OI.WhileHeld);
 
         oi.bind(new MoveElevatorToPos(), OI.LeftJoyButton6, OI.WhenPressed);
 
@@ -216,13 +216,6 @@ public class SubsystemFactory {
 
         vision  = new Vision();
         vision.init();
-
-        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
-        // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){

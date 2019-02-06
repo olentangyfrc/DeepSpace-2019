@@ -12,21 +12,17 @@ public class MoveElevator extends Command {
     private final Logger logger = Logger.getLogger(MoveElevator.class.getName());
     
     private Elevator elevator;
-    private double speed;
-    private double pVal;
-    private double defaultSpeed;
     private boolean stop = false;
 
-    public MoveElevator(double s) {
+    public MoveElevator() {
         elevator = SubsystemFactory.getInstance().getElevator();
-        speed = s;
-        defaultSpeed = speed;
 
         this.requires(elevator);
     }
 
     protected void initialize() {
         //logger.info("Init");
+        stop = false;
     }
 
     protected void execute() {
@@ -34,22 +30,19 @@ public class MoveElevator extends Command {
         if (stop) {
             return;
         }
-        stop = elevator.move(speed);
+        elevator.move();
     }
 
     protected boolean isFinished() {
         //logger.info("is finsished");
-        speed = defaultSpeed;
-        stop = false;
-        return !stop;
+        return stop;
     }
 
     @Override
     public void cancel() {
         logger.info("cancel");
-        speed = 0.0;
-        stop = elevator.move(speed);
-        
+        stop = true;
+        elevator.stop();
     }
 
     @Override

@@ -28,7 +28,9 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry elevatorPercent;
     private NetworkTableEntry elevatorPosition1;
 
-    public static double maxRPM = 1700;
+    private NetworkTableEntry elevatorMaxRPM;
+
+    public static double maxRPM = 1600;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -61,6 +63,7 @@ public class Elevator extends Subsystem {
 
         elevatorPercent = tab.add("Elevator Percent", 1.0).getEntry();
         elevatorPosition1 = tab.add("Elevator Position", .5).getEntry();
+        elevatorMaxRPM = tab.add("Elevator Speed", maxRPM).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -98,18 +101,13 @@ public class Elevator extends Subsystem {
 
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
     }
-/*
-    public void setPercent(double p){
-        percent = p;
-        elevatorPercent.setDouble(p);
+
+    public void stop() {
+        elevatorLeftTalon.set(ControlMode.Velocity, 0);
     }
 
-    public double getPercent(){
-        return percent;
-    }
-*/
-    public boolean move(double speed) {
-
+    public void move() {
+        double speed = elevatorMaxRPM.getDouble(maxRPM);
         if (speed > 0){
             speed = speed * 3;
         }
@@ -117,13 +115,7 @@ public class Elevator extends Subsystem {
             speed = speed;
         }
 
-        //speed = speed * elevatorPercent.getDouble(1.0);
         logger.info(""+pot.getValue());
-        //logger.info("First Speed: " + speed);
-
-        if(speed < 0){
-            speed = speed * .7;
-        }
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -163,7 +155,6 @@ public class Elevator extends Subsystem {
         logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
         //elevatorRightTalon.set(ControlMode.Velocity, speed);
-        return speed == 0;
     }
 
     public void stopElevator() {
@@ -178,13 +169,13 @@ public class Elevator extends Subsystem {
         boolean stop = false;
 
         if(finalTarget - pot.getValue() < -.05) {
-            this.move(-1600);
+            this.move();
         }
         else if(finalTarget - pot.getValue() > .05) {
-            this.move(1600);
+            this.move();
         }
         else{
-            this.move(0);
+            this.move();
             stop = true;
         }
         return stop;
