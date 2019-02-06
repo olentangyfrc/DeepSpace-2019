@@ -8,23 +8,22 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorToPos extends Command {
 
     private Elevator elevator;
-    private double pos;
+    private boolean stop = false;;
 
     //MUST SEND A NUMBER FROM 0 TO 1
-    public MoveElevatorToPos(double pos){
+    public MoveElevatorToPos(){
         elevator = SubsystemFactory.getInstance().getElevator();
-        this.pos = pos;
         
         this.requires(elevator);
     }
 
     protected void execute() {
-        elevator.moveToPos(pos);
+        stop = elevator.moveToPos1();
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return stop;
     }
 
     protected void initialize() {
