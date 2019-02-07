@@ -31,9 +31,9 @@ public class DoubleWheel extends Subsystem {
     private NetworkTableEntry intakeAdjusterVelocity;
 
 
-    private int wheelVelocity = 480;
-    private int indiWheelDefaultVelocity = 400;
-    private int adjusterVelocity = 400;
+    private int wheelVelocity = 1600;
+    private int indiWheelDefaultVelocity = 1600;
+    private int adjusterVelocity = 1600;
 
     public void init(PortMan pm) throws Exception {
 
@@ -87,7 +87,6 @@ public class DoubleWheel extends Subsystem {
 
         logger.entering(DoubleWheel.class.getName(), "spinMotorsIntake()");
 
-
         wheelIntakeLeft.set(ControlMode.Velocity, speed); 
         
         doubleWheelLeftVelocity.setDouble(speed);
@@ -105,6 +104,10 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeLeft.set(ControlMode.Velocity, -doubleWheelIntakeVelocity.getDouble(wheelVelocity));
 
         logger.exiting(DoubleWheel.class.getName(), "spinMotorOutTake()");
+    }
+
+    public void stopMotors() {
+        wheelIntakeLeft.set(ControlMode.Velocity, 0);
     }
 
     public void spinIndiWheelFrontForward() {
