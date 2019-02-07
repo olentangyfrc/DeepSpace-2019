@@ -162,12 +162,12 @@ public class SubsystemFactory {
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.WhileHeld);
-        oi.bind(new StopBall(), OI.RightJoyButton4, OI.WhenReleased);
-        oi.bind(new StopBall(), OI.RightJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveRollerBackward(), OI.LeftJoyButton5, OI.WhileHeld);
-        oi.bind(new MoveRollerForward(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new StopRoller(), OI.LeftJoyButton4, OI.WhenReleased);
-        oi.bind(new StopRoller(), OI.LeftJoyButton5, OI.WhenReleased);
+        //oi.bind(new StopBall(), OI.RightJoyButton4, OI.WhenReleased);
+        //oi.bind(new StopBall(), OI.RightJoyButton5, OI.WhenReleased);
+        oi.bind(new MoveRollerBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new MoveRollerForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        //oi.bind(new StopRoller(), OI.LeftJoyButton4, OI.WhenReleased);
+        //oi.bind(new StopRoller(), OI.LeftJoyButton5, OI.WhenReleased);
         oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);

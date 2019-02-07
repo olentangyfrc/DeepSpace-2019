@@ -9,6 +9,7 @@ public class IntakeBall extends Command {
 
     private DoubleWheel doubleWheel;
     private int intakeVelocity = 480;
+    private boolean stop = false;
 
     public IntakeBall() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
@@ -16,13 +17,27 @@ public class IntakeBall extends Command {
     }
 
     @Override
+    protected void initialize() {
+        stop = false;
+    }
+
+    @Override
     protected void execute() {
+        if(stop) {
+            return;
+        }
         doubleWheel.spinMotorsIntake(intakeVelocity);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return stop;
+    }
+
+    @Override
+    public synchronized void cancel() {
+        stop = true;
+        doubleWheel.stopMotors();
     }
 
 }
