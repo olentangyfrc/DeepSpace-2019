@@ -17,6 +17,7 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBal
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelBack;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelFront;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -38,8 +39,9 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
@@ -148,25 +150,27 @@ public class SubsystemFactory {
         doubleWheel = new DoubleWheel();
         doubleWheel.init(portMan);
 
-        oi.bind(new MoveElevator(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
 
         oi.bind(new MoveElevatorToPos(), OI.LeftJoyButton6, OI.WhenPressed);
 
-        oi.bind(new IntakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
-        oi.bind(new OutTakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new StopBall(), OI.LeftJoyButton4, OI.WhenReleased);
-        oi.bind(new StopBall(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelBackBackward(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelBackForward(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.WhileHeld);
+        oi.bind(new StopBall(), OI.RightJoyButton4, OI.WhenReleased);
+        oi.bind(new StopBall(), OI.RightJoyButton5, OI.WhenReleased);
+        oi.bind(new MoveIndiWheelBackBackward(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new MoveIndiWheelBackForward(), OI.LeftJoyButton4, OI.WhileHeld);
         oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton4, OI.WhenReleased);
         oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton1, OI.WhenReleased);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new StopIntakeAdjuster(), OI.RightJoyButton11, OI.WhenReleased);
+        oi.bind(new StopIntakeAdjuster(), OI.RightJoyButton10, OI.WhenReleased);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 

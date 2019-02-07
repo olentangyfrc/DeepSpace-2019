@@ -106,13 +106,17 @@ public class Elevator extends Subsystem {
         elevatorLeftTalon.set(ControlMode.Velocity, 0);
     }
 
-    public void move() {
-        double speed = elevatorMaxRPM.getDouble(maxRPM);
+    public void move(boolean direction) {
+        double speed;
+        if(direction) {
+            speed = elevatorMaxRPM.getDouble(maxRPM);
+        }
+        else {
+            speed = -elevatorMaxRPM.getDouble(maxRPM);
+        }
+
         if (speed > 0){
             speed = speed * 3;
-        }
-        else if (speed < 0){
-            speed = speed;
         }
 
         logger.info(""+pot.getValue());
@@ -169,13 +173,13 @@ public class Elevator extends Subsystem {
         boolean stop = false;
 
         if(finalTarget - pot.getValue() < -.05) {
-            this.move();
+            this.move(false);
         }
         else if(finalTarget - pot.getValue() > .05) {
-            this.move();
+            this.move(true);
         }
         else{
-            this.move();
+            this.move(true);
             stop = true;
         }
         return stop;
