@@ -5,17 +5,18 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelBackBackward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelBackForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontBackward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterBackward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelBack;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelFront;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
@@ -73,6 +74,7 @@ public class SubsystemFactory {
     private Elevator elevator;
     private DoubleWheel doubleWheel;
     private LineTracker lineTracker;
+    private Roller roller;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -154,6 +156,9 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
+        roller = new Roller();
+        roller.init(portMan);
+
         doubleWheel = new DoubleWheel();
         doubleWheel.init(portMan);
 
@@ -166,10 +171,10 @@ public class SubsystemFactory {
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.WhileHeld);
         oi.bind(new StopBall(), OI.RightJoyButton4, OI.WhenReleased);
         oi.bind(new StopBall(), OI.RightJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelBackBackward(), OI.LeftJoyButton5, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelBackForward(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton4, OI.WhenReleased);
-        oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton5, OI.WhenReleased);
+        oi.bind(new MoveRollerBackward(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.LeftJoyButton4, OI.WhileHeld);
+        oi.bind(new StopRoller(), OI.LeftJoyButton4, OI.WhenReleased);
+        oi.bind(new StopRoller(), OI.LeftJoyButton5, OI.WhenReleased);
         oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);
@@ -280,5 +285,9 @@ public class SubsystemFactory {
 
     public LineTracker getLineTracker() {
         return lineTracker;
+    }
+
+    public Roller getRoller() {
+        return roller;
     }
 }

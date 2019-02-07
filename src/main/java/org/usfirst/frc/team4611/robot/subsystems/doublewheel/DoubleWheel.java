@@ -20,7 +20,6 @@ public class DoubleWheel extends Subsystem {
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
     private WPI_TalonSRX intake;
-    private WPI_TalonSRX roller;
     private WPI_TalonSRX intakeAdjuster;
 
     private ShuffleboardTab tab;
@@ -42,8 +41,7 @@ public class DoubleWheel extends Subsystem {
 
         wheelIntakeLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_18_label, "DoubleWheel.leftWheelIntake"));
         wheelIntakeRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_19_label, "DoubleWheel.rightWheelIntake"));
-        intake = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "DoubleWheel.intake"));
-        roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "DoubleWheel.roller"));
+        intake = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "DoubleWheel.intake"));
         intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "DoubleWheel.intakeAdjuster"));
 
         wheelIntakeLeft.config_kP(0, .5, 0);
@@ -66,12 +64,6 @@ public class DoubleWheel extends Subsystem {
         doubleWheelIntakeVelocity = tab.add("Wheel Intake Velocity", (double)wheelVelocity).getEntry();
         intakeAdjusterVelocity = tab.add("Intake Adjuster Velocity", adjusterVelocity).getEntry();
 
-        roller.config_kP(0, .5, 0);
-        roller.config_kI(0, 0, 0);
-        roller.config_kD(0, 0, 0);
-        roller.config_kF(0, 0, 0);
-        roller.configMotionCruiseVelocity(4096, 0);
-        roller.configMotionAcceleration(4096,0);
 
         intake.config_kP(0, .5, 0);
         intake.config_kI(0, 0, 0);
@@ -146,26 +138,6 @@ public class DoubleWheel extends Subsystem {
 
     }
 
-    public void spinIndiWheelBackForward() {
-
-        logger.entering(DoubleWheel.class.getName(), "spinIndiWheelBackForward()");
-
-        roller.set(ControlMode.Velocity, indiWheelBackVelocity.getDouble(indiWheelDefaultVelocity));        
-    
-        logger.exiting(DoubleWheel.class.getName(), "spinIndiWheelBackForward()");
-    
-        }
-    
-    public void spinIndiWheelBackBackward() {
-
-        logger.entering(DoubleWheel.class.getName(), "spinIndiWheelBackBackward()");
-
-        roller.set(ControlMode.Velocity, -indiWheelBackVelocity.getDouble(indiWheelDefaultVelocity));
-    
-        logger.exiting(DoubleWheel.class.getName(), "spinIndiWheelBackBackward()");
-
-    
-    }
     
     public void spinIntakeAdjusterForward() {
 
@@ -197,15 +169,6 @@ public class DoubleWheel extends Subsystem {
 
     }
 
-    public void stopIndiWheelBack(){
-
-        logger.entering(DoubleWheel.class.getName(), "stopIndiWheelBack()");
-
-        roller.set(ControlMode.Velocity, 0); 
-
-        logger.exiting(DoubleWheel.class.getName(), "stopIndiWheelBack()");
-
-    }
     @Override
     protected void initDefaultCommand() {
 

@@ -20,7 +20,7 @@ public class MoveIntakeAdjusterForward extends Command {
 
     @Override
     public synchronized void cancel() {
-        doubleWheel.stopIndiWheelBack();
+        doubleWheel.stopIndiWheelFront();
     }
 
     @Override
