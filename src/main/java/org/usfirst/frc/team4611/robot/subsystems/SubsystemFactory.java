@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWh
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelBack;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelFront;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -157,18 +158,18 @@ public class SubsystemFactory {
 
         oi.bind(new MoveElevatorToPos(), OI.LeftJoyButton6, OI.WhenPressed);
 
-        oi.bind(new IntakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new OutTakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new IntakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
         oi.bind(new StopBall(), OI.LeftJoyButton4, OI.WhenReleased);
         oi.bind(new StopBall(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelBackBackward(), OI.RightJoyButton2, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelBackForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton2, OI.WhenReleased);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton3, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton4, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton5, OI.WhileHeld);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton4, OI.WhenReleased);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton5, OI.WhenReleased);
+        oi.bind(new MoveIndiWheelBackBackward(), OI.LeftJoyButton4, OI.WhileHeld);
+        oi.bind(new MoveIndiWheelBackForward(), OI.LeftJoyButton5, OI.WhileHeld);
+        oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton4, OI.WhenReleased);
+        oi.bind(new StopIndiWheelBack(), OI.LeftJoyButton5, OI.WhenReleased);
+        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);
+        oi.bind(new StopIndiWheelFront(), OI.RightJoyButton1, OI.WhenReleased);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
