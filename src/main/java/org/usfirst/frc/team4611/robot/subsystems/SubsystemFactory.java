@@ -11,6 +11,8 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWh
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelBackForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontBackward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontForward;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterBackward;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelBack;
@@ -163,6 +165,8 @@ public class SubsystemFactory {
         oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);
         oi.bind(new StopIndiWheelFront(), OI.RightJoyButton1, OI.WhenReleased);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
