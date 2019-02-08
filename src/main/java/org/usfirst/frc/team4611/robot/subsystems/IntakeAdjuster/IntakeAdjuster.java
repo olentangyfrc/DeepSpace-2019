@@ -6,18 +6,31 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.OzoneException;
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class IntakeAdjuster extends Subsystem {
 
     private WPI_TalonSRX intakeAdjuster;
 
+    private ShuffleboardTab tab;
+    private NetworkTableEntry adjusterVelocity;
+    
+    private double power = 1;
     private int intakeSpeed = 1600;
 
     public void init(PortMan pm) throws OzoneException {
         intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
+
+        tab = Shuffleboard.getTab("Health Map");
+        NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
+
+        adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
     }
 
     
@@ -27,7 +40,7 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
 
-        intakeAdjuster.set(ControlMode.Velocity, intakeSpeed);        
+        intakeAdjuster.set(ControlMode.Velocity, (int)(intakeSpeed*(adjusterVelocity.getDouble(power))));        
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
     
@@ -37,7 +50,7 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
-        intakeAdjuster.set(ControlMode.Velocity, -intakeSpeed);
+        intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power)));        
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
