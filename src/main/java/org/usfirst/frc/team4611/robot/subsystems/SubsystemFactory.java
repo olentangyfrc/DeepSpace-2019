@@ -106,7 +106,7 @@ public class SubsystemFactory {
 
             // subsystems common to every bot
             initCommon();
-            System.out.println("["+botMacAddress+"]");
+            logger.info("["+botMacAddress+"]");
             if (botMacAddress.equals(jankyMacAddress)) {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
@@ -196,7 +196,7 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
-        System.out.println("initZippy");
+        logger.info("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
         

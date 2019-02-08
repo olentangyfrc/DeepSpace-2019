@@ -28,9 +28,9 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry elevatorPercent;
     private NetworkTableEntry elevatorPosition1;
 
-    private NetworkTableEntry elevatorMaxRPM;
+    public static double maxRPM = 6000;
 
-    public static double maxRPM = 1600;
+    private double power = .75;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -61,9 +61,8 @@ public class Elevator extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
-        elevatorPercent = tab.add("Elevator Percent", 1.0).getEntry();
+        elevatorPercent = tab.add("Elevator Percent", power).getEntry();
         elevatorPosition1 = tab.add("Elevator Position", .5).getEntry();
-        elevatorMaxRPM = tab.add("Elevator Speed", maxRPM).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -109,20 +108,17 @@ public class Elevator extends Subsystem {
     public void move(boolean direction) {
         double speed;
         if(direction) {
-            speed = elevatorMaxRPM.getDouble(maxRPM);
+            speed = maxRPM*elevatorPercent.getDouble(power);
         }
         else {
-            speed = -elevatorMaxRPM.getDouble(maxRPM);
+            speed = maxRPM*-elevatorPercent.getDouble(power);
         }
 
-        if (speed > 0){
-            speed = speed * 3;
-        }
-        else if(speed < 0) {
+        if(speed < 0) {
             speed = speed/4;
         }
 
-        logger.info(""+pot.getValue());
+        //logger.info(""+pot.getValue());
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -157,11 +153,8 @@ public class Elevator extends Subsystem {
             }
         }
 
-        //logger.info("Velocity: " +elevatorLeftTalon.getSelectedSensorVelocity() + " " + elevatorRightTalon.getSelectedSensorVelocity());
-        //logger.info("Position:  " + elevatorLeftTalon.getSelectedSensorPosition() + " " + elevatorRightTalon.getSelectedSensorPosition());
-        logger.info("Speed: " + speed);
+       //logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
-        //elevatorRightTalon.set(ControlMode.Velocity, speed);
     }
 
     public void stopElevator() {
@@ -169,8 +162,6 @@ public class Elevator extends Subsystem {
     }
 
     public boolean moveToPos1() {
-        //double given;
-        //double target;
         double finalTarget = elevatorPosition1.getDouble(.5);
         
         boolean stop = false;
