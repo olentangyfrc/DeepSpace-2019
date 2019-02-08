@@ -20,7 +20,7 @@ public abstract class SparkDriveTrain extends DriveTrain {
 
     
 
-    public final Logger logger = Logger.getLogger(LogTest.class.getName());
+    public final Logger logger = Logger.getLogger(SparkDriveTrain.class.getName());
     
     public CANSparkMax frontLeft;
 	public CANSparkMax frontRight;
