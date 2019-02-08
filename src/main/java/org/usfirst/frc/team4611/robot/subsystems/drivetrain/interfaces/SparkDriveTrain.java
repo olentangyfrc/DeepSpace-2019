@@ -18,8 +18,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class SparkDriveTrain extends DriveTrain {
 
-    
-
     public final Logger logger = Logger.getLogger(SparkDriveTrain.class.getName());
     
     public CANSparkMax frontLeft;
