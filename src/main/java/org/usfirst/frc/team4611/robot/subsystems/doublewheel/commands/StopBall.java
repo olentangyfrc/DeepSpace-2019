@@ -5,38 +5,24 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OutTakeBall extends Command {
+public class StopBall extends Command {
 
     private DoubleWheel doubleWheel;
-    private boolean stop = false;
+    private int intakeVelocity = 480;
 
-    public  OutTakeBall() {
+    public StopBall() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
         this.requires(doubleWheel);
     }
 
     @Override
-    protected void initialize() {
-        stop = false;
-    }
-
-    @Override
     protected void execute() {
-        if(stop) {
-            return;
-        }
-        doubleWheel.spinMotorOutTake();
+        doubleWheel.spinMotorsIntake(0);
     }
 
     @Override
     protected boolean isFinished() {
-        return stop;
-    }
-
-    @Override
-    public synchronized void cancel() {
-        stop = true;
-        doubleWheel.stopMotors();
+        return false;
     }
 
 }

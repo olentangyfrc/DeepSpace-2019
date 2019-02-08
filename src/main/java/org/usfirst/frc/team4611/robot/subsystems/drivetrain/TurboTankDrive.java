@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
@@ -45,6 +46,13 @@ public class TurboTankDrive extends DriveTrain {
     private NetworkTableEntry rightSideEntry;
 
     public TurboTankDrive() {
+    }
+
+    public void init(PortMan pm) throws Exception {
+        super.init(pm);
+        turboSol = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Turbo.Open"),
+                pm.acquirePort(PortMan.pcm1_label, "Turbo.Close"));
+        
     }
 
     public void setupTalons() {

@@ -7,48 +7,42 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveElevator extends Command {
+public class MoveElevatorDown extends Command {
 
-    private final Logger logger = Logger.getLogger(MoveElevator.class.getName());
+    private final Logger logger = Logger.getLogger(MoveElevatorDown.class.getName());
     
     private Elevator elevator;
-    private double speed;
-    private double pVal;
-    private double defaultSpeed;
     private boolean stop = false;
 
-    public MoveElevator(double s) {
+    public MoveElevatorDown() {
         elevator = SubsystemFactory.getInstance().getElevator();
-        defaultSpeed = speed;
-        speed = s;
 
         this.requires(elevator);
     }
 
     protected void initialize() {
         //logger.info("Init");
+        stop = false;
     }
 
     protected void execute() {
         //logger.info("Exe");
-        if (stop)
+        if (stop) {
             return;
-        stop = elevator.move(speed);
+        }
+        elevator.move(false);
     }
 
     protected boolean isFinished() {
         //logger.info("is finsished");
-        speed = defaultSpeed;
-        stop = false;
-        return !stop;
+        return stop;
     }
 
     @Override
     public void cancel() {
         logger.info("cancel");
-        speed = 0.0;
-        stop = elevator.move(speed);
-        
+        stop = true;
+        elevator.stop();
     }
 
     @Override

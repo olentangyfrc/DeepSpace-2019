@@ -119,7 +119,7 @@ public class OI {
                 rightJoy.setRumble(RumbleType.kRightRumble, 0.5 );
                 break;
             default:
-                System.err.println("Invalid Joystick id [" + j + "]");
+                logger.severe("Invalid Joystick id [" + j + "]");
         }
     }
 
@@ -131,7 +131,7 @@ public class OI {
      */
     public void bind(Command c, int button, int action) throws OzoneException {
         Joystick    j;
-        System.out.println("Binding command to " + button + " with action " + action);
+        logger.info("Binding command to " + button + " with action " + action);
         // see constants in this file LeftJoyButton1  = 1;
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
