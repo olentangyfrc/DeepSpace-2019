@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class TalonDriveTrain extends DriveTrain {
 
-    public final Logger logger = Logger.getLogger(LogTest.class.getName());
+    public final Logger logger = Logger.getLogger(TalonDriveTrain.class.getName());
     
     public WPI_TalonSRX frontLeft;
 	public WPI_TalonSRX frontRight;

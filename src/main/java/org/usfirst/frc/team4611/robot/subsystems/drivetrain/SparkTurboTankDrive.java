@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
 import org.usfirst.frc.team4611.robot.OI;
+import org.usfirst.frc.team4611.robot.OzoneException;
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.SparkDriveTrain;
 
@@ -13,7 +15,7 @@ public class SparkTurboTankDrive extends SparkDriveTrain {
     private final int turboSolOpenPort = 0;
     private final int turboSolClosePort = 1;
 
-    private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
+    private DoubleSolenoid turboSol;
 
     public double pVal = .65;
     public int interval = 10;
@@ -35,6 +37,15 @@ public class SparkTurboTankDrive extends SparkDriveTrain {
     private NetworkTableEntry leftSideEntry;
     private NetworkTableEntry rightSideEntry;
 
+
+    @Override
+    public void init(PortMan pm) throws Exception {
+        super.init(pm);
+        turboSol = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Turbo.Open"),
+                pm.acquirePort(PortMan.pcm1_label, "Turbo.Close"));
+        
+    }
+    
     @Override
     public void move() {
 
