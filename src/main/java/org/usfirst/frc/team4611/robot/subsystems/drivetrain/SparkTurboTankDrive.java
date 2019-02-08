@@ -1,7 +1,8 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.OI;
-import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.SparkDriveTrain;
@@ -12,8 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class SparkTurboTankDrive extends SparkDriveTrain {
 
-    private final int turboSolOpenPort = 0;
-    private final int turboSolClosePort = 1;
+    public final Logger logger = Logger.getLogger(SparkTurboTankDrive.class.getName());
 
     private DoubleSolenoid turboSol;
 
@@ -40,6 +40,7 @@ public class SparkTurboTankDrive extends SparkDriveTrain {
 
     @Override
     public void init(PortMan pm) throws Exception {
+        logger.info("initializing");
         super.init(pm);
         turboSol = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Turbo.Open"),
                 pm.acquirePort(PortMan.pcm1_label, "Turbo.Close"));
