@@ -30,7 +30,7 @@ public class Elevator extends Subsystem {
 
     private NetworkTableEntry elevatorMaxRPM;
 
-    public static double maxRPM = 1600;
+    public static double maxRPM = 6000;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -109,10 +109,10 @@ public class Elevator extends Subsystem {
     public void move(boolean direction) {
         double speed;
         if(direction) {
-            speed = elevatorMaxRPM.getDouble(maxRPM);
+            speed = maxRPM*elevatorPercent.getDouble(maxRPM);
         }
         else {
-            speed = -elevatorMaxRPM.getDouble(maxRPM);
+            speed = maxRPM*-elevatorPercent.getDouble(maxRPM);
         }
 
         if (speed > 0){
