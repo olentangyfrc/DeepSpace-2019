@@ -31,7 +31,7 @@ public class Roller extends Subsystem {
 
         logger.entering(Roller.class.getName(), "init()");
         
-        roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Roller.talon"));
+        roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "Roller.talon"));
 
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
@@ -55,7 +55,7 @@ public class Roller extends Subsystem {
 
         logger.entering(Roller.class.getName(), "spinIndiWheelBackForward()");
 
-        roller.set(ControlMode.Velocity, maxRPM * rollerVelocity.getDouble(rollerPercent));        
+        roller.set(ControlMode.Velocity, (int)(maxRPM * rollerVelocity.getDouble(rollerPercent)));        
     
         logger.exiting(Roller.class.getName(), "spinIndiWheelBackForward()");
     
@@ -65,7 +65,7 @@ public class Roller extends Subsystem {
 
         logger.entering(Roller.class.getName(), "spinIndiWheelBackBackward()");
 
-        roller.set(ControlMode.Velocity, maxRPM * -rollerVelocity.getDouble(rollerPercent));
+        roller.set(ControlMode.Velocity, (int)(maxRPM * -rollerVelocity.getDouble(rollerPercent)));
     
         logger.exiting(Roller.class.getName(), "spinIndiWheelBackBackward()");
 
