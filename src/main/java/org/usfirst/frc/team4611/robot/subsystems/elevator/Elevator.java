@@ -118,6 +118,9 @@ public class Elevator extends Subsystem {
         if (speed > 0){
             speed = speed * 3;
         }
+        else if(speed < 0) {
+            speed = speed/4;
+        }
 
         logger.info(""+pot.getValue());
 
