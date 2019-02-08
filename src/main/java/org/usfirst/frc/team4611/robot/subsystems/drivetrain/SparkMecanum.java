@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.SparkDriveTrain;
 
@@ -18,12 +19,6 @@ public class SparkMecanum extends SparkDriveTrain {
 	private double velocity2;
 	private double velocity3;
 	private double velocity4;
-
-	private double YValScaler1 = 1;
-	private double XValScaler1 = 1;
-	private double YValScaler2 = 1;
-	private double XValScaler2 = 1;
-	private double ZValScaler = 1;
 
 	private int velocityInvert1 = 1;
 	private int velocityInvert2 = -1;
@@ -45,15 +40,21 @@ public class SparkMecanum extends SparkDriveTrain {
 	private String velocity4ID = "Velocity4";
 
     @Override
+    public void init(PortMan pm) throws Exception {
+        logger.info("initializing");
+        super.init(pm);
+    }
+
+    @Override
     public void move() {
         double YVal = -OI.getInstance().getLeftJoystickYValue();
 		double XVal = OI.getInstance().getLeftJoystickXValue();
 		double ZVal = OI.getInstance().getRightJoystickXValue();
     
-        velocity1 = 4*((YVal * YValScaler1 + XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert1));
-		velocity2 = 4*((YVal * YValScaler2 - XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert2)); 
-		velocity3 = 4*((YVal * YValScaler2 + XVal * XValScaler2 - ZVal * ZValScaler) * (velocityInvert3));
-		velocity4 = 4*((YVal * YValScaler1 - XVal * XValScaler1 + ZVal * ZValScaler) * (velocityInvert4));
+        velocity1 = 4*((YVal + XVal + ZVal) * (velocityInvert1));
+		velocity2 = 4*((YVal - XVal - ZVal) * (velocityInvert2)); 
+		velocity3 = 4*((YVal + XVal - ZVal) * (velocityInvert3));
+		velocity4 = 4*((YVal - XVal + ZVal) * (velocityInvert4));
         
         frontLeft.set(velocity1);
         frontRight.set(velocity2);
