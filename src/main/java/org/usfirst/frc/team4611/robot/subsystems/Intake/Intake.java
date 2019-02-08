@@ -39,7 +39,7 @@ public class Intake extends Subsystem {
 
         logger.entering(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
-        intake.set(ControlMode.Velocity, intakeSpeed);
+        intake.set(ControlMode.Velocity, intakeSpeed*motorSpeed.getDouble(0));
     
         logger.exiting(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
@@ -51,7 +51,7 @@ public class Intake extends Subsystem {
 
         logger.entering(Intake.class.getName(), "spinIndiWheelFrontBackward()");
 
-        intake.set(ControlMode.Velocity, -intakeSpeed);
+        intake.set(ControlMode.Velocity, -intakeSpeed*motorSpeed.getDouble(0));
     
         logger.exiting(Intake.class.getName(), "spinIndiWheelFrontBackward()");
         
