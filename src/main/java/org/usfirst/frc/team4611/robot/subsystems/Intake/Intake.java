@@ -22,6 +22,7 @@ public class Intake extends Subsystem {
 
 
     private int intakeSpeed = 1600;
+    private double defaultPercent = .5;
 
     private ShuffleboardTab tab;
 	private NetworkTableEntry motorSpeed;
@@ -39,7 +40,7 @@ public class Intake extends Subsystem {
 
         logger.entering(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
-        intake.set(ControlMode.Velocity, intakeSpeed*motorSpeed.getDouble(0));
+        intake.set(ControlMode.Velocity, (int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     
         logger.exiting(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
@@ -51,7 +52,7 @@ public class Intake extends Subsystem {
 
         logger.entering(Intake.class.getName(), "spinIndiWheelFrontBackward()");
 
-        intake.set(ControlMode.Velocity, -intakeSpeed*motorSpeed.getDouble(0));
+        intake.set(ControlMode.Velocity, -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     
         logger.exiting(Intake.class.getName(), "spinIndiWheelFrontBackward()");
         
