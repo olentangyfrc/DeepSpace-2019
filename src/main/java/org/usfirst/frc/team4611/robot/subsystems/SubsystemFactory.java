@@ -163,30 +163,23 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-
+        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
-
-        oi.bind(new MoveElevatorToPos(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
-        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.WhileHeld);
-        //oi.bind(new StopBall(), OI.RightJoyButton4, OI.WhenReleased);
-        //oi.bind(new StopBall(), OI.RightJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveRollerBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-        oi.bind(new MoveRollerForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
-        //oi.bind(new StopRoller(), OI.LeftJoyButton4, OI.WhenReleased);
-        //oi.bind(new StopRoller(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new IntakeBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new IntakeForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
 
-        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
-
-       // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
+        
     } 
 
     /**
