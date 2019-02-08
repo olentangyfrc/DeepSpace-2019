@@ -7,14 +7,14 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveElevator extends Command {
+public class MoveElevatorDown extends Command {
 
-    private final Logger logger = Logger.getLogger(MoveElevator.class.getName());
+    private final Logger logger = Logger.getLogger(MoveElevatorDown.class.getName());
     
     private Elevator elevator;
     private boolean stop = false;
 
-    public MoveElevator() {
+    public MoveElevatorDown() {
         elevator = SubsystemFactory.getInstance().getElevator();
 
         this.requires(elevator);
@@ -30,7 +30,7 @@ public class MoveElevator extends Command {
         if (stop) {
             return;
         }
-        elevator.move();
+        elevator.move(false);
     }
 
     protected boolean isFinished() {

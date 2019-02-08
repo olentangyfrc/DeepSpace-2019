@@ -1,19 +1,20 @@
-package org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands;
+package org.usfirst.frc.team4611.robot.subsystems.Intake.commands;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeBall extends Command {
+public class IntakeForward extends Command {
 
-    private DoubleWheel doubleWheel;
+    private Intake intake;
     private int intakeVelocity = 480;
     private boolean stop = false;
 
-    public IntakeBall() {
-        doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
-        this.requires(doubleWheel);
+    public IntakeForward() {
+        intake = SubsystemFactory.getInstance().getIntake();
+        this.requires(intake);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class IntakeBall extends Command {
         if(stop) {
             return;
         }
-        doubleWheel.spinMotorsIntake(intakeVelocity);
+        intake.spinIndiWheelFrontForward();
     }
 
     @Override
@@ -37,7 +38,7 @@ public class IntakeBall extends Command {
     @Override
     public synchronized void cancel() {
         stop = true;
-        doubleWheel.stopMotors();
+        intake.stopIndiWheelFront();
     }
 
 }

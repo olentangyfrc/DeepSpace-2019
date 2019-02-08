@@ -89,10 +89,10 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.config_kD(0, 0, 0);
         elevatorRightTalon.config_kF(0, 0, 0);
 
-        elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
-        elevatorLeftTalon.configMotionAcceleration(4096,0);
-        elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
-        elevatorRightTalon.configMotionAcceleration(4096,0);
+        //elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
+        //elevatorLeftTalon.configMotionAcceleration(4096,0);
+        //elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
+        //elevatorRightTalon.configMotionAcceleration(4096,0);
 
         this.resetEncoders();
 
@@ -106,13 +106,20 @@ public class Elevator extends Subsystem {
         elevatorLeftTalon.set(ControlMode.Velocity, 0);
     }
 
-    public void move() {
-        double speed = elevatorMaxRPM.getDouble(maxRPM);
+    public void move(boolean direction) {
+        double speed;
+        if(direction) {
+            speed = elevatorMaxRPM.getDouble(maxRPM);
+        }
+        else {
+            speed = -elevatorMaxRPM.getDouble(maxRPM);
+        }
+
         if (speed > 0){
             speed = speed * 3;
         }
-        else if (speed < 0){
-            speed = speed;
+        else if(speed < 0) {
+            speed = speed/4;
         }
 
         logger.info(""+pot.getValue());
@@ -169,13 +176,13 @@ public class Elevator extends Subsystem {
         boolean stop = false;
 
         if(finalTarget - pot.getValue() < -.05) {
-            this.move();
+            this.move(false);
         }
         else if(finalTarget - pot.getValue() > .05) {
-            this.move();
+            this.move(true);
         }
         else{
-            this.move();
+            this.move(true);
             stop = true;
         }
         return stop;

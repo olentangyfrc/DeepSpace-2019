@@ -5,15 +5,20 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelBackBackward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelBackForward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontBackward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelBack;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -35,8 +40,9 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
@@ -68,6 +74,9 @@ public class SubsystemFactory {
     private Elevator elevator;
     private DoubleWheel doubleWheel;
     private LineTracker lineTracker;
+    private Roller roller;
+    private Intake shooterIntake;
+    private IntakeAdjuster intakeAdjuster;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -149,31 +158,35 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
+        roller = new Roller();
+        roller.init(portMan);
+
         doubleWheel = new DoubleWheel();
         doubleWheel.init(portMan);
 
-        oi.bind(new MoveElevator(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(), OI.LeftJoyButton2, OI.WhileHeld);
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
 
-        oi.bind(new MoveElevatorToPos(), OI.LeftJoyButton6, OI.WhenPressed);
-
-        oi.bind(new IntakeBall(), OI.LeftJoyButton4, OI.WhileHeld);
-        oi.bind(new OutTakeBall(), OI.LeftJoyButton5, OI.WhileHeld);
-        oi.bind(new StopBall(), OI.LeftJoyButton4, OI.WhenReleased);
-        oi.bind(new StopBall(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelBackBackward(), OI.RightJoyButton2, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelBackForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton2, OI.WhenReleased);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton3, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton4, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton5, OI.WhileHeld);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton4, OI.WhenReleased);
-        oi.bind(new StopIndiWheelBack(), OI.RightJoyButton5, OI.WhenReleased);
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
-       // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
+        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+
+        
     } 
 
     /**
@@ -272,4 +285,16 @@ public class SubsystemFactory {
     public LineTracker getLineTracker() {
         return lineTracker;
     }
+
+    public Roller getRoller() {
+        return roller;
+    }
+
+	public Intake getIntake() {
+		return shooterIntake;
+	}
+
+	public IntakeAdjuster getIntakeAdjuster() {
+		return intakeAdjuster;
+	}
 }

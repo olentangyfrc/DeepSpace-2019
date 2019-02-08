@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class OutTakeBall extends Command {
 
     private DoubleWheel doubleWheel;
+    private boolean stop = false;
 
     public  OutTakeBall() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();
@@ -15,13 +16,27 @@ public class OutTakeBall extends Command {
     }
 
     @Override
+    protected void initialize() {
+        stop = false;
+    }
+
+    @Override
     protected void execute() {
+        if(stop) {
+            return;
+        }
         doubleWheel.spinMotorOutTake();
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return stop;
+    }
+
+    @Override
+    public synchronized void cancel() {
+        stop = true;
+        doubleWheel.stopMotors();
     }
 
 }
