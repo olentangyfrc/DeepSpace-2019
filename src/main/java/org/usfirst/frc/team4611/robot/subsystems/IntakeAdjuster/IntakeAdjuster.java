@@ -19,17 +19,19 @@ public class IntakeAdjuster extends Subsystem {
     private WPI_TalonSRX intakeAdjuster;
 
     private ShuffleboardTab tab;
-	private NetworkTableEntry adjusterVelocity;
+    private NetworkTableEntry adjusterVelocity;
+    
+    private double power = 1;
 
     private int intakeSpeed = 1600;
 
     public void init(PortMan pm) throws OzoneException {
-        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
+        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_10_label, "Intake.intakeAdjuster"));
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
-        adjusterVelocity = tab.add("IntakeAdjuster Velocity", intakeSpeed).getEntry();
+        adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
     }
 
     
@@ -39,7 +41,7 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
 
-        intakeAdjuster.set(ControlMode.Velocity, (int)(adjusterVelocity.getDouble(intakeSpeed)));        
+        intakeAdjuster.set(ControlMode.Velocity, intakeSpeed*(adjusterVelocity.getDouble(power)));        
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
     
@@ -49,7 +51,7 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
-        intakeAdjuster.set(ControlMode.Velocity, -(int)(adjusterVelocity.getDouble(intakeSpeed))); 
+        intakeAdjuster.set(ControlMode.Velocity, -intakeSpeed*(adjusterVelocity.getDouble(power)));        
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
