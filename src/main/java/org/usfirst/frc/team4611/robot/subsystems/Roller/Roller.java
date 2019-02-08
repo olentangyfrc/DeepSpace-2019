@@ -21,8 +21,11 @@ public class Roller extends Subsystem {
 
     private ShuffleboardTab tab;
     private NetworkTableEntry rollerVelocity;
+    private NetworkTableEntry motorSpeed;
 
-    private int indiWheelDefaultVelocity = 1600;
+    private double rollerPercent = .75;
+    private int maxRPM = 2400;
+
 
     public void init(PortMan pm) throws Exception {
 
@@ -32,7 +35,7 @@ public class Roller extends Subsystem {
 
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
-        rollerVelocity = tab.add("Roller Velocity", indiWheelDefaultVelocity).getEntry();
+        rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();
 
         roller.config_kP(0, .5, 0);
         roller.config_kI(0, 0, 0);
@@ -52,7 +55,7 @@ public class Roller extends Subsystem {
 
         logger.entering(Roller.class.getName(), "spinIndiWheelBackForward()");
 
-        roller.set(ControlMode.Velocity, 1600);        
+        roller.set(ControlMode.Velocity, (int)(maxRPM * rollerVelocity.getDouble(rollerPercent)));        
     
         logger.exiting(Roller.class.getName(), "spinIndiWheelBackForward()");
     
@@ -62,7 +65,7 @@ public class Roller extends Subsystem {
 
         logger.entering(Roller.class.getName(), "spinIndiWheelBackBackward()");
 
-        roller.set(ControlMode.Velocity, -1600);
+        roller.set(ControlMode.Velocity, (int)(maxRPM * -rollerVelocity.getDouble(rollerPercent)));
     
         logger.exiting(Roller.class.getName(), "spinIndiWheelBackBackward()");
 
