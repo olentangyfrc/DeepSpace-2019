@@ -214,20 +214,15 @@ public class SubsystemFactory {
      */
     private void initTurbo() throws Exception {
         logger.info("initalizing Turbo");
-        // driveTrain = new TurboTankDrive();
-        // driveTrain.init(portMan);
-        // intake = new WheelIntake();
-        // intake.init(portMan);
-        // oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        // oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
-        // oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
-        // oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
-        // oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
-        intakeAdjuster = new IntakeAdjuster();
-        intakeAdjuster.init(portMan);
-
-        oi.bind(new MoveIntakeAdjusterForward(), OI.LeftJoyButton3, OI.WhenPressed);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.LeftJoyButton2, OI.WhenPressed);
+        driveTrain = new TurboTankDrive();
+        driveTrain.init(portMan);
+        intake = new WheelIntake();
+        intake.init(portMan);
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
+        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
+        oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
     /**
@@ -235,23 +230,17 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("initializing Football");
-        // //driveTrain  = new SparkMecanum();
-        // driveTrain  = new SparkTurboTankDrive();
-        // driveTrain.init(portMan);
-        // // kicker = new Kicker();
-        // // kicker.init(portMan);
+         //driveTrain  = new SparkMecanum();
+         driveTrain  = new SparkTurboTankDrive();
+         driveTrain.init(portMan);
+        // kicker = new Kicker();
+        // kicker.init(portMan);
+         elevator = new Elevator();
+         elevator.init(portMan);
 
-        // elevator = new Elevator();
-        // elevator.init(portMan);
+         vision  = new Vision();
+         vision.init();
 
-        // vision  = new Vision();
-        // vision.init();
-
-        intakeAdjuster = new IntakeAdjuster();
-        intakeAdjuster.init(portMan);
-
-        oi.bind(new MoveIntakeAdjusterForward(), OI.LeftJoyButton3, OI.WhenPressed);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.LeftJoyButton2, OI.WhenPressed);
     }
 
     public DriveTrain getDriveTrain(){
