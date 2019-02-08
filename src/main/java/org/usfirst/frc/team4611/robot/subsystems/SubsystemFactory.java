@@ -5,20 +5,20 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontBackward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIndiWheelFrontForward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterBackward;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIndiWheelFront;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopIntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -75,6 +75,8 @@ public class SubsystemFactory {
     private DoubleWheel doubleWheel;
     private LineTracker lineTracker;
     private Roller roller;
+    private Intake shooterIntake;
+    private IntakeAdjuster intakeAdjuster;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -155,6 +157,14 @@ public class SubsystemFactory {
         doubleWheel = new DoubleWheel();
         doubleWheel.init(portMan);
 
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
+
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+
+
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
 
@@ -168,14 +178,10 @@ public class SubsystemFactory {
         oi.bind(new MoveRollerForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
         //oi.bind(new StopRoller(), OI.LeftJoyButton4, OI.WhenReleased);
         //oi.bind(new StopRoller(), OI.LeftJoyButton5, OI.WhenReleased);
-        oi.bind(new MoveIndiWheelFrontBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveIndiWheelFrontForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new StopIndiWheelFront(), OI.RightJoyButton3, OI.WhenReleased);
-        oi.bind(new StopIndiWheelFront(), OI.RightJoyButton1, OI.WhenReleased);
+        oi.bind(new IntakeBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new IntakeForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
-        oi.bind(new StopIntakeAdjuster(), OI.RightJoyButton11, OI.WhenReleased);
-        oi.bind(new StopIntakeAdjuster(), OI.RightJoyButton10, OI.WhenReleased);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -283,4 +289,12 @@ public class SubsystemFactory {
     public Roller getRoller() {
         return roller;
     }
+
+	public Intake getIntake() {
+		return shooterIntake;
+	}
+
+	public IntakeAdjuster getIntakeAdjuster() {
+		return intakeAdjuster;
+	}
 }

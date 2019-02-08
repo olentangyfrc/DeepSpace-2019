@@ -89,10 +89,10 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.config_kD(0, 0, 0);
         elevatorRightTalon.config_kF(0, 0, 0);
 
-        elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
-        elevatorLeftTalon.configMotionAcceleration(4096,0);
-        elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
-        elevatorRightTalon.configMotionAcceleration(4096,0);
+        //elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
+        //elevatorLeftTalon.configMotionAcceleration(4096,0);
+        //elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
+        //elevatorRightTalon.configMotionAcceleration(4096,0);
 
         this.resetEncoders();
 
