@@ -229,18 +229,7 @@ public class SubsystemFactory {
      * init subsystems specific to Football
      */
     private void initFootball() throws Exception {
-        logger.info("initializing Football");
-         //driveTrain  = new SparkMecanum();
-         driveTrain  = new SparkTurboTankDrive();
-         driveTrain.init(portMan);
-        // kicker = new Kicker();
-        // kicker.init(portMan);
-         elevator = new Elevator();
-         elevator.init(portMan);
-
-         vision  = new Vision();
-         vision.init();
-
+        logger.info("Initializing Football");
     }
 
     public DriveTrain getDriveTrain(){
