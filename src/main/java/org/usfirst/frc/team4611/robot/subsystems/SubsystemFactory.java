@@ -55,7 +55,7 @@ public class SubsystemFactory {
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
     private String   jankyMacAddress    = "00:80:2F:17:F8:3F";   
-    private String   wonkyMacAddress    = "00:80:2F:27:1D:E9";
+    private String   protoMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
@@ -111,8 +111,8 @@ public class SubsystemFactory {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
                 initFootball();
-            } else if (botMacAddress.equals(wonkyMacAddress)) {
-                initWonky();
+            } else if (botMacAddress.equals(protoMacAddress)) {
+                initProto();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
             } else if ( botMacAddress.equals(turboMacAddress)) {
@@ -148,12 +148,12 @@ public class SubsystemFactory {
     }
     
     /**
-     * init subsytems specific to Wonky
+     * init subsytems specific to Proto
      */
 
     
-    private void initWonky() throws Exception {
-        logger.info("initalizing Wonky");
+    private void initProto() throws Exception {
+        logger.info("initalizing Proto");
         //driveTrain = new TalonMecanum();
         //driveTrain.init(portMan);
 
@@ -230,7 +230,6 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
-      
     }
 
     public DriveTrain getDriveTrain(){
