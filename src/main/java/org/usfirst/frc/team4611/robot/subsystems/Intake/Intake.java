@@ -27,13 +27,22 @@ public class Intake extends Subsystem {
     private ShuffleboardTab tab;
 	private NetworkTableEntry motorSpeed;
 
+    public Intake() {
+        
+    }
+
     public void init(PortMan pm) throws OzoneException {
-        intake = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Intake.intakeTalon"));
+
+        logger.entering(Intake.class.getName(), "init()");
+        
+        intake = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Intake.intakeTalon"));
 
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Intake Initialized", true);
         
         motorSpeed = tab.add("Intake Motor Speed", 1.0).getEntry();
+
+        logger.exiting(Intake.class.getName(), "init()");
     }
 
     public void spinIndiWheelFrontForward() {
