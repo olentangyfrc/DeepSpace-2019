@@ -60,7 +60,7 @@ public class SubsystemFactory {
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
-    private String   newbieMacAddress   = "";
+    private String   newbieMacAddress   = "00:80:2F:22:D7:BC";
 
     private OI oi;
 
