@@ -41,9 +41,6 @@ public class TankDrive extends DriveTrain {
     public TankDrive() {
     }
 
-    public void init(PortMan pm) throws Exception {
-        super.init(pm);
-    }
 
     public void setupTalons() {
         frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);

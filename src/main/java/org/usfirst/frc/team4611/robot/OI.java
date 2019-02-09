@@ -112,7 +112,7 @@ public class OI {
     }
 
     public double getLeftXboxYValue(){
-        return getFilteredValue(xbox.getY(Hand.kLeft));
+        return getFilteredValue(xbox.getY(GenericHID.kLeft));
     }
     public double getRightXboxYValue(){
         return getFilteredValue(xbox.getY(Hand.kRight));
