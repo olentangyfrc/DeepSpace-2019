@@ -50,7 +50,7 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
-        intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power)));        
+        intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power))));        
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
