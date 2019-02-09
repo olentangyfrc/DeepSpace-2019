@@ -154,8 +154,8 @@ public class SubsystemFactory {
     
     private void initProto() throws Exception {
         logger.info("initalizing Proto");
-        //driveTrain = new TalonMecanum();
-        //driveTrain.init(portMan);
+        driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
@@ -185,8 +185,8 @@ public class SubsystemFactory {
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton6, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton7, OI.WhileHeld);
 
         
     } 

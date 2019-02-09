@@ -108,10 +108,10 @@ public class Elevator extends Subsystem {
     public void move(boolean direction) {
         double speed;
         if(direction) {
-            speed = maxRPM*elevatorPercent.getDouble(power);
+            speed = (int)(maxRPM*elevatorPercent.getDouble(power));
         }
         else {
-            speed = maxRPM*-elevatorPercent.getDouble(power);
+            speed = (int)(maxRPM*-elevatorPercent.getDouble(power));
         }
 
         if(speed < 0) {
@@ -178,6 +178,108 @@ public class Elevator extends Subsystem {
         }
         return stop;
     }
+    public boolean moveToPos2() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos3() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos4() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos5() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos6() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos7() {
+        double finalTarget = elevatorPosition1.getDouble(.5);
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.move(true);
+            stop = true;
+        }
+        return stop;
+    }
 
     public void resetEncoders() {
         elevatorLeftTalon.setSelectedSensorPosition(0, 0 ,0);
@@ -206,7 +308,7 @@ public class Elevator extends Subsystem {
 
     public void keepInPlace() {
         //logger.info("keeping in place");
-        elevatorLeftTalon.set(ControlMode.PercentOutput, .05);
+        elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
     }
 
     @Override
