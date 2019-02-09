@@ -11,37 +11,34 @@ import edu.wpi.first.wpilibj.AnalogInput;
 // import edu.wpi.first.wpilibj.I2C.Port;
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
-public class LineTracker extends Subsystem
+public class LineTracker 
 {
-    private AnalogInput lineTracker = new AnalogInput(0);
+    private AnalogInput lineTracker; 
 
-    private ShuffleboardTab tab;
-    private NetworkTableEntry colorIsWhite;
+    public LineTracker (int port) {
+       lineTracker = new AnalogInput(port);
+
+    }
 
     public int lineTrackerInput()
     {
         return lineTracker.getValue();
     }
-    public NetworkTableEntry getColorIsWhite()
+    public boolean isColorWhite()
     {
-        return colorIsWhite;
-    }
-
-    @Override
-    protected void initDefaultCommand() {
+        return isWhite();
     }
 
     public void init() {
         
-        colorIsWhite = tab.add("Line Color", false).getEntry();
     }
 
     public boolean isWhite(){
      if(lineTrackerInput() < 2200)  
       {
-          colorIsWhite.setBoolean(true);
             return true;
         }
         else
