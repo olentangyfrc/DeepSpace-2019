@@ -22,6 +22,7 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkTurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
@@ -59,6 +60,7 @@ public class SubsystemFactory {
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
+    private String   newbieMacAddress   = "";
 
     private OI oi;
 
@@ -117,6 +119,8 @@ public class SubsystemFactory {
                 initZippy();
             } else if ( botMacAddress.equals(turboMacAddress)) {
                 initTurbo();
+            } else if(botMacAddress.equals(newbieMacAddress)) {
+                initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
@@ -230,6 +234,12 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+    }
+
+    private void initNewbie() throws Exception{
+        logger.info("Initializing Newbie");
+        driveTrain = new TankDrive();
+        driveTrain.init(portMan);
     }
 
     public DriveTrain getDriveTrain(){

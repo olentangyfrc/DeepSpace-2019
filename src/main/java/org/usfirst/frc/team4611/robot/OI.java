@@ -7,6 +7,8 @@ import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -24,6 +26,7 @@ public class OI {
     private Joystick leftJoy;
     private Joystick rightJoy;
     private Joystick auxJoy;
+    private XboxController xbox;
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
     
@@ -106,6 +109,13 @@ public class OI {
 
     public double getRightJoystickYValue() {
         return getFilteredValue (rightJoy.getY());
+    }
+
+    public double getLeftXboxYValue(){
+        return getFilteredValue(xbox.getY(Hand.kLeft));
+    }
+    public double getRightXboxYValue(){
+        return getFilteredValue(xbox.getY(Hand.kRight));
     }
 
     public void rumbleJoystick(int j) {

@@ -88,8 +88,8 @@ public class TankDrive extends DriveTrain {
 
     @Override
     public void move() {
-        double LYVal = -OI.getInstance().getLeftJoystickYValue();
-        double RYVal = OI.getInstance().getRightJoystickYValue();
+        double LYVal = -OI.getInstance().getLeftXboxYValue();
+        double RYVal = OI.getInstance().getRightXboxYValue();
 
 
         velocity1 = 4 * (maxRPM * (LYVal * YValScaler1));
