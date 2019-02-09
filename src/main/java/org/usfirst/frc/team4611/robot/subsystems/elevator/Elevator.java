@@ -27,6 +27,12 @@ public class Elevator extends Subsystem {
     private ShuffleboardTab tab;
     private NetworkTableEntry elevatorPercent;
     private NetworkTableEntry elevatorPosition1;
+    private NetworkTableEntry elevatorPosition2;
+    private NetworkTableEntry elevatorPosition3;
+    private NetworkTableEntry elevatorPosition4;
+    private NetworkTableEntry elevatorPosition5;
+    private NetworkTableEntry elevatorPosition6;
+    private NetworkTableEntry elevatorPosition7;
 
     public static double maxRPM = 6000;
 
@@ -62,7 +68,13 @@ public class Elevator extends Subsystem {
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
         elevatorPercent = tab.add("Elevator Percent", power).getEntry();
-        elevatorPosition1 = tab.add("Elevator Position", .5).getEntry();
+        elevatorPosition1 = tab.add("Elevator Position1", .5).getEntry();
+        elevatorPosition2 = tab.add("Elevator Position2", .5).getEntry();
+        elevatorPosition3 = tab.add("Elevator Position3", .5).getEntry();
+        elevatorPosition4 = tab.add("Elevator Position4", .5).getEntry();
+        elevatorPosition5 = tab.add("Elevator Position5", .5).getEntry();
+        elevatorPosition6 = tab.add("Elevator Position6", .5).getEntry();
+        elevatorPosition7 = tab.add("Elevator Position7", .5).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -179,7 +191,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos2() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition2.getDouble(.5);
         
         boolean stop = false;
 
@@ -196,7 +208,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos3() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition3.getDouble(.5);
         
         boolean stop = false;
 
@@ -213,7 +225,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos4() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition4.getDouble(.5);
         
         boolean stop = false;
 
@@ -230,7 +242,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos5() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition5.getDouble(.5);
         
         boolean stop = false;
 
@@ -247,7 +259,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos6() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition6.getDouble(.5);
         
         boolean stop = false;
 
@@ -264,7 +276,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos7() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
+        double finalTarget = elevatorPosition7.getDouble(.5);
         
         boolean stop = false;
 
