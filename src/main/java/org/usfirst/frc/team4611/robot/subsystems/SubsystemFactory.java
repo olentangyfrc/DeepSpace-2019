@@ -154,8 +154,8 @@ public class SubsystemFactory {
     
     private void initProto() throws Exception {
         logger.info("initalizing Proto");
-        //driveTrain = new TalonMecanum();
-        //driveTrain.init(portMan);
+        driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
