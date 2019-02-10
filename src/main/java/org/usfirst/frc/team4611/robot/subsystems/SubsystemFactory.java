@@ -51,6 +51,7 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorD
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
+import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 
 
 public class SubsystemFactory {
@@ -64,6 +65,7 @@ public class SubsystemFactory {
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
+    private String   newbieMacAddress   = "00:80:2F:22:D7:BC";
 
     private OI oi;
 
@@ -84,7 +86,10 @@ public class SubsystemFactory {
     private Roller roller;
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
+    private PixyCam pixyCam;
+  
     private UsbCamera camera;
+  
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
     }
@@ -120,8 +125,10 @@ public class SubsystemFactory {
                 initProto();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
-            } else if ( botMacAddress.equals(turboMacAddress)) {
+            } else if (botMacAddress.equals(turboMacAddress)) {
                 initTurbo();
+            } else if (botMacAddress.equals(newbieMacAddress)) {
+                initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
@@ -208,6 +215,17 @@ public class SubsystemFactory {
 
         
     } 
+    /**
+     * init subsystems specific to Newbie
+     * @throws Exception
+     */
+    private void initNewbie() throws Exception {
+       logger.info("initializing Newbie");
+       logger.info("initNewbie");
+
+       pixyCam = new PixyCam();
+       pixyCam.init();
+    }
 
     /**
      * init subsytems specific to Zippy
@@ -248,10 +266,6 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
-        camera = CameraServer.getInstance().startAutomaticCapture();	
-		camera.setResolution(320, 240);
-		camera.setFPS(20);
-		camera.setExposureManual(35);
     } 
 
     public DriveTrain getDriveTrain(){
@@ -312,6 +326,10 @@ public class SubsystemFactory {
 
 	public IntakeAdjuster getIntakeAdjuster() {
 		return intakeAdjuster;
+    }
+
+    public PixyCam getPixyCam() {
+        return pixyCam;
     }
 }
 
