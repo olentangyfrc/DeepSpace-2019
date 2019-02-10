@@ -23,6 +23,7 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkTurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
@@ -267,6 +268,12 @@ public class SubsystemFactory {
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
     } 
+
+    private void initNewbie() throws Exception{
+        logger.info("Initializing Newbie");
+        driveTrain = new TankDrive();
+        driveTrain.init(portMan);
+    }
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
