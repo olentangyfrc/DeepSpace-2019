@@ -110,6 +110,8 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.follow(elevatorLeftTalon);
         elevatorRightTalon.setInverted(true);
 
+        logger.exiting("Elevator", "out of init");
+
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
     }
 

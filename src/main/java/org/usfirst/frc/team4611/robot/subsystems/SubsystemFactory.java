@@ -121,6 +121,7 @@ public class SubsystemFactory {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new OzoneException(e.getMessage());
         }
     }
@@ -171,6 +172,9 @@ public class SubsystemFactory {
 
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
+
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
