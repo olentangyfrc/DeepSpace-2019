@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems.pixyCam;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.subsystems.pixyCam.commands.PollPixy;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PollNetworkTable;
 
 
@@ -37,12 +38,16 @@ public class PixyCam extends Subsystem{
         pixy = Pixy2.createInstance(Pixy2.LinkType.SPI);
         pixy.init(0);
         logger.info("Here comes the version! :) " + pixy.getVersionInfo().toString());
-        
+        ccc = pixy.getCCC();
 
       }
 
+    public Pixy2CCC getCCC(){
+        return ccc;
+    }
+
     protected void initDefaultCommand() {
-        // setDefaultCommand(new PollNetworkTable());
+        setDefaultCommand(new PollPixy());
     } 
 
 }
