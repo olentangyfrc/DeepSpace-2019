@@ -5,7 +5,22 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
+import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkTurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -18,10 +33,18 @@ import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.EjectBall;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.IntakeGroup;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TopLoader;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
-
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 
 
@@ -31,8 +54,8 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   jankyMacAddress    = "00:80:2F:17:F8:3F";
-    private String   wonkyMacAddress    = "00:80:2F:27:1D:E9";
+    private String   jankyMacAddress    = "00:80:2F:17:F8:3F";   
+    private String   protoMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
@@ -53,6 +76,9 @@ public class SubsystemFactory {
     private Elevator elevator;
     private DoubleWheel doubleWheel;
     private LineTracker lineTracker;
+    private Roller roller;
+    private Intake shooterIntake;
+    private IntakeAdjuster intakeAdjuster;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -80,16 +106,16 @@ public class SubsystemFactory {
 
             // subsystems common to every bot
             initCommon();
-            System.out.println("["+botMacAddress+"]");
+            logger.info("["+botMacAddress+"]");
             if (botMacAddress.equals(jankyMacAddress)) {
                 initJanky();
             } else if (botMacAddress.equals(footballMacAddress)) {
                 initFootball();
-            } else if (botMacAddress.equals(wonkyMacAddress)) {
-                initWonky();
+            } else if (botMacAddress.equals(protoMacAddress)) {
+                initProto();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
-            } else if (botMacAddress.equals(turboMacAddress)) {
+            } else if ( botMacAddress.equals(turboMacAddress)) {
                 initTurbo();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
@@ -110,25 +136,59 @@ public class SubsystemFactory {
      */
     private void initJanky() throws Exception{
         logger.info("initalizing Janky");
-        driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
+        //driveTrain = new TalonMecanum();
+        //driveTrain.init(portMan);
+
+        intake = new WheelIntake();
+        intake.init(portMan);
+
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhenPressed);
+        
     }
     
     /**
-     * init subsytems specific to Wonky
+     * init subsytems specific to Proto
      */
-    private void initWonky() throws Exception {
-        logger.info("initalizing Wonky");
+
+    
+    private void initProto() throws Exception {
+        logger.info("initalizing Proto");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
 
-        oi.bind(new MoveElevator(.7), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-.7), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
+        roller = new Roller();
+        roller.init(portMan);
+
+        doubleWheel = new DoubleWheel();
+        doubleWheel.init(portMan);
+
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
+
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+
+        
     } 
 
     /**
@@ -136,7 +196,7 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
-        System.out.println("initZippy");
+        logger.info("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
         
@@ -156,20 +216,20 @@ public class SubsystemFactory {
         logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
         driveTrain.init(portMan);
+        intake = new WheelIntake();
+        intake.init(portMan);
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
+        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
+        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
+        oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
     /**
      * init subsystems specific to Football
      */
     private void initFootball() throws Exception {
-        logger.info("initializing Football");
-        // kicker = new Kicker();
-        // kicker.init(portMan);
-
-        vision  = new Vision();
-        vision.init();
-        // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
+        logger.info("Initializing Football");
     }
 
     public DriveTrain getDriveTrain(){
@@ -215,7 +275,21 @@ public class SubsystemFactory {
     public DoubleWheel getDoubleWheel(){
         return doubleWheel;
     }
-    public LineTracker getLineTracker(){
+
+    public LineTracker getLineTracker() {
         return lineTracker;
     }
+
+    public Roller getRoller() {
+        return roller;
+    }
+
+	public Intake getIntake() {
+		return shooterIntake;
+	}
+
+	public IntakeAdjuster getIntakeAdjuster() {
+		return intakeAdjuster;
+    }
 }
+
