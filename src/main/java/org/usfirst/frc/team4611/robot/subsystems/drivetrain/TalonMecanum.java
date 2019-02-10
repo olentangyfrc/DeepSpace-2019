@@ -210,7 +210,7 @@ public class TalonMecanum extends DriveTrain {
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
 		NetTableManager.updateValues(mecanumSubtable, values);
-		logger.info("Joystick " + YVal);
+		//logger.info("Joystick " + YVal);
 		//logger.fine(""+frontRight.getBusVoltage());
 	}
 

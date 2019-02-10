@@ -33,6 +33,7 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry elevatorPosition5;
     private NetworkTableEntry elevatorPosition6;
     private NetworkTableEntry elevatorPosition7;
+    private NetworkTableEntry potPosition;
 
     public static double maxRPM = 6000;
 
@@ -71,10 +72,11 @@ public class Elevator extends Subsystem {
         elevatorPosition1 = tab.add("Elevator Position1", .5).getEntry();
         elevatorPosition2 = tab.add("Elevator Position2", .5).getEntry();
         elevatorPosition3 = tab.add("Elevator Position3", .5).getEntry();
-        elevatorPosition4 = tab.add("Elevator Position4", .5).getEntry();
+        elevatorPosition4 = tab.add("Elevator Position4", .88).getEntry();
         elevatorPosition5 = tab.add("Elevator Position5", .5).getEntry();
         elevatorPosition6 = tab.add("Elevator Position6", .5).getEntry();
         elevatorPosition7 = tab.add("Elevator Position7", .5).getEntry();
+        potPosition = tab.add("Current Pot Position", 0).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -167,6 +169,7 @@ public class Elevator extends Subsystem {
             }
         }
 
+        potPosition.setDouble(pot.getValue());
        //logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
     }
@@ -180,6 +183,7 @@ public class Elevator extends Subsystem {
         
         boolean stop = false;
 
+
         if(finalTarget - pot.getValue() < -.05) {
             this.move(false);
         }
@@ -187,7 +191,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -204,7 +208,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -221,7 +225,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -238,7 +242,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -255,7 +259,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -272,7 +276,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -289,7 +293,7 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.move(true);
+            this.stopElevator();
             stop = true;
         }
         return stop;
@@ -323,6 +327,7 @@ public class Elevator extends Subsystem {
     public void keepInPlace() {
         //logger.info("keeping in place");
         elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
+        potPosition.setDouble(pot.getValue());
     }
 
     @Override
