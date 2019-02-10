@@ -93,6 +93,7 @@ public class OI {
        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
        auxJoy = new Joystick(2);
+       xbox = new XboxController(3);
     }
 
     public double getLeftJoystickXValue() {
@@ -112,7 +113,7 @@ public class OI {
     }
 
     public double getLeftXboxYValue(){
-        return getFilteredValue(xbox.getY(GenericHID.kLeft));
+        return getFilteredValue(xbox.getY(Hand.kLeft));
     }
     public double getRightXboxYValue(){
         return getFilteredValue(xbox.getY(Hand.kRight));
