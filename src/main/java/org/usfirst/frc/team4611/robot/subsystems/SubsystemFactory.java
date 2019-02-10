@@ -40,6 +40,10 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelI
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
@@ -79,7 +83,7 @@ public class SubsystemFactory {
     private Roller roller;
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
-
+    private UsbCamera camera;
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
     }
@@ -130,7 +134,11 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-    }
+         camera = CameraServer.getInstance().startAutomaticCapture();	
+         camera.setResolution(320, 240);
+         camera.setFPS(20);
+         camera.setExposureManual(35); 
+            }
 
     /**
      * init subsytems specific to Janky
@@ -234,7 +242,11 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
-    }
+        camera = CameraServer.getInstance().startAutomaticCapture();	
+		camera.setResolution(320, 240);
+		camera.setFPS(20);
+		camera.setExposureManual(35);
+    } 
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
