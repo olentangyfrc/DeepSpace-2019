@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Optical;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -17,6 +19,8 @@ public class Robot extends TimedRobot {
 
 	private static Logger logger;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	private Optical opt = new Optical(Port.kOnboard);
+	private Optical opt1 = new Optical(Port.kMXP);
 
 	@Override
 	public void robotInit() {
@@ -30,6 +34,7 @@ public class Robot extends TimedRobot {
 			SubsystemFactory.getInstance().init();
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
+			e.printStackTrace();
 			System.exit(1);
 		} finally {
 			logger.exiting(Robot.class.getName(), "robotInit()");
@@ -73,6 +78,7 @@ public class Robot extends TimedRobot {
 		logger.entering(Robot.class.getName(), "teleopPeriodic()");
 		Scheduler.getInstance().run();
 		logger.exiting(Robot.class.getName(), "teleopPeriodic()");
+		
 	}
 
 	@Override

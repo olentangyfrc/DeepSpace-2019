@@ -14,9 +14,7 @@ public class PrintLineTracker extends Command {
     }
 
     protected void execute(){
-        System.out.println(lineTracker.lineTrackerInput());
-        System.out.println(lineTracker.isWhite());
-        System.out.println(lineTracker.getColorIsWhite());
+        lineTracker.checkLines();
     }
 
     @Override

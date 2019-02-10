@@ -22,11 +22,11 @@ public class OzoneException extends Exception {
     public OzoneException (String message) {
         super (message);
 
-        if (exceptionMessageEntry == null) {
+        /*if (exceptionMessageEntry == null) {
             exceptionMessageEntry = Shuffleboard.getTab("Health Tab").add("ExceptionMessage", "No Exception").getEntry();
             exceptionIndicatorEntry = Shuffleboard.getTab("Health Tab").add("ExceptionIndicator", true).getEntry();
         }
         exceptionMessageEntry.setString(message);
-        exceptionIndicatorEntry.setBoolean(false);
+        exceptionIndicatorEntry.setBoolean(false);*/
     }
 }
