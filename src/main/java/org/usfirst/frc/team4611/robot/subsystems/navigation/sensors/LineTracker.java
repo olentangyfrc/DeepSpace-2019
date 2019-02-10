@@ -8,12 +8,7 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.Linetracker
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 
-// import java.util.TimerTask;
-
 import edu.wpi.first.wpilibj.AnalogInput;
-// import edu.wpi.first.wpilibj.I2C;
-// import edu.wpi.first.wpilibj.I2C.Port;
-// import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -87,8 +82,11 @@ public class LineTracker extends Subsystem
         logger.info("Left: "+lineTrackerLeft.getValue());
         logger.info("Right: "+lineTrackerRight.getValue());
         logger.info("Mid: "+lineTrackerMid.getValue());
-        onLeft = (lineTrackerLeft.getValue() < 2200) ;
-        onRight = (lineTrackerRight.getValue() < 2200) ;
-        onMid = (lineTrackerMid.getValue() < 2200) ;
+        onLeft = (lineTrackerLeft.getValue() < 2600) ;
+        onRight = (lineTrackerRight.getValue() < 2600) ;
+        onMid = (lineTrackerMid.getValue() < 2600) ;
+        onLeftEntry.setValue(onLeft);
+        onRightEntry.setValue(onRight);
+        onMidEntry.setValue(onMid);
     }
 } 
