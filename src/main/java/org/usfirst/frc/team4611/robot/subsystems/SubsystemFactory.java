@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveInt
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerSlowForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
@@ -195,7 +196,7 @@ public class SubsystemFactory {
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
         
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
