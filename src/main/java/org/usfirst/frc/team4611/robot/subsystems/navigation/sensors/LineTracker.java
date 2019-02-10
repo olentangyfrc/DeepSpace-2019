@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.LinetrackerDefault;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 // import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class LineTracker extends Subsystem
@@ -62,9 +64,13 @@ public class LineTracker extends Subsystem
 
     @Override
     protected void initDefaultCommand() {
+        setDefaultCommand(new LinetrackerDefault());
     }
 
-    public void init(PortMan pm) throws Exception{
+
+    public void init(PortMan pm) throws Exception {
+        tab = Shuffleboard.getTab("Health Map");
+        
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
         lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
@@ -77,6 +83,10 @@ public class LineTracker extends Subsystem
     }
 
     public void checkLines() {
+
+        logger.info("Left: "+lineTrackerLeft.getValue());
+        logger.info("Right: "+lineTrackerRight.getValue());
+        logger.info("Mid: "+lineTrackerMid.getValue());
         onLeft = (lineTrackerLeft.getValue() < 2200) ;
         onRight = (lineTrackerRight.getValue() < 2200) ;
         onMid = (lineTrackerMid.getValue() < 2200) ;
