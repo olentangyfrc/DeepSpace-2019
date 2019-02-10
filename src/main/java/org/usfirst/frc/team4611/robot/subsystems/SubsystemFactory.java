@@ -234,6 +234,10 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+        intake = new WheelIntake();
+        intake.init(portMan);
+        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
+
     }
 
     public DriveTrain getDriveTrain(){

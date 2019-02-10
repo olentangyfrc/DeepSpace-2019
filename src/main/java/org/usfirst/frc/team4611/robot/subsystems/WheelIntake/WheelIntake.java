@@ -39,6 +39,9 @@ public class WheelIntake extends Subsystem {
     private NetworkTableEntry wheelIntakeSoftThrow;
     private NetworkTableEntry wheelIntakeAdjustSpeed;
     private NetworkTableEntry velocity;
+    private NetworkTableEntry wheelIntakeSlowVelocity;
+    private NetworkTableEntry wheelIntakeMaxRPM;
+    private NetworkTableEntry wheelEjectPercent; 
 
     private String spinSpeed = "Wheel Intake Spin Initialize";
     private String attackSpeed = "Wheel Intake Attack Initialize";
@@ -56,7 +59,7 @@ public class WheelIntake extends Subsystem {
         switch1 = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "WheelIntake.switch1"));
         switch2 = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "WheelIntake.switch2"));
 
-        wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_33_label, "wheelIntake.talon"));
+        wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "wheelIntake.talon"));
         
         wheelIntakeTalon.config_kP(0,pVal, 0);
         wheelIntakeTalon.config_kI(0, 0.000, 0);
@@ -67,12 +70,22 @@ public class WheelIntake extends Subsystem {
         NetTableManager.updateValue("Health Map", softSpeed, 0.0);
         NetTableManager.updateValue("Health Map", adjustmentSpeed, 0.0);
         velocity = tab.add("Velocity", -1.0).getEntry();
+        wheelIntakeSlowVelocity = tab.add("IntakeSlowPercent", 0).getEntry();
+        wheelIntakeMaxRPM = tab.add("wheelIntakeMaxRPM", 1000).getEntry();
+        wheelEjectPercent = tab.add("wheelEjectPercentage",.95 ).getEntry();
         NetTableManager.updateValue("Wheel Intake", "Wheel Intake Initialization", true);
     }
 
     public void moveIntake(double speed) {
         
-        wheelIntakeTalon.set(ControlMode.PercentOutput, speed);
+        wheelIntakeTalon.set(ControlMode.Velocity, speed*wheelIntakeMaxRPM.getDouble(1000));
+    }
+
+    public void moveWheelIntakeSlow() {
+        wheelIntakeTalon.set(ControlMode.Velocity, wheelIntakeSlowVelocity.getDouble(0)*wheelIntakeMaxRPM.getDouble(1000));
+    }
+    public void stopIntakeWheel() {
+        wheelIntakeTalon.set(ControlMode.Velocity, 0);
     }
 
     public boolean isSwitch1Set(){
@@ -95,7 +108,7 @@ public class WheelIntake extends Subsystem {
 
         while (System.currentTimeMillis() < (long)endTime) {
             logger.info("in the while");
-            moveIntake(-.95);
+            moveIntake(-wheelEjectPercent.getDouble(0.95));
         }
         moveIntake(0);
     }

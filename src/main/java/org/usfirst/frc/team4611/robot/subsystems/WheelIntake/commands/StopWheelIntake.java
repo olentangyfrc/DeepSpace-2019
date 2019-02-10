@@ -23,7 +23,7 @@ public class StopWheelIntake extends Command {
 
     @Override
     protected void execute() {
-        wheelIntake.moveIntake(0);
+        wheelIntake.stopIntakeWheel();
     }
 
     @Override
