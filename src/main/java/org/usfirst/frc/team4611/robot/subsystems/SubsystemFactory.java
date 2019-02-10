@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveInt
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerSlowForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
@@ -40,6 +41,10 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelI
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
@@ -82,7 +87,9 @@ public class SubsystemFactory {
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
     private PixyCam pixyCam;
-
+  
+    private UsbCamera camera;
+  
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
     }
@@ -126,6 +133,7 @@ public class SubsystemFactory {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new OzoneException(e.getMessage());
         }
     }
@@ -134,7 +142,11 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-    }
+         camera = CameraServer.getInstance().startAutomaticCapture();	
+         camera.setResolution(320, 240);
+         camera.setFPS(20);
+         camera.setExposureManual(35); 
+        }
 
     /**
      * init subsytems specific to Janky
@@ -159,8 +171,8 @@ public class SubsystemFactory {
     
     private void initProto() throws Exception {
         logger.info("initalizing Proto");
-        //driveTrain = new TalonMecanum();
-        //driveTrain.init(portMan);
+        driveTrain = new TalonMecanum();
+        driveTrain.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
@@ -177,21 +189,29 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
+
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
         
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
+        //oi.bind(new MoveElevatorToPos(4), OI.RightJoyButton7, OI.WhenPressed);
 
         
     } 
@@ -246,7 +266,7 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
-    }
+    } 
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
@@ -312,3 +332,4 @@ public class SubsystemFactory {
         return pixyCam;
     }
 }
+
