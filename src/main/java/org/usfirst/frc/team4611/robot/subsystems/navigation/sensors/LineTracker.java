@@ -25,11 +25,15 @@ public class LineTracker extends Subsystem
     private AnalogInput lineTrackerMid;
     private AnalogInput lineTrackerRight;
 
-    private boolean crossedLeft;
-    private boolean crossedRight;
+    private boolean onLeft;
+    private boolean onRight;
+    private boolean onMid;
 
     private ShuffleboardTab tab;
     private NetworkTableEntry colorIsWhite;
+    private NetworkTableEntry onLeftEntry;
+    private NetworkTableEntry onRightEntry;
+    private NetworkTableEntry onMidEntry;
 
     public int getLineTrackerInputLeft()
     {
@@ -60,35 +64,19 @@ public class LineTracker extends Subsystem
     }
 
     public void init(PortMan pm) throws Exception{
-        lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog0_label, "LineTracker.lineTrackerLeft"));
-        lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerMid"));
-        lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerRight"));
-        colorIsWhite = tab.add("Line Color", false).getEntry();
+        lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
+        lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
+        lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
+
+        colorIsWhite = tab.add("Linetracker Line Color", false).getEntry();
+        onLeftEntry = tab.add("Linetracker Left", onLeft).getEntry();
+        onRightEntry = tab.add("Linetracker Right", onRight).getEntry();
+        onMidEntry = tab.add("Linetracker Mid", onMid).getEntry();
     }
 
-    public boolean isWhite() {
-     if(getLineTrackerInputMid() < 2200)  
-      {
-          colorIsWhite.setBoolean(true);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void setCrossedLeft() {
-        if(getLineTrackerInputLeft() < 2200) 
-        {
-            crossedLeft = true;
-        }
-    }
-
-    public void setCrossedRight() {
-        if(getLineTrackerInputRight() < 2200) 
-        {
-            crossedRight = true;
-        }
+    public void checkLines() {
+        onLeft = (lineTrackerLeft.getValue() < 2200) ;
+        onRight = (lineTrackerRight.getValue() < 2200) ;
+        onMid = (lineTrackerMid.getValue() < 2200) ;
     }
 } 
