@@ -67,6 +67,8 @@ public class LineTracker extends Subsystem
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
         lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
+        colorIsWhite = tab.add("Line Color", false).getEntry();
+    }
 
         colorIsWhite = tab.add("Linetracker Line Color", false).getEntry();
         onLeftEntry = tab.add("Linetracker Left", onLeft).getEntry();
