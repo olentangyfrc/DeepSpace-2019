@@ -34,10 +34,6 @@ public class WheelIntake extends Subsystem {
     private double adjustSpeed;
 
     private ShuffleboardTab tab;
-    private NetworkTableEntry wheelIntakeSpin;
-    private NetworkTableEntry wheelIntakeAttack;
-    private NetworkTableEntry wheelIntakeSoftThrow;
-    private NetworkTableEntry wheelIntakeAdjustSpeed;
     private NetworkTableEntry velocity;
     private NetworkTableEntry wheelIntakeSlowVelocity;
     private NetworkTableEntry wheelIntakeMaxRPM;
@@ -79,24 +75,35 @@ public class WheelIntake extends Subsystem {
     public void moveIntake(double speed) {
         
         wheelIntakeTalon.set(ControlMode.Velocity, speed*wheelIntakeMaxRPM.getDouble(1000));
+ 
     }
 
     public void moveWheelIntakeSlow() {
+ 
         wheelIntakeTalon.set(ControlMode.Velocity, wheelIntakeSlowVelocity.getDouble(0)*wheelIntakeMaxRPM.getDouble(1000));
+ 
     }
+
     public void stopIntakeWheel() {
+ 
         wheelIntakeTalon.set(ControlMode.Velocity, 0);
+ 
     }
 
     public boolean isSwitch1Set(){
+ 
         return switch1.get();
+ 
     }
 
     public boolean isSwitch2Set(){
+ 
         return switch2.get();
+ 
     }
   
     public void moveIntake(int speed) {
+ 
         wheelIntakeTalon.set(ControlMode.Velocity, speed);
 
         velocity.setDouble(speed);  
