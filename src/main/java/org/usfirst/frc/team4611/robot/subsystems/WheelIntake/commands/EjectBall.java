@@ -10,17 +10,25 @@ public class EjectBall extends Command {
     private WheelIntake wheelIntake;
 
     public EjectBall() {
-        SubsystemFactory.getInstance().getWheelIntake();
+        wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
+        requires(wheelIntake);
+    }
+
+    @Override
+    protected void initialize(){
     }
 
     @Override
     protected void execute() {
-        wheelIntake.moveIntake(-690);
+        wheelIntake.ejectBall();
+    }
+
+    @Override
+    protected void end(){
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
-    
 }

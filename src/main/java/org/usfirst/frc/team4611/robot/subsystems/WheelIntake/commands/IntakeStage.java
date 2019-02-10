@@ -5,24 +5,32 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TakeInBall extends Command {
+public class IntakeStage extends Command {
 
-
+    private double speed;
+    private String returnMethod;
     private WheelIntake wheelIntake;
 
-    public TakeInBall() {
+    public IntakeStage(double spd, String rm) {
+        speed = spd;
+        returnMethod = rm;
         wheelIntake = SubsystemFactory.getInstance().getWheelIntake();
-        requires(wheelIntake);
     }
 
     @Override
     protected void execute() {
-        wheelIntake.captureBall();
+        wheelIntake.moveIntake(speed);
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        if (returnMethod.equals("Switch1")){
+            return !wheelIntake.isSwitch1Set();
+        } else if (returnMethod.equals("Switch2")){
+            return !wheelIntake.isSwitch2Set();
+        } else {
+            return true;
+        }
     }
     
 }

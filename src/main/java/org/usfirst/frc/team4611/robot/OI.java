@@ -1,5 +1,9 @@
 package org.usfirst.frc.team4611.robot;
 
+import java.util.logging.Logger;
+
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,6 +24,8 @@ public class OI {
     private Joystick leftJoy;
     private Joystick rightJoy;
     private Joystick auxJoy;
+
+    static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
     
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
@@ -113,7 +119,7 @@ public class OI {
                 rightJoy.setRumble(RumbleType.kRightRumble, 0.5 );
                 break;
             default:
-                System.err.println("Invalid Joystick id [" + j + "]");
+                logger.severe("Invalid Joystick id [" + j + "]");
         }
     }
 
@@ -125,17 +131,23 @@ public class OI {
      */
     public void bind(Command c, int button, int action) throws OzoneException {
         Joystick    j;
-        System.out.println("Binding command to " + button + " with action " + action);
+        logger.info("Binding command to " + button + " with action " + action);
         // see constants in this file LeftJoyButton1  = 1;
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
         // Joystick button values 11-20 are for righ joystick
         
         if(allocatedJoyButtons.get(button) != null) {
-            throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
-                 " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
-                 "] is already taken by [" + allocatedJoyButtons.get(button) + 
-                 "] when asked for by [ " + c.getClass().getName() + "]");
+            if(action == 2) {
+                logger.info("ONLY OK BECAUSE THIS IS A WHEN RELEASED COMMAND");
+            }
+            else {
+                throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
+                    " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
+                    "] is already taken by [" + allocatedJoyButtons.get(button) + 
+                    "] when asked for by [ " + c.getClass().getName() + "]");
+                    //logger.log("MULTI BUTTON LINKAGE");
+            }
         }
         
         allocatedJoyButtons.put(button, c.getClass().getName());

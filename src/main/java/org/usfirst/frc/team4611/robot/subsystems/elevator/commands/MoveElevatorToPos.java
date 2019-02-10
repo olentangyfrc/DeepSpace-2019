@@ -8,22 +8,48 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorToPos extends Command {
 
     private Elevator elevator;
-    private int positionUnits;
+    private boolean stop = false;
+    private int lvl;
 
-    public MoveElevatorToPos(int pos){
+
+    //MUST SEND A NUMBER FROM 0 TO 7
+    //We use this to decide what level to move the elvator to
+    public MoveElevatorToPos(int level){
         elevator = SubsystemFactory.getInstance().getElevator();
-        positionUnits = pos;
-        
+        lvl = level;
         this.requires(elevator);
     }
 
     protected void execute() {
-        elevator.moveToPos(positionUnits);
+        if(lvl == 1) {
+            stop = elevator.moveToPos1();
+        } 
+        else if(lvl == 2) {
+            stop = elevator.moveToPos2();
+        }
+        else if(lvl == 3) {
+            stop = elevator.moveToPos3();
+        }
+        else if(lvl == 4) {
+            stop = elevator.moveToPos4();
+        }
+        else if(lvl == 5) {
+            stop = elevator.moveToPos5();
+        }
+        else if(lvl == 6) {
+            stop = elevator.moveToPos6();
+        }
+        else if(lvl == 7) {
+            stop = elevator.moveToPos7();
+        }
+        else {
+            stop = true;
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return stop;
     }
 
     protected void initialize() {

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.doublewheel;
 
+import java.util.logging.Logger;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -13,6 +15,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class DoubleWheel extends Subsystem {
 
+    private static Logger logger = Logger.getLogger(DoubleWheel.class.getName());
+
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
 
@@ -21,9 +25,15 @@ public class DoubleWheel extends Subsystem {
     private NetworkTableEntry doubleWheelRightVelocity;
     private NetworkTableEntry doubleWheelIntakeVelocity;
 
-    private int wheelVelocity = 480;
+
+    private int wheelVelocity = 1600;
+    private int indiWheelDefaultVelocity = 1600;
+    private int adjusterVelocity = 1600;
 
     public void init(PortMan pm) throws Exception {
+
+        logger.entering(DoubleWheel.class.getName(), "init()");
+
         wheelIntakeLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_18_label, "DoubleWheel.leftWheelIntake"));
         wheelIntakeRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_19_label, "DoubleWheel.rightWheelIntake"));
 
@@ -44,21 +54,38 @@ public class DoubleWheel extends Subsystem {
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
         doubleWheelIntakeVelocity = tab.add("Wheel Intake Velocity", (double)wheelVelocity).getEntry();
 
+        logger.exiting(DoubleWheel.class.getName(), "init()");
+
     }
 
     public void spinMotorsIntake(int speed){
+
+        logger.entering(DoubleWheel.class.getName(), "spinMotorsIntake()");
+
         wheelIntakeLeft.set(ControlMode.Velocity, speed); 
         
         doubleWheelLeftVelocity.setDouble(speed);
         doubleWheelRightVelocity.setDouble(-speed);
 
+        logger.exiting(DoubleWheel.class.getName(), "spinMotorsIntake()");
+
+
     }
 
     public void spinMotorOutTake() {
+
+        logger.entering(DoubleWheel.class.getName(), "spinMotorOutTake()");
+
         wheelIntakeLeft.set(ControlMode.Velocity, -doubleWheelIntakeVelocity.getDouble(wheelVelocity));
 
-        
+        logger.exiting(DoubleWheel.class.getName(), "spinMotorOutTake()");
     }
+
+    public void stopMotors() {
+        wheelIntakeLeft.set(ControlMode.Velocity, 0);
+    }
+
+   
 
     @Override
     protected void initDefaultCommand() {

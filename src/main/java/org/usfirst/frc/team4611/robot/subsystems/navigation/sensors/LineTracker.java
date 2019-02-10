@@ -47,6 +47,7 @@ public class LineTracker extends Subsystem
         logger.exiting(LineTracker.class.getName(),"getLineTrackerInputMid()");
         return lineTrackerMid.getValue();
     }
+
     public int getLineTrackerInputRight()
     {
         logger.entering(LineTracker.class.getName(),"getLineTrackerInputRight()");
