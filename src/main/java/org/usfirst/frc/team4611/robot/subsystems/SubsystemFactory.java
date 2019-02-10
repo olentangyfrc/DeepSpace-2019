@@ -201,10 +201,10 @@ public class SubsystemFactory {
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
 
-        oi.bind(new MoveElevatorToPos(1), OI.LeftJoyButton11, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(3), OI.RightJoyButton6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.RightJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
+        //oi.bind(new MoveElevatorToPos(4), OI.RightJoyButton7, OI.WhenPressed);
 
         
     } 
