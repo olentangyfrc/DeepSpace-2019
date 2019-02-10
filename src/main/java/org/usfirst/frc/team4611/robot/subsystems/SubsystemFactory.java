@@ -224,6 +224,8 @@ public class SubsystemFactory {
        logger.info("initializing Newbie");
        logger.info("initNewbie");
 
+       driveTrain = new TankDrive();
+       driveTrain.init(portMan);
        pixyCam = new PixyCam();
        pixyCam.init();
     }
@@ -268,12 +270,6 @@ public class SubsystemFactory {
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
     } 
-
-    private void initNewbie() throws Exception{
-        logger.info("Initializing Newbie");
-        driveTrain = new TankDrive();
-        driveTrain.init(portMan);
-    }
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
