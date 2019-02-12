@@ -222,7 +222,6 @@ public class SubsystemFactory {
      */
     private void initNewbie() throws Exception {
        logger.info("initializing Newbie");
-       logger.info("initNewbie");
 
        driveTrain = new TankDrive();
        driveTrain.init(portMan);
@@ -235,7 +234,6 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
-        logger.info("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
         
@@ -269,6 +267,8 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+        nav    = new Navigation();
+        nav.init(portMan);
     } 
 
     public DriveTrain getDriveTrain(){
@@ -335,4 +335,3 @@ public class SubsystemFactory {
         return pixyCam;
     }
 }
-
