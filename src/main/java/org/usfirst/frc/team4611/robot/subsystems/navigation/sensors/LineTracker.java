@@ -79,7 +79,7 @@ public class LineTracker extends Subsystem
 
     public void checkLines() {
 
-        // logger.info("Left: "+lineTrackerLeft.getValue());
+         logger.info("Left: "+lineTrackerLeft.getValue());
         // logger.info("Right: "+lineTrackerRight.getValue());
         // logger.info("Mid: "+lineTrackerMid.getValue());
         onLeft = (lineTrackerLeft.getValue() < 2600) ;

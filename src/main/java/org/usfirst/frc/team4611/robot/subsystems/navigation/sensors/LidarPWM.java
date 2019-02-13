@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class LidarPWM {
 	private Counter counter;
+	
+	private int printedWarningCount = 5;
+
     private static Logger logger = Logger.getLogger(LidarPWM.class.getName());
 	
 	public LidarPWM (int dio) {
@@ -27,13 +30,16 @@ public class LidarPWM {
 	 */
 	public double getDistance() {
 		double cm;
-		while (counter.get() < 1) {
-			logger.info("LidarLitePWM: waiting for distance measurement");
+		if (counter.get() < 1) {
+			if (printedWarningCount-- > 0) {
+				System.out.println("LidarLitePWM: waiting for distance measurement");
+			}
+			return 0;
 		}
 		/* getPeriod returns time in seconds. The hardware resolution is microseconds.
 		 * The LIDAR-Lite unit sends a high signal for 10 microseconds per cm of distance.
 		 */
-		cm = (counter.getPeriod() * 1000000.0 / 10.0) - 18;
+		cm = (counter.getPeriod() * 1000000.0 / 10.0);
 		return cm;
 	}
 }

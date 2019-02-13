@@ -269,6 +269,9 @@ public class SubsystemFactory {
         logger.info("Initializing Football");
         nav    = new Navigation();
         nav.init(portMan);
+
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
     } 
 
     public DriveTrain getDriveTrain(){

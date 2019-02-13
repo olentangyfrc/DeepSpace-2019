@@ -69,7 +69,6 @@ public class Navigation extends Subsystem {
 
         lidarsAreSquareEntry.setBoolean(Math.abs(leftLidarDistance - rightLidarDistance) < 0.5);
     }
-    
     protected void initDefaultCommand() {
         this.setDefaultCommand(new NavigationDefault());
     }
