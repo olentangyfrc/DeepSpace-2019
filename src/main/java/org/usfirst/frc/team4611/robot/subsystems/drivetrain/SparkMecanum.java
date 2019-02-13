@@ -51,10 +51,10 @@ public class SparkMecanum extends SparkDriveTrain {
 		double XVal = OI.getInstance().getLeftJoystickXValue();
 		double ZVal = OI.getInstance().getRightJoystickXValue();
     
-        velocity1 = 4*((YVal + XVal + ZVal) * (velocityInvert1));
-		velocity2 = 4*((YVal - XVal - ZVal) * (velocityInvert2)); 
-		velocity3 = 4*((YVal + XVal - ZVal) * (velocityInvert3));
-		velocity4 = 4*((YVal - XVal + ZVal) * (velocityInvert4));
+        velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1));
+		velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)); 
+		velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+		velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
         
         frontLeft.set(velocity1);
         frontRight.set(velocity2);
