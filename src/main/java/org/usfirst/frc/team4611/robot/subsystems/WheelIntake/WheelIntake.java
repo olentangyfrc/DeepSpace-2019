@@ -10,7 +10,6 @@ import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -28,62 +27,75 @@ public class WheelIntake extends Subsystem {
     private double pVal=0.5;
 
     public double ejectBallDuration = 1500; // spin for 1.5 seconds
-    private double spin;
-    private double attack;
-    private double softThrow;
-    private double adjustSpeed;
 
     private ShuffleboardTab tab;
-    private NetworkTableEntry wheelIntakeSpin;
-    private NetworkTableEntry wheelIntakeAttack;
-    private NetworkTableEntry wheelIntakeSoftThrow;
-    private NetworkTableEntry wheelIntakeAdjustSpeed;
     private NetworkTableEntry velocity;
-
-    private String spinSpeed = "Wheel Intake Spin Initialize";
-    private String attackSpeed = "Wheel Intake Attack Initialize";
-    private String softSpeed = "Wheel Intake SoftThrow Initialize";
-    private String adjustmentSpeed = "Wheel Intake AdjustSpeed Initialize";
-    
+    private NetworkTableEntry wheelIntakeSlowVelocity;
+    private NetworkTableEntry wheelIntakeMaxRPM;
+    private NetworkTableEntry wheelEjectPercent; 
+    private NetworkTableEntry wheelStage1Percent;
+    private NetworkTableEntry wheelStage2Percent;
+    private NetworkTableEntry wheelStage3Percent;
 
     public WheelIntake() {
     }
    
-
     public void init(PortMan pm) throws Exception {
 
         logger.info("init");
         switch1 = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "WheelIntake.switch1"));
         switch2 = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "WheelIntake.switch2"));
 
-        wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_33_label, "wheelIntake.talon"));
+        wheelIntakeTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "wheelIntake.talon"));
         
         wheelIntakeTalon.config_kP(0,pVal, 0);
         wheelIntakeTalon.config_kI(0, 0.000, 0);
         wheelIntakeTalon.config_kD(0, 0, 0);
 
         tab = Shuffleboard.getTab("WheelIntake");
-        NetTableManager.updateValue("Health Map", spinSpeed, 0.0);
-        NetTableManager.updateValue("Health Map", softSpeed, 0.0);
-        NetTableManager.updateValue("Health Map", adjustmentSpeed, 0.0);
         velocity = tab.add("Velocity", -1.0).getEntry();
+        wheelIntakeSlowVelocity = tab.add("IntakeSlowPercent", 0).getEntry();
+        wheelIntakeMaxRPM = tab.add("wheelIntakeMaxRPM", 1000).getEntry();
+        wheelEjectPercent = tab.add("wheelEjectPercentage", .95).getEntry();
+        wheelStage1Percent = tab.add("Wheel Intake Stage 1 Percent", 0.15).getEntry();
+        wheelStage2Percent = tab.add("Wheel Intake Stage 2 Percent", 0.1).getEntry();
+        wheelStage3Percent = tab.add("Wheel Intake Stage 3 Percent", 0.1).getEntry();
+        
         NetTableManager.updateValue("Wheel Intake", "Wheel Intake Initialization", true);
     }
 
     public void moveIntake(double speed) {
         
-        wheelIntakeTalon.set(ControlMode.PercentOutput, speed);
+        wheelIntakeTalon.set(ControlMode.Velocity, speed*wheelIntakeMaxRPM.getDouble(1000));
+ 
+    }
+
+    public void moveWheelIntakeSlow() {
+ 
+        wheelIntakeTalon.set(ControlMode.Velocity, wheelIntakeSlowVelocity.getDouble(0)*wheelIntakeMaxRPM.getDouble(1000));
+ 
+    }
+
+    public void stopIntakeWheel() {
+ 
+        wheelIntakeTalon.set(ControlMode.Velocity, 0);
+ 
     }
 
     public boolean isSwitch1Set(){
+ 
         return switch1.get();
+ 
     }
 
     public boolean isSwitch2Set(){
+ 
         return switch2.get();
+ 
     }
   
     public void moveIntake(int speed) {
+ 
         wheelIntakeTalon.set(ControlMode.Velocity, speed);
 
         velocity.setDouble(speed);  
@@ -95,7 +107,7 @@ public class WheelIntake extends Subsystem {
 
         while (System.currentTimeMillis() < (long)endTime) {
             logger.info("in the while");
-            moveIntake(-.95);
+            moveIntake(-wheelEjectPercent.getDouble(0.95));
         }
         moveIntake(0);
     }
@@ -111,21 +123,21 @@ public class WheelIntake extends Subsystem {
 
         while (!finished) {
             if (stage1) {
-                moveIntake(-0.15);
+                moveIntake(-wheelStage1Percent.getDouble(0.15));
                 if (!switch1.get()) {
                     stage1 = false;
                     stage2 = true;
                     logger.info("Switch 1");
                 }
             } else if (stage2) {
-                moveIntake(-0.1);
+                moveIntake(-wheelStage2Percent.getDouble(0.1));
                 if (!switch2.get()) {
                     stage2 = false;
                     stage3 = true;
                     logger.info("Switch 2");
                 }
             } else if (stage3) {
-                moveIntake(0.1);
+                moveIntake(wheelStage3Percent.getDouble(0.1));
                 if (!switch1.get()) {
                     stage3 = false;
                     finished = true;
