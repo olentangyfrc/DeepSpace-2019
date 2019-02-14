@@ -19,10 +19,6 @@ public class Navigation extends Subsystem {
 
     private static ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
 
-    //private Pigeon rotationPigeon;
-    private double currentPigeonAngle ;
-
-    private NetworkTableEntry   pigeonAngleEntry;
 
     private LidarPWM leftLidar  = null;
     private LidarPWM rightLidar = null;
@@ -36,8 +32,6 @@ public class Navigation extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
         logger.info("initializing");
-        //rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.Pigeon"));
-        //pigeonAngleEntry    = tab.add("Pigeon Angle", currentPigeonAngle).getEntry();
 
         leftLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftLidar"));
         rightLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.rightLidar"));
@@ -49,16 +43,14 @@ public class Navigation extends Subsystem {
     }
 
     public double getCurrentAbsoluteHeadingError(double angle) {
-        return 0.0;//rotationPigeon.getAbolsuteAngleError(angle);
+        return 0.0;
     }
 
     public double getCurentHeading() {
-        return 0.0;//rotationPigeon.getCurrentAngle();
+        return 0.0;
     }
 
     public void checkValues() {
-        //currentPigeonAngle  = rotationPigeon.getCurrentAngle();
-        //pigeonAngleEntry.setDouble(currentPigeonAngle);
 
         leftLidarDistance = leftLidar.getDistance();
         rightLidarDistance = rightLidar.getDistance();

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class LineTracker extends Subsystem
 {
     static Logger logger = Logger.getLogger(LineTracker.class.getName());
+    private int threshhold  = 3660;
 
     private AnalogInput lineTrackerLeft;
     private AnalogInput lineTrackerMid;
@@ -58,7 +59,7 @@ public class LineTracker extends Subsystem
     }
 
     public void init(PortMan pm) throws Exception {
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Navigation");
         
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
         lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
@@ -74,9 +75,9 @@ public class LineTracker extends Subsystem
 
     public void checkLines() {
 
-        onLeft = (lineTrackerLeft.getValue() < 3660) ;
-        onRight = (lineTrackerRight.getValue() < 3660) ;
-        onMid = (lineTrackerMid.getValue() < 3660) ;
+        onLeft = (lineTrackerLeft.getValue() < threshhold) ;
+        onRight = (lineTrackerRight.getValue() < threshhold) ;
+        onMid = (lineTrackerMid.getValue() < threshhold) ;
         onLeftEntry.setValue(onLeft);
         onRightEntry.setValue(onRight);
         onMidEntry.setValue(onMid);
