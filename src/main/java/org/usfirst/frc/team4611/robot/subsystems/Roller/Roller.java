@@ -22,8 +22,10 @@ public class Roller extends Subsystem {
     private ShuffleboardTab tab;
     private NetworkTableEntry rollerVelocity;
     private NetworkTableEntry motorSpeed;
+    private NetworkTableEntry slowVelocity;
 
     private double rollerPercent = .75;
+    private double slowPercent = .5;
     private int maxRPM = 2400;
 
 
@@ -36,6 +38,7 @@ public class Roller extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
         rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();
+        slowVelocity = tab.add("Slow Roller Percent", slowPercent).getEntry();
 
         roller.config_kP(0, .5, 0);
         roller.config_kI(0, 0, 0);
@@ -59,8 +62,19 @@ public class Roller extends Subsystem {
     
         logger.exiting(Roller.class.getName(), "spinIndiWheelBackForward()");
     
-        }
+    }
     
+
+    public void spinRollerSlowForward() {
+
+        logger.entering(Roller.class.getName(), "spinIndiWheelBackSlowForward()");
+    
+        roller.set(ControlMode.Velocity, ((int)(maxRPM * rollerVelocity.getDouble(rollerPercent)))*slowVelocity.getDouble(slowPercent));        
+    
+        logger.exiting(Roller.class.getName(), "spinIndiWheelBackSlowForward()");
+        
+    }
+
     public void spinRollerBackward() {
 
         logger.entering(Roller.class.getName(), "spinIndiWheelBackBackward()");

@@ -14,6 +14,7 @@ import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveInt
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
+import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerSlowForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
@@ -22,6 +23,7 @@ import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkTurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
+import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
@@ -40,12 +42,17 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelI
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
+import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 
 
 public class SubsystemFactory {
@@ -59,6 +66,7 @@ public class SubsystemFactory {
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
+    private String   newbieMacAddress   = "00:80:2F:22:D7:BC";
 
     private OI oi;
 
@@ -79,7 +87,10 @@ public class SubsystemFactory {
     private Roller roller;
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
-
+    private PixyCam pixyCam;
+  
+    private UsbCamera camera;
+  
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
     }
@@ -115,8 +126,10 @@ public class SubsystemFactory {
                 initProto();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
-            } else if ( botMacAddress.equals(turboMacAddress)) {
+            } else if (botMacAddress.equals(turboMacAddress)) {
                 initTurbo();
+            } else if (botMacAddress.equals(newbieMacAddress)) {
+                initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
@@ -130,7 +143,11 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-    }
+         camera = CameraServer.getInstance().startAutomaticCapture();	
+         camera.setResolution(320, 240);
+         camera.setFPS(20);
+         camera.setExposureManual(35); 
+        }
 
     /**
      * init subsytems specific to Janky
@@ -180,27 +197,43 @@ public class SubsystemFactory {
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
         
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveRollerForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
 
+        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
+        //oi.bind(new MoveElevatorToPos(4), OI.RightJoyButton7, OI.WhenPressed);
+
         
     } 
+    /**
+     * init subsystems specific to Newbie
+     * @throws Exception
+     */
+    private void initNewbie() throws Exception {
+       logger.info("initializing Newbie");
+
+       driveTrain = new TankDrive();
+       driveTrain.init(portMan);
+       pixyCam = new PixyCam();
+       pixyCam.init();
+    }
 
     /**
      * init subsytems specific to Zippy
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
-        logger.info("initZippy");
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
         
@@ -237,7 +270,8 @@ public class SubsystemFactory {
         intake = new WheelIntake();
         intake.init(portMan);
         oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-
+        nav    = new Navigation();
+        nav.init(portMan);
     }
 
     public DriveTrain getDriveTrain(){
@@ -299,5 +333,8 @@ public class SubsystemFactory {
 	public IntakeAdjuster getIntakeAdjuster() {
 		return intakeAdjuster;
     }
-}
 
+    public PixyCam getPixyCam() {
+        return pixyCam;
+    }
+}

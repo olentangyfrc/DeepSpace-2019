@@ -5,21 +5,20 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class NavLog extends Command {
+public class NavigationDefault extends Command {
 
 
     private Navigation navigation;
 
 
-    public NavLog(){
+    public NavigationDefault(){
         navigation = SubsystemFactory.getInstance().getNavigation();
         requires(navigation);
     }
 
     @Override
     protected void execute(){
-        navigation.log();
-        navigation.writeToShuffleBoard();
+        navigation.checkValues();
     }
 
     @Override

@@ -78,8 +78,7 @@ public class Robot extends TimedRobot {
 		logger.entering(Robot.class.getName(), "teleopPeriodic()");
 		Scheduler.getInstance().run();
 		logger.exiting(Robot.class.getName(), "teleopPeriodic()");
-		logger.info("On board: "+opt.pidGet());
-		logger.info("MXP: "+opt1.pidGet());
+		SubsystemFactory.getInstance().getNavigation().checkValues();
 	}
 
 	@Override

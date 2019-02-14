@@ -8,12 +8,7 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.Linetracker
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 
-// import java.util.TimerTask;
-
 import edu.wpi.first.wpilibj.AnalogInput;
-// import edu.wpi.first.wpilibj.I2C;
-// import edu.wpi.first.wpilibj.I2C.Port;
-// import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -22,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class LineTracker extends Subsystem
 {
     static Logger logger = Logger.getLogger(LineTracker.class.getName());
+    private int threshhold  = 3660;
 
     private AnalogInput lineTrackerLeft;
     private AnalogInput lineTrackerMid;
@@ -31,64 +27,62 @@ public class LineTracker extends Subsystem
     private boolean onRight;
     private boolean onMid;
 
+    private int leftValue;
+    private int rightValue;
+    private int midValue;
+
     private ShuffleboardTab tab;
-    private NetworkTableEntry colorIsWhite;
     private NetworkTableEntry onLeftEntry;
     private NetworkTableEntry onRightEntry;
     private NetworkTableEntry onMidEntry;
+    private NetworkTableEntry leftEntry;
+    private NetworkTableEntry rightEntry;
+    private NetworkTableEntry midEntry;
 
     public int getLineTrackerInputLeft()
     {
-        logger.entering(LineTracker.class.getName(),"getLineTrackerInputLeft()");
-        logger.exiting(LineTracker.class.getName(),"getLineTrackerInputLeft()");
         return lineTrackerLeft.getValue();
     }
     public int getLineTrackerInputMid()
     {
-        logger.entering(LineTracker.class.getName(),"getLineTrackerInputMid()");
-        logger.exiting(LineTracker.class.getName(),"getLineTrackerInputMid()");
         return lineTrackerMid.getValue();
     }
 
     public int getLineTrackerInputRight()
     {
-        logger.entering(LineTracker.class.getName(),"getLineTrackerInputRight()");
-        logger.exiting(LineTracker.class.getName(),"getLineTrackerInputRight()");
         return lineTrackerRight.getValue();
     }
     
-    public NetworkTableEntry getColorIsWhite()
-    {
-        return colorIsWhite;
-    }
-
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new LinetrackerDefault());
     }
 
-
     public void init(PortMan pm) throws Exception {
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Navigation");
         
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
         lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
-        colorIsWhite = tab.add("Line Color", false).getEntry();
 
-        colorIsWhite = tab.add("Linetracker Line Color", false).getEntry();
         onLeftEntry = tab.add("Linetracker Left", onLeft).getEntry();
         onRightEntry = tab.add("Linetracker Right", onRight).getEntry();
         onMidEntry = tab.add("Linetracker Mid", onMid).getEntry();
+        leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
+        rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
+        midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
     }
 
     public void checkLines() {
 
-        logger.info("Left: "+lineTrackerLeft.getValue());
-        logger.info("Right: "+lineTrackerRight.getValue());
-        logger.info("Mid: "+lineTrackerMid.getValue());
-        onLeft = (lineTrackerLeft.getValue() < 2200) ;
-        onRight = (lineTrackerRight.getValue() < 2200) ;
-        onMid = (lineTrackerMid.getValue() < 2200) ;
+        onLeft = (lineTrackerLeft.getValue() < threshhold) ;
+        onRight = (lineTrackerRight.getValue() < threshhold) ;
+        onMid = (lineTrackerMid.getValue() < threshhold) ;
+        onLeftEntry.setValue(onLeft);
+        onRightEntry.setValue(onRight);
+        onMidEntry.setValue(onMid);
+        leftEntry.setValue(lineTrackerLeft.getValue());
+        rightEntry.setValue(lineTrackerRight.getValue());
+        midEntry.setValue(lineTrackerMid.getValue());
     }
 } 
