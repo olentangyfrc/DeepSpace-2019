@@ -75,7 +75,7 @@ public class Elevator extends Subsystem {
         elevatorPosition4 = tab.add("Elevator Position4", .82).getEntry();
         elevatorPosition5 = tab.add("Elevator Position5", .5).getEntry();
         elevatorPosition6 = tab.add("Elevator Position6", .88).getEntry();
-        elevatorPosition7 = tab.add("Elevator Position7", .5).getEntry();
+        elevatorPosition7 = tab.add("Elevator Position7", .7).getEntry();
         potPosition = tab.add("Current Pot Position", 0).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
