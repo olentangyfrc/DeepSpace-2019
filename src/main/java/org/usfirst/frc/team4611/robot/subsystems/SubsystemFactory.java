@@ -89,7 +89,8 @@ public class SubsystemFactory {
     private IntakeAdjuster intakeAdjuster;
     private PixyCam pixyCam;
   
-    private UsbCamera camera;
+    private UsbCamera camera1;
+    private UsbCamera camera2;
   
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -143,10 +144,15 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-         camera = CameraServer.getInstance().startAutomaticCapture();	
-         camera.setResolution(320, 240);
-         camera.setFPS(20);
-         camera.setExposureManual(35); 
+         camera1 = CameraServer.getInstance().startAutomaticCapture();	
+         camera1.setResolution(320, 240);
+         camera1.setFPS(20);
+         camera1.setExposureManual(35); 
+
+         camera2 = CameraServer.getInstance().startAutomaticCapture();	
+         camera2.setResolution(320, 240);
+         camera2.setFPS(20);
+         camera2.setExposureManual(35);
         }
 
     /**
