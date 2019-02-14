@@ -19,7 +19,7 @@ public class Navigation extends Subsystem {
 
     private static ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
 
-    private Pigeon rotationPigeon;
+    //private Pigeon rotationPigeon;
     private double currentPigeonAngle ;
 
     private NetworkTableEntry   pigeonAngleEntry;
@@ -36,30 +36,29 @@ public class Navigation extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
         logger.info("initializing");
-        rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.Pigeon"));
-        pigeonAngleEntry    = tab.add("Pigeon Angle", currentPigeonAngle).getEntry();
+        //rotationPigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.Pigeon"));
+        //pigeonAngleEntry    = tab.add("Pigeon Angle", currentPigeonAngle).getEntry();
 
         leftLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftLidar"));
         rightLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.rightLidar"));
 
-        leftLidarDistanceEntry    = tab.add("Left Lidar Distance", leftLidarDistance).getEntry();
-        rightLidarDistanceEntry   = tab.add("Right Lidar Distance", rightLidarDistance).getEntry();
+        leftLidarDistanceEntry    = tab.add("Left Lidar Distance", leftLidarDistance).getEntry(); rightLidarDistanceEntry   = tab.add("Right Lidar Distance", rightLidarDistance).getEntry();
         lidarsAreSquareEntry   = tab.add("Lidars Square", lidarsAreSquare).getEntry();
 
         NetTableManager.updateValue("Health Map", "Navigation Initialized", true);
     }
 
     public double getCurrentAbsoluteHeadingError(double angle) {
-        return rotationPigeon.getAbolsuteAngleError(angle);
+        return 0.0;//rotationPigeon.getAbolsuteAngleError(angle);
     }
 
     public double getCurentHeading() {
-        return rotationPigeon.getCurrentAngle();
+        return 0.0;//rotationPigeon.getCurrentAngle();
     }
 
     public void checkValues() {
-        currentPigeonAngle  = rotationPigeon.getCurrentAngle();
-        pigeonAngleEntry.setDouble(currentPigeonAngle);
+        //currentPigeonAngle  = rotationPigeon.getCurrentAngle();
+        //pigeonAngleEntry.setDouble(currentPigeonAngle);
 
         leftLidarDistance = leftLidar.getDistance();
         rightLidarDistance = rightLidar.getDistance();

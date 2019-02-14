@@ -74,9 +74,9 @@ public class LineTracker extends Subsystem
 
     public void checkLines() {
 
-        onLeft = (lineTrackerLeft.getValue() < 2600) ;
-        onRight = (lineTrackerRight.getValue() < 2600) ;
-        onMid = (lineTrackerMid.getValue() < 2600) ;
+        onLeft = (lineTrackerLeft.getValue() < 3660) ;
+        onRight = (lineTrackerRight.getValue() < 3660) ;
+        onMid = (lineTrackerMid.getValue() < 3660) ;
         onLeftEntry.setValue(onLeft);
         onRightEntry.setValue(onRight);
         onMidEntry.setValue(onMid);
