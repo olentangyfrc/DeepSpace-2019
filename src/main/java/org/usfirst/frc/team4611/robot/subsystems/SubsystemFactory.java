@@ -61,8 +61,8 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   jankyMacAddress    = "00:80:2F:17:F8:3F";   
-    private String   protoMacAddress    = "00:80:2F:27:1D:E9";
+    private String   protoMacAddress    = "00:80:2F:17:F8:3F";   
+    private String   compMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
@@ -119,12 +119,12 @@ public class SubsystemFactory {
             // subsystems common to every bot
             initCommon();
             logger.info("["+botMacAddress+"]");
-            if (botMacAddress.equals(jankyMacAddress)) {
-                initJanky();
+            if (botMacAddress.equals(protoMacAddress)) {
+                initProto();
             } else if (botMacAddress.equals(footballMacAddress)) {
                 initFootball();
-            } else if (botMacAddress.equals(protoMacAddress)) {
-                initProto();
+            } else if (botMacAddress.equals(compMacAddress)) {
+                initComp();
             } else if (botMacAddress.equals(zippyMacAddress)) {
                 initZippy();
             } else if (botMacAddress.equals(turboMacAddress)) {
@@ -158,16 +158,48 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Janky
      */
-    private void initJanky() throws Exception{
-        logger.info("initalizing Janky");
-        //driveTrain = new TalonMecanum();
-        //driveTrain.init(portMan);
+    private void initProto() throws Exception{
+        logger.info("initalizing Proto");
+        driveTrain = new SparkMecanum();
+        driveTrain.init(portMan);
 
-        intake = new WheelIntake();
-        intake.init(portMan);
+        elevator = new Elevator();
+        elevator.init(portMan);
 
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhenPressed);
+        roller = new Roller();
+        roller.init(portMan);
+
+        doubleWheel = new DoubleWheel();
+        doubleWheel.init(portMan);
+
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
+
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
+
+        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
         
     }
     
@@ -176,9 +208,9 @@ public class SubsystemFactory {
      */
 
     
-    private void initProto() throws Exception {
-        logger.info("initalizing Proto");
-        driveTrain = new TalonMecanum();
+    private void initComp() throws Exception {
+        logger.info("initalizing Comp");
+        driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
         elevator = new Elevator();

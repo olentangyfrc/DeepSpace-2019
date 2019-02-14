@@ -74,7 +74,7 @@ public class DoubleWheel extends Subsystem {
 
     public void spinMotorOutTake() {
 
-        logger.entering(DoubleWheel.class.getName(), "spinMotorOutTake()");
+        logger.info("entering spinMotorOutTake()");
 
         wheelIntakeLeft.set(ControlMode.Velocity, -doubleWheelIntakeVelocity.getDouble(wheelVelocity));
 
