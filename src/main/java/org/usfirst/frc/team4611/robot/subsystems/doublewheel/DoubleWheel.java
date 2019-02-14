@@ -52,7 +52,7 @@ public class DoubleWheel extends Subsystem {
 
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
-        doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", 1).getEntry();
+        doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .5).getEntry();
 
         logger.exiting(DoubleWheel.class.getName(), "init()");
 
