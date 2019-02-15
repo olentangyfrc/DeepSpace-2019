@@ -37,10 +37,17 @@ public class Intake extends Subsystem {
         
         intake = new WPI_TalonSRX(pm.acquirePort(PortMan.can_22_label, "Intake.intakeTalon"));
 
+        intake.config_kP(0, .5, 0);
+        intake.config_kI(0, 0, 0);
+        intake.config_kD(0, 0, 0);
+        intake.config_kF(0, 0, 0);
+        intake.configMotionCruiseVelocity(4096, 0);
+        intake.configMotionAcceleration(4096,0);
+
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Intake Initialized", true);
         
-        motorSpeed = tab.add("Intake Motor Speed", 1.0).getEntry();
+        motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();
 
         logger.exiting(Intake.class.getName(), "init()");
     }
@@ -50,7 +57,7 @@ public class Intake extends Subsystem {
         logger.entering(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
         intake.set(ControlMode.Velocity, (int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
-    
+       
         logger.exiting(Intake.class.getName(), "spinIndiWheelFrontForward()");
 
 
@@ -59,11 +66,12 @@ public class Intake extends Subsystem {
 
     public void spinIndiWheelFrontBackward() {
 
-        logger.entering(Intake.class.getName(), "spinIndiWheelFrontBackward()");
+        logger.info("entering spinIndiWheelFrontBackward()");
 
         intake.set(ControlMode.Velocity, -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     
-        logger.exiting(Intake.class.getName(), "spinIndiWheelFrontBackward()");
+        logger.info("Intake Velocity: " + -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
+        logger.info("exiting spinIndiWheelFrontBackward()");
         
 
     }

@@ -25,7 +25,8 @@ public class Elevator extends Subsystem {
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
 
     private ShuffleboardTab tab;
-    private NetworkTableEntry elevatorPercent;
+    private NetworkTableEntry elevatorPercentUp;
+    private NetworkTableEntry elevatorPercentDown;
     private NetworkTableEntry elevatorPosition1;
     private NetworkTableEntry elevatorPosition2;
     private NetworkTableEntry elevatorPosition3;
@@ -68,14 +69,15 @@ public class Elevator extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
-        elevatorPercent = tab.add("Elevator Percent", power).getEntry();
+        elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
+        elevatorPercentDown = tab.add("Elevator Percent Down", power/8).getEntry();
         elevatorPosition1 = tab.add("Elevator Position1", .5).getEntry();
         elevatorPosition2 = tab.add("Elevator Position2", .47).getEntry();
         elevatorPosition3 = tab.add("Elevator Position3", .5).getEntry();
         elevatorPosition4 = tab.add("Elevator Position4", .82).getEntry();
         elevatorPosition5 = tab.add("Elevator Position5", .5).getEntry();
         elevatorPosition6 = tab.add("Elevator Position6", .88).getEntry();
-        elevatorPosition7 = tab.add("Elevator Position7", .5).getEntry();
+        elevatorPosition7 = tab.add("Elevator Position7", .7).getEntry();
         potPosition = tab.add("Current Pot Position", 0).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
@@ -124,16 +126,11 @@ public class Elevator extends Subsystem {
     public void move(boolean direction) {
         double speed;
         if(direction) {
-            speed = (int)(maxRPM*elevatorPercent.getDouble(power));
+            speed = (int)(maxRPM*elevatorPercentUp.getDouble(power));
         }
         else {
-            speed = (int)(maxRPM*-elevatorPercent.getDouble(power));
-        }
-
-        if(speed < 0) {
-            speed = speed/4;
-        }
-
+            speed = (int)(maxRPM*-elevatorPercentDown.getDouble(power));
+        } 
         //logger.info(""+pot.getValue());
 
         if(!softLimitBottom.get()) {
