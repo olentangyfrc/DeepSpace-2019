@@ -52,7 +52,7 @@ public class DoubleWheel extends Subsystem {
 
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
-        doubleWheelIntakeVelocity = tab.add("Wheel Intake Velocity", (double)wheelVelocity).getEntry();
+        doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .5).getEntry();
 
         logger.exiting(DoubleWheel.class.getName(), "init()");
 
@@ -62,7 +62,7 @@ public class DoubleWheel extends Subsystem {
 
         logger.entering(DoubleWheel.class.getName(), "spinMotorsIntake()");
 
-        wheelIntakeLeft.set(ControlMode.Velocity, speed); 
+        wheelIntakeLeft.set(ControlMode.Velocity, speed*doubleWheelIntakeVelocity.getDouble(0)); 
         
         doubleWheelLeftVelocity.setDouble(speed);
         doubleWheelRightVelocity.setDouble(-speed);
@@ -74,9 +74,9 @@ public class DoubleWheel extends Subsystem {
 
     public void spinMotorOutTake() {
 
-        logger.entering(DoubleWheel.class.getName(), "spinMotorOutTake()");
+        logger.info("entering spinMotorOutTake()");
 
-        wheelIntakeLeft.set(ControlMode.Velocity, -doubleWheelIntakeVelocity.getDouble(wheelVelocity));
+        wheelIntakeLeft.set(ControlMode.Velocity, -wheelVelocity*doubleWheelIntakeVelocity.getDouble(wheelVelocity));
 
         logger.exiting(DoubleWheel.class.getName(), "spinMotorOutTake()");
     }
