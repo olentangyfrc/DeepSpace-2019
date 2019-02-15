@@ -47,7 +47,7 @@ public class Intake extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Intake Initialized", true);
         
-        motorSpeed = tab.add("Intake Motor Speed", 1.0).getEntry();
+        motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();
 
         logger.exiting(Intake.class.getName(), "init()");
     }
