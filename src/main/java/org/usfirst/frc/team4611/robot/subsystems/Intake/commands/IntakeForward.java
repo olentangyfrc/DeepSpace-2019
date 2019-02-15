@@ -13,7 +13,7 @@ public class IntakeForward extends Command {
     private boolean stop = false;
 
     public IntakeForward() {
-        intake = SubsystemFactory.getInstance().getIntake();
+        intake = SubsystemFactory.getInstance().getShooterIntake();
         this.requires(intake);
     }
 

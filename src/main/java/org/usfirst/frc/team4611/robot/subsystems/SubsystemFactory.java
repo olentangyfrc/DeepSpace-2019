@@ -15,13 +15,11 @@ import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.MoveRollerSlowForward;
-import org.usfirst.frc.team4611.robot.subsystems.Roller.commands.StopRoller;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.IntakeBall;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.OutTakeBall;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands.StopBall;
+import org.usfirst.frc.team4611.robot.subsystems.driverfeedback.DriverFeedback;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkMecanum;
-import org.usfirst.frc.team4611.robot.subsystems.drivetrain.SparkTurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
@@ -40,7 +38,6 @@ import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.IntakeGrou
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TopLoader;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
-import org.usfirst.frc.team4611.robot.subsystems.vision.commands.RumbleJoystick;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 
 import edu.wpi.cscore.UsbCamera;
@@ -51,7 +48,6 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorI
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 
 
@@ -72,6 +68,9 @@ public class SubsystemFactory {
 
     private PortMan portMan  = new PortMan();
 
+    /**
+     * keep all available subsystem declarations here.
+     */
     private DriveTrain driveTrain;
     private Petal petal; 
     private Navigation nav;
@@ -88,6 +87,7 @@ public class SubsystemFactory {
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
     private PixyCam pixyCam;
+    private DriverFeedback  driverFeedback;
   
     private UsbCamera camera1;
     private UsbCamera camera2;
@@ -134,6 +134,9 @@ public class SubsystemFactory {
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
+            // driverfeedback will create a shuffleboard tab that aggregates data from subsystems.
+            driverFeedback = new DriverFeedback();
+            driverFeedback.init();
         } catch (Exception e) {
             e.printStackTrace();
             throw new OzoneException(e.getMessage());
@@ -306,9 +309,9 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
-        intake = new WheelIntake();
-        intake.init(portMan);
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
+        //intake = new WheelIntake();
+        //intake.init(portMan);
+        //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
         nav    = new Navigation();
         nav.init(portMan);
     }
@@ -365,7 +368,7 @@ public class SubsystemFactory {
         return roller;
     }
 
-	public Intake getIntake() {
+	public Intake getShooterIntake() {
 		return shooterIntake;
 	}
 
@@ -375,5 +378,9 @@ public class SubsystemFactory {
 
     public PixyCam getPixyCam() {
         return pixyCam;
+    }
+
+    public DriverFeedback getDriverFeedback() {
+        return driverFeedback;
     }
 }
