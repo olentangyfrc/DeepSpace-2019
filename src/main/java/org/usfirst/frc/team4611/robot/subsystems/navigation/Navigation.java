@@ -36,7 +36,8 @@ public class Navigation extends Subsystem {
         leftLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftLidar"));
         rightLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.rightLidar"));
 
-        leftLidarDistanceEntry    = tab.add("Left Lidar Distance", leftLidarDistance).getEntry(); rightLidarDistanceEntry   = tab.add("Right Lidar Distance", rightLidarDistance).getEntry();
+        leftLidarDistanceEntry    = tab.add("Left Lidar Distance", leftLidarDistance).getEntry();
+        rightLidarDistanceEntry   = tab.add("Right Lidar Distance", rightLidarDistance).getEntry();
         lidarsAreSquareEntry   = tab.add("Lidars Square", lidarsAreSquare).getEntry();
 
         NetTableManager.updateValue("Health Map", "Navigation Initialized", true);
@@ -48,6 +49,18 @@ public class Navigation extends Subsystem {
 
     public double getCurentHeading() {
         return 0.0;
+    }
+
+    public double getLeftDistance() {
+        return leftLidarDistance;
+    }
+
+    public double getRightDistance() {
+        return rightLidarDistance;
+    }
+
+    public boolean getLidarSquare() {
+        return (Math.abs(leftLidarDistance - rightLidarDistance) < 0.5);
     }
 
     public void checkValues() {

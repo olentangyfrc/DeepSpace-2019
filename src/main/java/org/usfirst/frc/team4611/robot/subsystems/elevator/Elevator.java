@@ -296,6 +296,96 @@ public class Elevator extends Subsystem {
         return stop;
     }
 
+    /**
+     * This can replace the position specific methods ... and probably should. please simplify.
+     * @param p
+     * @return
+     */
+    public boolean moveToPos(int p) {
+        double finalTarget;
+        
+        switch (p) {
+            case 1:
+                finalTarget = elevatorPosition1.getDouble(.5);
+                break;
+            case 2:
+                finalTarget = elevatorPosition2.getDouble(.5);
+                break;
+            case 3:
+                finalTarget = elevatorPosition3.getDouble(.5);
+                break;
+            case 4:
+                finalTarget = elevatorPosition4.getDouble(.5);
+                break;
+            case 5:
+                finalTarget = elevatorPosition5.getDouble(.5);
+                break;
+            case 6:
+                finalTarget = elevatorPosition6.getDouble(.5);
+                break;
+            case 7:
+                finalTarget = elevatorPosition7.getDouble(.5);
+                break;
+            default:
+                return false;
+        }
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.05) {
+            this.move(false);
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            this.move(true);
+        }
+        else{
+            this.stopElevator();
+            stop = true;
+        }
+        return stop;
+
+    }
+
+    public boolean isAtPosition(int p) {
+        double finalTarget;
+        
+        switch (p) {
+            case 1:
+                finalTarget = elevatorPosition1.getDouble(.5);
+                break;
+            case 2:
+                finalTarget = elevatorPosition2.getDouble(.5);
+                break;
+            case 3:
+                finalTarget = elevatorPosition3.getDouble(.5);
+                break;
+            case 4:
+                finalTarget = elevatorPosition4.getDouble(.5);
+                break;
+            case 5:
+                finalTarget = elevatorPosition5.getDouble(.5);
+                break;
+            case 6:
+                finalTarget = elevatorPosition6.getDouble(.5);
+                break;
+            case 7:
+                finalTarget = elevatorPosition7.getDouble(.5);
+                break;
+            default:
+                return false;
+        }
+
+        if(finalTarget - pot.getValue() < -.05) {
+            return false;
+        }
+        else if(finalTarget - pot.getValue() > .05) {
+            return true;
+        }
+        else{
+            return true;
+        }
+    }
+
     public void resetEncoders() {
         elevatorLeftTalon.setSelectedSensorPosition(0, 0 ,0);
         elevatorRightTalon.setSelectedSensorPosition(0, 0, 0);

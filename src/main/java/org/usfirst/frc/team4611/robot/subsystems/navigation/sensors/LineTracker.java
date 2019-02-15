@@ -2,7 +2,6 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation.sensors;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.LinetrackerDefault;
 
@@ -32,9 +31,6 @@ public class LineTracker extends Subsystem
     private int midValue;
 
     private ShuffleboardTab tab;
-    private NetworkTableEntry onLeftEntry;
-    private NetworkTableEntry onRightEntry;
-    private NetworkTableEntry onMidEntry;
     private NetworkTableEntry leftEntry;
     private NetworkTableEntry rightEntry;
     private NetworkTableEntry midEntry;
@@ -65,24 +61,26 @@ public class LineTracker extends Subsystem
         lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
 
-        onLeftEntry = tab.add("Linetracker Left", onLeft).getEntry();
-        onRightEntry = tab.add("Linetracker Right", onRight).getEntry();
-        onMidEntry = tab.add("Linetracker Mid", onMid).getEntry();
         leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
         rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
         midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
     }
 
-    public void checkLines() {
+    public boolean isOnLeft() {
+        return (lineTrackerLeft.getValue() < threshhold) ;
+    }
 
-        onLeft = (lineTrackerLeft.getValue() < threshhold) ;
-        onRight = (lineTrackerRight.getValue() < threshhold) ;
-        onMid = (lineTrackerMid.getValue() < threshhold) ;
-        onLeftEntry.setValue(onLeft);
-        onRightEntry.setValue(onRight);
-        onMidEntry.setValue(onMid);
-        leftEntry.setValue(lineTrackerLeft.getValue());
-        rightEntry.setValue(lineTrackerRight.getValue());
-        midEntry.setValue(lineTrackerMid.getValue());
+    public boolean isOnMid() {
+        return (lineTrackerMid.getValue() < threshhold) ;
+    }
+
+    public boolean isOnRight() {
+        return (lineTrackerRight.getValue() < threshhold) ;
+    }
+
+    public void checkLines() {
+       leftEntry.setValue(lineTrackerLeft.getValue());
+       rightEntry.setValue(lineTrackerRight.getValue());
+       midEntry.setValue(lineTrackerMid.getValue());
     }
 } 
