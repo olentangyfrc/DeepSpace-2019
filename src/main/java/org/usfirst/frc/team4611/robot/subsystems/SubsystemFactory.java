@@ -5,10 +5,24 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
-import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
+//import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TalonMecanum;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.TurboTankDrive;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
+
+import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
+
+import org.usfirst.frc.team4611.robot.subsystems.claw.Claw;
+import org.usfirst.frc.team4611.robot.subsystems.claw.commands.GrabBox;
+import org.usfirst.frc.team4611.robot.subsystems.claw.commands.ReleaseBox;
+
+import org.usfirst.frc.team4611.robot.subsystems.arm.Arm;
+import org.usfirst.frc.team4611.robot.subsystems.arm.commands.MovePotDown;
+import org.usfirst.frc.team4611.robot.subsystems.arm.commands.MovePotUp;
+
+/*
 import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
@@ -29,7 +43,7 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
-
+*/
 
 public class SubsystemFactory {
     private static SubsystemFactory    me;
@@ -48,6 +62,11 @@ public class SubsystemFactory {
     private PortMan portMan  = new PortMan();
 
     private DriveTrain driveTrain;
+    private Elevator elevator;
+    private Claw claw;
+    private Arm arm;
+
+    /*
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
@@ -59,6 +78,7 @@ public class SubsystemFactory {
     private Elevator elevator;
     private DoubleWheel doubleWheel;
     private LineTracker lineTracker;
+    */
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -115,9 +135,6 @@ public class SubsystemFactory {
      * init subsytems specific to Janky
      */
     private void initJanky() throws Exception{
-        logger.info("initalizing Janky");
-        driveTrain = new TalonMecanum();
-        driveTrain.init(portMan);
     }
     
     /**
@@ -126,20 +143,6 @@ public class SubsystemFactory {
 
     
     private void initWonky() throws Exception {
-        logger.info("initalizing Wonky");
-        //driveTrain = new TalonMecanum();
-        //driveTrain.init(portMan);
-
-        elevator = new Elevator();
-        elevator.init(portMan);
-
-        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
-
-
-
-       // oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
     } 
 
     /**
@@ -147,102 +150,61 @@ public class SubsystemFactory {
      */
     private void initZippy() throws Exception {
         logger.info("initalizing Zippy");
-        System.out.println("initZippy");
+
         driveTrain = new TalonMecanum();
         driveTrain.init(portMan);
-        
-        vision = new Vision();
-        vision.init();
 
-        nav = new Navigation();
-        nav.init(portMan);
+        elevator = new Elevator();
+        elevator.init(portMan);
+
+        claw = new Claw();
+        claw.init(portMan);
+
+        arm = new Arm();
+        arm.init(portMan);
         
-        oi.bind(new StrafeVision(), OI.LeftJoyButton1, OI.WhenPressed);
+        //vision = new Vision();
+        //vision.init();
+
+        //nav = new Navigation();
+        //nav.init(portMan);
+        
+        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhenPressed);
+        //oi.bind(new StrafeVision(), OI.LeftJoyButton1, OI.WhenPressed);
+
+        oi.bind(new GrabBox(), OI.LeftJoyButton4, OI.WhenPressed);
+        oi.bind(new ReleaseBox(), OI.LeftJoyButton5, OI.WhenPressed);
+
+        oi.bind(new MovePotUp(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MovePotDown(), OI.RightJoyButton2, OI.WhileHeld);        
     }
     
     /**
      * init subsytems specific to Turbo
      */
     private void initTurbo() throws Exception {
-        logger.info("initalizing Turbo");
-        driveTrain = new TurboTankDrive();
-        driveTrain.init(portMan);
-        intake = new WheelIntake();
-        intake.init(portMan);
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
-        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
-        oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
     /**
      * init subsystems specific to Football
      */
     private void initFootball() throws Exception {
-        logger.info("initializing Football");
-        // kicker = new Kicker();
-        // kicker.init(portMan);
-
-        elevator = new Elevator();
-        elevator.init(portMan);
-
-        vision  = new Vision();
-        vision.init();
-
-        oi.bind(new MoveElevator(1), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(-1), OI.LeftJoyButton2, OI.WhileHeld);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton2, OI.WhenReleased);
-        //oi.bind(new StopElevator(), OI.LeftJoyButton3, OI.WhenReleased);
-        // oi.bind(new ResetKicker(), OI.LeftJoyButton1, OI.WhenReleased);
-        // oi.bind(new RumbleJoystick(), OI.LeftJoyButton1, OI.WhileHeld);
     }
 
     public DriveTrain getDriveTrain(){
         return driveTrain;
     }
 
-    public Petal getPetal(){
-        return petal;
-    }
-    
-    public Navigation getNavigation(){
-        return nav;
-    }
-
-    public TriangleHatch getTriangleHatch(){
-        return triangleHatch;
-    }
-
-   public Spatula getSpatula(){
-        return spatula;
-    }
-
-    public Stick getStick(){
-        return stick;
-    }
-
-    public Kicker getKicker(){
-        return kicker;
-    }
-
-    public Vision getVision() {
-        return vision;
-    }
-  
-    public WheelIntake getWheelIntake(){
-        return intake;
-    }
-    
     public Elevator getElevator(){
         return elevator;
     }
 
-    public DoubleWheel getDoubleWheel(){
-        return doubleWheel;
+    public Claw getClaw(){
+        return claw;
     }
 
-    public LineTracker getLineTracker() {
-        return lineTracker;
+    public Arm getArm(){
+        return arm;
     }
 }

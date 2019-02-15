@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
+//import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger;
 
 import edu.wpi.first.wpilibj.TimedRobot;
