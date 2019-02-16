@@ -38,6 +38,8 @@ public class PortMan {
     public static final String analog1_label = "ANALOG1";
     public static final String analog2_label = "ANALOG2";
     public static final String analog3_label = "ANALOG3";
+    public static final String analog4_label = "ANALOG4";
+    public static final String analog5_label = "ANALOG5";
 
     public static final String relay0_label = "RELAY0";
     public static final String relay1_label = "RELAY1";
@@ -135,6 +137,8 @@ public class PortMan {
             case analog1_label: return 1;
             case analog2_label: return 2;
             case analog3_label: return 3;
+            case analog4_label: return 4;
+            case analog5_label: return 5;
 
             case relay0_label: return 0;
             case relay1_label: return 1;

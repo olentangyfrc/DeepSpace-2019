@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
+import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,17 +21,27 @@ public class IntakeAdjuster extends Subsystem {
 
     private ShuffleboardTab tab;
     private NetworkTableEntry adjusterVelocity;
+    private NetworkTableEntry adjusterPosition1;
+    private NetworkTableEntry adjusterPosition2;
     
     private double power = 1;
+    private double pos = 1;
     private int intakeSpeed = 1600;
+    private double maxPos = .32;
+
+    private Potentiometer pot;
 
     public void init(PortMan pm) throws OzoneException {
-        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
+        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Intake.intakeAdjuster"));
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
         adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
+        adjusterPosition1 = tab.add("Adjuster Position1", pos).getEntry();
+        adjusterPosition2 = tab.add("Adjuster Position2", pos).getEntry();
+
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog5_label, "IntakeAdjuster Pot"));
     }
 
     
@@ -64,6 +75,47 @@ public class IntakeAdjuster extends Subsystem {
 
         logger.exiting(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
 
+    }
+    public boolean moveToPos1() {
+        double finalTarget = adjusterPosition1.getDouble(.5)*maxPos;
+        
+        boolean stop = false;
+
+
+        if(finalTarget - pot.getValue() < -.01) {
+            this.spinIntakeAdjusterBackward();
+            logger.info(""+pot.getValue()/maxPos);
+        }
+        else if(finalTarget - pot.getValue() > .01) {
+            this.spinIntakeAdjusterForward();
+            logger.info(""+pot.getValue()/maxPos);
+        }
+        else{
+            this.stopIntakeAdjuster();
+            logger.info(""+pot.getValue()/maxPos);
+            stop = true;
+        }
+        return stop;
+    }
+    public boolean moveToPos2() {
+        double finalTarget = adjusterPosition2.getDouble(.5)*maxPos;
+        
+        boolean stop = false;
+
+        if(finalTarget - pot.getValue() < -.01) {
+            this.spinIntakeAdjusterBackward();
+            logger.info(""+pot.getValue()/maxPos);
+        }
+        else if(finalTarget - pot.getValue() > .01) {
+            this.spinIntakeAdjusterForward();
+            logger.info(""+pot.getValue()/maxPos);
+        }
+        else{
+            this.stopIntakeAdjuster();
+            logger.info(""+pot.getValue()/maxPos);
+            stop = true;
+        }
+        return stop;
     }
 
     @Override
