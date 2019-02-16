@@ -150,12 +150,12 @@ public class SubsystemFactory {
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
-         camera1.setExposureManual(35); 
+         camera1.setExposureManual(70); 
 
          camera2 = CameraServer.getInstance().startAutomaticCapture();	
          camera2.setResolution(320, 240);
          camera2.setFPS(20);
-         camera2.setExposureManual(35);
+         camera2.setExposureManual(70);
         }
 
     /**

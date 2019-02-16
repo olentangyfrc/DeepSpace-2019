@@ -20,6 +20,8 @@ public class MoveElevatorUp extends Command {
         this.requires(elevator);
     }
 
+    
+
     protected void initialize() {
         //logger.info("Init");
         stop = false;
