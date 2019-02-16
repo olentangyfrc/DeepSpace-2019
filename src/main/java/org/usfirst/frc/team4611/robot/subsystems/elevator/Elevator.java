@@ -189,6 +189,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -206,6 +207,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -223,6 +225,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -240,6 +243,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -257,6 +261,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -274,6 +279,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -291,6 +297,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
@@ -415,6 +422,33 @@ public class Elevator extends Subsystem {
         //logger.info("keeping in place");
         elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
         potPosition.setDouble(pot.getValue());
+    }
+    
+    private long currentTime;
+    private long endTime = 0;
+
+    public boolean keepInPlaceForTime() {
+        logger.info("keeping in place");
+        boolean done = false;;
+        potPosition.setDouble(pot.getValue());
+        currentTime = System.currentTimeMillis();
+        
+        if(endTime == 0) {
+            endTime = currentTime + 100;
+            logger.info("setting");
+        }
+                                                                        
+        if(currentTime <= endTime) {
+            elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
+            logger.info("stalling");
+        }
+        else {
+            logger.info("finishing");
+            done = true;
+            endTime = 0;
+            this.stopElevator();
+        }
+        return done;
     }
 
     @Override
