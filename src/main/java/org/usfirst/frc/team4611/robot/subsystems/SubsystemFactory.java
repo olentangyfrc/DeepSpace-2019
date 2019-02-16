@@ -9,6 +9,7 @@ import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveAdjusterToPos;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
@@ -312,8 +313,14 @@ public class SubsystemFactory {
         //intake = new WheelIntake();
         //intake.init(portMan);
         //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        nav    = new Navigation();
-        nav.init(portMan);
+        //nav    = new Navigation();
+        //nav.init(portMan);
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+        
+        oi.bind(new MoveAdjusterToPos(1), OI.LeftJoyButton1, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(2), OI.LeftJoyButton2, OI.WhenPressed);
+
     }
 
     public DriveTrain getDriveTrain(){
