@@ -159,6 +159,7 @@ def picamvidopencv(image, nettable):
     image_width = 640
     image_height = 480
     minArea = 250 # ~350 pixels when 7 feet away
+    maxArea = 22500 # used to hide rope
     maxDist = 3 # distance between 1 contour and another in widths
 
     angle = 0.0
@@ -201,19 +202,20 @@ def picamvidopencv(image, nettable):
                 h, w = rect[1]
 
             if (w * h) > minArea: #if the area is greater than minArea, used to remove single pixels
-                if (h / w) > (5.5 / 2) - 1 and (h / w) < (5.5 / 2) + 1: # ideally h = 5.5 and w = 2
+                if (w * h) < maxArea: #used to remove the rope
+                    if (h / w) > (5.5 / 2) - 1 and (h / w) < (5.5 / 2) + 1: # ideally h = 5.5 and w = 2
 
-                    #Draw
-                    box = cv2.boxPoints(rect)  # cv2.boxPoints(rect) for OpenCV 3.x
-                    box = np.int0(box)
+                        #Draw
+                        box = cv2.boxPoints(rect)  # cv2.boxPoints(rect) for OpenCV 3.x
+                        box = np.int0(box)
 
-                    if options.show:
-                        cv2.drawContours(image,[box],0,(0,0,255),2)
+                        if options.show:
+                            cv2.drawContours(image,[box],0,(0,0,255),2)
 
-                    if rotAngle > 75.5 - 7 and rotAngle < 75.5 + 7:
-                        leftContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
-                    elif (rotAngle > 14.5 - 10 and rotAngle < 14.5 + 10):
-                        rightContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
+                        if rotAngle > 75.5 - 7 and rotAngle < 75.5 + 7:
+                            leftContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
+                        elif (rotAngle > 14.5 - 10 and rotAngle < 14.5 + 10):
+                            rightContours.append({'x': x, 'y': y, 'w': w, 'h': h, 'rotAngle': rotAngle, 'verticalHeight': box[0][1] - box[2][1]})
 
 
         #Match Contours
@@ -262,6 +264,22 @@ def picamvidopencv(image, nettable):
     nettable.putNumber('angle', float(angle))
     nettable.putNumber('distance', float(hypoDist))
     nettable.putBoolean('found', found)
+
+    leftBox = False
+    middleBox = False
+    rightBox = False
+
+    if found:
+        if abs(angle) < 5:
+            middleBox = True
+        elif angle > 0:
+            leftBox = True
+        else:
+            rightBox = True
+
+    nettable.putBoolean('leftBox', leftBox)
+    nettable.putBoolean('middleBox', middleBox)
+    nettable.putBoolean('rightBox', rightBox)
 
     # show the frame
     if options.show:
