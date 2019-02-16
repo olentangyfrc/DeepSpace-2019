@@ -32,7 +32,7 @@ public class IntakeAdjuster extends Subsystem {
     private Potentiometer pot;
 
     public void init(PortMan pm) throws OzoneException {
-        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Intake.intakeAdjuster"));
+        intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
@@ -84,15 +84,12 @@ public class IntakeAdjuster extends Subsystem {
 
         if(finalTarget - pot.getValue() < -.01) {
             this.spinIntakeAdjusterBackward();
-            logger.info(""+pot.getValue()/maxPos);
         }
         else if(finalTarget - pot.getValue() > .01) {
             this.spinIntakeAdjusterForward();
-            logger.info(""+pot.getValue()/maxPos);
         }
         else{
             this.stopIntakeAdjuster();
-            logger.info(""+pot.getValue()/maxPos);
             stop = true;
         }
         return stop;
@@ -104,15 +101,12 @@ public class IntakeAdjuster extends Subsystem {
 
         if(finalTarget - pot.getValue() < -.01) {
             this.spinIntakeAdjusterBackward();
-            logger.info(""+pot.getValue()/maxPos);
         }
         else if(finalTarget - pot.getValue() > .01) {
             this.spinIntakeAdjusterForward();
-            logger.info(""+pot.getValue()/maxPos);
         }
         else{
             this.stopIntakeAdjuster();
-            logger.info(""+pot.getValue()/maxPos);
             stop = true;
         }
         return stop;
