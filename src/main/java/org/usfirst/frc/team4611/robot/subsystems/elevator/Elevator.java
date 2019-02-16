@@ -195,6 +195,7 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos2() {
+        logger.info("Moving to position 2");
         double finalTarget = elevatorPosition2.getDouble(.5);
         
         boolean stop = false;
