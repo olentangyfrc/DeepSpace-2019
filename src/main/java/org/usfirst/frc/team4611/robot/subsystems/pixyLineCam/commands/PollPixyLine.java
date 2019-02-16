@@ -35,17 +35,23 @@ public class PollPixyLine extends Command{
     }
 
     public void execute() {
-        logger.info("Getting Pixy vector");
-       byte err = line.getFeatures(Pixy2Line.LINE_GET_MAIN_FEATURES, Pixy2Line.LINE_VECTOR, false);
+        logger.info("Getting Pixy vector----");
+       byte err = line.getFeatures(Pixy2Line.LINE_GET_ALL_FEATURES, Pixy2Line.LINE_VECTOR, true);
        logger.info("getVector err " + err);
        Vector[] vectors = line.getVectors();
+       if (vectors == null) {
+           logger.info("Got no vectors :( ");
+           pixyLineCam.resetPixyLine();
+           return;
+       }
        logger.info("Got " + vectors.length + " vectors");
        for (Pixy2Line.Vector b : vectors) {
            logger.info(b.toString());
        }
 
        if (vectors.length > 0) {
-            pixyLineCam.writeLine(vectors[0]);
+            pixyLineCam.writeLine(vectors[0], vectors.length);
+
        }
        
     }
