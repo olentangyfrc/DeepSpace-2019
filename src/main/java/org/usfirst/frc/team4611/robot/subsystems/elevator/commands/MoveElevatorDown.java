@@ -21,12 +21,12 @@ public class MoveElevatorDown extends Command {
     }
 
     protected void initialize() {
-        //logger.info("Init");
+        logger.info("Init");
         stop = false;
     }
 
     protected void execute() {
-        //logger.info("Exe");
+        logger.info("Exe");
         if (stop) {
             return;
         }
@@ -34,7 +34,7 @@ public class MoveElevatorDown extends Command {
     }
 
     protected boolean isFinished() {
-        //logger.info("is finsished");
+        logger.info("is finsished");
         return stop;
     }
 

@@ -86,15 +86,15 @@ public class OI {
     public static final int AuxJoyButton11  = 33;
 
     public static final int button1 = 34;
-    private Button button2;
-    private Button button3; 
-    private Button button4; 
-    private Button button5; 
-    private Button button6; 
-    private Button button7; 
-    private Button button8;
-    private Button button9; 
-    private Button button10; 
+    public static final int button2 = 35;
+    public static final int button3 = 36; 
+    public static final int button4 = 37; 
+    public static final int button5 = 38; 
+    public static final int button6 = 39; 
+    public static final int button7 = 40; 
+    public static final int button8 = 41;
+    public static final int button9 = 42; 
+    public static final int button10 = 43; 
 
     public static final int WhenPressed         = 1;
     public static final int WhenReleased        = 2;

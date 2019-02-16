@@ -206,6 +206,12 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
 
         oi.bind(new MoveElevatorDown(), OI.button1, OI.WhenPressed);
+        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhenPressed);
+        oi.bind(new KeepElevatorInPlace(), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
+
         
     }
     
@@ -311,11 +317,22 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
         //intake = new WheelIntake();
         //intake.init(portMan);
         //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        nav    = new Navigation();
-        nav.init(portMan);
+        //nav    = new Navigation();
+        //nav.init(portMan);
+
+        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhenPressed);
+        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhenPressed);
+        oi.bind(new KeepElevatorInPlace(), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
     }
 
     public DriveTrain getDriveTrain(){
