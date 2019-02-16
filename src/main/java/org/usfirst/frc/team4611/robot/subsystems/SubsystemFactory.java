@@ -58,12 +58,12 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   protoMacAddress    = "00:80:2F:17:F8:3F";   
+    private String   protoMacAddress    = "00:80:2F:17:F8:BC";   
     private String   newbieMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
-    private String   compMacAddress   = "00:80:2F:22:D7:BC";
+    private String   compMacAddress   = "00:80:2F:22:D7:SD";
 
     private OI oi;
 
