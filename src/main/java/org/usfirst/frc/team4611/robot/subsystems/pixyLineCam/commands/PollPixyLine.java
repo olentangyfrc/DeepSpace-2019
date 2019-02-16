@@ -44,13 +44,38 @@ public class PollPixyLine extends Command{
            pixyLineCam.resetPixyLine();
            return;
        }
+
+       ArrayList<Pixy2Line.Vector> verticals = new ArrayList<>();
+
        logger.info("Got " + vectors.length + " vectors");
        for (Pixy2Line.Vector b : vectors) {
-           logger.info(b.toString());
-       }
+           String vert = " ";
+           if (b.getX0() == b.getX1()) {
+                verticals.add(b);
+                vert = " <-- vertical :)";
+           } else {
+                int slope = (b.getY0()-b.getY1())/(b.getX0()-b.getX1());
+                if (slope > 2) {
+                    verticals.add(b);
+                    vert = " <-- vertical :)";
+                }
+           }
+           logger.info(b.toString() + vert);
 
-       if (vectors.length > 0) {
-            pixyLineCam.writeLine(vectors[0], vectors.length);
+       }
+    
+       if (verticals.size() > 0) {
+          Pixy2Line.Vector found = null;
+          int largeY = -1;
+       
+          for (Pixy2Line.Vector v : verticals) {
+               if (v.getY0() > largeY || v.getY1() > largeY) {
+                    largeY = Math.max(v.getY0(), v.getY1());
+                    found = v;
+                }
+            }
+           
+            pixyLineCam.writeLine(found, verticals.size());
 
        }
        

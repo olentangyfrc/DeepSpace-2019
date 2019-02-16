@@ -68,7 +68,7 @@ public class PixyLineCam extends Subsystem{
         y1 = tab.add("Pixy y1", 0).getEntry();
         flags = tab.add("Pixy Flags", 0).getEntry();
         index = tab.add("Pixy Index", 0).getEntry();
-        arrayNumber = tab.add("Number of Vectors", 0).getEntry();
+        arrayNumber = tab.add("Number of Verticals", 0).getEntry();
         
       }
 
