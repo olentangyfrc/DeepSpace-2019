@@ -59,7 +59,7 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   protoMacAddress    = "00:80:2F:17:D7:BC";   
+    private String   protoMacAddress    = "00:80:2F:22:D7:BC";   
     private String   blueMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
@@ -184,15 +184,12 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        lineTracker = new LineTracker();
-        lineTracker.init(portMan);
-
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
@@ -208,10 +205,15 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
 
-        oi.bind(new MoveElevatorToPos(6), OI.AuxJoyButton11, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(7), OI.AuxJoyButton10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(2), OI.AuxJoyButton6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.AuxJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhileHeld);
+        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(7), OI.button10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
         
     }
     
@@ -240,9 +242,6 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        lineTracker = new LineTracker();
-        lineTracker.init(portMan);
-
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
@@ -262,7 +261,17 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
-        //oi.bind(new MoveElevatorToPos(4), OI.RightJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
+
+        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhileHeld);
+        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(7), OI.button10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
 
         
     } 

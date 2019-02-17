@@ -71,11 +71,11 @@ public class Elevator extends Subsystem {
 
         elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
         elevatorPercentDown = tab.add("Elevator Percent Down", power/8).getEntry();
-        elevatorPosition1 = tab.add("Elevator Position1", .5).getEntry();
+        elevatorPosition1 = tab.add("Elevator Position1", .25).getEntry();
         elevatorPosition2 = tab.add("Elevator Position2", .47).getEntry();
-        elevatorPosition3 = tab.add("Elevator Position3", .5).getEntry();
+        elevatorPosition3 = tab.add("Elevator Position3", .6).getEntry();
         elevatorPosition4 = tab.add("Elevator Position4", .82).getEntry();
-        elevatorPosition5 = tab.add("Elevator Position5", .5).getEntry();
+        elevatorPosition5 = tab.add("Elevator Position5", .88).getEntry();
         elevatorPosition6 = tab.add("Elevator Position6", .88).getEntry();
         elevatorPosition7 = tab.add("Elevator Position7", .7).getEntry();
         potPosition = tab.add("Current Pot Position", 0).getEntry();
@@ -429,7 +429,7 @@ public class Elevator extends Subsystem {
 
     public void keepInPlace() {
         //logger.info("keeping in place");
-        elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
+        elevatorLeftTalon.set(ControlMode.PercentOutput, .08);
         potPosition.setDouble(pot.getValue());
     }
     
@@ -448,7 +448,7 @@ public class Elevator extends Subsystem {
         }
                                                                         
         if(currentTime <= endTime) {
-            elevatorLeftTalon.set(ControlMode.PercentOutput, .06);
+            elevatorLeftTalon.set(ControlMode.PercentOutput, .08);
             logger.info("stalling");
         }
         else {
