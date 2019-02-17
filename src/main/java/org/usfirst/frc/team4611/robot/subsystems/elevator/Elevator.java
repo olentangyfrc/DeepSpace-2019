@@ -189,6 +189,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
@@ -208,6 +209,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
@@ -226,6 +228,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
@@ -244,6 +247,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
@@ -262,6 +266,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
@@ -280,12 +285,14 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
     }
     public boolean moveToPos7() {
+        
         double finalTarget = elevatorPosition7.getDouble(.5);
         
         boolean stop = false;
@@ -298,6 +305,7 @@ public class Elevator extends Subsystem {
         }
         else{
             this.stopElevator();
+            endTime = 0;
             this.keepInPlaceForTime();
             stop = true;
         }
