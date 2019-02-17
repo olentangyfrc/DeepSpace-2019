@@ -67,19 +67,25 @@ public class PollPixyLine extends Command{
        if (verticals.size() > 0) {
           Pixy2Line.Vector found = null;
           int largeY = -1;
-       
+
+
           for (Pixy2Line.Vector v : verticals) {
                if (v.getY0() > largeY || v.getY1() > largeY) {
                     largeY = Math.max(v.getY0(), v.getY1());
                     found = v;
                 }
+
             }
+
            
             pixyLineCam.writeLine(found, verticals.size());
+           
 
        }
        
     }
+
+    
 
     public void end() {
 

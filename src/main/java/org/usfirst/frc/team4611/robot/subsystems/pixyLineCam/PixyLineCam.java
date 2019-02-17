@@ -30,6 +30,13 @@ public class PixyLineCam extends Subsystem{
     private NetworkTableEntry index;
     private NetworkTableEntry flags;
     private NetworkTableEntry arrayNumber;
+    private NetworkTableEntry slope;
+    private NetworkTableEntry leftStatus;
+    private NetworkTableEntry middleStatus;
+    private NetworkTableEntry rightStatus;
+    
+    
+
 
 
 
@@ -46,6 +53,11 @@ public class PixyLineCam extends Subsystem{
         index.setNumber(0);
         flags.setNumber(0);
         arrayNumber.setNumber(0);
+        slope.setNumber(0);
+        leftStatus.setBoolean(false);
+        middleStatus.setBoolean(false);
+        rightStatus.setBoolean(false);
+
 
     }
 
@@ -69,6 +81,11 @@ public class PixyLineCam extends Subsystem{
         flags = tab.add("Pixy Flags", 0).getEntry();
         index = tab.add("Pixy Index", 0).getEntry();
         arrayNumber = tab.add("Number of Verticals", 0).getEntry();
+        slope = tab.add("Vector Slope", 0).getEntry();
+        leftStatus = tab.add("Left", false).getEntry();
+        middleStatus = tab.add("MIDDLE !!!!!!!", false).getEntry();
+        rightStatus = tab.add("Right", false).getEntry();
+
         
       }
 
@@ -76,6 +93,8 @@ public class PixyLineCam extends Subsystem{
         return this.line;
     }
 
+
+    
     public void writeLine(Pixy2Line.Vector line, int number) {
         x0.setNumber(line.getX0());
         y0.setNumber(line.getY0());
@@ -85,6 +104,25 @@ public class PixyLineCam extends Subsystem{
         flags.setNumber(line.getFlags());
         arrayNumber.setNumber(number);
 
+        int vectorSlope = (line.getY0()-line.getY1())/(line.getX0()-line.getX1());
+        slope.setNumber(vectorSlope);
+
+        int averageX = (line.getX0() + line.getX1())/2;
+        int leftX = 37;
+        int rightX = 41;
+        boolean left = false;
+        boolean middle = false;
+        boolean right = false;
+        if (averageX < leftX || averageX < leftX) {
+            left = true;
+        } else if (averageX > rightX || averageX > rightX) {
+            right = true;
+        } else {
+            middle = true;
+        }
+        leftStatus.setBoolean(left);
+        rightStatus.setBoolean(right);
+        middleStatus.setBoolean(middle);
 
     }
 
