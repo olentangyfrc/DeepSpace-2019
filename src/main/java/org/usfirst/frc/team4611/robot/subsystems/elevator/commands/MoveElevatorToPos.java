@@ -1,11 +1,15 @@
 package org.usfirst.frc.team4611.robot.subsystems.elevator.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveElevatorToPos extends Command {
+
+    private final Logger logger = Logger.getLogger(MoveElevatorToPos.class.getName());
 
     private Elevator elevator;
     private boolean stop = false;
@@ -54,6 +58,16 @@ public class MoveElevatorToPos extends Command {
 
     protected void initialize() {
         
+    }
+
+    @Override
+    public synchronized void cancel() {
+        logger.info("cancel");
+    }
+
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
     }
 
    
