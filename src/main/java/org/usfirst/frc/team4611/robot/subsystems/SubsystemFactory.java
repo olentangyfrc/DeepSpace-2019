@@ -9,6 +9,7 @@ import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveAdjusterToPos;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterForward;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
@@ -57,12 +58,12 @@ public class SubsystemFactory {
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
-    private String   protoMacAddress    = "00:80:2F:17:F8:3F";   
-    private String   compMacAddress    = "00:80:2F:27:1D:E9";
+    private String   protoMacAddress    = "00:80:2F:17:F8:BC";   
+    private String   newbieMacAddress    = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
-    private String   newbieMacAddress   = "00:80:2F:22:D7:BC";
+    private String   compMacAddress   = "00:80:2F:22:D7:SD";
 
     private OI oi;
 
@@ -150,12 +151,12 @@ public class SubsystemFactory {
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
-         camera1.setExposureManual(35); 
+         camera1.setExposureManual(70); 
 
          camera2 = CameraServer.getInstance().startAutomaticCapture();	
          camera2.setResolution(320, 240);
          camera2.setFPS(20);
-         camera2.setExposureManual(35);
+         camera2.setExposureManual(70);
         }
 
     /**
@@ -205,8 +206,10 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
 
-       
-
+        oi.bind(new MoveElevatorToPos(6), OI.AuxJoyButton11, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(7), OI.AuxJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(2), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToPos(4), OI.AuxJoyButton7, OI.WhenPressed);
         
     }
     
@@ -321,13 +324,13 @@ public class SubsystemFactory {
         //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
         //nav    = new Navigation();
         //nav.init(portMan);
+      
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+        
+        oi.bind(new MoveAdjusterToPos(1), OI.LeftJoyButton1, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(2), OI.LeftJoyButton2, OI.WhenPressed);
 
-        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhenPressed);
-        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhenPressed);
-        oi.bind(new KeepElevatorInPlace(), OI.button3, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
     }
 
     public DriveTrain getDriveTrain(){
