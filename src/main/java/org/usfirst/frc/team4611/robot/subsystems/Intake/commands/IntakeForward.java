@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.Intake.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
@@ -7,6 +9,8 @@ import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeForward extends Command {
+
+    private Logger logger = Logger.getLogger(IntakeForward.class.getName());
 
     private Intake intake;
     private int intakeVelocity = 480;
@@ -37,8 +41,12 @@ public class IntakeForward extends Command {
 
     @Override
     public synchronized void cancel() {
+        logger.info("canceled");
         stop = true;
         intake.stopIndiWheelFront();
     }
-
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
+    }
 }

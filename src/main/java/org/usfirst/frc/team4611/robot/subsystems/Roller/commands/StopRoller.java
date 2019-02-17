@@ -2,11 +2,14 @@ package org.usfirst.frc.team4611.robot.subsystems.Roller.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 
 public class StopRoller extends Command {
 
+    private static Logger logger = Logger.getLogger(StopRoller.class.getName());
     private Roller roller;
 
     public StopRoller() {
@@ -22,6 +25,12 @@ public class StopRoller extends Command {
     @Override
     public synchronized void cancel() {
         roller.stopRoller();
+        logger.info("Cancelled");
+    }
+
+    @Override
+    protected void interrupted() {
+        logger.info("Interrupted");
     }
 
     @Override

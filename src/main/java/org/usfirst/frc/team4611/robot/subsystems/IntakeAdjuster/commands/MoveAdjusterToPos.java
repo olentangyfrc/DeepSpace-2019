@@ -1,11 +1,15 @@
 package org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveAdjusterToPos extends Command {
+
+    private Logger  logger = Logger.getLogger(MoveAdjusterToPos.class.getName());
 
     private IntakeAdjuster intakeAdjuster;
     private boolean stop = false;
@@ -37,6 +41,16 @@ public class MoveAdjusterToPos extends Command {
         return stop;
     }
 
+    @Override
+    public synchronized void cancel() {
+        logger.info("canceled");
+    }
+
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
+    }
+    
     protected void initialize() {
         
     }

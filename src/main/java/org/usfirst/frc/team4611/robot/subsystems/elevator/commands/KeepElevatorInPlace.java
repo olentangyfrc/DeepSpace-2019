@@ -40,9 +40,14 @@ public class KeepElevatorInPlace extends Command {
         elevator.resetEncoders();
     }
     public void cancel() {
-        //logger.info("cancel");
+        logger.info("cancel");
         stop = true;
         elevator.stopElevator();
+    }
+
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
     }
 
    

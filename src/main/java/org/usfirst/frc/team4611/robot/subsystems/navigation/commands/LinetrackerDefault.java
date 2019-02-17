@@ -52,4 +52,8 @@ public class LinetrackerDefault extends Command {
   protected void interrupted() {
     logger.entering(LinetrackerDefault.class.getName(), "interupted");
   }
+  @Override
+  public synchronized void cancel() {
+    logger.info("canceled");
+  }
 }

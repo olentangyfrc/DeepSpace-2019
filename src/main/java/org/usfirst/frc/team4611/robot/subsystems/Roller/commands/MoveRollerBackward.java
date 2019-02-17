@@ -34,6 +34,11 @@ public class MoveRollerBackward extends Command {
     public synchronized void cancel() {
         roller.stopRoller();
         stop = true;
+        logger.info("Canceled");
+    }
+    @Override
+    protected void interrupted() {
+        logger.info("Interrupted");
     }
 
     @Override
