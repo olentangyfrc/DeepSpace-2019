@@ -1,11 +1,15 @@
 package org.usfirst.frc.team4611.robot.subsystems.elevator.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 class ElevatorLog extends Command {
+
+    private static Logger logger = Logger.getLogger(ElevatorLog.class.getName());
 
     private Elevator elevator;
     
@@ -22,6 +26,14 @@ class ElevatorLog extends Command {
         return true;
     }
 
+    @Override
+    public synchronized void cancel() {
+        logger.info("Cancelled");
+    }
 
+    @Override
+    protected void interrupted() {
+        logger.info("Interrupted");
+    }
 
 }
