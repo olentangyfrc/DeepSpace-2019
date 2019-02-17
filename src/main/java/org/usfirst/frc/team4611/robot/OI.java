@@ -3,6 +3,7 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 
 import java.util.HashMap;
 
@@ -26,7 +27,8 @@ public class OI {
     private Joystick leftJoy;
     private Joystick rightJoy;
     private Joystick auxJoy;
-    private XboxController xbox;
+    private Joystick buttons;
+    private XboxController xbox;  
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
     
@@ -83,6 +85,17 @@ public class OI {
     public static final int AuxJoyButton10  = 32;
     public static final int AuxJoyButton11  = 33;
 
+    public static final int button1 = 34;
+    public static final int button2 = 35;
+    public static final int button3 = 36; 
+    public static final int button4 = 37; 
+    public static final int button5 = 38; 
+    public static final int button6 = 39; 
+    public static final int button7 = 40; 
+    public static final int button8 = 41;
+    public static final int button9 = 42; 
+    public static final int button10 = 43; 
+
     public static final int WhenPressed         = 1;
     public static final int WhenReleased        = 2;
     public static final int WhileHeld           = 3;
@@ -93,6 +106,7 @@ public class OI {
        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
        auxJoy = new Joystick(2);
+       buttons = new Joystick(4);
        xbox = new XboxController(3);
     }
 
@@ -118,6 +132,8 @@ public class OI {
     public double getRightXboxYValue(){
         return getFilteredValue(xbox.getY(Hand.kRight));
     }
+
+
 
     public void rumbleJoystick(int j) {
 
@@ -153,8 +169,8 @@ public class OI {
                 logger.info("ONLY OK BECAUSE THIS IS A WHEN RELEASED COMMAND");
             }
             else {
-                throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : "Aux") +
-                    " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button) + 
+                throw new OzoneException((button >= 1 && button <= 11 ? "Left" : (button >= 12 && button <= 22) ? "Right" : (button >= 23 && button <= 33) ? "Aux" : "Buttons") +
+                    " Joystick Button [" + (button >= 12 && button <= 21 ? (button-11) : button >= 23 && button <= 33 ? (button-22) : button >= 34 && button <= 44 ? (button-33) : button) + 
                     "] is already taken by [" + allocatedJoyButtons.get(button) + 
                     "] when asked for by [ " + c.getClass().getName() + "]");
                     //logger.log("MULTI BUTTON LINKAGE");
@@ -171,6 +187,10 @@ public class OI {
         } else if (button >= 23 && button <= 33) {
             j = auxJoy;
             button -= 22;
+        }
+        else if(button >= 34 && button <= 43){
+            j = buttons;
+            button -= 33;
         } else {
             throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }

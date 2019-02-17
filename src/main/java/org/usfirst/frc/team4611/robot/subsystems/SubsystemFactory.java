@@ -315,11 +315,16 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
         //intake = new WheelIntake();
         //intake.init(portMan);
         //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
         //nav    = new Navigation();
         //nav.init(portMan);
+      
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
         
