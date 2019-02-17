@@ -45,5 +45,10 @@ public class KeepElevatorInPlace extends Command {
         elevator.stopElevator();
     }
 
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
+    }
+
    
 }

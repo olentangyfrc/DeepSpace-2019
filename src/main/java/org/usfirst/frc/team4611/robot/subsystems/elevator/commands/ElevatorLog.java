@@ -28,12 +28,12 @@ class ElevatorLog extends Command {
 
     @Override
     public synchronized void cancel() {
-        logger.info("Cancelled");
+        logger.info("cancel");
     }
 
     @Override
     protected void interrupted() {
-        logger.info("Interrupted");
+        logger.info("interrupted");
     }
 
 }
