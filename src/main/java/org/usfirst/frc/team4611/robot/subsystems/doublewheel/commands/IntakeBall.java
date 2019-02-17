@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.doublewheel.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.doublewheel.DoubleWheel;
 
@@ -7,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeBall extends Command {
 
+    private static Logger logger = Logger.getLogger(IntakeBall.class.getName());
     private DoubleWheel doubleWheel;
     private int intakeVelocity = 480;
     private boolean stop = false;
@@ -38,6 +41,10 @@ public class IntakeBall extends Command {
     public synchronized void cancel() {
         stop = true;
         doubleWheel.stopMotors();
+        logger.info("Canceled");
     }
-
+    @Override
+    protected void interrupted() {
+        logger.info("Interrupted");
+    }
 }
