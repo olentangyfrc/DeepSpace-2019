@@ -26,6 +26,8 @@ public class Navigation extends Subsystem {
     private NetworkTableEntry   leftLidarDistanceEntry, rightLidarDistanceEntry, lidarsAreSquareEntry;
     private boolean lidarsAreSquare;
 
+    private Pigeon pigeon;
+
     public Navigation(){
         
     }
@@ -41,14 +43,16 @@ public class Navigation extends Subsystem {
         lidarsAreSquareEntry   = tab.add("Lidars Square", lidarsAreSquare).getEntry();
 
         NetTableManager.updateValue("Health Map", "Navigation Initialized", true);
+
+        pigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.pigeon"));
     }
 
     public double getCurrentAbsoluteHeadingError(double angle) {
-        return 0.0;
+        return pigeon.getAbolsuteAngleError(angle);
     }
 
     public double getCurentHeading() {
-        return 0.0;
+        return pigeon.getCurrentAngle();
     }
 
     public double getLeftDistance() {
