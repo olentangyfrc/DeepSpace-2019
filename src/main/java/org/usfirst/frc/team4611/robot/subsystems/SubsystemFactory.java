@@ -50,6 +50,7 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorD
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
+import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
 
 
 public class SubsystemFactory {
@@ -88,6 +89,7 @@ public class SubsystemFactory {
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
     private PixyCam pixyCam;
+    private PixyLineCam pixyLineCam;
     private DriverFeedback  driverFeedback;
   
     private UsbCamera camera1;
@@ -273,8 +275,9 @@ public class SubsystemFactory {
 
        driveTrain = new TankDrive();
        driveTrain.init(portMan);
-       pixyCam = new PixyCam();
-       pixyCam.init();
+       pixyLineCam = new PixyLineCam();
+       pixyLineCam.init();
+       
     }
 
     /**
@@ -395,6 +398,10 @@ public class SubsystemFactory {
 
     public PixyCam getPixyCam() {
         return pixyCam;
+    }
+
+    public PixyLineCam getPixyLineCam() {
+        return pixyLineCam;
     }
 
     public DriverFeedback getDriverFeedback() {

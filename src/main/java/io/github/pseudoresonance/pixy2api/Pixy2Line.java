@@ -3,6 +3,8 @@ package io.github.pseudoresonance.pixy2api;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import io.github.pseudoresonance.pixy2api.Pixy2.LinkType;
+
 /**
  * Java Port of Pixy2 Arduino Library
  * 
@@ -580,6 +582,21 @@ public class Pixy2Line {
 			return code;
 		}
 
+	}
+
+	public Pixy2Line getLine() {
+		return null;
+	}
+
+	public static Pixy2Line createInstance(LinkType spi) {
+		return null;
+	}
+
+	public Object getVersionInfo() {
+		return null;
+	}
+
+	public void init(int i) {
 	}
 
 }

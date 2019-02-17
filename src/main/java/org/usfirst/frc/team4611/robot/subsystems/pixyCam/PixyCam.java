@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import io.github.pseudoresonance.pixy2api.Pixy2;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC;
+import io.github.pseudoresonance.pixy2api.Pixy2Line;
+import io.github.pseudoresonance.pixy2api.Pixy2Line.Vector;
 
 public class PixyCam extends Subsystem{
 
@@ -83,6 +85,6 @@ public class PixyCam extends Subsystem{
 
     protected void initDefaultCommand() {
         setDefaultCommand(new PollPixy());
-    } 
+    }
 
 }
