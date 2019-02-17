@@ -45,14 +45,14 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeLeft.configMotionAcceleration(4096,0);
     
         wheelIntakeRight.follow(wheelIntakeLeft);
-        wheelIntakeRight.setInverted(true);
+        wheelIntakeRight.setInverted(false);
 
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
 
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
-        doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .5).getEntry();
+        doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .66).getEntry();
 
         logger.exiting(DoubleWheel.class.getName(), "init()");
 
