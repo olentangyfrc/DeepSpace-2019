@@ -2,10 +2,13 @@ package org.usfirst.frc.team4611.robot.subsystems.Roller.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 public class MoveRollerSlowForward extends Command {
 
+    private static Logger logger = Logger.getLogger(MoveRollerSlowForward.class.getName());
     private Roller roller; 
     private boolean stop = false;
 
@@ -30,6 +33,12 @@ public class MoveRollerSlowForward extends Command {
     public synchronized void cancel() {
         roller.stopRoller();
         stop = true;
+        logger.info("Cancelled");
+    }
+
+    @Override
+    protected void interrupted() {
+        logger.info("Interrupted");
     }
 
     @Override
