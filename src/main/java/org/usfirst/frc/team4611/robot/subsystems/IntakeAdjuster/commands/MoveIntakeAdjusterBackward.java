@@ -9,7 +9,6 @@ import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
 
 public class MoveIntakeAdjusterBackward extends Command {
 
-
     private static Logger logger = Logger.getLogger(MoveIntakeAdjusterBackward.class.getName());
     private IntakeAdjuster intakeAdjuster; 
     private boolean stop = false;
@@ -33,13 +32,18 @@ public class MoveIntakeAdjusterBackward extends Command {
 
     @Override
     public synchronized void cancel() {
-        intakeAdjuster.stopIntakeAdjuster();
+        logger.info("canceled");
         stop = true;
+        intakeAdjuster.stopIntakeAdjuster();
+
     }
 
     @Override
     protected boolean isFinished() {
         return stop;
     }
-
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
+    }
 }

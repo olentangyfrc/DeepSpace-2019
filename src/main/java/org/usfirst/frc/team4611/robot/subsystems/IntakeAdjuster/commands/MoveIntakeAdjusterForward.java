@@ -35,11 +35,16 @@ public class MoveIntakeAdjusterForward extends Command {
     public synchronized void cancel() {
         intakeAdjuster.stopIntakeAdjuster();
         stop = true;
+        logger.info("canceled");
     }
 
     @Override
     protected boolean isFinished() {
         return stop;
     }
-
+    
+    @Override
+    protected void interrupted() {
+        logger.info("interrupted");
+    }
 }
