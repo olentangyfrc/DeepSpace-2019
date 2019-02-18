@@ -27,6 +27,15 @@ public class Pigeon {
 	}
 
 	/**
+	 * @return The current yaw angle of the gyro on the pigeon
+	 */
+	public double getYawAngle() {
+		double[] ypr = new double[3];
+		pigeon.getYawPitchRoll(ypr);
+		return ypr[0];
+	}
+
+	/**
 	 * @return The current angle of the gyro adjusted to the range of -360 to 360
 	 */
 	public double getCurrentRelativeAngle() {
