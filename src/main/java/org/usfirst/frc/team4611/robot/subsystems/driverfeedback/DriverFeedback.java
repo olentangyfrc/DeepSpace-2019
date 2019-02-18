@@ -138,7 +138,7 @@ public class DriverFeedback extends Subsystem {
       
     if (lineTracker != null) {
         lineTrackerLeft.setBoolean(lineTracker.isOnLeft());
-        lineTrackerMid.setBoolean(lineTracker.isOnMid());
+        //lineTrackerMid.setBoolean(lineTracker.isOnMid());
         lineTrackerRight.setBoolean(lineTracker.isOnRight());
     }
     if (roller != null) {

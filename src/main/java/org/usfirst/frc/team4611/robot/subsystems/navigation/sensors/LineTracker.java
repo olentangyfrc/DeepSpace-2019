@@ -19,7 +19,7 @@ public class LineTracker extends Subsystem
     private int threshhold  = 3860;
 
     private AnalogInput lineTrackerLeft;
-    private AnalogInput lineTrackerMid;
+    //private AnalogInput lineTrackerMid;
     private AnalogInput lineTrackerRight;
 
     private boolean onLeft;
@@ -33,19 +33,19 @@ public class LineTracker extends Subsystem
     private ShuffleboardTab tab;
     private NetworkTableEntry leftEntry;
     private NetworkTableEntry rightEntry;
-    private NetworkTableEntry midEntry;
+    //private NetworkTableEntry midEntry;
     private NetworkTableEntry onLeftEntry;
     private NetworkTableEntry onRightEntry;
-    private NetworkTableEntry onMidEntry;
+    //private NetworkTableEntry onMidEntry;
 
     public int getLineTrackerInputLeft()
     {
         return lineTrackerLeft.getValue();
     }
-    public int getLineTrackerInputMid()
+    /*public int getLineTrackerInputMid()
     {
         return lineTrackerMid.getValue();
-    }
+    }*/
 
     public int getLineTrackerInputRight()
     {
@@ -66,8 +66,9 @@ public class LineTracker extends Subsystem
 
         leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
         rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
-        midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
+        //midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
         onLeftEntry = tab.add("Linetracker On Left", onLeft).getEntry();
+        onRightEntry = tab.add("Linetracker On Right", onRight).getEntry();
       
     }
 
@@ -76,9 +77,9 @@ public class LineTracker extends Subsystem
         return (lineTrackerLeft.getValue() < threshhold) ;
     }
 
-    public boolean isOnMid() {
+    /*public boolean isOnMid() {
         return (lineTrackerMid.getValue() < threshhold) ;
-    }
+    }*/
 
     public boolean isOnRight() {
         onRightEntry.setBoolean(lineTrackerRight.getValue() < threshhold);
