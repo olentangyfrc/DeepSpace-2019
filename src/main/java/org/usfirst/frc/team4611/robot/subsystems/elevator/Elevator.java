@@ -112,7 +112,7 @@ public class Elevator extends Subsystem {
         this.resetEncoders();
 
         elevatorRightTalon.follow(elevatorLeftTalon);
-        elevatorRightTalon.setInverted(true);
+        elevatorRightTalon.setInverted(false);
 
         logger.exiting("Elevator", "out of init");
 
