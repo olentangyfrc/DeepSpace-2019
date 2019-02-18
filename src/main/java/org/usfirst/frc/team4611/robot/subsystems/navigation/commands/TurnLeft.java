@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
 
-import java.util.logging.Logger;
-
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
@@ -20,8 +18,6 @@ public class TurnLeft extends Command {
 
 	private DriveTrain driveTrain;
 	private Navigation navigation;
-
-	private static Logger logger = Logger.getLogger(TurnLeft.class.getName());
 
 	public TurnLeft(double angle) {
 		this.angle = angle;
@@ -68,16 +64,6 @@ public class TurnLeft extends Command {
 		if (!isFinished()) {
 			driveTrain.rotate(-speed);
 		}
-	}
-
-	@Override
-	public synchronized void cancel() {
-		logger.info("Cancelled");
-	}
-
-	@Override
-	protected void interrupted() {
-		logger.info("Interrupted");
 	}
 
 	/**
