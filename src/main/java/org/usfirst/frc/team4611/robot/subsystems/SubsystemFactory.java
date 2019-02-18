@@ -32,6 +32,8 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
+import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
+import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.EjectBall;
@@ -242,6 +244,9 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
+        stick = new Stick();
+        stick.init(portMan);
+
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
@@ -273,7 +278,8 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
 
-        
+        oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
     } 
     /**
      * init subsystems specific to Newbie

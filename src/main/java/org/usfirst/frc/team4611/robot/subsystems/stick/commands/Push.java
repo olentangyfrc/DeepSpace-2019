@@ -5,11 +5,11 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class PushHatch extends Command {
+public class Push extends Command {
     
     private Stick stick;
 
-    public PushHatch() {
+    public Push() {
         stick = SubsystemFactory.getInstance().getStick();
         this.requires(stick);
     }

@@ -5,11 +5,11 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RetractHatch extends Command {
+public class Retract extends Command {
 
     private Stick stick;
 
-    public RetractHatch(){
+    public Retract() {
         stick = SubsystemFactory.getInstance().getStick();
         this.requires(stick);
     }
