@@ -58,6 +58,15 @@ public class Elevator extends Subsystem {
     private boolean upperSoftLimitToggle = false;
     private boolean lowerSoftLimitToggle = false;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
+    private NetworkTableEntry port3;
+    private NetworkTableEntry port4;
+    private NetworkTableEntry port5;
+    private NetworkTableEntry port6;
+    private NetworkTableEntry port7;
+
     public Elevator(){
 
     }
@@ -69,6 +78,9 @@ public class Elevator extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Elevator Ports", true);
+
         elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
         elevatorPercentDown = tab.add("Elevator Percent Down", power/8).getEntry();
         elevatorPosition1 = tab.add("Elevator Position1", .25).getEntry();
@@ -79,6 +91,14 @@ public class Elevator extends Subsystem {
         elevatorPosition6 = tab.add("Elevator Position6", .88).getEntry();
         elevatorPosition7 = tab.add("Elevator Position7", .7).getEntry();
         potPosition = tab.add("Current Pot Position", 0).getEntry();
+
+        port1 = portTab.add("can_15_label", true).getEntry();
+        port2 = portTab.add("can_16_label", true).getEntry();
+        port3 = portTab.add("digital0_label", true).getEntry();
+        port4 = portTab.add("digital1_label", true).getEntry();
+        port5 = portTab.add("digital2_label", true).getEntry();
+        port6 = portTab.add("digital3_label", true).getEntry();
+        port7 = portTab.add("analog0_label", true).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));

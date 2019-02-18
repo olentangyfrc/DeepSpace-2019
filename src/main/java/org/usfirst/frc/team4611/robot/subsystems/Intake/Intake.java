@@ -25,7 +25,10 @@ public class Intake extends Subsystem {
     private double defaultPercent = .5;
 
     private ShuffleboardTab tab;
-	private NetworkTableEntry motorSpeed;
+    private NetworkTableEntry motorSpeed;
+    
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
 
     public Intake() {
         
@@ -45,9 +48,14 @@ public class Intake extends Subsystem {
         intake.configMotionAcceleration(4096,0);
 
         tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "Intake Initialized", true);
+        NetTableManager.updateValue("Health Map", "Intake Initialized", true);
+        
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Intake Ports", true);
         
         motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();
+
+        port1 = portTab.add("can_22_label", true).getEntry();
 
         logger.exiting(Intake.class.getName(), "init()");
     }

@@ -28,6 +28,13 @@ public abstract class DriveTrain extends Subsystem {
     
     protected ShuffleboardTab tab; 
 
+
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
+    private NetworkTableEntry port3;
+    private NetworkTableEntry port4;
+    
     public abstract void move();
 
     public void init(PortMan pm) throws Exception {
@@ -40,6 +47,14 @@ public abstract class DriveTrain extends Subsystem {
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
+
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("PortManager", "Drive Train Ports", true);
+
+        port1 = portTab.add("can_10_label", true).getEntry();
+        port2 = portTab.add("can_11_label", true).getEntry();
+        port3 = portTab.add("can_13_label", true).getEntry();
+        port4 = portTab.add("can_12_label", true).getEntry();
         
         setupTalons();
     }

@@ -24,6 +24,8 @@ public class Roller extends Subsystem {
     private NetworkTableEntry motorSpeed;
     private NetworkTableEntry slowVelocity;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
     private double rollerPercent = .75;
     private double slowPercent = .5;
     private int maxRPM = 2400;
@@ -36,7 +38,13 @@ public class Roller extends Subsystem {
         roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "Roller.talon"));
 
         tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
+        NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
+        
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Roller Ports", true);
+
+        port1 = portTab.add("can_20_label", true).getEntry();
+
         rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();
         slowVelocity = tab.add("Slow Roller Percent", slowPercent).getEntry();
 

@@ -25,6 +25,9 @@ public class DoubleWheel extends Subsystem {
     private NetworkTableEntry doubleWheelRightVelocity;
     private NetworkTableEntry doubleWheelIntakeVelocity;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
 
     private int wheelVelocity = 1600;
     private int indiWheelDefaultVelocity = 1600;
@@ -48,11 +51,17 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeRight.setInverted(false);
 
         tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
+        NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
+        
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Double Wheel Ports", true);
 
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
         doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .66).getEntry();
+
+        port1 = portTab.add("can_18_label", true).getEntry();
+        port2 = portTab.add("can_19_label", true).getEntry();
 
         logger.exiting(DoubleWheel.class.getName(), "init()");
 

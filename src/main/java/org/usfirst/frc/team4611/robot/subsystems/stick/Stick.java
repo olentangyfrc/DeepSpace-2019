@@ -15,7 +15,11 @@ public class Stick extends Subsystem {
     private DoubleSolenoid pusher;
 
     private ShuffleboardTab tab;
-	private NetworkTableEntry stickStatus;
+    private NetworkTableEntry stickStatus;
+    
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
 
     public Stick() {  
     }
@@ -27,7 +31,13 @@ public class Stick extends Subsystem {
             e.printStackTrace();
         }
         tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "StickInitialize", true);
+        NetTableManager.updateValue("Health Map", "StickInitialize", true);
+        
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Stick Ports", true);
+
+        port1 = portTab.add("pcm0_label", true).getEntry();
+        port2 = portTab.add("pcm1_label", true).getEntry();
 
 		stickStatus = tab.add("Stick Engaged", false).getEntry();
     } 

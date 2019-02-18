@@ -37,6 +37,9 @@ public class WheelIntake extends Subsystem {
     private NetworkTableEntry wheelStage2Percent;
     private NetworkTableEntry wheelStage3Percent;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+
     public WheelIntake() {
     }
    
@@ -51,6 +54,11 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.config_kP(0,pVal, 0);
         wheelIntakeTalon.config_kI(0, 0.000, 0);
         wheelIntakeTalon.config_kD(0, 0, 0);
+
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "WheelIntake Ports", true);
+
+        port1 = portTab.add("cam_17_label", true).getEntry();
 
         tab = Shuffleboard.getTab("WheelIntake");
         velocity = tab.add("Velocity", -1.0).getEntry();

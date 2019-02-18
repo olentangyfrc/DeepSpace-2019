@@ -25,6 +25,10 @@ public class IntakeAdjuster extends Subsystem {
     private NetworkTableEntry currentAdjusterPosition;
     private NetworkTableEntry adjusterPosition1;
     private NetworkTableEntry adjusterPosition2;
+
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
     
     private double power = 1;
     private double pos = 1;
@@ -40,11 +44,17 @@ public class IntakeAdjuster extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "IntakeAdjuster Ports", true);
+
         adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
         currentAdjusterPosition = tab.add("Intake Adjuster Posittion", pos).getEntry();
         adjusterPosition1 = tab.add("Adjuster Position1", pos).getEntry();
         adjusterPosition2 = tab.add("Adjuster Position2", pos).getEntry();
 
+        port1 = portTab.add("can_23_label", true).getEntry();
+        port2 = portTab.add("analog2_label", true).getEntry();
+        
         pot = new Potentiometer(pm.acquirePort(PortMan.analog5_label, "IntakeAdjuster Pot"));
     }
 

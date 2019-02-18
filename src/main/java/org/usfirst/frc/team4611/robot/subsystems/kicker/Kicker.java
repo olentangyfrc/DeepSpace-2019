@@ -6,9 +6,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Kicker extends Subsystem
 {
@@ -16,9 +20,17 @@ public class Kicker extends Subsystem
     private WPI_TalonSRX kicker;
     private int kickDistance = 27648;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+
 
     public void init(PortMan pm) throws Exception {
         logger.info("initializing");
+
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Double Wheel Ports", true);
+
+        port1 = portTab.add("can_17_label", true).getEntry();
 
         kicker = new WPI_TalonSRX(pm.acquirePort(PortMan.can_17_label, "Kicker.talon"));
         kicker.setSensorPhase(true);  

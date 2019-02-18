@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation.sensors;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.LinetrackerDefault;
 
@@ -38,6 +39,10 @@ public class LineTracker extends Subsystem
     private NetworkTableEntry onRightEntry;
     private NetworkTableEntry onMidEntry;
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
+
     public int getLineTrackerInputLeft()
     {
         return lineTrackerLeft.getValue();
@@ -59,6 +64,9 @@ public class LineTracker extends Subsystem
 
     public void init(PortMan pm) throws Exception {
         tab = Shuffleboard.getTab("Navigation");
+
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "LineTraker Ports", true);
         
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog1_label, "LineTracker.lineTrackerLeft"));
         //lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
@@ -68,6 +76,9 @@ public class LineTracker extends Subsystem
         rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
         midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
         onLeftEntry = tab.add("Linetracker On Left", onLeft).getEntry();
+
+        port1 = portTab.add("analog1_label", true).getEntry();
+        port2 = portTab.add("analog3_label", true).getEntry();
       
     }
 

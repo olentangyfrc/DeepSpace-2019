@@ -19,6 +19,10 @@ public class Navigation extends Subsystem {
 
     private static ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
 
+    private ShuffleboardTab portTab;
+    private NetworkTableEntry port1;
+    private NetworkTableEntry port2;
+    private NetworkTableEntry port3;
 
     private LidarPWM leftLidar  = null;
     private LidarPWM rightLidar = null;
@@ -43,6 +47,13 @@ public class Navigation extends Subsystem {
         lidarsAreSquareEntry   = tab.add("Lidars Square", lidarsAreSquare).getEntry();
 
         NetTableManager.updateValue("Health Map", "Navigation Initialized", true);
+
+        portTab = Shuffleboard.getTab("Port Manager");
+        NetTableManager.updateValue("Port Manager", "Navigaton Ports", true);
+
+        port1 = portTab.add("digital0_label", true).getEntry();
+        port2 = portTab.add("digital1_label", true).getEntry();
+        port3 = portTab.add("can_21_label", true).getEntry();
 
         pigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.pigeon"));
     }
