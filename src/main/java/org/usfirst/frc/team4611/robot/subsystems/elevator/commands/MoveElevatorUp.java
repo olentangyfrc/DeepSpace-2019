@@ -23,12 +23,12 @@ public class MoveElevatorUp extends Command {
     
 
     protected void initialize() {
-        //logger.info("Init");
+        logger.info("Init");
         stop = false;
     }
 
     protected void execute() {
-        //logger.info("Exe");
+        logger.info("Exe");
         if (stop) {
             return;
         }
@@ -36,7 +36,7 @@ public class MoveElevatorUp extends Command {
     }
 
     protected boolean isFinished() {
-        //logger.info("is finsished");
+        logger.info("is finsished");
         return stop;
     }
 
@@ -44,7 +44,7 @@ public class MoveElevatorUp extends Command {
     public void cancel() {
         logger.info("cancel");
         stop = true;
-        elevator.stop();
+        elevator.stopElevator();
     }
 
     @Override

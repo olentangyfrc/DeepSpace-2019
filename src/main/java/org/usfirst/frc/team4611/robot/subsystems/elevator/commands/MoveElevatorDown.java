@@ -42,7 +42,7 @@ public class MoveElevatorDown extends Command {
     public void cancel() {
         logger.info("cancel");
         stop = true;
-        elevator.stop();
+        elevator.stopElevator();
     }
 
     @Override
