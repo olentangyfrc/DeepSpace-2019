@@ -21,9 +21,12 @@ public class IntakeAdjuster extends Subsystem {
     private WPI_TalonSRX intakeAdjuster;
 
     private ShuffleboardTab tab;
+    private NetworkTableEntry isLogging;
     private NetworkTableEntry adjusterVelocity;
     private NetworkTableEntry adjusterPosition1;
     private NetworkTableEntry adjusterPosition2;
+
+    private boolean logging = false;
     
     private double power = 1;
     private double pos = 1;
@@ -38,6 +41,8 @@ public class IntakeAdjuster extends Subsystem {
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
+        isLogging = tab.add("Intake Adjuster Logging", false).getEntry();
+
         adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
         adjusterPosition1 = tab.add("Adjuster Position1", pos).getEntry();
         adjusterPosition2 = tab.add("Adjuster Position2", pos).getEntry();
@@ -47,6 +52,11 @@ public class IntakeAdjuster extends Subsystem {
 
     
     private static Logger logger = Logger.getLogger(IntakeAdjuster.class.getName());
+
+    public boolean isLogging(){
+        logging = isLogging.getBoolean(false);
+        return logging;
+    }
 
     public void spinIntakeAdjusterForward() {
 

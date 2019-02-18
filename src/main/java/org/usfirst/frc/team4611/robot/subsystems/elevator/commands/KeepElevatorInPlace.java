@@ -22,7 +22,7 @@ public class KeepElevatorInPlace extends Command {
     }
 
     protected void execute() {
-        //logger.info("Execute");
+        //if(elevator.isLogging())logger.info("Execute");
         if(stop) {
             return;
         }
@@ -35,19 +35,21 @@ public class KeepElevatorInPlace extends Command {
     }
 
     protected void initialize() {
-        //logger.info("init");
+        //if(elevator.isLogging())logger.info("init");
         stop = false;
         elevator.resetEncoders();
     }
     public void cancel() {
-        logger.info("cancel");
+        if(elevator.isLogging())
+            logger.info("cancel");
         stop = true;
         elevator.stopElevator();
     }
 
     @Override
     protected void interrupted() {
-        logger.info("interrupted");
+        if(elevator.isLogging())
+            logger.info("interrupted");
     }
 
    

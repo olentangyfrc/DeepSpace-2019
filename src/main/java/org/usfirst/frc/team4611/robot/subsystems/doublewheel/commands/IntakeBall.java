@@ -41,10 +41,12 @@ public class IntakeBall extends Command {
     public synchronized void cancel() {
         stop = true;
         doubleWheel.stopMotors();
-        logger.info("Canceled");
+        if(doubleWheel.isLogging())
+            logger.info("Canceled");
     }
     @Override
     protected void interrupted() {
-        logger.info("Interrupted");
+        if(doubleWheel.isLogging())
+            logger.info("Interrupted");
     }
 }

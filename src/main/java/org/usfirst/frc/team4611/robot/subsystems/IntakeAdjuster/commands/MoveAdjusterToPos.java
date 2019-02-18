@@ -43,12 +43,14 @@ public class MoveAdjusterToPos extends Command {
 
     @Override
     public synchronized void cancel() {
-        logger.info("canceled");
+        if(intakeAdjuster.isLogging())
+            logger.info("canceled");
     }
 
     @Override
     protected void interrupted() {
-        logger.info("interrupted");
+        if(intakeAdjuster.isLogging())
+            logger.info("interrupted");
     }
     
     protected void initialize() {

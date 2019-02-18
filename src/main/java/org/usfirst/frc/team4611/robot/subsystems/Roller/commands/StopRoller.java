@@ -25,12 +25,14 @@ public class StopRoller extends Command {
     @Override
     public synchronized void cancel() {
         roller.stopRoller();
-        logger.info("Cancelled");
+        if(roller.isLogging())
+            logger.info("Cancelled");
     }
 
     @Override
     protected void interrupted() {
-        logger.info("Interrupted");
+        if(roller.isLogging())
+            logger.info("Interrupted");
     }
 
     @Override

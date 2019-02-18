@@ -21,11 +21,13 @@ public class DoubleWheel extends Subsystem {
     private WPI_TalonSRX wheelIntakeRight;
 
     private ShuffleboardTab tab;
+    private NetworkTableEntry isLogging;
     private NetworkTableEntry doubleWheelLeftVelocity;
     private NetworkTableEntry doubleWheelRightVelocity;
     private NetworkTableEntry doubleWheelIntakeVelocity;
 
 
+    private boolean logging = false;
     private int wheelVelocity = 1600;
     private int indiWheelDefaultVelocity = 1600;
     private int adjusterVelocity = 1600;
@@ -49,13 +51,18 @@ public class DoubleWheel extends Subsystem {
 
         tab = Shuffleboard.getTab("Health Map");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
-
+        isLogging = tab.add("Double Wheel Logging", false).getEntry();
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();
         doubleWheelIntakeVelocity = tab.add("Shooter Velocity Percent", .66).getEntry();
 
         logger.exiting(DoubleWheel.class.getName(), "init()");
 
+    }
+
+    public boolean isLogging(){
+        logging = isLogging.getBoolean(false);
+        return logging;
     }
 
     public void spinMotorsIntake(int speed){
@@ -74,7 +81,8 @@ public class DoubleWheel extends Subsystem {
 
     public void spinMotorOutTake() {
 
-        logger.info("entering spinMotorOutTake()");
+        if(logging)
+            logger.info("entering spinMotorOutTake()");
 
         wheelIntakeLeft.set(ControlMode.Velocity, -wheelVelocity*doubleWheelIntakeVelocity.getDouble(wheelVelocity));
 

@@ -33,12 +33,14 @@ public class MoveRollerSlowForward extends Command {
     public synchronized void cancel() {
         roller.stopRoller();
         stop = true;
-        logger.info("Cancelled");
+        if(roller.isLogging())
+            logger.info("Cancelled");
     }
 
     @Override
     protected void interrupted() {
-        logger.info("Interrupted");
+        if(roller.isLogging())
+            logger.info("Interrupted");
     }
 
     @Override

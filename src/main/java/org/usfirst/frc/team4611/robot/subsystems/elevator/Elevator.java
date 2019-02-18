@@ -25,6 +25,7 @@ public class Elevator extends Subsystem {
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
 
     private ShuffleboardTab tab;
+    private NetworkTableEntry isLogging;
     private NetworkTableEntry elevatorPercentUp;
     private NetworkTableEntry elevatorPercentDown;
     private NetworkTableEntry elevatorPosition1;
@@ -39,6 +40,8 @@ public class Elevator extends Subsystem {
     public static double maxRPM = 6000;
 
     private double power = .75;
+
+    private boolean logging = false;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -64,11 +67,12 @@ public class Elevator extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
     
-        logger.info("initializing");
+        if(logging) logger.info("initializing");
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
 
+        isLogging = tab.add("Elevator Logging", false).getEntry();
         elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
         elevatorPercentDown = tab.add("Elevator Percent Down", power/8).getEntry();
         elevatorPosition1 = tab.add("Elevator Position1", .25).getEntry();
@@ -119,6 +123,11 @@ public class Elevator extends Subsystem {
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
     }
 
+    public boolean isLogging(){
+        logging = isLogging.getBoolean(false);
+        return logging;
+    }
+
     public void stop() {
         elevatorLeftTalon.set(ControlMode.Velocity, 0);
     }
@@ -131,7 +140,7 @@ public class Elevator extends Subsystem {
         else {
             speed = (int)(maxRPM*-elevatorPercentDown.getDouble(power));
         } 
-        //logger.info(""+pot.getValue());
+        //if(logging) logger.info(""+pot.getValue());
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -144,30 +153,34 @@ public class Elevator extends Subsystem {
         if(!hardLimitTop.get()) {
             if(speed >= 0) {
                 speed = 0;
-                logger.info("Hard Limit Top");
+                if(logging)
+                    logger.info("Hard Limit Top");
             }
         }
         if(upperSoftLimitToggle) {
             if(speed >= 0) {
                 speed = speed/2;//for non changed soft upward movement
-                logger.info("Soft Limit Top");
+                if(logging)
+                    logger.info("Soft Limit Top");
             }
         }
         if(lowerSoftLimitToggle) {
             if(speed <= 0) {
                 speed = (speed/2)*.7;
-                logger.info("Soft Limit Bottom");
+                if(logging)
+                    logger.info("Soft Limit Bottom");
             }
         }
         if(!hardLimitBottom.get()) {
             if(speed <= 0) {
                 speed = 0;
-                logger.info("Hard Limit Bottom");
+                if(logging)
+                    logger.info("Hard Limit Bottom");
             }
         }
 
         potPosition.setDouble(pot.getValue());
-       //logger.info("Speed: " + speed);
+       //if(logging) logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
     }
 
@@ -196,7 +209,8 @@ public class Elevator extends Subsystem {
         return stop;
     }
     public boolean moveToPos2() {
-        logger.info("Moving to position 2");
+        if(logging)
+            logger.info("Moving to position 2");
         double finalTarget = elevatorPosition2.getDouble(.5);
         
         boolean stop = false;
@@ -428,7 +442,7 @@ public class Elevator extends Subsystem {
     }
 
     public void keepInPlace() {
-        //logger.info("keeping in place");
+        //if(logging) logger.info("keeping in place");
         elevatorLeftTalon.set(ControlMode.PercentOutput, .08);
         potPosition.setDouble(pot.getValue());
     }
@@ -437,22 +451,26 @@ public class Elevator extends Subsystem {
     private long endTime = 0;
 
     public boolean keepInPlaceForTime() {
-        logger.info("keeping in place");
+        if(logging)
+            logger.info("keeping in place");
         boolean done = false;;
         potPosition.setDouble(pot.getValue());
         currentTime = System.currentTimeMillis();
         
         if(endTime == 0) {
             endTime = currentTime + 100;
-            logger.info("setting");
+            if(logging)
+                logger.info("setting");
         }
                                                                         
         if(currentTime <= endTime) {
             elevatorLeftTalon.set(ControlMode.PercentOutput, .08);
-            logger.info("stalling");
+            if(logging)
+                logger.info("stalling");
         }
         else {
-            logger.info("finishing");
+            if(logging)
+                logger.info("finishing");
             done = true;
             endTime = 0;
             this.stopElevator();
