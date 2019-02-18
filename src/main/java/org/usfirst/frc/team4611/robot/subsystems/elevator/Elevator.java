@@ -47,7 +47,7 @@ public class Elevator extends Subsystem {
     private DigitalInput softLimitBottom;
     private DigitalInput hardLimitBottom;
 
-    private double potTop = .83;
+    private double potTop = .88;
     private double potBot = .14;
 
     private ElevatorUpdater speedUpdater;
@@ -71,13 +71,13 @@ public class Elevator extends Subsystem {
 
         elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
         elevatorPercentDown = tab.add("Elevator Percent Down", power/8).getEntry();
-        elevatorPosition1 = tab.add("Elevator Position1", .25).getEntry();
-        elevatorPosition2 = tab.add("Elevator Position2", .47).getEntry();
-        elevatorPosition3 = tab.add("Elevator Position3", .6).getEntry();
-        elevatorPosition4 = tab.add("Elevator Position4", .82).getEntry();
-        elevatorPosition5 = tab.add("Elevator Position5", .88).getEntry();
-        elevatorPosition6 = tab.add("Elevator Position6", .88).getEntry();
-        elevatorPosition7 = tab.add("Elevator Position7", .7).getEntry();
+        elevatorPosition1 = tab.add("Elevator Position1", .15).getEntry();
+        elevatorPosition2 = tab.add("Elevator Position2", .45).getEntry();
+        elevatorPosition3 = tab.add("Elevator Position3", .62).getEntry();
+        elevatorPosition4 = tab.add("Elevator Position4", .92).getEntry();
+        elevatorPosition5 = tab.add("Elevator Position5", 1).getEntry();
+        elevatorPosition6 = tab.add("Elevator Position6", 1).getEntry();
+        elevatorPosition7 = tab.add("Elevator Position7", .76).getEntry();
         potPosition = tab.add("Current Pot Position", 0).getEntry();
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
@@ -116,7 +116,7 @@ public class Elevator extends Subsystem {
 
         logger.exiting("Elevator", "out of init");
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"));
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"),potBot,potTop);
     }
 
     public void stop() {

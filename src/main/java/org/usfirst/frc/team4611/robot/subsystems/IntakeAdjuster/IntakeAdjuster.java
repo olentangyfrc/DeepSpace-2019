@@ -27,7 +27,6 @@ public class IntakeAdjuster extends Subsystem {
     private NetworkTableEntry adjusterPosition2;
     
     private double power = 1;
-    private double pos = 1;
     private int intakeSpeed = 1600;
     private double minPos = 0.0582;
     private double maxPos = 0.0594;
@@ -41,11 +40,11 @@ public class IntakeAdjuster extends Subsystem {
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
         adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
-        currentAdjusterPosition = tab.add("Intake Adjuster Posittion", pos).getEntry();
-        adjusterPosition1 = tab.add("Adjuster Position1", pos).getEntry();
-        adjusterPosition2 = tab.add("Adjuster Position2", pos).getEntry();
+        currentAdjusterPosition = tab.add("Intake Adjuster Posittion", 1).getEntry();
+        adjusterPosition1 = tab.add("Adjuster Position1", 1).getEntry();
+        adjusterPosition2 = tab.add("Adjuster Position2", 1).getEntry();
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog5_label, "IntakeAdjuster Pot"));
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog1_label, "IntakeAdjuster Pot"), minPos, maxPos);
     }
 
     
@@ -56,9 +55,8 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
 
         intakeAdjuster.set(ControlMode.Velocity, (int)(intakeSpeed*(adjusterVelocity.getDouble(power))));
-        currentAdjusterPosition.setDouble((pot.getValue()-minPos)/(maxPos-minPos));
-        logger.info(""+pot.getValue());        
-    
+        currentAdjusterPosition.setDouble(pot.getValue());
+        
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
     
         }
@@ -68,8 +66,7 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
         intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power))));    
-        currentAdjusterPosition.setDouble((pot.getValue()-minPos)/(maxPos-minPos)); 
-        logger.info(""+pot.getValue());     
+        currentAdjusterPosition.setDouble(pot.getValue());    
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
@@ -80,13 +77,13 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
 
         intakeAdjuster.set(ControlMode.Velocity, 0); 
-        currentAdjusterPosition.setDouble((pot.getValue()-minPos)/(maxPos-minPos)); 
+        currentAdjusterPosition.setDouble(pot.getValue()); 
 
         logger.exiting(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
 
     }
     public boolean moveToPos1() {
-        double finalTarget = adjusterPosition1.getDouble(.5)*(maxPos-minPos)+minPos;
+        double finalTarget = adjusterPosition1.getDouble(.5);
         
         boolean stop = false;
 
@@ -104,7 +101,7 @@ public class IntakeAdjuster extends Subsystem {
         return stop;
     }
     public boolean moveToPos2() {
-        double finalTarget = adjusterPosition2.getDouble(.5)*(maxPos-minPos)+minPos;
+        double finalTarget = adjusterPosition2.getDouble(.5);
         
         boolean stop = false;
 
