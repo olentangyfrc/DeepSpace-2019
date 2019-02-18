@@ -61,6 +61,8 @@ public class SparkMecanum extends SparkDriveTrain {
         backLeft.set(velocity4);
         backRight.set(velocity3);
 
+        //logger.info(""+this.getAverageSensorPos());
+
         HashMap<String, Object> values = new HashMap<String, Object>();
 		values.put(velocity1ID, velocity1);
 		values.put(velocity2ID, velocity2);
@@ -112,7 +114,10 @@ public class SparkMecanum extends SparkDriveTrain {
 
     @Override
     public int getAverageSensorPos() {
-        return (int)((frontLeftEncoder.getPosition()+frontRightEncoder.getPosition()+backLeftEncoder.getPosition()+backRightEncoder.getPosition())/4);
+        return (int)(Math.abs(frontLeftEncoder.getPosition()) 
+                                + Math.abs(frontRightEncoder.getPosition()) 
+                                + Math.abs(backLeftEncoder.getPosition()) 
+                                + Math.abs(backRightEncoder.getPosition()))/4;
     }
 
     @Override
