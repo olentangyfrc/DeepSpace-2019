@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class LineTracker extends Subsystem
 {
     static Logger logger = Logger.getLogger(LineTracker.class.getName());
-    private int threshhold  = 3660;
+    private int threshhold  = 3860;
 
     private AnalogInput lineTrackerLeft;
     private AnalogInput lineTrackerMid;
@@ -34,6 +34,9 @@ public class LineTracker extends Subsystem
     private NetworkTableEntry leftEntry;
     private NetworkTableEntry rightEntry;
     private NetworkTableEntry midEntry;
+    private NetworkTableEntry onLeftEntry;
+    private NetworkTableEntry onRightEntry;
+    private NetworkTableEntry onMidEntry;
 
     public int getLineTrackerInputLeft()
     {
@@ -64,9 +67,12 @@ public class LineTracker extends Subsystem
         leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
         rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
         midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
+        onLeftEntry = tab.add("Linetracker On Left", onLeft).getEntry();
+      
     }
 
     public boolean isOnLeft() {
+        onLeftEntry.setBoolean(lineTrackerLeft.getValue() < threshhold);
         return (lineTrackerLeft.getValue() < threshhold) ;
     }
 
@@ -82,5 +88,13 @@ public class LineTracker extends Subsystem
        leftEntry.setValue(lineTrackerLeft.getValue());
        rightEntry.setValue(lineTrackerRight.getValue());
        midEntry.setValue(lineTrackerMid.getValue());
+
+       onLeftEntry.setValue(this.isOnLeft());
+       onMidEntry.setValue(this.isOnMid());
+       onRightEntry.setValue(this.isOnRight());
+
+       logger.info(""+lineTrackerLeft.getValue());
+       logger.info(""+lineTrackerRight.getValue());
+       logger.info(""+lineTrackerMid.getValue());
     }
 } 

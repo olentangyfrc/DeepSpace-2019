@@ -186,6 +186,9 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
+        lineTracker = new LineTracker(); 
+        lineTracker.init(portMan);
+
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
