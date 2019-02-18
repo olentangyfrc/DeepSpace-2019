@@ -2,7 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems.stick;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
-import org.usfirst.frc.team4611.robot.subsystems.stick.commands.RetractHatch;
+import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -50,6 +50,5 @@ public class Stick extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        this.setDefaultCommand(new RetractHatch());
     }   
 }
