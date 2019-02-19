@@ -6,15 +6,22 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Kicker extends Subsystem
 {
     private static Logger logger = Logger.getLogger(Kicker.class.getName());
     private WPI_TalonSRX kicker;
     private int kickDistance = 27648;
+
+    private ShuffleboardTab tab;
+    private NetworkTableEntry networkKickDistance;
 
 
     public void init(PortMan pm) throws Exception {
@@ -32,6 +39,11 @@ public class Kicker extends Subsystem
 
         kicker.configMotionAcceleration(2000);
         kicker.configMotionCruiseVelocity(2000);
+
+        tab = Shuffleboard.getTab("Health Map");
+        NetTableManager.updateValue("Health Map", "Kicker Initiliaze", true);
+        
+        networkKickDistance = tab.add("Kicker Distance", kickDistance).getEntry();
     } 
 
     public void kickBall()
