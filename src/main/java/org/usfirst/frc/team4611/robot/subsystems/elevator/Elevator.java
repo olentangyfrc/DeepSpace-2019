@@ -41,7 +41,7 @@ public class Elevator extends Subsystem {
 
     private double power = .75;
 
-    private boolean logging = true;
+    private boolean logging = false;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
