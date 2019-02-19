@@ -33,6 +33,10 @@ public class PortMan {
     public static final String digital7_label   = "DIGITAL7";
     public static final String digital8_label   = "DIGITAL8";
     public static final String digital9_label   = "DIGITAL9";
+    public static final String digital10_label   = "DIGITAL10";
+    public static final String digital11_label   = "DIGITAL11";
+    public static final String digital12_label   = "DIGITAL12";
+    public static final String digital13_label   = "DIGITAL13";
 
     public static final String analog0_label = "ANALOG0";
     public static final String analog1_label = "ANALOG1";
@@ -132,6 +136,10 @@ public class PortMan {
             case digital7_label: return 7;
             case digital8_label: return 8;
             case digital9_label: return 9;
+            case digital10_label: return 10;
+            case digital11_label: return 11;
+            case digital12_label: return 12;
+            case digital13_label: return 13;
 
             case analog0_label: return 0;
             case analog1_label: return 1;

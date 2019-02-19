@@ -41,7 +41,7 @@ public class Elevator extends Subsystem {
 
     private double power = .75;
 
-    private boolean logging = false;
+    private boolean logging = true;
 
     private WPI_TalonSRX elevatorLeftTalon;
     private WPI_TalonSRX elevatorRightTalon;
@@ -86,10 +86,10 @@ public class Elevator extends Subsystem {
 
         elevatorLeftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         elevatorRightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
-        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital0_label, "Elevator.hardLimitTop"));
-        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital1_label, "Elevator.softLimitTop"));
-        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital2_label, "Elevator.softLimitBottom"));
-        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital3_label, "Elevator.hardLimitBottom"));
+        hardLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital10_label, "Elevator.hardLimitTop"));
+        softLimitTop = new DigitalInput(pm.acquirePort(PortMan.digital11_label, "Elevator.softLimitTop"));
+        softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital12_label, "Elevator.softLimitBottom"));
+        hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital13_label, "Elevator.hardLimitBottom"));
 
         elevatorLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         elevatorRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -144,10 +144,14 @@ public class Elevator extends Subsystem {
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
+            if(logging)
+                logger.info("Soft Limit Bottom");
         }
 
         if(!softLimitTop.get()) {
             upperSoftLimitToggle = speed > 0;
+            if(logging)
+                logger.info("Soft Limit Top");
         }
         
         if(!hardLimitTop.get()) {

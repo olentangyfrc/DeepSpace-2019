@@ -50,10 +50,10 @@ public abstract class DriveTrain extends Subsystem {
         setupTalons();
     }
 
-    public boolean isLogging(){
+    /*public boolean isLogging(){
         logging = isLogging.getBoolean(false);
         return logging;
-    }
+    }*/
 
     /**
      * Used to setup DriveTrian talons as needed
