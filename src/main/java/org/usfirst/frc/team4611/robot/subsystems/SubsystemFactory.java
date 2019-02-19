@@ -186,9 +186,6 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        lineTracker = new LineTracker(); 
-        lineTracker.init(portMan);
-
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
@@ -324,13 +321,6 @@ public class SubsystemFactory {
         logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
         driveTrain.init(portMan);
-        intake = new WheelIntake();
-        intake.init(portMan);
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
-        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
-        oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
     /**
