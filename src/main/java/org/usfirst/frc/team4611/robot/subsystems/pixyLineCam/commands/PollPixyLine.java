@@ -20,14 +20,10 @@ public class PollPixyLine extends Command{
     private Pixy2Line line;
     private Logger logger = Logger.getLogger(PollPixyLine.class.getName());
 
-
-
-
     public PollPixyLine() {
         pixyLineCam = SubsystemFactory.getInstance().getPixyLineCam();
         requires(pixyLineCam);
         line = pixyLineCam.getLine();
-
     }
 
     public void init() {
@@ -35,7 +31,7 @@ public class PollPixyLine extends Command{
     }
 
     public void execute() {
-        logger.info("Getting Pixy vector----");
+       logger.info("Getting Pixy vector----");
        byte err = line.getFeatures(Pixy2Line.LINE_GET_ALL_FEATURES, Pixy2Line.LINE_VECTOR, true);
        logger.info("getVector err " + err);
        Vector[] vectors = line.getVectors();
@@ -60,14 +56,12 @@ public class PollPixyLine extends Command{
                     vert = " <-- vertical :)";
                 }
            }
-           logger.info(b.toString() + vert);
-
+           logger.info(b.toString() + vert();
        }
-    
+       
        if (verticals.size() > 0) {
           Pixy2Line.Vector found = null;
           int largeY = -1;
-
 
           for (Pixy2Line.Vector v : verticals) {
                if (v.getY0() > largeY || v.getY1() > largeY) {
@@ -77,15 +71,9 @@ public class PollPixyLine extends Command{
 
             }
 
-           
             pixyLineCam.writeLine(found, verticals.size());
-           
-
        }
-       
     }
-
-    
 
     public void end() {
 
