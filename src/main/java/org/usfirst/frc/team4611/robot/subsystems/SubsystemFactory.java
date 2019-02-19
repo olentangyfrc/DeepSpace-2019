@@ -31,6 +31,8 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
@@ -244,6 +246,9 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
+        triangleHatch = new TriangleHatch();
+        triangleHatch.init(portMan);
+
         stick = new Stick();
         stick.init(portMan);
 
@@ -282,6 +287,9 @@ public class SubsystemFactory {
 
         oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
+        oi.bind(new PushHatch(), OI.LeftJoyButton9, OI.WhenPressed);
+        oi.bind(new RetractHatch(), OI.LeftJoyButton8, OI.WhenPressed);
+
     } 
     /**
      * init subsystems specific to Newbie
