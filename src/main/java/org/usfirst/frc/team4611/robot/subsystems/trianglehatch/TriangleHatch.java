@@ -25,7 +25,7 @@ public class TriangleHatch extends Subsystem {
 
     public void init(PortMan pm) throws Exception {
            logger.info("initializing");
-           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm2_label, "TriangleHatch.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm3_label, "TriangleHatch.outDoubleSolenoid"));
 
         triangleStatus = tab.add("Triangle Enganged", false).getEntry();
     }
@@ -47,6 +47,6 @@ public class TriangleHatch extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        this.setDefaultCommand(new RetractHatch());
+        //this.setDefaultCommand(new RetractHatch());
     }   
 }

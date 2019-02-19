@@ -35,13 +35,13 @@ public class Move extends Command {
 
 	@Override
 	public synchronized void cancel() {
-		if(driveTrain.isLogging())
-			logger.info("cancel");
+		/*if(driveTrain.isLogging())
+			logger.info("cancel");*/
 	}
 
 	@Override
 	protected void interrupted() {
-		if(driveTrain.isLogging())
-			logger.info("interrupted");
+		/*if(driveTrain.isLogging())
+			logger.info("interrupted");*/
 	}
 }

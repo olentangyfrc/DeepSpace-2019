@@ -31,6 +31,8 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
+import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
@@ -186,9 +188,6 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        lineTracker = new LineTracker(); 
-        lineTracker.init(portMan);
-
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
@@ -247,6 +246,9 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
+        triangleHatch = new TriangleHatch();
+        triangleHatch.init(portMan);
+
         stick = new Stick();
         stick.init(portMan);
 
@@ -254,8 +256,8 @@ public class SubsystemFactory {
 
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
@@ -285,6 +287,9 @@ public class SubsystemFactory {
 
         oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
+        oi.bind(new PushHatch(), OI.LeftJoyButton9, OI.WhenPressed);
+        oi.bind(new RetractHatch(), OI.LeftJoyButton8, OI.WhenPressed);
+
     } 
     /**
      * init subsystems specific to Newbie
@@ -324,13 +329,6 @@ public class SubsystemFactory {
         logger.info("initalizing Turbo");
         driveTrain = new TurboTankDrive();
         driveTrain.init(portMan);
-        intake = new WheelIntake();
-        intake.init(portMan);
-        oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        oi.bind(new TakeInBall(), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeGroup(), OI.LeftJoyButton4, OI.WhenPressed);
-        oi.bind(new TopLoader(), OI.LeftJoyButton5, OI.WhenPressed);
-        oi.bind(new StopWheelIntake(), OI.LeftJoyButton2, OI.WhenReleased);
     }
 
     /**
