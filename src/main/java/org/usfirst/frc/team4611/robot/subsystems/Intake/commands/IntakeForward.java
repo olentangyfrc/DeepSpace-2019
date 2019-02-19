@@ -41,12 +41,14 @@ public class IntakeForward extends Command {
 
     @Override
     public synchronized void cancel() {
-        logger.info("canceled");
+        if(intake.isLogging())
+            logger.info("canceled");
         stop = true;
         intake.stopIndiWheelFront();
     }
     @Override
     protected void interrupted() {
-        logger.info("interrupted");
+        if(intake.isLogging())
+            logger.info("interrupted");
     }
 }

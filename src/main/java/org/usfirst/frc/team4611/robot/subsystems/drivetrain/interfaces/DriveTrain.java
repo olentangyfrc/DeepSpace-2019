@@ -27,11 +27,13 @@ public abstract class DriveTrain extends Subsystem {
     public WPI_TalonSRX backRight;
     
     protected ShuffleboardTab tab; 
+    private NetworkTableEntry isLogging;
+
+    private boolean logging = false;
 
     public abstract void move();
 
     public void init(PortMan pm) throws Exception {
-        logger.info("initializing");
 
         frontLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_10_label, "DriveTrain.FrontLeft"));
         frontRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_11_label, "DriveTrain.FrontRight"));
@@ -40,8 +42,17 @@ public abstract class DriveTrain extends Subsystem {
 
         tab = Shuffleboard.getTab("Health Map");
         NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
+        isLogging = tab.add("Drive Train Logging", false).getEntry();
         
+        if(isLogging.getBoolean(false))
+            logger.info("initializing");
+
         setupTalons();
+    }
+
+    public boolean isLogging(){
+        logging = isLogging.getBoolean(false);
+        return logging;
     }
 
     /**

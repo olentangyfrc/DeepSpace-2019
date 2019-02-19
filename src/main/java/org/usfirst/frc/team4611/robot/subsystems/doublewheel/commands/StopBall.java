@@ -30,12 +30,14 @@ public class StopBall extends Command {
 
     @Override
     public synchronized void cancel() {
-        logger.info("Canceled");
+        if(doubleWheel.isLogging())
+            logger.info("Canceled");
     }
 
     @Override
     protected void interrupted() {
-        logger.info("Interrupted");
+        if(doubleWheel.isLogging())
+            logger.info("Interrupted");
     }
 
 }

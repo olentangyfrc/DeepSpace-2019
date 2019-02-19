@@ -25,7 +25,10 @@ public class Intake extends Subsystem {
     private double defaultPercent = .5;
 
     private ShuffleboardTab tab;
-	private NetworkTableEntry motorSpeed;
+    private NetworkTableEntry isLogging;
+    private NetworkTableEntry motorSpeed;
+    
+    private boolean logging = false;
 
     public Intake() {
         
@@ -45,11 +48,18 @@ public class Intake extends Subsystem {
         intake.configMotionAcceleration(4096,0);
 
         tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "Intake Initialized", true);
+        NetTableManager.updateValue("Health Map", "Intake Initialized", true);
+
+        isLogging = tab.add("Intake Logging", false).getEntry();
         
         motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();
 
         logger.exiting(Intake.class.getName(), "init()");
+    }
+
+    public boolean isLogging(){
+        logging = isLogging.getBoolean(false);
+        return logging;
     }
 
     public void spinIndiWheelFrontForward() {
@@ -66,12 +76,15 @@ public class Intake extends Subsystem {
 
     public void spinIndiWheelFrontBackward() {
 
-        logger.info("entering spinIndiWheelFrontBackward()");
+        if(logging)
+            logger.info("entering spinIndiWheelFrontBackward()");
 
         intake.set(ControlMode.Velocity, -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     
-        logger.info("Intake Velocity: " + -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
-        logger.info("exiting spinIndiWheelFrontBackward()");
+        if(logging)
+            logger.info("Intake Velocity: " + -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
+        if(logging)
+            logger.info("exiting spinIndiWheelFrontBackward()");
         
 
     }
