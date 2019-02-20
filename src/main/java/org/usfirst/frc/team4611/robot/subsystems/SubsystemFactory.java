@@ -173,6 +173,9 @@ public class SubsystemFactory {
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
+
         elevator = new Elevator();
         elevator.init(portMan);
 

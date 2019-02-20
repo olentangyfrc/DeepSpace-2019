@@ -27,6 +27,15 @@ public class Potentiometer extends AbsoluteEncoder{
 		}
 	}
 
+	public double getRawValue() {
+		if(pot.get() < .001) {
+			return 0;
+		}
+		else {
+			return pot.get();
+		}
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
