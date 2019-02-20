@@ -26,25 +26,25 @@ public class MoveElevatorToPos extends Command {
 
     protected void execute() {
         if(lvl == 1) {
-            stop = elevator.moveToPos1();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_1);
         } 
         else if(lvl == 2) {
-            stop = elevator.moveToPos2();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_2);
         }
         else if(lvl == 3) {
-            stop = elevator.moveToPos3();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_3);
         }
         else if(lvl == 4) {
-            stop = elevator.moveToPos4();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_4);
         }
         else if(lvl == 5) {
-            stop = elevator.moveToPos5();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_5);
         }
         else if(lvl == 6) {
-            stop = elevator.moveToPos6();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_6);
         }
         else if(lvl == 7) {
-            stop = elevator.moveToPos7();
+            stop = elevator.moveToPos(Elevator.HappyPosition.LEVEL_7);
         }
         else {
             stop = true;
@@ -62,15 +62,15 @@ public class MoveElevatorToPos extends Command {
 
     @Override
     public synchronized void cancel() {
+        stop = true;
         if(elevator.isLogging())
             logger.info("cancel");
     }
 
     @Override
     protected void interrupted() {
+        stop = true;
         if(elevator.isLogging())
             logger.info("interrupted");
     }
-
-   
 }

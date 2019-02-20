@@ -54,7 +54,7 @@ public class DriverFeedback extends Subsystem {
     ShuffleboardTab tab;
     private NetworkTableEntry   leftLidarDistance, rightLidarDistance, lidarsAreSquare;
     private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
-    private NetworkTableEntry   lineTrackerLeft, lineTrackerMid, lineTrackerRight;
+    private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
 
   public void init() {
 
@@ -91,10 +91,7 @@ public class DriverFeedback extends Subsystem {
 
     // Linetracker Entries
     lineTrackerLeft = tab.add("Linetracker Left", false).getEntry();
-    lineTrackerMid  = tab.add("Linetracker Mid", false).getEntry();
     lineTrackerRight = tab.add("Linetracker Right", false).getEntry();
-
-    
   }
 
   public void updateDriverFeedback() {
@@ -127,18 +124,17 @@ public class DriverFeedback extends Subsystem {
       
     }
     if (elevator != null) {
-      elevatorPos1.setBoolean(elevator.isAtPosition(1));
-      elevatorPos2.setBoolean(elevator.isAtPosition(2));
-      elevatorPos3.setBoolean(elevator.isAtPosition(3));
-      elevatorPos4.setBoolean(elevator.isAtPosition(4));
-      elevatorPos5.setBoolean(elevator.isAtPosition(5));
-      elevatorPos6.setBoolean(elevator.isAtPosition(6));
-      elevatorPos7.setBoolean(elevator.isAtPosition(7));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_1));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_2));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_3));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_4));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_5));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_6));
+      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_7));
     }
       
     if (lineTracker != null) {
         lineTrackerLeft.setBoolean(lineTracker.isOnLeft());
-        //lineTrackerMid.setBoolean(lineTracker.isOnMid());
         lineTrackerRight.setBoolean(lineTracker.isOnRight());
     }
     if (roller != null) {
