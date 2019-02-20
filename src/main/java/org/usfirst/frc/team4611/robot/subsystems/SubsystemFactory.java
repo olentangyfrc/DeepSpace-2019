@@ -55,6 +55,9 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorT
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
+import org.usfirst.frc.team4611.robot.subsystems.singleStick.SingleStick;
+import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SPush;
+import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SRetract;
 
 
 public class SubsystemFactory {
@@ -95,6 +98,7 @@ public class SubsystemFactory {
     private PixyCam pixyCam;
     private PixyLineCam pixyLineCam;
     private DriverFeedback  driverFeedback;
+    private SingleStick sstick;
   
     private UsbCamera camera1;
     private UsbCamera camera2;
@@ -157,12 +161,12 @@ public class SubsystemFactory {
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
-         camera1.setExposureManual(70); 
+         //camera1.setExposureManual(70); 
 
          camera2 = CameraServer.getInstance().startAutomaticCapture();	
          camera2.setResolution(320, 240);
          camera2.setFPS(20);
-         camera2.setExposureManual(70);
+         //camera2.setExposureManual(70);
         }
 
     /**
@@ -173,8 +177,8 @@ public class SubsystemFactory {
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
-        lineTracker = new LineTracker();
-        lineTracker.init(portMan);
+        //lineTracker = new LineTracker();
+        //lineTracker.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
@@ -249,11 +253,11 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        triangleHatch = new TriangleHatch();
-        triangleHatch.init(portMan);
-
         stick = new Stick();
         stick.init(portMan);
+
+        sstick = new SingleStick();
+        sstick.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -287,11 +291,12 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
+        
+        oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
+        oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
 
-        oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
-        oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
-        oi.bind(new PushHatch(), OI.LeftJoyButton9, OI.WhenPressed);
-        oi.bind(new RetractHatch(), OI.LeftJoyButton8, OI.WhenPressed);
+        oi.bind(new SPush(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new SRetract(), OI.LeftJoyButton7, OI.WhenPressed);
 
     } 
     /**
@@ -379,6 +384,10 @@ public class SubsystemFactory {
 
     public Stick getStick(){
         return stick;
+    }
+
+    public SingleStick getSingleStick(){
+        return sstick;
     }
 
     public Kicker getKicker(){

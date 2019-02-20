@@ -108,10 +108,10 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.config_kD(0, 0, 0);
         elevatorRightTalon.config_kF(0, 0, 0);
 
-        //elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
-        //elevatorLeftTalon.configMotionAcceleration(4096,0);
-        //elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
-        //elevatorRightTalon.configMotionAcceleration(4096,0);
+        elevatorLeftTalon.configMotionCruiseVelocity(0, 0);
+        elevatorLeftTalon.configMotionAcceleration(0,0);
+        elevatorRightTalon.configMotionCruiseVelocity(0, 0);
+        elevatorRightTalon.configMotionAcceleration(0,0);
 
         this.resetEncoders();
 
@@ -185,6 +185,7 @@ public class Elevator extends Subsystem {
 
         potPosition.setDouble(pot.getValue());
        //if(logging) logger.info("Speed: " + speed);
+       logger.info(""+ elevatorLeftTalon.getSelectedSensorVelocity());
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
     }
 
@@ -436,11 +437,11 @@ public class Elevator extends Subsystem {
         (softLimitBottom.get() && elevatorLeftTalon.get() <= 0) || 
         (hardLimitBottom.get() && elevatorLeftTalon.get() > 0)) {
         
-            elevatorLeftTalon.configMotionCruiseVelocity(4096 / 2, 0);
+            elevatorLeftTalon.configMotionCruiseVelocity(0 / 2, 0);
         
         } else {
         
-            elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
+            elevatorLeftTalon.configMotionCruiseVelocity(0, 0);
         
         }
     }
