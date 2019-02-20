@@ -73,6 +73,4 @@ public class MoveElevatorToPos extends Command {
         if(elevator.isLogging())
             logger.info("interrupted");
     }
-
-   
 }
