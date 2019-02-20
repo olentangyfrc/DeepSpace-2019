@@ -20,7 +20,7 @@ public class PixyLineCam extends Subsystem{
 
 
     Logger logger = Logger.getLogger(PixyLineCam.class.getName());
-
+    
 
     private ShuffleboardTab tab;
     private NetworkTableEntry x0;
@@ -31,6 +31,7 @@ public class PixyLineCam extends Subsystem{
     private NetworkTableEntry flags;
     private NetworkTableEntry arrayNumber;
     private NetworkTableEntry slope;
+    private NetworkTableEntry angle;
     private NetworkTableEntry leftStatus;
     private NetworkTableEntry middleStatus;
     private NetworkTableEntry rightStatus;
@@ -54,6 +55,7 @@ public class PixyLineCam extends Subsystem{
         flags.setNumber(0);
         arrayNumber.setNumber(0);
         slope.setNumber(0);
+        angle.setNumber(0);
         leftStatus.setBoolean(false);
         middleStatus.setBoolean(false);
         rightStatus.setBoolean(false);
@@ -62,7 +64,6 @@ public class PixyLineCam extends Subsystem{
     }
 
     public void init() {
-
         logger.info("initializing");
         tab = Shuffleboard.getTab("PixyLineCam");
         logger.info("Creating Pixy with link type of SPI");
@@ -82,19 +83,20 @@ public class PixyLineCam extends Subsystem{
         index = tab.add("Pixy Index", 0).getEntry();
         arrayNumber = tab.add("Number of Verticals", 0).getEntry();
         slope = tab.add("Vector Slope", 0).getEntry();
+        angle = tab.add("Vector Angle", 0).getEntry();
         leftStatus = tab.add("Left", false).getEntry();
         middleStatus = tab.add("MIDDLE !!!!!!!", false).getEntry();
         rightStatus = tab.add("Right", false).getEntry();
-
-        
+  
       }
+
 
     public Pixy2Line getLine() {
         return this.line;
     }
 
 
-    
+
     public void writeLine(Pixy2Line.Vector line, int number) {
         x0.setNumber(line.getX0());
         y0.setNumber(line.getY0());
@@ -104,9 +106,16 @@ public class PixyLineCam extends Subsystem{
         flags.setNumber(line.getFlags());
         arrayNumber.setNumber(number);
 
+        //calculating slope
         int vectorSlope = (line.getY0()-line.getY1())/(line.getX0()-line.getX1());
         slope.setNumber(vectorSlope);
 
+        //calculating angles
+        double ratio = (double) (line.getX1()-line.getX0())/(line.getY1()-line.getY0());//Math.toDegrees(Math.atan((line.getX0()-line.getX1())/(line.getY0()-line.getY1())));
+        double vectorAngle = Math.toDegrees(Math.atan(ratio));
+        angle.setDouble(vectorAngle);
+
+        //identifying relative location
         int averageX = (line.getX0() + line.getX1())/2;
         int leftX = 37;
         int rightX = 41;
@@ -129,6 +138,5 @@ public class PixyLineCam extends Subsystem{
     protected void initDefaultCommand() {
         setDefaultCommand(new PollPixyLine());
     } 
-
 
 }
