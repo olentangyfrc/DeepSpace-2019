@@ -19,16 +19,13 @@ public class LineTracker extends Subsystem
     private int threshhold  = 3860;
 
     private AnalogInput lineTrackerLeft;
-    //private AnalogInput lineTrackerMid;
-    private AnalogInput lineTrackerRight;
+     private AnalogInput lineTrackerRight;
 
     private boolean onLeft;
     private boolean onRight;
-    //private boolean onMid;
 
     private int leftValue;
     private int rightValue;
-    private int midValue;
 
     private ShuffleboardTab tab;
     private NetworkTableEntry leftEntry;
@@ -42,10 +39,6 @@ public class LineTracker extends Subsystem
     {
         return lineTrackerLeft.getValue();
     }
-    /*public int getLineTrackerInputMid()
-    {
-        return lineTrackerMid.getValue();
-    }*/
 
     public int getLineTrackerInputRight()
     {
@@ -61,12 +54,10 @@ public class LineTracker extends Subsystem
         tab = Shuffleboard.getTab("Navigation");
         
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerLeft"));
-        //lineTrackerMid = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerMid"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
 
         leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
         rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
-        //midEntry = tab.add("Linetracker Mid Value", midValue).getEntry();
         onLeftEntry = tab.add("Linetracker On Left", onLeft).getEntry();
         onRightEntry = tab.add("Linetracker On Right", onRight).getEntry();
       
