@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.elevator;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -10,8 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.StopElevator;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -53,9 +49,6 @@ public class Elevator extends Subsystem {
     private double potTop = .85;
     private double potBot = .11;
 
-    private ElevatorUpdater speedUpdater;
-    private Timer speedTimer;
-
     private Potentiometer pot;
 
     private boolean upperSoftLimitToggle = false;
@@ -69,8 +62,8 @@ public class Elevator extends Subsystem {
     
         if(logging) logger.info("initializing");
 
-        tab = Shuffleboard.getTab("Health Map");
-        NetTableManager.updateValue("Health Map", "ElevatorInitialize", true);
+        tab = Shuffleboard.getTab("Elevator");
+        NetTableManager.updateValue("Elevator", "ElevatorInitialize", true);
 
         isLogging = tab.add("Elevator Logging", false).getEntry();
         elevatorPercentUp = tab.add("Elevator Percent Up", power).getEntry();
@@ -94,10 +87,6 @@ public class Elevator extends Subsystem {
         elevatorLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         elevatorRightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
-        speedUpdater = new ElevatorUpdater(this);
-        speedTimer = new Timer();
-        speedTimer.scheduleAtFixedRate(speedUpdater, 0, 20);
-
         elevatorLeftTalon.config_kP(0, .5, 0);
         elevatorLeftTalon.config_kI(0, 0, 0);
         elevatorLeftTalon.config_kD(0, 0, 0);
@@ -108,17 +97,11 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.config_kD(0, 0, 0);
         elevatorRightTalon.config_kF(0, 0, 0);
 
-        //elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
-        //elevatorLeftTalon.configMotionAcceleration(4096,0);
-        //elevatorRightTalon.configMotionCruiseVelocity(4096, 0);
-        //elevatorRightTalon.configMotionAcceleration(4096,0);
-
         this.resetEncoders();
 
         elevatorRightTalon.follow(elevatorLeftTalon);
         elevatorRightTalon.setInverted(false);
 
-        logger.exiting("Elevator", "out of init");
 
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"),potBot,potTop);
     }
@@ -132,15 +115,14 @@ public class Elevator extends Subsystem {
         elevatorLeftTalon.set(ControlMode.Velocity, 0);
     }
 
-    public void move(boolean direction) {
+    public void move(boolean moveUp) {
         double speed;
-        if(direction) {
+        if(moveUp) {
             speed = (int)(maxRPM*elevatorPercentUp.getDouble(power));
         }
         else {
             speed = (int)(maxRPM*-elevatorPercentDown.getDouble(power));
         } 
-        //if(logging) logger.info(""+pot.getValue());
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = speed < 0;
@@ -184,7 +166,6 @@ public class Elevator extends Subsystem {
         }
 
         potPosition.setDouble(pot.getValue());
-       //if(logging) logger.info("Speed: " + speed);
         elevatorLeftTalon.set(ControlMode.Velocity, speed);
     }
 
@@ -192,172 +173,31 @@ public class Elevator extends Subsystem {
         elevatorLeftTalon.stopMotor();
     }
 
-    public boolean moveToPos1() {
-        double finalTarget = elevatorPosition1.getDouble(.5);
-        
-        boolean stop = false;
+    public static enum HappyPosition {LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
 
-
-        if(finalTarget - pot.getValue() < -.03) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .03) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos2() {
-        if(logging)
-            logger.info("Moving to position 2");
-        double finalTarget = elevatorPosition2.getDouble(.5);
+    public boolean moveToPos(HappyPosition level) {
+        double finalTarget  = 0;
         
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.03) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .03) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos3() {
-        double finalTarget = elevatorPosition3.getDouble(.5);
-        
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.03) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .03) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos4() {
-        double finalTarget = elevatorPosition4.getDouble(.5);
-        
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.03) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .03) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos5() {
-        double finalTarget = elevatorPosition5.getDouble(.5);
-        
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.05) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .05) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos6() {
-        double finalTarget = elevatorPosition6.getDouble(.5);
-        
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.05) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .05) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-    public boolean moveToPos7() {
-        
-        double finalTarget = elevatorPosition7.getDouble(.5);
-        
-        boolean stop = false;
-
-        if(finalTarget - pot.getValue() < -.05) {
-            this.move(false);
-        }
-        else if(finalTarget - pot.getValue() > .05) {
-            this.move(true);
-        }
-        else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
-            stop = true;
-        }
-        return stop;
-    }
-
-    /**
-     * This can replace the position specific methods ... and probably should. please simplify.
-     * @param p
-     * @return
-     */
-    public boolean moveToPos(int p) {
-        double finalTarget;
-        
-        switch (p) {
-            case 1:
+        switch (level) {
+            case LEVEL_1:
                 finalTarget = elevatorPosition1.getDouble(.5);
                 break;
-            case 2:
+            case LEVEL_2:
                 finalTarget = elevatorPosition2.getDouble(.5);
                 break;
-            case 3:
+            case LEVEL_3:
                 finalTarget = elevatorPosition3.getDouble(.5);
                 break;
-            case 4:
+            case LEVEL_4:
                 finalTarget = elevatorPosition4.getDouble(.5);
                 break;
-            case 5:
+            case LEVEL_5:
                 finalTarget = elevatorPosition5.getDouble(.5);
                 break;
-            case 6:
+            case LEVEL_6:
                 finalTarget = elevatorPosition6.getDouble(.5);
                 break;
-            case 7:
+            case LEVEL_7:
                 finalTarget = elevatorPosition7.getDouble(.5);
                 break;
             default:
@@ -366,43 +206,45 @@ public class Elevator extends Subsystem {
         
         boolean stop = false;
 
-        if(finalTarget - pot.getValue() < -.05) {
+
+        if(finalTarget - pot.getValue() < -.03) {
             this.move(false);
         }
-        else if(finalTarget - pot.getValue() > .05) {
+        else if(finalTarget - pot.getValue() > .03) {
             this.move(true);
         }
         else{
             this.stopElevator();
+            endTime = 0;
+            this.keepInPlaceForTime();
             stop = true;
         }
         return stop;
-
     }
 
-    public boolean isAtPosition(int p) {
+    public boolean isAtPosition(HappyPosition level) {
         double finalTarget;
         
-        switch (p) {
-            case 1:
+        switch (level) {
+            case LEVEL_1:
                 finalTarget = elevatorPosition1.getDouble(.5);
                 break;
-            case 2:
+            case LEVEL_2:
                 finalTarget = elevatorPosition2.getDouble(.5);
                 break;
-            case 3:
+            case LEVEL_3:
                 finalTarget = elevatorPosition3.getDouble(.5);
                 break;
-            case 4:
+            case LEVEL_4:
                 finalTarget = elevatorPosition4.getDouble(.5);
                 break;
-            case 5:
+            case LEVEL_5:
                 finalTarget = elevatorPosition5.getDouble(.5);
                 break;
-            case 6:
+            case LEVEL_6:
                 finalTarget = elevatorPosition6.getDouble(.5);
                 break;
-            case 7:
+            case LEVEL_7:
                 finalTarget = elevatorPosition7.getDouble(.5);
                 break;
             default:
@@ -425,28 +267,7 @@ public class Elevator extends Subsystem {
         elevatorRightTalon.setSelectedSensorPosition(0, 0, 0);
     }
 
-    public void updateElevator(){
-        
-        if((hardLimitTop.get() && elevatorLeftTalon.get() >= 0) || (hardLimitBottom.get() && elevatorLeftTalon.get() <= 0)) {
-            
-            elevatorLeftTalon.configMotionCruiseVelocity(0, 0); 
-        
-        } else if((hardLimitTop.get() && elevatorLeftTalon.get() < 0) || 
-        (softLimitTop.get() && elevatorLeftTalon.get() >= 0) || 
-        (softLimitBottom.get() && elevatorLeftTalon.get() <= 0) || 
-        (hardLimitBottom.get() && elevatorLeftTalon.get() > 0)) {
-        
-            elevatorLeftTalon.configMotionCruiseVelocity(4096 / 2, 0);
-        
-        } else {
-        
-            elevatorLeftTalon.configMotionCruiseVelocity(4096, 0);
-        
-        }
-    }
-
     public void keepInPlace() {
-        //if(logging) logger.info("keeping in place");
         elevatorLeftTalon.set(ControlMode.PercentOutput, .08);
         potPosition.setDouble(pot.getValue());
     }
@@ -494,20 +315,4 @@ public class Elevator extends Subsystem {
     public void log() {
 
     }
-
-    class ElevatorUpdater extends TimerTask {
-
-        private Elevator ele;
-
-        public ElevatorUpdater(Elevator e) {
-            ele = e;
-        }
-
-        @Override
-        public void run() {
-            ele.updateElevator();
-        }
-
-    }
 }
-
