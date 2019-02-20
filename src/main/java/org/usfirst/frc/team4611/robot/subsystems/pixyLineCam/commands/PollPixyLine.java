@@ -56,7 +56,7 @@ public class PollPixyLine extends Command{
                     vert = " <-- vertical :)";
                 }
            }
-           logger.info(b.toString() + vert();
+           logger.info(b.toString() + vert());
        }
        
        if (verticals.size() > 0) {
