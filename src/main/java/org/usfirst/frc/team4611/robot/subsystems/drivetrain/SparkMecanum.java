@@ -47,6 +47,8 @@ public class SparkMecanum extends SparkDriveTrain {
 
     @Override
     public void move() {
+        if (!inited) return;
+
         double YVal = -OI.getInstance().getLeftJoystickYValue();
 		double XVal = OI.getInstance().getLeftJoystickXValue();
 		double ZVal = OI.getInstance().getRightJoystickXValue();

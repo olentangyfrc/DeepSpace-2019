@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class DoubleWheel extends Subsystem {
 
     private static Logger logger = Logger.getLogger(DoubleWheel.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("DoubleWheel");
 
     private WPI_TalonSRX wheelIntakeLeft;
     private WPI_TalonSRX wheelIntakeRight;
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry isLogging;
     private NetworkTableEntry doubleWheelLeftVelocity;
     private NetworkTableEntry doubleWheelRightVelocity;
@@ -33,8 +33,6 @@ public class DoubleWheel extends Subsystem {
     private int adjusterVelocity = 1600;
 
     public void init(PortMan pm) throws Exception {
-
-        logger.entering(DoubleWheel.class.getName(), "init()");
 
         wheelIntakeLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_18_label, "DoubleWheel.leftWheelIntake"));
         wheelIntakeRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_19_label, "DoubleWheel.rightWheelIntake"));
@@ -49,7 +47,6 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeRight.follow(wheelIntakeLeft);
         wheelIntakeRight.setInverted(false);
 
-        tab = Shuffleboard.getTab("DoubleWheel");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
         isLogging = tab.add("Double Wheel Logging", false).getEntry();
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();

@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class Elevator extends Subsystem {
 
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("Elevator");
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry isLogging;
     private NetworkTableEntry elevatorPercentUp;
     private NetworkTableEntry elevatorPercentDown;
@@ -62,7 +62,6 @@ public class Elevator extends Subsystem {
     
         if(logging) logger.info("initializing");
 
-        tab = Shuffleboard.getTab("Elevator");
         NetTableManager.updateValue("Elevator", "ElevatorInitialize", true);
 
         isLogging = tab.add("Elevator Logging", false).getEntry();

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4611.robot.subsystems.singleStick;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
@@ -12,9 +14,11 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class SingleStick extends Subsystem {
 
+    private static Logger logger = Logger.getLogger(SingleStick.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("SingleStick");
+
     private Solenoid pusher;
 
-    private ShuffleboardTab tab;
 	private NetworkTableEntry stickStatus;
 
     public SingleStick() {
@@ -26,7 +30,6 @@ public class SingleStick extends Subsystem {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        tab = Shuffleboard.getTab("SingleStick");
 		NetTableManager.updateValue("Health Map", "SingleStickInitialize", true);
 
 		stickStatus = tab.add("SingleStick Engaged", false).getEntry();

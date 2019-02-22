@@ -56,9 +56,9 @@ import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SRetract;
 
 
 public class SubsystemFactory {
-    private static ShuffleboardTab healthTab    = Shuffleboard.getTab("HealthMap");
     private static SubsystemFactory    me;
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+    private static ShuffleboardTab healthTab    = Shuffleboard.getTab("Health Map");
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
@@ -115,12 +115,16 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
+
+    botMacAddress = protoMacAddress;
+        
         if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
 
         try {
             oi  = OI.getInstance();
+    if (botMacAddress != null) return;
             oi.init();
 
             // subsystems common to every bot
@@ -154,6 +158,9 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
+        vision  = new Vision();
+        vision.init();
+
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
@@ -170,11 +177,8 @@ public class SubsystemFactory {
      */
     private void initProto() throws Exception{
         logger.info("initalizing Proto");
-        driveTrain = new SparkMecanum();
-        driveTrain.init(portMan);
-
-        //lineTracker = new LineTracker();
-        //lineTracker.init(portMan);
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
 
         elevator = new Elevator();
         elevator.init(portMan);
@@ -190,6 +194,9 @@ public class SubsystemFactory {
 
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
+
+        driveTrain = new SparkMecanum();
+        driveTrain.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -221,7 +228,6 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
         oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
-        
     }
     
     /**

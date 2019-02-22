@@ -17,9 +17,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class WheelIntake extends Subsystem {
 
-    private WPI_TalonSRX wheelIntakeTalon;
-
     Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("WheelIntake");
+
+    private WPI_TalonSRX wheelIntakeTalon;
 
     private DigitalInput switch1;
     private DigitalInput switch2;
@@ -28,7 +29,6 @@ public class WheelIntake extends Subsystem {
 
     public double ejectBallDuration = 1500; // spin for 1.5 seconds
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry velocity;
     private NetworkTableEntry wheelIntakeSlowVelocity;
     private NetworkTableEntry wheelIntakeMaxRPM;
@@ -52,7 +52,6 @@ public class WheelIntake extends Subsystem {
         wheelIntakeTalon.config_kI(0, 0.000, 0);
         wheelIntakeTalon.config_kD(0, 0, 0);
 
-        tab = Shuffleboard.getTab("WheelIntake");
         velocity = tab.add("Velocity", -1.0).getEntry();
         wheelIntakeSlowVelocity = tab.add("IntakeSlowPercent", 0).getEntry();
         wheelIntakeMaxRPM = tab.add("wheelIntakeMaxRPM", 1000).getEntry();

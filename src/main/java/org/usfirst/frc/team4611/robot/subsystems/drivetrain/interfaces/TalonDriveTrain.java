@@ -8,21 +8,19 @@ import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class TalonDriveTrain extends DriveTrain {
 
     public final Logger logger = Logger.getLogger(TalonDriveTrain.class.getName());
+    static protected ShuffleboardTab tab = Shuffleboard.getTab("TalonDriveTrain");
     
     public WPI_TalonSRX frontLeft;
 	public WPI_TalonSRX frontRight;
 	public WPI_TalonSRX backLeft;
     public WPI_TalonSRX backRight;
     
-    protected ShuffleboardTab tab; 
-
     public void init(PortMan pm) throws Exception {
         logger.info("initializing");
 
