@@ -26,7 +26,7 @@ public class Stick extends Subsystem {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Stick");
 		NetTableManager.updateValue("Health Map", "StickInitialize", true);
 
 		stickStatus = tab.add("Stick Engaged", false).getEntry();

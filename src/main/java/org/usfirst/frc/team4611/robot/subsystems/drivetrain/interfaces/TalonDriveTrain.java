@@ -31,7 +31,7 @@ public abstract class TalonDriveTrain extends DriveTrain {
         backLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_13_label, "DriveTrain.BackLeft"));
         backRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_12_label, "DriveTrain.BackRight"));
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("SparkDriveTrain");
         NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
         
         setupTalons();

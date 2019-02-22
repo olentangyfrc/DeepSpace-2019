@@ -31,22 +31,17 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.PushHatch;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.EjectBall;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.IntakeGroup;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TopLoader;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.StopWheelIntake;
-import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.commands.TakeInBall;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
@@ -61,6 +56,7 @@ import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SRetract;
 
 
 public class SubsystemFactory {
+    private static ShuffleboardTab healthTab    = Shuffleboard.getTab("HealthMap");
     private static SubsystemFactory    me;
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
 

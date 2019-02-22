@@ -26,7 +26,7 @@ public class SingleStick extends Subsystem {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("SingleStick");
 		NetTableManager.updateValue("Health Map", "SingleStickInitialize", true);
 
 		stickStatus = tab.add("SingleStick Engaged", false).getEntry();

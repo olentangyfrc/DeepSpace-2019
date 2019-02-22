@@ -49,7 +49,7 @@ public class DoubleWheel extends Subsystem {
         wheelIntakeRight.follow(wheelIntakeLeft);
         wheelIntakeRight.setInverted(false);
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("DoubleWheel");
 		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
         isLogging = tab.add("Double Wheel Logging", false).getEntry();
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
