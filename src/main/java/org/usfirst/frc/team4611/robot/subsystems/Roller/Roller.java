@@ -37,7 +37,7 @@ public class Roller extends Subsystem {
         
         roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "Roller.talon"));
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Roller");
         NetTableManager.updateValue("Health Map", "Roller Initialize", true);
         isLogging = tab.add("Roller Logging", false).getEntry();
         rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();
@@ -50,9 +50,7 @@ public class Roller extends Subsystem {
         roller.configMotionCruiseVelocity(4096, 0);
         roller.configMotionAcceleration(4096,0);
 
-
         logger.exiting(Roller.class.getName(), "init()");
-
     }
 
     public boolean isLogging(){

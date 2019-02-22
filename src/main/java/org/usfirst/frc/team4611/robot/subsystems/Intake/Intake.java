@@ -47,7 +47,7 @@ public class Intake extends Subsystem {
         intake.configMotionCruiseVelocity(4096, 0);
         intake.configMotionAcceleration(4096,0);
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Intake");
         NetTableManager.updateValue("Health Map", "Intake Initialized", true);
 
         isLogging = tab.add("Intake Logging", false).getEntry();
@@ -63,15 +63,7 @@ public class Intake extends Subsystem {
     }
 
     public void spinIndiWheelFrontForward() {
-
-        logger.entering(Intake.class.getName(), "spinIndiWheelFrontForward()");
-
         intake.set(ControlMode.Velocity, (int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
-       
-        logger.exiting(Intake.class.getName(), "spinIndiWheelFrontForward()");
-
-
-    
     }
 
     public void spinIndiWheelFrontBackward() {
@@ -90,13 +82,7 @@ public class Intake extends Subsystem {
     }
 
     public void stopIndiWheelFront(){
-
-        logger.entering(Intake.class.getName(), "stopIndiWheelFront()");
-
         intake.set(ControlMode.Velocity, 0); 
-
-        logger.exiting(Intake.class.getName(), "stopIndiWheelFront()");
-
     }
 
     
@@ -106,5 +92,4 @@ public class Intake extends Subsystem {
     protected void initDefaultCommand() {
 
     }
-
 }

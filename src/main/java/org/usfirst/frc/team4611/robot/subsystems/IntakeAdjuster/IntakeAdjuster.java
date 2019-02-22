@@ -39,7 +39,7 @@ public class IntakeAdjuster extends Subsystem {
     public void init(PortMan pm) throws OzoneException {
         intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("IntakeAdjuster");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
         isLogging = tab.add("Intake Adjuster Logging", false).getEntry();

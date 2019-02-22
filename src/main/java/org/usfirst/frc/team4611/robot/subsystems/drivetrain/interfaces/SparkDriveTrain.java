@@ -50,7 +50,7 @@ public abstract class SparkDriveTrain extends DriveTrain {
         backLeftEncoder = new CANEncoder(backLeft);
         backRightEncoder = new CANEncoder(backRight);
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("SparkDriveTrain");
         NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
         
         setupTalons();

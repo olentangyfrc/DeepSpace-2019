@@ -27,7 +27,7 @@ public class Spatula extends Subsystem {
         logger.info("initializing");
         grabber = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Spatula.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
 
-        tab = Shuffleboard.getTab("Health Map");
+        tab = Shuffleboard.getTab("Spatula");
         NetTableManager.updateValue("Health Map", "Petal Initialize", true);
 
         spatulaStatus = tab.add("Spatula Engaged", false).getEntry();
