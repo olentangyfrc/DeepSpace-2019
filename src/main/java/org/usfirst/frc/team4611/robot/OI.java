@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * This is where we create all of out buttons and joysticks and set up the "UI"
@@ -31,6 +33,7 @@ public class OI {
     private XboxController xbox;  
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
+    private static ShuffleboardTab tab = Shuffleboard.getTab("OI");
     
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
@@ -195,8 +198,9 @@ public class OI {
             throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }
 
+        tab.add("joy[" + j + "] b[" + button + "]", c.getClass().getName());
+
         Button  b = new JoystickButton(j, button);
-        // TODO: consider remembering the button for troubleshooting
         
         switch (action) {
             case OI.WhenPressed:

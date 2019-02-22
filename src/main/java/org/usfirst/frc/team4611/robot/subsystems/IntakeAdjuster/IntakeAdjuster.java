@@ -18,9 +18,11 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiomete
 
 public class IntakeAdjuster extends Subsystem {
 
+    private static Logger logger = Logger.getLogger(IntakeAdjuster.class.getName());
+    private ShuffleboardTab tab = Shuffleboard.getTab("IntakeAdjuster");
+
     private WPI_TalonSRX intakeAdjuster;
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry isLogging;
     private NetworkTableEntry adjusterVelocity;
     private NetworkTableEntry currentAdjusterPosition;
@@ -39,7 +41,6 @@ public class IntakeAdjuster extends Subsystem {
     public void init(PortMan pm) throws OzoneException {
         intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
 
-        tab = Shuffleboard.getTab("IntakeAdjuster");
         NetTableManager.updateValue("Health Map", "IntakeAdjusterInitialize", true);
 
         isLogging = tab.add("Intake Adjuster Logging", false).getEntry();
@@ -51,9 +52,6 @@ public class IntakeAdjuster extends Subsystem {
 
         pot = new Potentiometer(pm.acquirePort(PortMan.analog1_label, "IntakeAdjuster Pot"), minPos, maxPos);
     }
-
-    
-    private static Logger logger = Logger.getLogger(IntakeAdjuster.class.getName());
 
     public boolean isLogging(){
         logging = isLogging.getBoolean(false);

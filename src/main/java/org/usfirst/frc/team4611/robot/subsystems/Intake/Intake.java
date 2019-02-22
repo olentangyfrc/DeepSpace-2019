@@ -19,12 +19,12 @@ public class Intake extends Subsystem {
     private WPI_TalonSRX intake;
 
     private static Logger logger = Logger.getLogger(Intake.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
 
 
     private int intakeSpeed = 1600;
     private double defaultPercent = .5;
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry isLogging;
     private NetworkTableEntry motorSpeed;
     
@@ -47,7 +47,6 @@ public class Intake extends Subsystem {
         intake.configMotionCruiseVelocity(4096, 0);
         intake.configMotionAcceleration(4096,0);
 
-        tab = Shuffleboard.getTab("Intake");
         NetTableManager.updateValue("Health Map", "Intake Initialized", true);
 
         isLogging = tab.add("Intake Logging", false).getEntry();

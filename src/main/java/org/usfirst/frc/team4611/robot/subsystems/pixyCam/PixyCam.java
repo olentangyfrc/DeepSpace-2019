@@ -19,14 +19,12 @@ import io.github.pseudoresonance.pixy2api.Pixy2Line.Vector;
 
 public class PixyCam extends Subsystem{
 
+    Logger logger = Logger.getLogger(PixyCam.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("PixyCam");
+
     private Pixy2 pixy;
     private Pixy2CCC ccc;
 
-
-    Logger logger = Logger.getLogger(PixyCam.class.getName());
-
-
-    private ShuffleboardTab tab;
     private NetworkTableEntry signature;
     private NetworkTableEntry x;
     private NetworkTableEntry y;
@@ -45,7 +43,6 @@ public class PixyCam extends Subsystem{
     public void init() {
 
         logger.info("initializing");
-        tab = Shuffleboard.getTab("PixyCam");
         logger.info("Creating Pixy with link type of SPI");
         pixy = Pixy2.createInstance(Pixy2.LinkType.SPI);
         pixy.init(0);

@@ -1,8 +1,12 @@
 package org.usfirst.frc.team4611.robot.subsystems;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OzoneException;
+
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * Portman provides a control mechanism for subsystems to acquire ports for their
@@ -20,6 +24,9 @@ import org.usfirst.frc.team4611.robot.OzoneException;
  */
 
 public class PortMan {
+
+    private static Logger logger = Logger.getLogger(PortMan.class.getName());
+    private static ShuffleboardTab tab = Shuffleboard.getTab("PortMan");
     
 	private HashMap <String, String> allocatedPorts;
 
@@ -124,6 +131,7 @@ public class PortMan {
         }
         // remember that we allocated it
         allocatedPorts.put(label, requestedDevice);
+        tab.add(requestedDevice, label);
 
         switch (label) {
             case digital0_label: return 0;

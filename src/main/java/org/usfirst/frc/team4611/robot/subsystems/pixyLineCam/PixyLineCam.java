@@ -15,14 +15,11 @@ import io.github.pseudoresonance.pixy2api.Pixy2Line;
 
 public class PixyLineCam extends Subsystem{
 
+    private static Logger logger = Logger.getLogger(PixyLineCam.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("PixyLineCam");
+
     private Pixy2 pixy;
     private Pixy2Line line;
-
-
-    Logger logger = Logger.getLogger(PixyLineCam.class.getName());
-    
-
-    private ShuffleboardTab tab;
     private NetworkTableEntry x0;
     private NetworkTableEntry y0;
     private NetworkTableEntry x1;
@@ -36,14 +33,7 @@ public class PixyLineCam extends Subsystem{
     private NetworkTableEntry middleStatus;
     private NetworkTableEntry rightStatus;
     
-    
-
-
-
-
     public void PixyLineCam() {
-
-        
     }
 
     public void resetPixyLine() {
@@ -65,7 +55,6 @@ public class PixyLineCam extends Subsystem{
 
     public void init() {
         logger.info("initializing");
-        tab = Shuffleboard.getTab("PixyLineCam");
         logger.info("Creating Pixy with link type of SPI");
         pixy = Pixy2.createInstance(Pixy2.LinkType.SPI);
         pixy.init(0);

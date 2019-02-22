@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class Roller extends Subsystem {
 
     private static Logger logger = Logger.getLogger(Roller.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("Roller");
 
     private WPI_TalonSRX roller;
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry isLogging;
     private NetworkTableEntry rollerVelocity;
     private NetworkTableEntry motorSpeed;
@@ -37,7 +37,6 @@ public class Roller extends Subsystem {
         
         roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "Roller.talon"));
 
-        tab = Shuffleboard.getTab("Roller");
         NetTableManager.updateValue("Health Map", "Roller Initialize", true);
         isLogging = tab.add("Roller Logging", false).getEntry();
         rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();

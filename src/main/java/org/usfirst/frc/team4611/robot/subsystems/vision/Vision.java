@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Vision extends Subsystem{
-    Logger logger = Logger.getLogger(Vision.class.getName());
+    private static Logger logger = Logger.getLogger(Vision.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("Vision");
 
     double angle  = 180;
     double distance = 0;
     double targetCount = 0.0;
     boolean isTapeFound = false;
 
-    private ShuffleboardTab tab;
     private NetworkTableEntry angleEntry;
     private NetworkTableEntry distanceEntry;
     private NetworkTableEntry tapeFoundEntry;
@@ -29,7 +29,6 @@ public class Vision extends Subsystem{
     public void init() {
 
         logger.info("initializing");
-        tab = Shuffleboard.getTab("Vision");
 
         angleEntry = tab.add("angle", -1.0).getEntry();
         distanceEntry = tab.add("distance", 0).getEntry();

@@ -16,9 +16,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class Navigation extends Subsystem {
 
     public final Logger logger = Logger.getLogger(Navigation.class.getName());
-
     private static ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
-
 
     private LidarPWM leftLidar  = null;
     private LidarPWM rightLidar = null;
