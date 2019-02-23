@@ -122,7 +122,6 @@ public class SubsystemFactory {
 
         try {
             oi  = OI.getInstance();
-    if (botMacAddress != null) 
             oi.init();
 
             // subsystems common to every bot
