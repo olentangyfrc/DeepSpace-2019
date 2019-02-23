@@ -19,8 +19,6 @@ public class Robot extends TimedRobot {
 
 	private static Logger logger;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	private Optical opt = new Optical(Port.kOnboard);
-	private Optical opt1 = new Optical(Port.kMXP);
 
 	@Override
 	public void robotInit() {
@@ -78,7 +76,8 @@ public class Robot extends TimedRobot {
 		logger.entering(Robot.class.getName(), "teleopPeriodic()");
 		Scheduler.getInstance().run();
 		logger.exiting(Robot.class.getName(), "teleopPeriodic()");
-		//SubsystemFactory.getInstance().getNavigation().checkValues();
+		SubsystemFactory.getInstance().getNavigation().checkValues();
+		System.out.println(SubsystemFactory.getInstance().getNavigation().getLidarSquare());
 	}
 
 	@Override
