@@ -62,7 +62,7 @@ public class Navigation extends Subsystem {
     }
 
     public boolean getLidarSquare() {
-        return (Math.abs(leftLidarDistance - rightLidarDistance) < 0.5);
+        return (Math.abs(leftLidarDistance - rightLidarDistance) < 5);
     }
 
     public void checkValues() {

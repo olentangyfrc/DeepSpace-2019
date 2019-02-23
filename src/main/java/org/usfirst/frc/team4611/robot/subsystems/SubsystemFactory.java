@@ -122,7 +122,6 @@ public class SubsystemFactory {
 
         try {
             oi  = OI.getInstance();
-    if (botMacAddress != null) return;
             oi.init();
 
             // subsystems common to every bot
@@ -130,7 +129,7 @@ public class SubsystemFactory {
             logger.info("["+botMacAddress+"]");
             if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
-            } else if (botMacAddress.equals(footballMacAddress)) {
+            } else if (botMacAddress.equals(footballMacAddress) || botMacAddress == null || botMacAddress.equals("")) {
                 initFootball();
             } else if (botMacAddress.equals(blueMacAddress)) {
                 initComp();
@@ -345,20 +344,8 @@ public class SubsystemFactory {
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
 
-        elevator = new Elevator();
-        elevator.init(portMan);
-
-        //intake = new WheelIntake();
-        //intake.init(portMan);
-        //oi.bind(new EjectBall(), OI.LeftJoyButton3, OI.WhenPressed);
-        //nav    = new Navigation();
-        //nav.init(portMan);
-      
-        intakeAdjuster = new IntakeAdjuster();
-        intakeAdjuster.init(portMan);
-        
-        oi.bind(new MoveAdjusterToPos(1), OI.LeftJoyButton1, OI.WhenPressed);
-        oi.bind(new MoveAdjusterToPos(2), OI.LeftJoyButton2, OI.WhenPressed);
+        nav    = new Navigation();
+        nav.init(portMan);
 
     }
 
