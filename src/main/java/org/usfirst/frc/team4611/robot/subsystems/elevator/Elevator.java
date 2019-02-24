@@ -363,7 +363,7 @@ public class Elevator extends Subsystem {
 
     private double  pidP = 1.0;
     private int     cruiseSpeed = 4000;
-    private int     elevatorAcceleration = 10000;
+    private int     acceleration = 10000;
 
     private void initTalonsForMotionMagic() {
 
@@ -375,7 +375,7 @@ public class Elevator extends Subsystem {
 
         leftTalon.setSelectedSensorPosition(0, 0 ,0);
         leftTalon.configMotionCruiseVelocity(cruiseSpeed);
-        leftTalon.configMotionAcceleration(elevatorAcceleration);
+        leftTalon.configMotionAcceleration(acceleration);
 
         rightTalon.config_kP(0, pidP, 0);
         rightTalon.config_kI(0, 0, 0);
@@ -385,15 +385,15 @@ public class Elevator extends Subsystem {
 
         rightTalon.setSelectedSensorPosition(0, 0, 0);
         rightTalon.configMotionCruiseVelocity(cruiseSpeed);
-        rightTalon.configMotionAcceleration(elevatorAcceleration);
+        rightTalon.configMotionAcceleration(acceleration);
     }
     
-    private long stallTime = 100;
+    private long stallDuration = 100;
     private double stallPercent = 0.08;
 
     public void keepInPlaceForTime() {
         
-        long endTime = System.currentTimeMillis() + stallTime;
+        long endTime = System.currentTimeMillis() + stallDuration;
 
         while(System.currentTimeMillis() <= endTime) {
             if(logging) logger.info("stalling");
@@ -458,7 +458,7 @@ public class Elevator extends Subsystem {
         stepUpEntry = tab.add("MM Step\nUp Entry", stepUp).withSize(1, 1).withPosition(1, 1).getEntry();
         stepDownEntry = tab.add("MM Step\nDown Entry", stepDown).withSize(1, 1).withPosition(2, 1).getEntry();
         pidPEntry = tab.add("pid P", pidP).withSize(1, 1).withPosition(1, 2).getEntry();
-        accelEntry = tab.add("Acceleration", elevatorAcceleration).withSize(1, 1).withPosition(2, 2).getEntry();
+        accelEntry = tab.add("Acceleration", acceleration).withSize(1, 1).withPosition(2, 2).getEntry();
         cruiseEntry = tab.add("Cruise", cruiseSpeed).withSize(1, 1).withPosition(3, 2).getEntry();
     }
 
@@ -500,7 +500,7 @@ public class Elevator extends Subsystem {
         percOutputDownEntry.setDouble(percOutputDown);
 
         if (resetMMValues) {
-            elevatorAcceleration    = (int) accelEntry.getDouble(elevatorAcceleration);
+            acceleration    = (int) accelEntry.getDouble(acceleration);
             cruiseSpeed             = (int) cruiseEntry.getDouble(cruiseSpeed);
             pidP                    = (int) pidPEntry.getDouble(pidP);
             resetMMValues           = false;
