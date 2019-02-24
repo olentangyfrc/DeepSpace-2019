@@ -80,8 +80,5 @@ public class LineTracker extends Subsystem
 
        onLeftEntry.setValue(this.isOnLeft());
        onRightEntry.setValue(this.isOnRight());
-
-       logger.info(""+lineTrackerLeft.getValue());
-       logger.info(""+lineTrackerRight.getValue());
     }
 } 

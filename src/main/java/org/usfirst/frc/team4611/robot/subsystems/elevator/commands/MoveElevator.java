@@ -37,6 +37,7 @@ public class MoveElevator extends Command {
 
     @Override
     public void cancel() {
+        elevator.stop();
         stop = true;
     }
 
