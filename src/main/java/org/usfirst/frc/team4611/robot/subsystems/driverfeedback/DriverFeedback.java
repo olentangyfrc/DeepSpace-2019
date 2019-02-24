@@ -52,7 +52,7 @@ public class DriverFeedback extends Subsystem {
     private PixyCam pixyCam;
 
     ShuffleboardTab tab;
-    private NetworkTableEntry   leftLidarDistance, rightLidarDistance, lidarsAreSquare;
+    private NetworkTableEntry   leftSideSquare;
     private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
 
@@ -76,9 +76,7 @@ public class DriverFeedback extends Subsystem {
     tab = Shuffleboard.getTab("DriverFeedback");
 
     // Navigation Entries
-    leftLidarDistance   = tab.add("Left Lidar Distance", 0.0).getEntry();
-    rightLidarDistance  = tab.add("Right Lidar Distance", 0.0).getEntry();
-    lidarsAreSquare     = tab.add("Lidars Square", 0.0).getEntry();
+    leftSideSquare     = tab.add("Left Side\nSquare", nav.isLeftSideSquare()).getEntry();
 
     // Elevator Entries
     elevatorPos1    = tab.add("Elevator 1", false).getEntry();
@@ -100,9 +98,7 @@ public class DriverFeedback extends Subsystem {
 
     }
     if (nav != null) {
-      leftLidarDistance.setDouble(nav.getLeftDistance());
-      rightLidarDistance.setDouble(nav.getRightDistance());
-      lidarsAreSquare.setBoolean(nav.getLidarSquare());
+      leftSideSquare.setBoolean(nav.isLeftSideSquare());
 
     }
     if (triangleHatch != null) {

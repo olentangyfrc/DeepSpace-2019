@@ -31,11 +31,9 @@ public class NavigationDefault extends Command {
 
     @Override
     public synchronized void cancel() {
-        logger.info("canceled");
     }
     @Override
     protected void interrupted() {
-        logger.info("interrupted");
     }   
 
 }

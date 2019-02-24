@@ -336,7 +336,6 @@ public class SubsystemFactory {
 
         nav    = new Navigation();
         nav.init(portMan);
-
     }
 
     public DriveTrain getDriveTrain(){
