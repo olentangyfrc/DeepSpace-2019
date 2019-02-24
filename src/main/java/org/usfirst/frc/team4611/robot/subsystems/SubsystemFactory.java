@@ -335,7 +335,10 @@ public class SubsystemFactory {
         logger.info("Initializing Football");
 
         nav    = new Navigation();
-        nav.init(portMan);
+        nav.initSB();
+        //nav.init(portMan);
+        elevator = new Elevator();
+        elevator.initSB();
     }
 
     public DriveTrain getDriveTrain(){

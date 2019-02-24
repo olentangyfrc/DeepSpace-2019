@@ -36,6 +36,7 @@ public class Elevator extends Subsystem {
     private double  percOutputDown  = 25;
     private double  potTop      = .85;
     private double  potBot      = .11;
+    private int     maxEncoder  = 21700;
 
     private boolean upperSoftLimitToggle = false;
     private boolean lowerSoftLimitToggle = false;
@@ -65,9 +66,13 @@ public class Elevator extends Subsystem {
         initTalonsForMotionMagic();
     }
 
-    public void stop() {
-        currentOutput = 0;
-        leftTalon.set(ControlMode.PercentOutput, currentOutput);
+    private void stop() {
+        if (mmMode) {
+            leftTalon.set(ControlMode.Velocity, 0);
+        } else {
+            currentOutput = 0;
+            leftTalon.set(ControlMode.PercentOutput, currentOutput);
+        }
     }
 
     private int     stepUp        = 1000;
@@ -148,9 +153,12 @@ public class Elevator extends Subsystem {
     }
 
     public boolean moveToMMPos(HappyPosition level) {
-        double finalTarget  = 0;
+        double finalTarget  = 0.0;
         
         switch (level) {
+            case BOTTOM:
+                finalTarget = 0.0;
+                break;
             case LEVEL_1:
                 finalTarget = mmLevel1Target;
                 break;
@@ -183,6 +191,9 @@ public class Elevator extends Subsystem {
         } else if(finalTarget - leftTalon.getSelectedSensorPosition() > positionTolerance) {
             moveMM(true);
         } else {
+            if (level == HappyPosition.BOTTOM) {
+                stop();
+            }
             stop = true;
         }
         return stop;
@@ -192,35 +203,30 @@ public class Elevator extends Subsystem {
     public void movePercOutput(boolean moveUp) {
         if(moveUp) {
             currentOutput = percOutputUp;
-        }
-        else {
+        } else {
             currentOutput = -1.0 * percOutputDown;
         } 
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = currentOutput < 0;
-            if(logging)
-                logger.info("Soft Limit Bottom");
+            if(logging) logger.info("Soft Limit Bottom");
         }
 
         if(!softLimitTop.get()) {
             upperSoftLimitToggle = currentOutput > 0;
-            if(logging)
-                logger.info("Soft Limit Top");
+            if(logging) logger.info("Soft Limit Top");
         }
         
         if(!hardLimitTop.get()) {
             if(currentOutput >= 0) {
                 currentOutput = 0;
-                if(logging)
-                    logger.info("Hard Limit Top");
+                if(logging) logger.info("Hard Limit Top");
             }
         }
         if(upperSoftLimitToggle) {
             if(currentOutput >= 0) {
                 currentOutput = currentOutput/2;//for non changed soft upward movement
-                if(logging)
-                    logger.info("Soft Limit Top");
+                if(logging) logger.info("Soft Limit Top");
             }
         }
         if(lowerSoftLimitToggle) {
@@ -233,17 +239,13 @@ public class Elevator extends Subsystem {
         if(!hardLimitBottom.get()) {
             if(currentOutput <= 0) {
                 currentOutput = 0;
-                if(logging)
-                    logger.info("Hard Limit Bottom");
+                if(logging) logger.info("Hard Limit Bottom");
             }
         }
 
         leftTalon.set(ControlMode.PercentOutput, currentOutput);
     }
 
-    public void stopElevator() {
-        leftTalon.stopMotor();
-    }
     public boolean moveToPosition(HappyPosition level) {
         if (mmMode) {
             return moveToMMPos(level);
@@ -251,7 +253,7 @@ public class Elevator extends Subsystem {
             return moveToPosition(level);
         }
     }
-    public static enum HappyPosition {LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
+    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
 
     private double potLevel1Target  =  0.0539;
     private double potLevel2Target  =  0.0539;
@@ -265,6 +267,9 @@ public class Elevator extends Subsystem {
         double finalTarget  = 0;
         
         switch (level) {
+            case BOTTOM:
+                finalTarget = potBot;
+                break;
             case LEVEL_1:
                 finalTarget = potLevel1Target;
                 break;
@@ -299,9 +304,10 @@ public class Elevator extends Subsystem {
             this.move(true);
         }
         else{
-            this.stopElevator();
-            endTime = 0;
-            this.keepInPlaceForTime();
+            stop();
+            if (level != HappyPosition.BOTTOM) {
+                this.keepInPlaceForTime();
+            }
             stop = true;
         }
         return stop;
@@ -382,34 +388,22 @@ public class Elevator extends Subsystem {
         rightTalon.configMotionAcceleration(elevatorAcceleration);
     }
     
-    private long currentTime;
-    private long endTime = 0;
+    private long stallTime = 100;
+    private double stallPercent = 0.08;
 
-    public boolean keepInPlaceForTime() {
-        boolean done = false;;
-        currentTime = System.currentTimeMillis();
+    public void keepInPlaceForTime() {
         
-        if(endTime == 0) {
-            endTime = currentTime + 100;
-            if(logging) logger.info("setting");
-        }
-                                                                        
-        if(currentTime <= endTime) {
-            leftTalon.set(ControlMode.PercentOutput, .08);
+        long endTime = System.currentTimeMillis() + stallTime;
+
+        while(System.currentTimeMillis() <= endTime) {
             if(logging) logger.info("stalling");
+            leftTalon.set(ControlMode.PercentOutput, stallPercent);
         }
-        else {
-            if(logging) logger.info("finishing");
-            done = true;
-            endTime = 0;
-            this.stopElevator();
-        }
-        return done;
     }
 
     public void keepInPlace() {
         if (!mmMode) {
-            leftTalon.set(ControlMode.PercentOutput, .08);
+            leftTalon.set(ControlMode.PercentOutput, stallPercent);
         }
     }
 

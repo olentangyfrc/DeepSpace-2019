@@ -17,10 +17,12 @@ public class Vision extends Subsystem{
     double distance = 0;
     double targetCount = 0.0;
     boolean isTapeFound = false;
+    boolean isSquare = false;
 
     private NetworkTableEntry angleEntry;
     private NetworkTableEntry distanceEntry;
     private NetworkTableEntry tapeFoundEntry;
+    private NetworkTableEntry isSquareEntry;
 
     public void Vision() {
         
@@ -33,6 +35,7 @@ public class Vision extends Subsystem{
         angleEntry = tab.add("angle", -1.0).getEntry();
         distanceEntry = tab.add("distance", 0).getEntry();
         tapeFoundEntry = tab.add("found", false).getEntry();
+        isSquareEntry = tab.add("square", false).getEntry();
       }
 
     public void setAngle(double a) {
@@ -60,6 +63,13 @@ public class Vision extends Subsystem{
 
     public boolean isCentered() {
         return angle == 0.0;
+    }
+
+    public void setIsSquare(boolean s) {
+        isSquare = s;
+    }
+    public boolean isSquare() {
+        return isSquare;
     }
 
     public double getDistance() {

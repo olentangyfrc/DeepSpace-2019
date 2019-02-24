@@ -24,8 +24,10 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -52,9 +54,10 @@ public class DriverFeedback extends Subsystem {
     private PixyCam pixyCam;
 
     ShuffleboardTab tab;
-    private NetworkTableEntry   leftSideSquare;
+    private NetworkTableEntry   leftSideSquare, rightSideSquare, frontSquare, frontCentered;
     private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
+    private ComplexWidget       videoEntry;
 
   public void init() {
 
@@ -74,22 +77,36 @@ public class DriverFeedback extends Subsystem {
     pixyCam= SubsystemFactory.getInstance().getPixyCam();
 
     tab = Shuffleboard.getTab("DriverFeedback");
-
-    // Navigation Entries
-    leftSideSquare     = tab.add("Left Side\nSquare", nav.isLeftSideSquare()).getEntry();
+    Shuffleboard.selectTab("DriverFeedback");
 
     // Elevator Entries
-    elevatorPos1    = tab.add("Elevator 1", false).getEntry();
-    elevatorPos2    = tab.add("Elevator 2", false).getEntry();
-    elevatorPos3    = tab.add("Elevator 3", false).getEntry();
-    elevatorPos4    = tab.add("Elevator 4", false).getEntry();
-    elevatorPos5    = tab.add("Elevator 5", false).getEntry();
-    elevatorPos6    = tab.add("Elevator 6", false).getEntry();
-    elevatorPos7    = tab.add("Elevator 7", false).getEntry();
+    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,0).getEntry();
+    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,1).getEntry();
+    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,2).getEntry();
+    elevatorPos4    = tab.add("Elevator 4", false).withSize(1,1).withPosition(0,3).getEntry();
+    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,4).getEntry();
+    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,5).getEntry();
+    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,6).getEntry();
 
-    // Linetracker Entries
-    lineTrackerLeft = tab.add("Linetracker Left", false).getEntry();
-    lineTrackerRight = tab.add("Linetracker Right", false).getEntry();
+    frontSquare     = tab.add("Front\nSquare", vision.isSquare())
+                              .withSize(1,1).withPosition(4,0).getEntry();
+
+    frontCentered     = tab.add("Front\nCentered", vision.isCentered())
+                              .withSize(1,1).withPosition(5,0).getEntry();
+
+    lineTrackerLeft = tab.add("Center Left ", false).withSize(1,1).withPosition(2,1).getEntry();
+
+    leftSideSquare     = tab.add("Left Side\nSquare", nav.isLeftSideSquare())
+                              .withSize(1,1).withPosition(2,2).getEntry();
+
+    lineTrackerRight = tab.add("Center Right", false).withSize(1,1).withPosition(7,1).getEntry();
+    rightSideSquare     = tab.add("Right Side\nSquare", nav.isRightSideSquare())
+                              .withSize(1,1).withPosition(7,2).getEntry();
+
+    // Vision Entries
+    VideoSource[] sources = VideoSource.enumerateSources();
+    if (sources.length > 0)
+      videoEntry = tab.add(sources[0]).withSize(4,3).withPosition(3,1);
   }
 
   public void updateDriverFeedback() {
@@ -99,6 +116,7 @@ public class DriverFeedback extends Subsystem {
     }
     if (nav != null) {
       leftSideSquare.setBoolean(nav.isLeftSideSquare());
+      rightSideSquare.setBoolean(nav.isRightSideSquare());
 
     }
     if (triangleHatch != null) {
@@ -114,7 +132,8 @@ public class DriverFeedback extends Subsystem {
       
     }
     if (vision != null) {
-      
+      frontCentered.setBoolean(vision.isCentered());
+      frontSquare.setBoolean(vision.isSquare());
     }
     if (wheelIntake != null) {
       
