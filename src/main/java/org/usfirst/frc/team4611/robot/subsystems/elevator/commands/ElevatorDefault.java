@@ -5,21 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
+package org.usfirst.frc.team4611.robot.subsystems.elevator.commands;
 
 import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LinetrackerDefault extends Command {
-  private static Logger logger = Logger.getLogger(LinetrackerDefault.class.getName());
+public class ElevatorDefault extends Command {
+    private final Logger logger = Logger.getLogger(MoveElevatorDown.class.getName());
+    
+    private Elevator elevator;
 
-  LineTracker linetracker;
-  public LinetrackerDefault() {
-      linetracker  = SubsystemFactory.getInstance().getLineTracker();
-      requires (linetracker);
+  public ElevatorDefault() {
+        elevator = SubsystemFactory.getInstance().getElevator();
+        this.requires(elevator);
   }
 
   // Called just before this Command runs the first time
@@ -29,14 +31,14 @@ public class LinetrackerDefault extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {;
-    linetracker.checkLines();
+  protected void execute() {
+    elevator.updateValues();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -48,8 +50,5 @@ public class LinetrackerDefault extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-  }
-  @Override
-  public synchronized void cancel() {
   }
 }

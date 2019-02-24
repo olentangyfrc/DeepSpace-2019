@@ -46,8 +46,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToLevel;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
 import org.usfirst.frc.team4611.robot.subsystems.singleStick.SingleStick;
@@ -115,7 +115,9 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
-
+/******* */
+botMacAddress = protoMacAddress;
+/******* */
         if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
@@ -174,11 +176,13 @@ public class SubsystemFactory {
      */
     private void initProto() throws Exception{
         logger.info("initalizing Proto");
-        lineTracker = new LineTracker();
-        lineTracker.init(portMan);
 
         elevator = new Elevator();
-        elevator.init(portMan);
+        //elevator.init(portMan);
+        elevator.initSB();
+        /*
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
 
         roller = new Roller();
         roller.init(portMan);
@@ -197,8 +201,8 @@ public class SubsystemFactory {
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
-        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
         oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
         oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
 
@@ -211,20 +215,16 @@ public class SubsystemFactory {
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
 
-        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
-
-        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhileHeld);
-        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhileHeld);
-        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(7), OI.button10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
+        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.button5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
+        */
     }
     
     /**
@@ -260,8 +260,8 @@ public class SubsystemFactory {
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
-        oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
         oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
         oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
@@ -276,20 +276,15 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(1), OI.RightJoyButton8, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(2), OI.RightJoyButton9, OI.WhenPressed);
 
-        oi.bind(new MoveElevatorToPos(2), OI.LeftJoyButton11, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.LeftJoyButton10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(6), OI.RightJoyButton6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(7), OI.RightJoyButton7, OI.WhenPressed);
-
-        oi.bind(new MoveElevatorDown(), OI.button1, OI.WhileHeld);
-        oi.bind(new MoveElevatorUp(), OI.button2, OI.WhileHeld);
-        oi.bind(new MoveElevatorToPos(6), OI.button8, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(7), OI.button10, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(2), OI.button4, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(4), OI.button6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(1), OI.button3, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(3), OI.button5, OI.WhenPressed);
-        oi.bind(new MoveElevatorToPos(5), OI.button7, OI.WhenPressed);
+        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.button5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
         
         oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);

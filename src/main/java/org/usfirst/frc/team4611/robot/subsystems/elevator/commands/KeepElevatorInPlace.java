@@ -14,19 +14,20 @@ public class KeepElevatorInPlace extends Command {
 
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
 
-    //MUST SEND A NUMBER FROM 0 TO 1
     public KeepElevatorInPlace(){
         elevator = SubsystemFactory.getInstance().getElevator();
         
         this.requires(elevator);
     }
 
+    protected void initialize() {
+        stop = false;
+    }
+
     protected void execute() {
-        //if(elevator.isLogging())logger.info("Execute");
-        if(stop) {
-            return;
+        if(!stop) {
+            elevator.keepInPlace();
         }
-        elevator.keepInPlace();
     }
 
     @Override
@@ -34,22 +35,12 @@ public class KeepElevatorInPlace extends Command {
         return stop;
     }
 
-    protected void initialize() {
-        //if(elevator.isLogging())logger.info("init");
-        stop = false;
-        elevator.resetEncoders();
-    }
     public void cancel() {
-        if(elevator.isLogging())
-            logger.info("cancel");
         stop = true;
-        elevator.stopElevator();
     }
 
     @Override
     protected void interrupted() {
-        if(elevator.isLogging())
-            logger.info("interrupted");
     }
 
    
