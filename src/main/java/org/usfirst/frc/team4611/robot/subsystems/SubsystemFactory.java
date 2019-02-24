@@ -177,6 +177,9 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
+        //nav = new Navigation();
+        //nav.init(portMan);
+
         lineTracker = new LineTracker();
         lineTracker.init(portMan);
 
@@ -208,8 +211,8 @@ public class SubsystemFactory {
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
 
         oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);

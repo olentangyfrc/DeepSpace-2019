@@ -32,16 +32,16 @@ public class Elevator extends Subsystem {
 
     private Potentiometer   pot;
 
-    private double  percOutputUp    = 75;
-    private double  percOutputDown  = 25;
+    private double  percOutputUp    = 0.75;
+    private double  percOutputDown  = 0.1;
     private double  potTop      = .85;
     private double  potBot      = .11;
-    private int     maxEncoder  = 21700;
+    private int     maxEncoder  = 21470;
 
     private boolean upperSoftLimitToggle = false;
     private boolean lowerSoftLimitToggle = false;
 
-    private boolean mmMode  = true; // Motion Magic mode by default
+    private boolean mmMode  = false; // Motion Magic mode by default
     public Elevator(){
     }
 
@@ -63,10 +63,12 @@ public class Elevator extends Subsystem {
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
-        initTalonsForMotionMagic();
+        if (!mmMode) {
+            initTalonsForMotionMagic();
+        }
     }
 
-    private void stop() {
+    public void stop() {
         if (mmMode) {
             leftTalon.set(ControlMode.Velocity, 0);
         } else {
@@ -82,7 +84,7 @@ public class Elevator extends Subsystem {
         if (mmMode) {
             moveMM(moveUp);
         } else {
-            move(moveUp);
+            movePercOutput(moveUp);
         }
     }
 
@@ -463,8 +465,8 @@ public class Elevator extends Subsystem {
     }
 
     public void updateValues() {
-        logger.info("Elevator.updateValues())");
         // read new values
+        /*
         potLevel1Target = PotLevel1Entry.getDouble(potLevel1Target);
         potLevel2Target = PotLevel2Entry.getDouble(potLevel2Target);
         potLevel3Target = PotLevel3Entry.getDouble(potLevel3Target);
@@ -480,6 +482,7 @@ public class Elevator extends Subsystem {
         mmLevel5Target = MMLevel5Entry.getDouble(mmLevel5Target);
         mmLevel6Target = MMLevel6Entry.getDouble(mmLevel6Target);
         mmLevel7Target = MMLevel7Entry.getDouble(mmLevel7Target);
+        */
 
         stepUp = (int)stepUpEntry.getDouble(stepUp);
         stepDown = (int)stepDownEntry.getDouble(stepDown);

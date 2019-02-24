@@ -96,12 +96,16 @@ public class DriverFeedback extends Subsystem {
 
     lineTrackerLeft = tab.add("Center Left ", false).withSize(1,1).withPosition(2,1).getEntry();
 
+    if (nav != null) {
     leftSideSquare     = tab.add("Left Side\nSquare", nav.isLeftSideSquare())
                               .withSize(1,1).withPosition(2,2).getEntry();
+    }
 
     lineTrackerRight = tab.add("Center Right", false).withSize(1,1).withPosition(7,1).getEntry();
-    rightSideSquare     = tab.add("Right Side\nSquare", nav.isRightSideSquare())
+    if (nav != null) {
+      rightSideSquare     = tab.add("Right Side\nSquare", nav.isRightSideSquare())
                               .withSize(1,1).withPosition(7,2).getEntry();
+    }
 
     // Vision Entries
     VideoSource[] sources = VideoSource.enumerateSources();
