@@ -391,18 +391,15 @@ public class Elevator extends Subsystem {
         
         if(endTime == 0) {
             endTime = currentTime + 100;
-            if(logging)
-                logger.info("setting");
+            if(logging) logger.info("setting");
         }
                                                                         
         if(currentTime <= endTime) {
             leftTalon.set(ControlMode.PercentOutput, .08);
-            if(logging)
-                logger.info("stalling");
+            if(logging) logger.info("stalling");
         }
         else {
-            if(logging)
-                logger.info("finishing");
+            if(logging) logger.info("finishing");
             done = true;
             endTime = 0;
             this.stopElevator();
