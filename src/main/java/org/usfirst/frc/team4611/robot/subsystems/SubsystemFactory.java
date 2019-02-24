@@ -115,9 +115,6 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
-/******* */
-botMacAddress = protoMacAddress;
-/******* */
         if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
@@ -178,9 +175,8 @@ botMacAddress = protoMacAddress;
         logger.info("initalizing Proto");
 
         elevator = new Elevator();
-        //elevator.init(portMan);
-        elevator.initSB();
-        /*
+        elevator.init(portMan);
+
         lineTracker = new LineTracker();
         lineTracker.init(portMan);
 
@@ -224,7 +220,6 @@ botMacAddress = protoMacAddress;
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
-        */
     }
     
     /**

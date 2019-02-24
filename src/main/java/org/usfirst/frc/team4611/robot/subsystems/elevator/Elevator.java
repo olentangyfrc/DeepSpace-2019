@@ -32,8 +32,8 @@ public class Elevator extends Subsystem {
 
     private Potentiometer   pot;
 
-    private double  percOutputUp    = 0.75;
-    private double  percOutputDown  = 0.25;
+    private double  percOutputUp    = 75;
+    private double  percOutputDown  = 25;
     private double  potTop      = .85;
     private double  potBot      = .11;
 
@@ -49,6 +49,7 @@ public class Elevator extends Subsystem {
     }
 
     public void init(PortMan pm) throws Exception {
+        initSB();
 
         leftTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_15_label, "Elevator.elevatorLeftTalon"));
         rightTalon = new WPI_TalonSRX(pm.acquirePort(PortMan.can_16_label, "Elevator.elevatorRightTalon"));
@@ -62,7 +63,6 @@ public class Elevator extends Subsystem {
 
         initTalonCommon();
         initTalonsForMotionMagic();
-        initSB();
     }
 
     public void stop() {
@@ -189,7 +189,7 @@ public class Elevator extends Subsystem {
     }
 
     private double currentOutput;
-    public void movePerOutput(boolean moveUp) {
+    public void movePercOutput(boolean moveUp) {
         if(moveUp) {
             currentOutput = percOutputUp;
         }
@@ -450,6 +450,7 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry stepDownEntry;
     private NetworkTableEntry cruiseEntry;
     private NetworkTableEntry accelEntry;
+    private NetworkTableEntry pidPEntry;
     private NetworkTableEntry mmModeEntry;
 
     public void initSB () {
@@ -465,8 +466,9 @@ public class Elevator extends Subsystem {
 
         stepUpEntry = tab.add("MM Step\nUp Entry", stepUp).withSize(1, 1).withPosition(1, 1).getEntry();
         stepDownEntry = tab.add("MM Step\nDown Entry", stepDown).withSize(1, 1).withPosition(2, 1).getEntry();
-        accelEntry = tab.add("Acceleration", elevatorAcceleration).withSize(1, 1).withPosition(1, 2).getEntry();
-        cruiseEntry = tab.add("Cruise", cruiseSpeed).withSize(1, 1).withPosition(2, 2).getEntry();
+        pidPEntry = tab.add("pid P", pidP).withSize(1, 1).withPosition(1, 2).getEntry();
+        accelEntry = tab.add("Acceleration", elevatorAcceleration).withSize(1, 1).withPosition(2, 2).getEntry();
+        cruiseEntry = tab.add("Cruise", cruiseSpeed).withSize(1, 1).withPosition(3, 2).getEntry();
     }
 
     public void updateValues() {
@@ -507,8 +509,9 @@ public class Elevator extends Subsystem {
         percOutputDownEntry.setDouble(percOutputDown);
 
         if (resetMMValues) {
-            elevatorAcceleration    = (int)accelEntry.getDouble(elevatorAcceleration);
+            elevatorAcceleration    = (int) accelEntry.getDouble(elevatorAcceleration);
             cruiseSpeed             = (int) cruiseEntry.getDouble(cruiseSpeed);
+            pidP                    = (int) pidPEntry.getDouble(pidP);
             resetMMValues           = false;
             resetMMValuesEntry.setBoolean(resetMMValues);
             logger.info("Resetting Motion Magic Values");
