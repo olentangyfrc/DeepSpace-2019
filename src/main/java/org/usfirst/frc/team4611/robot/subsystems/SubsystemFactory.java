@@ -170,7 +170,7 @@ public class SubsystemFactory {
         //nav.init(portMan);
         
         oi.bind(new MoveElevatorUp(), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhenPressed);
+        oi.bind(new MoveElevatorDown(), OI.LeftJoyButton2, OI.WhileHeld);
         //oi.bind(new StrafeVision(), OI.LeftJoyButton1, OI.WhenPressed);
 
         oi.bind(new GrabBox(), OI.LeftJoyButton4, OI.WhenPressed);
@@ -178,6 +178,9 @@ public class SubsystemFactory {
 
         oi.bind(new MovePotUp(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MovePotDown(), OI.RightJoyButton2, OI.WhileHeld);        
+    
+        oi.bind(new MoveElevatorUp(), OI.AuxJoyButton6, OI.WhileHeld);
+        oi.bind(new MoveElevatorDown(), OI.AuxJoyButton7, OI.WhileHeld);
     }
     
     /**

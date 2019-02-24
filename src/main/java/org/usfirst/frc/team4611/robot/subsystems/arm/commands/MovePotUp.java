@@ -23,7 +23,7 @@ public class MovePotUp extends Command{
 	protected void execute() {
 		if (stop)
 			return;
-		arm.moveArmUp(0.5, 0.5);
+		arm.moveArmUp(0.7, 0.7);
 	}
 
 	@Override
