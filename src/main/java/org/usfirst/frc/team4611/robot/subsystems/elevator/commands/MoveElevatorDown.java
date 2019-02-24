@@ -21,35 +21,25 @@ public class MoveElevatorDown extends Command {
     }
 
     protected void initialize() {
-        //if(elevator.isLogging())logger.info("Init");
         stop = false;
     }
 
     protected void execute() {
-        //if(elevator.isLogging())logger.info("Exe");
-        if (stop) {
-            return;
+        if (!stop) {
+            elevator.move(false);
         }
-        elevator.move(false);
     }
 
     protected boolean isFinished() {
-        //if(elevator.isLogging())logger.info("is finsished");
         return stop;
     }
 
     @Override
     public void cancel() {
-        if(elevator.isLogging())
-            logger.info("cancel");
         stop = true;
-        elevator.stopElevator();
     }
 
     @Override
     protected void interrupted() {
-        if(elevator.isLogging())
-            logger.info("interrupted");
-        //stop = elevator.move(0);
     }
 }

@@ -5,21 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team4611.robot.subsystems.navigation.commands;
+package org.usfirst.frc.team4611.robot.subsystems.vision.commands;
 
-import java.util.logging.Logger;
-import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LinetrackerDefault extends Command {
-  private static Logger logger = Logger.getLogger(LinetrackerDefault.class.getName());
-
-  LineTracker linetracker;
-  public LinetrackerDefault() {
-      linetracker  = SubsystemFactory.getInstance().getLineTracker();
-      requires (linetracker);
+public class ChooseCenterCamera extends Command {
+  public ChooseCenterCamera() {
   }
 
   // Called just before this Command runs the first time
@@ -29,8 +22,8 @@ public class LinetrackerDefault extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {;
-    linetracker.checkLines();
+  protected void execute() {
+    NetTableManager.updateValue("Vision", "selectedCamera", "centerCamera");
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -48,8 +41,5 @@ public class LinetrackerDefault extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-  }
-  @Override
-  public synchronized void cancel() {
   }
 }

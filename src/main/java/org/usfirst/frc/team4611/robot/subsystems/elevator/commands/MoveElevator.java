@@ -7,35 +7,40 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-class ElevatorLog extends Command {
+public class MoveElevator extends Command {
 
-    private static Logger logger = Logger.getLogger(ElevatorLog.class.getName());
-
-    private Elevator elevator;
+    private final Logger logger = Logger.getLogger(MoveElevator.class.getName());
     
-    public ElevatorLog() {
+    private Elevator elevator;
+    private boolean stop = false;
+    private boolean moveUp;
+
+    public MoveElevator(boolean up) {
         elevator = SubsystemFactory.getInstance().getElevator();
+        this.requires(elevator);
+        moveUp = up;
+    }
+
+    protected void initialize() {
+        stop = false;
     }
 
     protected void execute() {
-        elevator.writeToShuffleboard();
-        elevator.log();
+        if (!stop) {
+            elevator.move(moveUp);
+        }
     }
 
     protected boolean isFinished() {
-        return true;
+        return stop;
     }
 
     @Override
-    public synchronized void cancel() {
-        if(elevator.isLogging())
-            logger.info("cancel");
+    public void cancel() {
+        stop = true;
     }
 
     @Override
     protected void interrupted() {
-        if(elevator.isLogging())
-            logger.info("interrupted");
     }
-
 }
