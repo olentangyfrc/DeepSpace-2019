@@ -198,7 +198,7 @@ public class Elevator extends Subsystem {
             moveMM(true);
         } else {
             if (level == HappyPosition.BOTTOM) {
-                stop();
+                leftTalon.set(ControlMode.Velocity, 0.0);
             }
             stop = true;
         }
@@ -262,12 +262,12 @@ public class Elevator extends Subsystem {
     public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
 
     private double potLevel1Target  =  0.0539;
-    private double potLevel2Target  =  0.0539;
-    private double potLevel3Target  =  0.0539;
-    private double potLevel4Target  =  0.0539;
-    private double potLevel5Target  =  0.0539;
-    private double potLevel6Target  =  0.0539;
-    private double potLevel7Target  =  0.0539;
+    private double potLevel2Target  =  0.0400;
+    private double potLevel3Target  =  0.5335;
+    private double potLevel4Target  =  0.8742;
+    private double potLevel5Target  =  0.9842;
+    private double potLevel6Target  =  0.9689;
+    private double potLevel7Target  =  0.7230;
 
     public boolean moveToPotPos(HappyPosition level) {
         double finalTarget  = 0;

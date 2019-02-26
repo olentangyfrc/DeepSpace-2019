@@ -8,7 +8,6 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.Linetracker
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -23,17 +22,6 @@ public class LineTracker extends Subsystem
 
     private AnalogInput lineTrackerLeft;
     private AnalogInput lineTrackerRight;
-
-    private boolean onLeft;
-    private boolean onRight;
-
-    private int leftValue;
-    private int rightValue;
-
-    private NetworkTableEntry leftEntry;
-    private NetworkTableEntry rightEntry;
-    private NetworkTableEntry onLeftEntry;
-    private NetworkTableEntry onRightEntry;
 
     public int getLineTrackerInputLeft()
     {
@@ -55,20 +43,15 @@ public class LineTracker extends Subsystem
         lineTrackerLeft = new AnalogInput(pm.acquirePort(PortMan.analog2_label, "LineTracker.lineTrackerLeft"));
         lineTrackerRight = new AnalogInput(pm.acquirePort(PortMan.analog3_label, "LineTracker.lineTrackerRight"));
 
-        leftEntry = tab.add("Linetracker Left Value", leftValue).getEntry();
-        rightEntry = tab.add("Linetracker Right Value", rightValue).getEntry();
-        onLeftEntry = tab.add("Linetracker On Left", onLeft).getEntry();
-        onRightEntry = tab.add("Linetracker On Right", onRight).getEntry();
+        initSB();
         inited = true;
     }
 
     public boolean isOnLeft() {
-        onLeftEntry.setBoolean(lineTrackerLeft.getValue() < threshhold);
         return (lineTrackerLeft.getValue() < threshhold) ;
     }
 
     public boolean isOnRight() {
-        onRightEntry.setBoolean(lineTrackerRight.getValue() < threshhold);
         return (lineTrackerRight.getValue() < threshhold) ;
     }
 
@@ -78,7 +61,30 @@ public class LineTracker extends Subsystem
        leftEntry.setValue(lineTrackerLeft.getValue());
        rightEntry.setValue(lineTrackerRight.getValue());
 
-       onLeftEntry.setValue(this.isOnLeft());
-       onRightEntry.setValue(this.isOnRight());
+       onLeftEntry.setValue(isOnLeft());
+       onRightEntry.setValue(isOnRight());
+
+       threshhold = (int) thresholdEntry.getDouble(threshhold);
+    }
+
+    private NetworkTableEntry leftEntry;
+    private NetworkTableEntry rightEntry;
+    private NetworkTableEntry onLeftEntry;
+    private NetworkTableEntry onRightEntry;
+    private NetworkTableEntry thresholdEntry;
+
+    public void initSB() {
+        leftEntry = tab.add("LT Left Value", 0)
+                            .withSize(1,1).withPosition(1,0).getEntry();
+        onLeftEntry = tab.add("LT Left On", false)
+                            .withSize(1,1).withPosition(0,0).getEntry();
+
+        rightEntry = tab.add("LT Right Value", 0)
+                            .withSize(1,1).withPosition(3,0).getEntry();
+        onRightEntry = tab.add("LT Right On", false)
+                            .withSize(1,1).withPosition(4,0).getEntry();
+
+        thresholdEntry = tab.add("LT Threshold", threshhold)
+                            .withSize(1,1).withPosition(3,4).getEntry();
     }
 } 
