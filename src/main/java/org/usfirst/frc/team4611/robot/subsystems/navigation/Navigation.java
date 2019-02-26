@@ -23,6 +23,7 @@ public class Navigation extends Subsystem {
     private double leftFrontLidarOffset = 0; private double leftRearLidarOffset = 0;
 
     private LidarPWM rightFrontLidar, rightRearLidar;
+    private LidarPWM lidar4, lidar5, lidar6, lidar7, lidar8, lidar9;
 
     private double rightFrontLidarDistance, rightRearLidarDistance;
     private double rightFrontLidarOffset = 0; private double rightRearLidarOffset = 0;
@@ -42,11 +43,11 @@ public class Navigation extends Subsystem {
 
         initSB();
 
-        leftFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftFrontLidar"));
-        leftRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.leftRearLidar"));
+        leftFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital4_label, "Navigation.leftFrontLidar"));
+        leftRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital5_label, "Navigation.leftRearLidar"));
 
-        rightFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital8_label, "Navigation.rightFrontLidar"));
-        rightRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital9_label, "Navigation.rightRearLidar"));
+        rightFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital6_label, "Navigation.rightFrontLidar"));
+        rightRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital7_label, "Navigation.rightRearLidar"));
 
         pigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.pigeon"));
         inited = true;
@@ -74,6 +75,7 @@ public class Navigation extends Subsystem {
 
         if (!inited) return;
 
+
         leftFrontLidarDistance = leftFrontLidar.getDistance();
         leftRearLidarDistance = leftRearLidar.getDistance();
 
@@ -82,6 +84,9 @@ public class Navigation extends Subsystem {
 
         leftFrontLidarOffset = leftFrontLidarOffsetEntry.getDouble(leftFrontLidarOffset);
         leftRearLidarOffset = leftRearLidarOffsetEntry.getDouble(leftRearLidarOffset);
+
+        rightFrontLidarDistance = rightFrontLidar.getDistance();
+        rightRearLidarDistance = rightRearLidar.getDistance();
 
         rightFrontLidarDistanceEntry.setDouble(rightFrontLidarDistance);
         rightRearLidarDistanceEntry.setDouble(rightRearLidarDistance);
@@ -138,6 +143,5 @@ public class Navigation extends Subsystem {
 
         lidarToleranceEntry = tab.add("Lidar Tolerance", lidarTolerance)
                                         .withSize(1,1).withPosition(0, 3).getEntry();
-
     }
 }
