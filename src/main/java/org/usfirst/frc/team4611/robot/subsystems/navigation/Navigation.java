@@ -23,6 +23,7 @@ public class Navigation extends Subsystem {
     private double leftFrontLidarOffset = 0; private double leftRearLidarOffset = 0;
 
     private LidarPWM rightFrontLidar, rightRearLidar;
+    private LidarPWM lidar4, lidar5, lidar6, lidar7, lidar8, lidar9;
 
     private double rightFrontLidarDistance, rightRearLidarDistance;
     private double rightFrontLidarOffset = 0; private double rightRearLidarOffset = 0;
@@ -42,10 +43,12 @@ public class Navigation extends Subsystem {
 
         initSB();
 
-        leftFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftFrontLidar"));
-        leftRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.leftRearLidar"));
-        rightFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital8_label, "Navigation.rightFrontLidar"));
-        rightRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital9_label, "Navigation.rightRearLidar"));
+        leftFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital4_label, "Navigation.leftFrontLidar"));
+        leftRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital5_label, "Navigation.leftRearLidar"));
+
+        rightFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital6_label, "Navigation.rightFrontLidar"));
+        rightRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital7_label, "Navigation.rightRearLidar"));
+
         pigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.pigeon"));
         inited = true;
     }
@@ -72,6 +75,7 @@ public class Navigation extends Subsystem {
 
         if (!inited) return;
 
+
         leftFrontLidarDistance = leftFrontLidar.getDistance();
         leftRearLidarDistance = leftRearLidar.getDistance();
 
@@ -80,6 +84,9 @@ public class Navigation extends Subsystem {
 
         leftFrontLidarOffset = leftFrontLidarOffsetEntry.getDouble(leftFrontLidarOffset);
         leftRearLidarOffset = leftRearLidarOffsetEntry.getDouble(leftRearLidarOffset);
+
+        rightFrontLidarDistance = rightFrontLidar.getDistance();
+        rightRearLidarDistance = rightRearLidar.getDistance();
 
         rightFrontLidarDistanceEntry.setDouble(rightFrontLidarDistance);
         rightRearLidarDistanceEntry.setDouble(rightRearLidarDistance);
@@ -108,34 +115,33 @@ public class Navigation extends Subsystem {
 
     public void initSB() {
         leftFrontLidarDistanceEntry = tab.add("Left Front\nLidar Distance", leftFrontLidarDistance)
-                                        .withSize(1,1).withPosition(0, 0).getEntry();
-        leftFrontLidarOffsetEntry = tab.add("Left Front\nLidar Offset", leftFrontLidarOffset)
-                                        .withSize(1,1).withPosition(1, 0).getEntry();
-
-        leftRearLidarDistanceEntry = tab.add("Left Rear\nLidar Distance", leftRearLidarDistance)
                                         .withSize(1,1).withPosition(0, 1).getEntry();
-        leftRearLidarOffsetEntry = tab.add("Left Rear\nLidar Offset", leftRearLidarOffset)
+        leftFrontLidarOffsetEntry = tab.add("Left Front\nLidar Offset", leftFrontLidarOffset)
                                         .withSize(1,1).withPosition(1, 1).getEntry();
 
+        leftRearLidarDistanceEntry = tab.add("Left Rear\nLidar Distance", leftRearLidarDistance)
+                                        .withSize(1,1).withPosition(0, 2).getEntry();
+        leftRearLidarOffsetEntry = tab.add("Left Rear\nLidar Offset", leftRearLidarOffset)
+                                        .withSize(1,1).withPosition(1, 2).getEntry();
+
         leftSideSquareEntry = tab.add("Left Side Square", leftSideSquare)
-                                        .withSize(2,1).withPosition(0, 2).getEntry();
+                                        .withSize(2,1).withPosition(0, 3).getEntry();
 
 
         rightFrontLidarDistanceEntry = tab.add("Right Front\nLidar Distance", rightFrontLidarDistance)
-                                        .withSize(1,1).withPosition(3, 0).getEntry();
-        rightFrontLidarOffsetEntry = tab.add("Right Front\nLidar Offset", rightFrontLidarOffset)
-                                        .withSize(1,1).withPosition(4, 0).getEntry();
-
-        rightRearLidarDistanceEntry = tab.add("Right Rear\nLidar Distance", rightRearLidarDistance)
                                         .withSize(1,1).withPosition(3, 1).getEntry();
-        rightRearLidarOffsetEntry = tab.add("Right Rear\nLidar Offset", rightRearLidarOffset)
+        rightFrontLidarOffsetEntry = tab.add("Right Front\nLidar Offset", rightFrontLidarOffset)
                                         .withSize(1,1).withPosition(4, 1).getEntry();
 
+        rightRearLidarDistanceEntry = tab.add("Right Rear\nLidar Distance", rightRearLidarDistance)
+                                        .withSize(1,1).withPosition(3, 2).getEntry();
+        rightRearLidarOffsetEntry = tab.add("Right Rear\nLidar Offset", rightRearLidarOffset)
+                                        .withSize(1,1).withPosition(4, 2).getEntry();
+
         rightSideSquareEntry = tab.add("Right Side Square", rightSideSquare)
-                                        .withSize(2,1).withPosition(3, 2).getEntry();
+                                        .withSize(2,1).withPosition(3, 3).getEntry();
 
         lidarToleranceEntry = tab.add("Lidar Tolerance", lidarTolerance)
-                                        .withSize(1,1).withPosition(0, 3).getEntry();
-
+                                        .withSize(1,1).withPosition(0, 4).getEntry();
     }
 }

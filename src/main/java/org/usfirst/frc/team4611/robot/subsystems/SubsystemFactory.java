@@ -177,8 +177,8 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
-        //nav = new Navigation();
-        //nav.init(portMan);
+        nav = new Navigation();
+        nav.init(portMan);
 
         lineTracker = new LineTracker();
         lineTracker.init(portMan);
@@ -339,9 +339,11 @@ public class SubsystemFactory {
 
         nav    = new Navigation();
         nav.initSB();
+        lineTracker = new LineTracker();
+        lineTracker.initSB();
         //nav.init(portMan);
-        elevator = new Elevator();
-        elevator.initSB();
+        //elevator = new Elevator();
+        //elevator.initSB();
     }
 
     public DriveTrain getDriveTrain(){

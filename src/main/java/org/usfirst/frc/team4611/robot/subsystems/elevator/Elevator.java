@@ -40,8 +40,9 @@ public class Elevator extends Subsystem {
 
     private boolean upperSoftLimitToggle = false;
     private boolean lowerSoftLimitToggle = false;
+    private boolean lowerHardLimit = false;
 
-    private boolean mmMode  = false; // Motion Magic mode by default
+    private boolean mmMode  = true; // Motion Magic mode by default
     public Elevator(){
     }
 
@@ -63,15 +64,11 @@ public class Elevator extends Subsystem {
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
-        if (!mmMode) {
-            initTalonsForMotionMagic();
-        }
+        initTalonsForMotionMagic();
     }
 
     public void stop() {
-        if (mmMode) {
-            leftTalon.set(ControlMode.Velocity, 0);
-        } else {
+        if (!mmMode) {
             currentOutput = 0;
             leftTalon.set(ControlMode.PercentOutput, currentOutput);
         }
@@ -90,6 +87,9 @@ public class Elevator extends Subsystem {
 
     private void moveMM(boolean moveUp) {
         int step;
+
+        lowerHardLimit = false;
+
         if(moveUp) {
             step = stepUp;
         }
@@ -121,19 +121,23 @@ public class Elevator extends Subsystem {
         }
         if(lowerSoftLimitToggle) {
             if(step <= 0) {
-                step = (int) (step/2*.7);
+                step = (int) (step/2);
                 if(logging) logger.info("Soft Limit Bottom");
             }
         }
         if(!hardLimitBottom.get()) {
+            lowerHardLimit = true;
             if(step <= 0) {
                 step = 0;
                 if(logging) logger.info("Hard Limit Bottom");
             }
         }
 
+        logger.info("MMMove step [" + step + "]");
         if (step != 0) {
             leftTalon.set(ControlMode.MotionMagic, step + leftTalon.getSelectedSensorPosition());
+        } else if (lowerHardLimit) {
+            leftTalon.set(ControlMode.Velocity, 0);
         }
     }
 
@@ -194,7 +198,7 @@ public class Elevator extends Subsystem {
             moveMM(true);
         } else {
             if (level == HappyPosition.BOTTOM) {
-                stop();
+                leftTalon.set(ControlMode.Velocity, 0.0);
             }
             stop = true;
         }
@@ -258,12 +262,12 @@ public class Elevator extends Subsystem {
     public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
 
     private double potLevel1Target  =  0.0539;
-    private double potLevel2Target  =  0.0539;
-    private double potLevel3Target  =  0.0539;
-    private double potLevel4Target  =  0.0539;
-    private double potLevel5Target  =  0.0539;
-    private double potLevel6Target  =  0.0539;
-    private double potLevel7Target  =  0.0539;
+    private double potLevel2Target  =  0.0400;
+    private double potLevel3Target  =  0.5335;
+    private double potLevel4Target  =  0.8742;
+    private double potLevel5Target  =  0.9842;
+    private double potLevel6Target  =  0.9689;
+    private double potLevel7Target  =  0.7230;
 
     public boolean moveToPotPos(HappyPosition level) {
         double finalTarget  = 0;

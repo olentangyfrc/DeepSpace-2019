@@ -36,6 +36,7 @@ public class KeepElevatorInPlace extends Command {
     }
 
     public void cancel() {
+        elevator.stop();
         stop = true;
     }
 

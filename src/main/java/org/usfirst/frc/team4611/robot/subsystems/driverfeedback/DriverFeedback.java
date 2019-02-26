@@ -88,24 +88,21 @@ public class DriverFeedback extends Subsystem {
     elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,5).getEntry();
     elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,6).getEntry();
 
-    frontSquare     = tab.add("Front\nSquare", vision.isSquare())
+    frontSquare     = tab.add("Front\nSquare", false)
                               .withSize(1,1).withPosition(4,0).getEntry();
 
-    frontCentered     = tab.add("Front\nCentered", vision.isCentered())
+    frontCentered     = tab.add("Front\nCentered", false)
                               .withSize(1,1).withPosition(5,0).getEntry();
 
     lineTrackerLeft = tab.add("Center Left ", false).withSize(1,1).withPosition(2,1).getEntry();
 
-    if (nav != null) {
-    leftSideSquare     = tab.add("Left Side\nSquare", nav.isLeftSideSquare())
+    leftSideSquare     = tab.add("Left Side\nSquare", false)
                               .withSize(1,1).withPosition(2,2).getEntry();
-    }
 
     lineTrackerRight = tab.add("Center Right", false).withSize(1,1).withPosition(7,1).getEntry();
-    if (nav != null) {
-      rightSideSquare     = tab.add("Right Side\nSquare", nav.isRightSideSquare())
+
+    rightSideSquare     = tab.add("Right Side\nSquare", false)
                               .withSize(1,1).withPosition(7,2).getEntry();
-    }
 
     // Vision Entries
     VideoSource[] sources = VideoSource.enumerateSources();
