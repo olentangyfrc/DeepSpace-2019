@@ -83,6 +83,7 @@ public class Elevator extends Subsystem {
         } else {
             movePercOutput(moveUp);
         }
+        updateValues();
     }
 
     private void moveMM(boolean moveUp) {
