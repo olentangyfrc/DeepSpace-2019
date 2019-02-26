@@ -44,8 +44,10 @@ public class Navigation extends Subsystem {
 
         leftFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital0_label, "Navigation.leftFrontLidar"));
         leftRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital1_label, "Navigation.leftRearLidar"));
+
         rightFrontLidar = new LidarPWM(pm.acquirePort(PortMan.digital8_label, "Navigation.rightFrontLidar"));
         rightRearLidar = new LidarPWM(pm.acquirePort(PortMan.digital9_label, "Navigation.rightRearLidar"));
+
         pigeon = new Pigeon(pm.acquirePort(PortMan.can_21_label, "Navigation.pigeon"));
         inited = true;
     }

@@ -177,8 +177,8 @@ public class SubsystemFactory {
         elevator = new Elevator();
         elevator.init(portMan);
 
-        //nav = new Navigation();
-        //nav.init(portMan);
+        nav = new Navigation();
+        nav.init(portMan);
 
         lineTracker = new LineTracker();
         lineTracker.init(portMan);
