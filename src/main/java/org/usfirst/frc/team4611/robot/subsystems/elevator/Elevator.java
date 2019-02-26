@@ -42,7 +42,7 @@ public class Elevator extends Subsystem {
     private boolean lowerSoftLimitToggle = false;
     private boolean lowerHardLimit = false;
 
-    private boolean mmMode  = true; // Motion Magic mode by default
+    private boolean mmMode  = false; // Motion Magic mode by default
     public Elevator(){
     }
 
