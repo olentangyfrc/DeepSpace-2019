@@ -36,6 +36,7 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
+import org.usfirst.frc.team4611.robot.subsystems.vision.commands.ChooseCamera;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 
 import edu.wpi.cscore.UsbCamera;
@@ -223,6 +224,10 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
+
+        oi.bind(new ChooseCamera(ChooseCamera.Camera.LEFT), OI.AuxJoyButton7, OI.WhenPressed);
+        oi.bind(new ChooseCamera(ChooseCamera.Camera.CENTER), OI.AuxJoyButton8, OI.WhenPressed);
+        oi.bind(new ChooseCamera(ChooseCamera.Camera.RIGHT), OI.AuxJoyButton9, OI.WhenPressed);
     }
     
     /**

@@ -11,8 +11,20 @@ import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ChooseLeftCameraStream extends Command {
-  public ChooseLeftCameraStream() {
+
+public class ChooseCamera extends Command {
+public static  enum Camera {LEFT, CENTER, RIGHT};
+
+  private String camera;
+
+  public ChooseCamera(Camera c) {
+    if (c == Camera.LEFT) {
+      camera = "usb 1";
+    } else if (c == Camera.CENTER) {
+      camera = "usb 2";
+    } else if (c == Camera.RIGHT) {
+      camera = "usb 3";
+    }
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +35,7 @@ public class ChooseLeftCameraStream extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    NetTableManager.updateValue("Vision", "selectedCamera", "leftCamera");
+    NetTableManager.updateValue("Vision", "selected_camera", camera);
   }
 
   // Make this return true when this Command no longer needs to run execute()
