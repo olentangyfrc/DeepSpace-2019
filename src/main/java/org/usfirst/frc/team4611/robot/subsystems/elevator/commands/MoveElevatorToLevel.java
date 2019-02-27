@@ -52,6 +52,7 @@ public class MoveElevatorToLevel extends Command {
 
     @Override
     public synchronized void cancel() {
+        elevator.stop();
         stop = true;
     }
 

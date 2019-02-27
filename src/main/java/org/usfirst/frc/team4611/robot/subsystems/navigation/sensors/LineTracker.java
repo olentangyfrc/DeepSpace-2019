@@ -18,7 +18,8 @@ public class LineTracker extends Subsystem
     static private ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
 
     private boolean inited = false;
-    private int threshhold  = 3860;
+    private int leftThreshhold  = 3860;
+    private int rightThreshhold  = 3860;
 
     private AnalogInput lineTrackerLeft;
     private AnalogInput lineTrackerRight;
@@ -48,11 +49,11 @@ public class LineTracker extends Subsystem
     }
 
     public boolean isOnLeft() {
-        return (lineTrackerLeft.getValue() < threshhold) ;
+        return (lineTrackerLeft.getValue() < leftThreshhold) ;
     }
 
     public boolean isOnRight() {
-        return (lineTrackerRight.getValue() < threshhold) ;
+        return (lineTrackerRight.getValue() < rightThreshhold) ;
     }
 
     public void checkLines() {
@@ -64,14 +65,16 @@ public class LineTracker extends Subsystem
        onLeftEntry.setValue(isOnLeft());
        onRightEntry.setValue(isOnRight());
 
-       threshhold = (int) thresholdEntry.getDouble(threshhold);
+       leftThreshhold = (int) leftThresholdEntry.getDouble(leftThreshhold);
+       rightThreshhold = (int) rightThresholdEntry.getDouble(rightThreshhold);
     }
 
     private NetworkTableEntry leftEntry;
     private NetworkTableEntry rightEntry;
     private NetworkTableEntry onLeftEntry;
     private NetworkTableEntry onRightEntry;
-    private NetworkTableEntry thresholdEntry;
+    private NetworkTableEntry leftThresholdEntry;
+    private NetworkTableEntry rightThresholdEntry;
 
     public void initSB() {
         leftEntry = tab.add("LT Left Value", 0)
@@ -84,7 +87,10 @@ public class LineTracker extends Subsystem
         onRightEntry = tab.add("LT Right On", false)
                             .withSize(1,1).withPosition(4,0).getEntry();
 
-        thresholdEntry = tab.add("LT Threshold", threshhold)
+        leftThresholdEntry = tab.add("LT Left\nThreshold", leftThreshhold)
                             .withSize(1,1).withPosition(3,4).getEntry();
+
+        rightThresholdEntry = tab.add("LT Right\nThreshold", rightThreshhold)
+                            .withSize(1,1).withPosition(4,4).getEntry();
     }
 } 
