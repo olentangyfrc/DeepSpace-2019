@@ -49,6 +49,7 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorD
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToPos;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorUp;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
+import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
 
 
 public class SubsystemFactory {
@@ -58,7 +59,7 @@ public class SubsystemFactory {
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
     private String   protoMacAddress    = "00:80:2F:17:F8:3F";   
-    private String   compMacAddress    = "00:80:2F:27:1D:E9";
+    private String   compMacAddress     = "00:80:2F:27:1D:E9";
     private String   zippyMacAddress    = "00:80:2F:25:B4:CA";
     private String   turboMacAddress    = "00:80:2F:27:04:C6";
     private String   footballMacAddress = "00:80:2F:17:D7:4B";
@@ -87,10 +88,12 @@ public class SubsystemFactory {
     private Intake shooterIntake;
     private IntakeAdjuster intakeAdjuster;
     private PixyCam pixyCam;
+    private PixyLineCam pixyLineCam;
     private DriverFeedback  driverFeedback;
   
     private UsbCamera camera1;
     private UsbCamera camera2;
+	public Object get;
   
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -378,6 +381,10 @@ public class SubsystemFactory {
 
     public PixyCam getPixyCam() {
         return pixyCam;
+    }
+
+    public PixyLineCam getPixyLineCam() {
+        return pixyLineCam;
     }
 
     public DriverFeedback getDriverFeedback() {
