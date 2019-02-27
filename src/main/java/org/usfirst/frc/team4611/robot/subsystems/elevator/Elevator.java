@@ -69,8 +69,7 @@ public class Elevator extends Subsystem {
 
     public void stop() {
         if (!mmMode) {
-            currentOutput = 0;
-            leftTalon.set(ControlMode.PercentOutput, currentOutput);
+            leftTalon.set(ControlMode.PercentOutput, 0.0);
         }
     }
 
@@ -214,9 +213,8 @@ public class Elevator extends Subsystem {
         return stop;
     }
 
-    private double currentOutput;
     public void movePercOutput(boolean moveUp) {
-        double output = currentOutput;
+        double output;
         if(moveUp) {
             output = percOutputUp;
         } else {
@@ -247,7 +245,7 @@ public class Elevator extends Subsystem {
         }
         if(lowerSoftLimitToggle) {
             if(output <= 0) {
-                output = (currentOutput/2)*.7;
+                output = (output/2)*.7;
                 if(logging)
                     logger.info("Soft Limit Bottom");
             }
