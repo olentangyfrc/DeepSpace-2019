@@ -130,8 +130,8 @@ public class PixyLineCam extends Subsystem{
             middle = true;
         }
         leftStatus.setBoolean(left);
-        rightStatus.setBoolean(right);
         middleStatus.setBoolean(middle);
+        rightStatus.setBoolean(right);
 
     }
 
