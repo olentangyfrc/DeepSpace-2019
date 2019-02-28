@@ -36,6 +36,8 @@ public class MoveElevatorToLevel extends Command {
             stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_6);
         } else if(lvl == Elevator.HappyPosition.LEVEL_7) {
             stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_7);
+        } else if(lvl == Elevator.HappyPosition.BOTTOM) {
+            stop = elevator.moveToLevel(Elevator.HappyPosition.BOTTOM);
         } else {
             stop = true;
         }

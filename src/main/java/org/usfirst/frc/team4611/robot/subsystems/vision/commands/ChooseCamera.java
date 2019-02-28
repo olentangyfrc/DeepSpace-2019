@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4611.robot.subsystems.vision.commands;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ChooseCamera extends Command {
 public static  enum Camera {LEFT, CENTER, RIGHT};
+  private static Logger logger = Logger.getLogger(ChooseCamera.class.getName());
 
   private String camera;
 
@@ -35,6 +38,7 @@ public static  enum Camera {LEFT, CENTER, RIGHT};
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    logger.info("try to select camera [" + camera + "]");
     NetTableManager.updateValue("Vision", "selected_camera", camera);
   }
 

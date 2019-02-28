@@ -18,7 +18,7 @@ public class LineTracker extends Subsystem
     static private ShuffleboardTab tab = Shuffleboard.getTab("Navigation");
 
     private boolean inited = false;
-    private int leftThreshhold  = 3860;
+    private int leftThreshhold  = 3390;
     private int rightThreshhold  = 3860;
 
     private AnalogInput lineTrackerLeft;

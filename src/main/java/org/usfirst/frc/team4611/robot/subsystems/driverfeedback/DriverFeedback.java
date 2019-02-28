@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4611.robot.subsystems.driverfeedback;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
@@ -36,6 +38,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  * with various subsystems' data to present in aggregate.
  */
 public class DriverFeedback extends Subsystem {
+  private static Logger logger = Logger.getLogger(DriverFeedback.class.getName());
 
     private Petal petal; 
     private Navigation nav;
@@ -104,10 +107,6 @@ public class DriverFeedback extends Subsystem {
     rightSideSquare     = tab.add("Right Side\nSquare", false)
                               .withSize(1,1).withPosition(7,2).getEntry();
 
-    // Vision Entries
-    VideoSource[] sources = VideoSource.enumerateSources();
-    if (sources.length > 0)
-      videoEntry = tab.add(sources[0]).withSize(4,3).withPosition(3,1);
   }
 
   public void updateDriverFeedback() {

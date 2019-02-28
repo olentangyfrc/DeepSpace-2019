@@ -161,7 +161,6 @@ public class OI {
      */
     public void bind(Command c, int button, int action) throws OzoneException {
         Joystick    j;
-        logger.info("Binding command to " + button + " with action " + action);
         // see constants in this file LeftJoyButton1  = 1;
         // see constants in this file RightJoyButton1  = 11;
         // Joystick button values 1-10 are for left joystick
@@ -198,7 +197,8 @@ public class OI {
             throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }
 
-        tab.add("joy[" + j + "] b[" + button + "]", c.getClass().getName());
+		String []parts	= c.getClass().getName().split("\\.");
+        logger.info("binding [" + parts[parts.length-1] + "] to joy[" + j + "] b[" + button + "]");
 
         Button  b = new JoystickButton(j, button);
         
