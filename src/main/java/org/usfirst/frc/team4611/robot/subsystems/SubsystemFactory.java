@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
@@ -158,12 +159,12 @@ public class SubsystemFactory {
         vision  = new Vision();
         vision.init();
 
-        /*
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
          //camera1.setExposureManual(70); 
 
+        /*
          camera2 = CameraServer.getInstance().startAutomaticCapture();	
          camera2.setResolution(320, 240);
          camera2.setFPS(20);
