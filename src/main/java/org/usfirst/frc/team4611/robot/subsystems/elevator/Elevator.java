@@ -32,15 +32,7 @@ public class Elevator extends Subsystem {
 
     private Potentiometer   pot;
 
-    private double  percOutputUp    = 0.75;
-    private double  percOutputDown  = 0.1;
-    private double  potTop      = 0.98;
-    private double  potBot      = .06;
-    private int     maxEncoder  = 21470;
 
-    private boolean upperSoftLimitToggle = false;
-    private boolean lowerSoftLimitToggle = false;
-    private boolean lowerHardLimit = false;
 
     private boolean mmMode  = false; // Motion Magic mode by default
     public Elevator(){
@@ -50,6 +42,8 @@ public class Elevator extends Subsystem {
         mmMode = on;
     }
 
+    private double  potTop      = 0.98;
+    private double  potBot      = .06;
     public void init(PortMan pm) throws Exception {
         initSB();
 
@@ -61,7 +55,7 @@ public class Elevator extends Subsystem {
         softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital12_label, "Elevator.softLimitBottom"));
         hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital13_label, "Elevator.hardLimitBottom"));
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog4_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
         initTalonsForMotionMagic();
@@ -73,11 +67,9 @@ public class Elevator extends Subsystem {
         }
     }
 
-    private int     stepUp        = 2000;
-    private int     stepDown      = 500;
-
     public void move(boolean moveUp) {
         if (mmMode) {
+            controlMMDown = false;
             moveMM(moveUp);
         } else {
             movePercOutput(moveUp);
@@ -85,11 +77,15 @@ public class Elevator extends Subsystem {
         updateValues();
     }
 
+    private int     maxEncoder    = 21470;
+    private int     stepUp        = 1500;
+    private int     stepDown      = 500;
+
     private void moveMM(boolean moveUp) {
         int step;
         int target;
 
-        lowerHardLimit = false;
+        boolean lowerHardLimit = false;
 
         if(moveUp) {
             step = stepUp;
@@ -138,7 +134,7 @@ public class Elevator extends Subsystem {
             }
         }
 
-        target =leftTalon.getSelectedSensorPosition() + step;
+        target = leftTalon.getSelectedSensorPosition() + step;
         if (target > maxEncoder)
             target = maxEncoder - 100;
 
@@ -159,11 +155,15 @@ public class Elevator extends Subsystem {
     private double positionTolerance    = 100;
 
     public boolean moveToLevel (HappyPosition level) {
+        boolean done;
         if (mmMode) {
-            return moveToMMPos(level);
+            controlMMDown = false;
+            done =  moveToMMPos(level);
         } else {
-            return moveToPotPos(level);
+            done =  moveToPotPos(level);
         }
+        updateValues();
+        return done;
     }
 
     private boolean moveToMMPos(HappyPosition level) {
@@ -213,8 +213,14 @@ public class Elevator extends Subsystem {
         return stop;
     }
 
+    private double  percOutputUp    = 0.75;
+    private double  percOutputDown  = 0.1;
+
     public void movePercOutput(boolean moveUp) {
+        boolean upperSoftLimitToggle = false;
+        boolean lowerSoftLimitToggle = false;
         double output;
+
         if(moveUp) {
             output = percOutputUp;
         } else {
@@ -245,7 +251,7 @@ public class Elevator extends Subsystem {
         }
         if(lowerSoftLimitToggle) {
             if(output <= 0) {
-                output = (output/2)*.7;
+                output = (output/2);
                 if(logging)
                     logger.info("Soft Limit Bottom");
             }
@@ -258,7 +264,6 @@ public class Elevator extends Subsystem {
         }
 
         leftTalon.set(ControlMode.PercentOutput, output);
-        logger.info("raw [" + pot.getRawValue() + "] val [" + pot.getValue() + "]");
     }
 
     public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
@@ -305,7 +310,6 @@ public class Elevator extends Subsystem {
         
         boolean stop = false;
 
-        logger.info("target [" + finalTarget + "] raw [" + pot.getRawValue() + "] val [" + pot.getValue() + "]");
         if(finalTarget - pot.getValue() < -.03) {
             this.move(false);
         }
@@ -360,8 +364,8 @@ public class Elevator extends Subsystem {
         leftTalon.configFactoryDefault();
         rightTalon.configFactoryDefault();
 
-        rightTalon.configPeakCurrentLimit(30);
-        leftTalon.configPeakCurrentLimit(30);
+        rightTalon.configPeakCurrentLimit(40);
+        leftTalon.configPeakCurrentLimit(40);
 
         leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -471,11 +475,26 @@ public class Elevator extends Subsystem {
         pidPEntry = tab.add("pid P", pidP).withSize(1, 1).withPosition(1, 2).getEntry();
         accelEntry = tab.add("Acceleration", acceleration).withSize(1, 1).withPosition(2, 2).getEntry();
         cruiseEntry = tab.add("Cruise", cruiseSpeed).withSize(1, 1).withPosition(3, 2).getEntry();
+
+        MMLevel1Entry = tab.add("MM 1", mmLevel1Target).withSize(1, 1).withPosition(0, 3).getEntry();
+        MMLevel2Entry = tab.add("MM 2", mmLevel2Target).withSize(1, 1).withPosition(1, 3).getEntry();
+        MMLevel3Entry = tab.add("MM 3", mmLevel3Target).withSize(1, 1).withPosition(2, 3).getEntry();
+        MMLevel4Entry = tab.add("MM 4", mmLevel4Target).withSize(1, 1).withPosition(3, 3).getEntry();
+        MMLevel5Entry = tab.add("MM 5", mmLevel5Target).withSize(1, 1).withPosition(4, 3).getEntry();
+        MMLevel6Entry = tab.add("MM 6", mmLevel6Target).withSize(1, 1).withPosition(5, 3).getEntry();
+        MMLevel7Entry = tab.add("MM 7", mmLevel7Target).withSize(1, 1).withPosition(6, 3).getEntry();
+
+        PotLevel1Entry = tab.add("Pot 1", potLevel1Target).withSize(1, 1).withPosition(0, 4).getEntry();
+        PotLevel2Entry = tab.add("Pot 2", potLevel2Target).withSize(1, 1).withPosition(1, 4).getEntry();
+        PotLevel3Entry = tab.add("Pot 3", potLevel3Target).withSize(1, 1).withPosition(2, 4).getEntry();
+        PotLevel4Entry = tab.add("Pot 4", potLevel4Target).withSize(1, 1).withPosition(3, 4).getEntry();
+        PotLevel5Entry = tab.add("Pot 5", potLevel5Target).withSize(1, 1).withPosition(4, 4).getEntry();
+        PotLevel6Entry = tab.add("Pot 6", potLevel6Target).withSize(1, 1).withPosition(5, 4).getEntry();
+        PotLevel7Entry = tab.add("Pot 7", potLevel7Target).withSize(1, 1).withPosition(6, 4).getEntry();
     }
 
     public void updateValues() {
         // read new values
-        /*
         potLevel1Target = PotLevel1Entry.getDouble(potLevel1Target);
         potLevel2Target = PotLevel2Entry.getDouble(potLevel2Target);
         potLevel3Target = PotLevel3Entry.getDouble(potLevel3Target);
@@ -491,7 +510,6 @@ public class Elevator extends Subsystem {
         mmLevel5Target = MMLevel5Entry.getDouble(mmLevel5Target);
         mmLevel6Target = MMLevel6Entry.getDouble(mmLevel6Target);
         mmLevel7Target = MMLevel7Entry.getDouble(mmLevel7Target);
-        */
 
         stepUp = (int)stepUpEntry.getDouble(stepUp);
         stepDown = (int)stepDownEntry.getDouble(stepDown);
@@ -523,20 +541,26 @@ public class Elevator extends Subsystem {
         /** quick dirty hack so motion magic doesn't smoke motors */
         /** this needs to be smarter */
         if (mmMode) {
-            if (encoderCheckCount == 0) {
-                lastEncoderPosition = leftTalon.getSelectedSensorPosition();
-            } else if (encoderCheckCount > 100) {
+            if (!controlMMDown && encoderCheckCount == 0 && leftTalon.getSelectedSensorPosition() > 10) {
+                encoderCheckCount += 1;
+            } else if (encoderCheckCount > 500) {
                 if (Math.abs(lastEncoderPosition - leftTalon.getSelectedSensorPosition()) < 10) {
                     leftTalon.set(ControlMode.Velocity, 0.0);
                     encoderCheckCount = 0;
+                    controlMMDown = true;
                 }
             } else {
                 encoderCheckCount += 1;
+            }
+            lastEncoderPosition = leftTalon.getSelectedSensorPosition();
+            if (lastEncoderPosition < 5) {
+                controlMMDown = false;
             }
         }
     }
     private double lastEncoderPosition = 0;
     private int encoderCheckCount = 0;
+    private boolean controlMMDown = false;
 
     public boolean isLogging(){
         return logging;

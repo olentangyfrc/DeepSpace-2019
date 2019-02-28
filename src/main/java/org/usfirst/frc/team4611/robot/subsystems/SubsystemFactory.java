@@ -158,6 +158,7 @@ public class SubsystemFactory {
         vision  = new Vision();
         vision.init();
 
+        /*
          camera1 = CameraServer.getInstance().startAutomaticCapture();	
          camera1.setResolution(320, 240);
          camera1.setFPS(20);
@@ -167,6 +168,7 @@ public class SubsystemFactory {
          camera2.setResolution(320, 240);
          camera2.setFPS(20);
          //camera2.setExposureManual(70);
+         */
         }
 
     /**
@@ -224,6 +226,8 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton9, OI.WhenPressed);
 
         oi.bind(new ChooseCamera(ChooseCamera.Camera.LEFT), OI.AuxJoyButton7, OI.WhenPressed);
         oi.bind(new ChooseCamera(ChooseCamera.Camera.CENTER), OI.AuxJoyButton8, OI.WhenPressed);
@@ -346,6 +350,8 @@ public class SubsystemFactory {
         nav.initSB();
         lineTracker = new LineTracker();
         lineTracker.initSB();
+        elevator = new Elevator();
+        elevator.initSB();
         //nav.init(portMan);
         //elevator = new Elevator();
         //elevator.initSB();
