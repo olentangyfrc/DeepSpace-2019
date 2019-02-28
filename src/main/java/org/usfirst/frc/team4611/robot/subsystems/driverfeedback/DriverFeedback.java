@@ -26,7 +26,9 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
+import edu.wpi.cscore.HttpCamera;
 import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
@@ -107,6 +109,10 @@ public class DriverFeedback extends Subsystem {
     rightSideSquare     = tab.add("Right Side\nSquare", false)
                               .withSize(1,1).withPosition(7,2).getEntry();
 
+    // Vision Entries
+      HttpCamera httpCamera = new HttpCamera("rPi Vision", "http://frcvision.local:1181/stream.mjpg");
+      CameraServer.getInstance().addCamera(httpCamera);
+      videoEntry = tab.add(httpCamera).withSize(4,3).withPosition(3,1);
   }
 
   public void updateDriverFeedback() {
