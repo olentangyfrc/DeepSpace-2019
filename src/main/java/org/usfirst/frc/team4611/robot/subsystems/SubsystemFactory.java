@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
@@ -47,7 +46,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToLevel;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
@@ -99,7 +97,6 @@ public class SubsystemFactory {
     private SingleStick sstick;
   
     private UsbCamera camera1;
-    private UsbCamera camera2;
   
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern

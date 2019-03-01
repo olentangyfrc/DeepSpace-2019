@@ -1,12 +1,9 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
-import java.util.HashMap;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team4611.robot.OI;
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
@@ -14,7 +11,6 @@ import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrai
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class TurboTankDrive extends DriveTrain {
 
@@ -33,14 +29,6 @@ public class TurboTankDrive extends DriveTrain {
 
     private double YValScaler1 = 1;
     private double YValScaler2 = 1;
-
-    private int velocityInvert1 = 1;
-    private int velocityInvert2 = -1;
-
-    private String tankSubtable = "Tank";
-
-    private String velocity1ID = "Velocity1";
-    private String velocity2ID = "Velocity2";
 
     private NetworkTableEntry leftSideEntry;
     private NetworkTableEntry rightSideEntry;

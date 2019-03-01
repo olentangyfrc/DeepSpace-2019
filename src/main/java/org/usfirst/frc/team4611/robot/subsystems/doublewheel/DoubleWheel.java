@@ -29,8 +29,6 @@ public class DoubleWheel extends Subsystem {
 
     private boolean logging = false;
     private int wheelVelocity = 1600;
-    private int indiWheelDefaultVelocity = 1600;
-    private int adjusterVelocity = 1600;
 
     public void init(PortMan pm) throws Exception {
 

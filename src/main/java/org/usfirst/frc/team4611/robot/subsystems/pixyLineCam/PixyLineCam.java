@@ -33,7 +33,7 @@ public class PixyLineCam extends Subsystem{
     private NetworkTableEntry middleStatus;
     private NetworkTableEntry rightStatus;
     
-    public void PixyLineCam() {
+    public PixyLineCam() {
     }
 
     public void resetPixyLine() {

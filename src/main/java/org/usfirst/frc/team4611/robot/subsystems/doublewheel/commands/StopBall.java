@@ -11,7 +11,6 @@ public class StopBall extends Command {
 
     private static Logger logger = Logger.getLogger(StopBall.class.getName());
     private DoubleWheel doubleWheel;
-    private int intakeVelocity = 480;
 
     public StopBall() {
         doubleWheel = SubsystemFactory.getInstance().getDoubleWheel();

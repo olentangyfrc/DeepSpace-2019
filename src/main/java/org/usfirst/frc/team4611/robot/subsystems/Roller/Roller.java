@@ -22,7 +22,6 @@ public class Roller extends Subsystem {
 
     private NetworkTableEntry isLogging;
     private NetworkTableEntry rollerVelocity;
-    private NetworkTableEntry motorSpeed;
     private NetworkTableEntry slowVelocity;
 
     private boolean logging = false;

@@ -26,14 +26,6 @@ public class SparkTurboTankDrive extends SparkDriveTrain {
     private double YValScaler1 = 1;
     private double YValScaler2 = 1;
 
-    private int velocityInvert1 = 1;
-    private int velocityInvert2 = -1;
-
-    private String tankSubtable = "Tank";
-
-    private String velocity1ID = "Velocity1";
-    private String velocity2ID = "Velocity2";
-
     private NetworkTableEntry leftSideEntry;
     private NetworkTableEntry rightSideEntry;
 

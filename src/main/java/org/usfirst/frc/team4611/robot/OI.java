@@ -3,14 +3,12 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
@@ -188,22 +186,24 @@ public class OI {
         switch (action) {
             case OI.WhenPressed:
                 b.whenPressed(c);
-                return;
+                break;
             case OI.WhenReleased:
                 b.whenReleased(c);
-                return;
+                break;
             case OI.WhileHeld:
                 b.whileHeld(c);
-                return;
+                break;
             case ToggleWhenPressed:
                 b.toggleWhenPressed(c);
-                return;
+                break;
             case OI.CancelWhenPressed:
                 b.cancelWhenPressed(c);
-                return;
+                break;
             default:
+                b.close();
                 throw new OzoneException ("Unrecognized Button Action [" + action + "]");
         }
+        b.close();
     }
 
     /**

@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
-import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,7 +13,6 @@ public class IntakeBackward extends Command {
 
 
     private Intake intake;
-    private int intakeVelocity = 480;
     private boolean stop = false;
 
     public IntakeBackward() {

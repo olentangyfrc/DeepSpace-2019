@@ -18,7 +18,6 @@ public class Potentiometer extends AbsoluteEncoder{
 
 	@Override
 	public double getValue() {
-		// TODO Auto-generated method stub
 		if(pot.get() < .001) {
 			return 0;
 		}
@@ -38,8 +37,6 @@ public class Potentiometer extends AbsoluteEncoder{
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

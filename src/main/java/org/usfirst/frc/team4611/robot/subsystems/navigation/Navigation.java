@@ -2,7 +2,6 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.commands.NavigationDefault;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LidarPWM;
@@ -23,7 +22,6 @@ public class Navigation extends Subsystem {
     private double leftFrontLidarOffset = 0; private double leftRearLidarOffset = 0;
 
     private LidarPWM rightFrontLidar, rightRearLidar;
-    private LidarPWM lidar4, lidar5, lidar6, lidar7, lidar8, lidar9;
 
     private double rightFrontLidarDistance, rightRearLidarDistance;
     private double rightFrontLidarOffset = 0; private double rightRearLidarOffset = 0;
@@ -74,7 +72,6 @@ public class Navigation extends Subsystem {
     public void checkValues() {
 
         if (!inited) return;
-
 
         leftFrontLidarDistance = leftFrontLidar.getDistance();
         leftRearLidarDistance = leftRearLidar.getDistance();
