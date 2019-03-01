@@ -136,23 +136,6 @@ public class OI {
         return getFilteredValue(xbox.getY(Hand.kRight));
     }
 
-
-
-    public void rumbleJoystick(int j) {
-
-        System.out.print("Trying to rumble");
-        switch (j) {
-            case 0:
-                leftJoy.setRumble(RumbleType.kLeftRumble , 0.5);
-                break;
-            case 1:
-                rightJoy.setRumble(RumbleType.kRightRumble, 0.5 );
-                break;
-            default:
-                logger.severe("Invalid Joystick id [" + j + "]");
-        }
-    }
-
     /**
      * this method binds a Command to a Joystick button for an action
      * @param c - the Command

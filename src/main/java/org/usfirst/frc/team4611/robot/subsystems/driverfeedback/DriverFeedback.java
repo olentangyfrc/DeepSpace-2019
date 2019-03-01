@@ -85,13 +85,13 @@ public class DriverFeedback extends Subsystem {
     Shuffleboard.selectTab("DriverFeedback");
 
     // Elevator Entries
-    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,0).getEntry();
-    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,1).getEntry();
-    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,2).getEntry();
+    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,6).getEntry();
+    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,5).getEntry();
+    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,4).getEntry();
     elevatorPos4    = tab.add("Elevator 4", false).withSize(1,1).withPosition(0,3).getEntry();
-    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,4).getEntry();
-    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,5).getEntry();
-    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,6).getEntry();
+    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,2).getEntry();
+    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,1).getEntry();
+    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,0).getEntry();
 
     frontSquare     = tab.add("Front\nSquare", false)
                               .withSize(1,1).withPosition(4,0).getEntry();
