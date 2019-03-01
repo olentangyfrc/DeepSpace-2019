@@ -26,27 +26,19 @@ public class Spatula extends Subsystem {
     public void init(PortMan pm) throws Exception {
         logger.info("initializing");
         grabber = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Spatula.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "TriangleHatch.outDoubleSolenoid"));
-
         tab = Shuffleboard.getTab("Spatula");
-        NetTableManager.updateValue("Health Map", "Petal Initialize", true);
-
         spatulaStatus = tab.add("Spatula Engaged", false).getEntry();
-
-
     } 
 
     public void openSpatula() {
         grabber.set(DoubleSolenoid.Value.kForward);
-
         spatulaStatus.setBoolean(true);
-        
     }
 
     public void closeSpatula() {
         grabber.set(DoubleSolenoid.Value.kReverse);
 
         spatulaStatus.setBoolean(false);
-        
     }
 
 	public void setOff(){

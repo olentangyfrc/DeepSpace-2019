@@ -29,8 +29,6 @@ public class DoubleWheel extends Subsystem {
 
     private boolean logging = false;
     private int wheelVelocity = 1600;
-    private int indiWheelDefaultVelocity = 1600;
-    private int adjusterVelocity = 1600;
 
     public void init(PortMan pm) throws Exception {
 
@@ -46,8 +44,6 @@ public class DoubleWheel extends Subsystem {
     
         wheelIntakeRight.follow(wheelIntakeLeft);
         wheelIntakeRight.setInverted(false);
-
-		NetTableManager.updateValue("Health Map", "Double Wheel Initialize", true);
         isLogging = tab.add("Double Wheel Logging", false).getEntry();
         doubleWheelLeftVelocity = tab.add("Double Wheel Left Engaged", -1).getEntry();
         doubleWheelRightVelocity = tab.add("Double Wheel Right Engaged", -1).getEntry();

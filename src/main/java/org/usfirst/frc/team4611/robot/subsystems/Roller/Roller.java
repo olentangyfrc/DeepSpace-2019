@@ -22,7 +22,6 @@ public class Roller extends Subsystem {
 
     private NetworkTableEntry isLogging;
     private NetworkTableEntry rollerVelocity;
-    private NetworkTableEntry motorSpeed;
     private NetworkTableEntry slowVelocity;
 
     private boolean logging = false;
@@ -36,8 +35,6 @@ public class Roller extends Subsystem {
         logger.entering(Roller.class.getName(), "init()");
         
         roller = new WPI_TalonSRX(pm.acquirePort(PortMan.can_20_label, "Roller.talon"));
-
-        NetTableManager.updateValue("Health Map", "Roller Initialize", true);
         isLogging = tab.add("Roller Logging", false).getEntry();
         rollerVelocity = tab.add("Roller Velocity", rollerPercent).getEntry();
         slowVelocity = tab.add("Slow Roller Percent", slowPercent).getEntry();

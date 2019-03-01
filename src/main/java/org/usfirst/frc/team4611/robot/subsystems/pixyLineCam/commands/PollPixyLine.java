@@ -6,16 +6,12 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import io.github.pseudoresonance.pixy2api.Pixy2Line;
 import io.github.pseudoresonance.pixy2api.Pixy2Line.Vector;
 
 public class PollPixyLine extends Command{
 
-    private double lastUpdateTime = 0;
-    private int noChangeCount = 0;
     private PixyLineCam  pixyLineCam;
     private Pixy2Line line;
     private Logger logger = Logger.getLogger(PollPixyLine.class.getName());

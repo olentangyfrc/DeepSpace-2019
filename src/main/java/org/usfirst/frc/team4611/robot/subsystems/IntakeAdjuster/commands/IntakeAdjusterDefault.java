@@ -5,50 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team4611.robot.subsystems.vision.commands;
+package org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands;
 
-import java.util.logging.Logger;
-
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
+import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
+import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
+import org.usfirst.frc.team4611.robot.subsystems.driverfeedback.DriverFeedback;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+public class IntakeAdjusterDefault extends Command {
 
-public class ChooseCamera extends Command {
-public static  enum Camera {LEFT, RIGHT, LOWFRONT, HIGHFRONT};
-  private static Logger logger = Logger.getLogger(ChooseCamera.class.getName());
+  IntakeAdjuster ia;
 
-  private String camera;
-  private Camera c;
-  private static int cycleCount = -1;
-
-  public ChooseCamera() {
+  public IntakeAdjusterDefault() {
+    ia = SubsystemFactory.getInstance().getIntakeAdjuster();
+    requires(ia);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (cycleCount == 3) {
-      cycleCount = 0;
-    } else {
-      cycleCount += 1;
-    }
-    if (cycleCount == 0) {
-      camera = "usb 1";
-    } else if (cycleCount == 1) {
-      camera = "usb 2";
-    } else if (cycleCount == 2) {
-      camera = "usb 3";
-    } else if (cycleCount == 3) {
-      camera = "usb 4";
-    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    logger.info("try to select camera [" + camera + "]");
-    NetTableManager.updateValue("Vision", "selected_camera", camera);
+    ia.updateValues();
   }
 
   // Make this return true when this Command no longer needs to run execute()

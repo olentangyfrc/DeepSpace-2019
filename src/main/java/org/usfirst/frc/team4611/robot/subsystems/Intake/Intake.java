@@ -47,8 +47,6 @@ public class Intake extends Subsystem {
         intake.configMotionCruiseVelocity(4096, 0);
         intake.configMotionAcceleration(4096,0);
 
-        NetTableManager.updateValue("Health Map", "Intake Initialized", true);
-
         isLogging = tab.add("Intake Logging", false).getEntry();
         
         motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();

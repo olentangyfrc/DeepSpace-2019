@@ -1,25 +1,21 @@
 
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
-import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import java.util.logging.Logger;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class SparkDriveTrain extends DriveTrain {
 
     public final Logger logger = Logger.getLogger(SparkDriveTrain.class.getName());
-    static protected ShuffleboardTab tab = Shuffleboard.getTab("SparkDriveTrain");
     protected boolean inited = false;
 
     public CANSparkMax frontLeft;
@@ -50,8 +46,6 @@ public abstract class SparkDriveTrain extends DriveTrain {
         backLeftEncoder = new CANEncoder(backLeft);
         backRightEncoder = new CANEncoder(backRight);
 
-        NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
-        
         setupTalons();
         inited = true;
     }

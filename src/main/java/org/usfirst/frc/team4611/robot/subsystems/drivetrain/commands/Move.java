@@ -6,14 +6,12 @@ import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Move extends Command {
 
 	private final Logger logger = Logger.getLogger(Move.class.getName());
 
 	private DriveTrain driveTrain;
-	private ShuffleboardTab tab;
 
 
 	public Move() {
@@ -35,13 +33,9 @@ public class Move extends Command {
 
 	@Override
 	public synchronized void cancel() {
-		/*if(driveTrain.isLogging())
-			logger.info("cancel");*/
 	}
 
 	@Override
 	protected void interrupted() {
-		/*if(driveTrain.isLogging())
-			logger.info("interrupted");*/
 	}
 }

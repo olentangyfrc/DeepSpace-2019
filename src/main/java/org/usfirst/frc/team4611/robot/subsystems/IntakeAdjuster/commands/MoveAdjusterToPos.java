@@ -13,27 +13,19 @@ public class MoveAdjusterToPos extends Command {
 
     private IntakeAdjuster intakeAdjuster;
     private boolean stop = false;
-    private int lvl;
+    private IntakeAdjuster.HappyPositions pos;
 
 
     //MUST SEND A NUMBER 1 OR 2
     //We use this to decide what level to move the intake adjuster to
-    public MoveAdjusterToPos(int level){
+    public MoveAdjusterToPos(IntakeAdjuster.HappyPositions p){
         intakeAdjuster = SubsystemFactory.getInstance().getIntakeAdjuster();
-        lvl = level;
+        pos = p;
         this.requires(intakeAdjuster);
     }
 
     protected void execute() {
-        if(lvl == 1) {
-            stop = intakeAdjuster.moveToPos1();
-        } 
-        else if(lvl == 2) {
-            stop = intakeAdjuster.moveToPos2();
-        }
-        else {
-            stop = true;
-        }
+        stop=intakeAdjuster.moveToPos(pos);
     }
 
     @Override

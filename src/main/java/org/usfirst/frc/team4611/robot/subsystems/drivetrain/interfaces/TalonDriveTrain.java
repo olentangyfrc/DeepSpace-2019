@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
-import org.usfirst.frc.team4611.robot.OzoneJavaLogger.LogTest;
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
@@ -30,7 +29,6 @@ public abstract class TalonDriveTrain extends DriveTrain {
         backRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_12_label, "DriveTrain.BackRight"));
 
         tab = Shuffleboard.getTab("SparkDriveTrain");
-        NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
         
         setupTalons();
     }

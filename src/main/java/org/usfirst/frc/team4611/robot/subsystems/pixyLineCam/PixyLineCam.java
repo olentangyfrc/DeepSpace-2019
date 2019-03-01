@@ -33,7 +33,7 @@ public class PixyLineCam extends Subsystem{
     private NetworkTableEntry middleStatus;
     private NetworkTableEntry rightStatus;
     
-    public void PixyLineCam() {
+    public PixyLineCam() {
     }
 
     public void resetPixyLine() {
@@ -60,8 +60,6 @@ public class PixyLineCam extends Subsystem{
         pixy.init(0);
         logger.info("Here comes the version! :) " + pixy.getVersionInfo().toString());
         line = pixy.getLine();
-
-        NetTableManager.updateValue("Health Map", "PixyLineInitialize", false);
 
         x0 = tab.add("Pixy x0", 0).getEntry();
         y0 = tab.add("Pixy y0", 0).getEntry();

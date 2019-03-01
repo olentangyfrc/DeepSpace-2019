@@ -24,7 +24,7 @@ public class Vision extends Subsystem{
     private NetworkTableEntry tapeFoundEntry;
     private NetworkTableEntry isSquareEntry;
 
-    public void Vision() {
+    public Vision() {
         
     }
 

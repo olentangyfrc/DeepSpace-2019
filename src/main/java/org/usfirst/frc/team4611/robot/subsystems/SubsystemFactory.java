@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
@@ -47,7 +46,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToLevel;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
@@ -60,7 +58,6 @@ import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SRetract;
 public class SubsystemFactory {
     private static SubsystemFactory    me;
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
-    private static ShuffleboardTab healthTab    = Shuffleboard.getTab("Health Map");
 
     private static String   botMacAddress;  // value of environment variable for MAC Address
     
@@ -99,7 +96,6 @@ public class SubsystemFactory {
     private SingleStick sstick;
   
     private UsbCamera camera1;
-    private UsbCamera camera2;
   
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -126,7 +122,6 @@ public class SubsystemFactory {
             oi.init();
 
             // subsystems common to every bot
-            initCommon();
             logger.info("["+botMacAddress+"]");
             if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
@@ -143,6 +138,8 @@ public class SubsystemFactory {
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
             } 
+
+            initCommon();
             // driverfeedback will create a shuffleboard tab that aggregates data from subsystems.
             driverFeedback = new DriverFeedback();
             driverFeedback.init();
@@ -183,6 +180,9 @@ public class SubsystemFactory {
 
         nav = new Navigation();
         nav.init(portMan);
+        
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
 
         lineTracker = new LineTracker();
         lineTracker.init(portMan);
@@ -195,9 +195,6 @@ public class SubsystemFactory {
 
         shooterIntake = new Intake();
         shooterIntake.init(portMan);
-
-        intakeAdjuster = new IntakeAdjuster();
-        intakeAdjuster.init(portMan);
 
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
@@ -230,9 +227,13 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton9, OI.WhenPressed);
 
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.LEFT), OI.AuxJoyButton7, OI.WhenPressed);
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.CENTER), OI.AuxJoyButton8, OI.WhenPressed);
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.RIGHT), OI.AuxJoyButton9, OI.WhenPressed);
+        //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), button1, OI.WhenPressed);
+        //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), button2, OI.WhenPressed);
+        //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), button3, OI.WhenPressed);
+        //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL4), button4, OI.WhenPressed);
+       
+        //oi.bind(new MoveElevator(true), OI.AuxJoyButton3, OI.WhileHeld);
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton3, OI.WhenPressed);
     }
     
     /**
@@ -281,8 +282,8 @@ public class SubsystemFactory {
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
-        oi.bind(new MoveAdjusterToPos(1), OI.RightJoyButton8, OI.WhenPressed);
-        oi.bind(new MoveAdjusterToPos(2), OI.RightJoyButton9, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.RightJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.RightJoyButton9, OI.WhenPressed);
 
         oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);

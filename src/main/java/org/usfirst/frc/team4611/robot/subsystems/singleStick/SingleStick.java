@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
-import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -24,13 +23,8 @@ public class SingleStick extends Subsystem {
     public SingleStick() {
     }
 
-    public void init(PortMan pm) {
-        try{
-           pusher = new Solenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoid"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-		NetTableManager.updateValue("Health Map", "SingleStickInitialize", true);
+    public void init(PortMan pm) throws Exception{
+        pusher = new Solenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoid"));
 
 		stickStatus = tab.add("SingleStick Engaged", false).getEntry();
     } 

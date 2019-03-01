@@ -3,12 +3,10 @@ package org.usfirst.frc.team4611.robot.subsystems.trianglehatch;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.commands.RetractHatch;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class TriangleHatch extends Subsystem {
@@ -47,6 +45,5 @@ public class TriangleHatch extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        //this.setDefaultCommand(new RetractHatch());
     }   
 }

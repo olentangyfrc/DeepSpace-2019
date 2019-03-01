@@ -39,9 +39,6 @@ public class Kicker extends Subsystem
 
         kicker.configMotionAcceleration(2000);
         kicker.configMotionCruiseVelocity(2000);
-
-        tab = Shuffleboard.getTab("Health Map");
-        NetTableManager.updateValue("Health Map", "Kicker Initiliaze", true);
         
         networkKickDistance = tab.add("Kicker Distance", kickDistance).getEntry();
     } 

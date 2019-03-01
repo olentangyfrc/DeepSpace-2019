@@ -32,8 +32,6 @@ public class SparkMecanum extends SparkDriveTrain {
 
     private Timer driveT;
 
-    private String mecanumSubtable = "Mecanum";
-
     private String velocity1ID = "Velocity1";
 	private String velocity2ID = "Velocity2";
 	private String velocity3ID = "Velocity3";
@@ -70,7 +68,6 @@ public class SparkMecanum extends SparkDriveTrain {
 		values.put(velocity2ID, velocity2);
 		values.put(velocity3ID, velocity3);
 		values.put(velocity4ID, velocity4);
-		NetTableManager.updateValues(mecanumSubtable, values);
     }
 
     @Override

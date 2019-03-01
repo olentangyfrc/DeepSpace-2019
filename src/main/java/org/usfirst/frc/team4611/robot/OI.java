@@ -3,14 +3,12 @@ package org.usfirst.frc.team4611.robot;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorDown;
 
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,7 +31,6 @@ public class OI {
     private XboxController xbox;  
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
-    private static ShuffleboardTab tab = Shuffleboard.getTab("OI");
     
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;
@@ -136,23 +133,6 @@ public class OI {
         return getFilteredValue(xbox.getY(Hand.kRight));
     }
 
-
-
-    public void rumbleJoystick(int j) {
-
-        System.out.print("Trying to rumble");
-        switch (j) {
-            case 0:
-                leftJoy.setRumble(RumbleType.kLeftRumble , 0.5);
-                break;
-            case 1:
-                rightJoy.setRumble(RumbleType.kRightRumble, 0.5 );
-                break;
-            default:
-                logger.severe("Invalid Joystick id [" + j + "]");
-        }
-    }
-
     /**
      * this method binds a Command to a Joystick button for an action
      * @param c - the Command
@@ -205,22 +185,24 @@ public class OI {
         switch (action) {
             case OI.WhenPressed:
                 b.whenPressed(c);
-                return;
+                break;
             case OI.WhenReleased:
                 b.whenReleased(c);
-                return;
+                break;
             case OI.WhileHeld:
                 b.whileHeld(c);
-                return;
+                break;
             case ToggleWhenPressed:
                 b.toggleWhenPressed(c);
-                return;
+                break;
             case OI.CancelWhenPressed:
                 b.cancelWhenPressed(c);
-                return;
+                break;
             default:
+                b.close();
                 throw new OzoneException ("Unrecognized Button Action [" + action + "]");
         }
+        b.close();
     }
 
     /**
