@@ -310,10 +310,10 @@ public class Elevator extends Subsystem {
         
         boolean stop = false;
 
-        if(finalTarget - pot.getValue() < -.03) {
+        if(finalTarget - pot.getPercentOutput() < -.03) {
             this.move(false);
         }
-        else if(finalTarget - pot.getValue() > .03) {
+        else if(finalTarget - pot.getPercentOutput() > .03) {
             this.move(true);
         }
         else{
@@ -357,7 +357,7 @@ public class Elevator extends Subsystem {
                 return false;
         }
 
-        return (Math.abs(finalTarget - pot.getValue()) < .05);
+        return (Math.abs(finalTarget - pot.getPercentOutput()) < .05);
     }
 
     private void initTalonCommon() {

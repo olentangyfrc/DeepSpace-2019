@@ -4,6 +4,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public abstract class AbsoluteEncoder extends Subsystem{
 
-	public abstract double getValue();
+	public abstract double getPercentOutput();
 
 }

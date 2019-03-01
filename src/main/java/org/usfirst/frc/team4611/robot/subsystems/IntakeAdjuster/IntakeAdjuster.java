@@ -14,7 +14,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer; 
 
 public class IntakeAdjuster extends Subsystem {
 
@@ -63,7 +62,7 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
 
         intakeAdjuster.set(ControlMode.Velocity, (int)(intakeSpeed*(adjusterVelocity.getDouble(power))));
-        currentAdjusterPosition.setDouble(pot.getValue());
+        currentAdjusterPosition.setDouble(pot.getPercentOutput());
         
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
     
@@ -74,7 +73,7 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
         intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power))));    
-        currentAdjusterPosition.setDouble(pot.getValue());    
+        currentAdjusterPosition.setDouble(pot.getPercentOutput());    
     
         logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
@@ -85,7 +84,7 @@ public class IntakeAdjuster extends Subsystem {
         logger.entering(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
 
         intakeAdjuster.set(ControlMode.Velocity, 0); 
-        currentAdjusterPosition.setDouble(pot.getValue()); 
+        currentAdjusterPosition.setDouble(pot.getPercentOutput()); 
 
         logger.exiting(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
 
@@ -96,10 +95,10 @@ public class IntakeAdjuster extends Subsystem {
         boolean stop = false;
 
 
-        if(finalTarget - pot.getValue() < -.01) {
+        if(finalTarget - pot.getPercentOutput() < -.01) {
             this.spinIntakeAdjusterBackward();
         }
-        else if(finalTarget - pot.getValue() > .01) {
+        else if(finalTarget - pot.getPercentOutput() > .01) {
             this.spinIntakeAdjusterForward();
         }
         else{
@@ -113,10 +112,10 @@ public class IntakeAdjuster extends Subsystem {
         
         boolean stop = false;
 
-        if(finalTarget - pot.getValue() < -.01) {
+        if(finalTarget - pot.getPercentOutput() < -.01) {
             this.spinIntakeAdjusterBackward();
         }
-        else if(finalTarget - pot.getValue() > .01) {
+        else if(finalTarget - pot.getPercentOutput() > .01) {
             this.spinIntakeAdjusterForward();
         }
         else{

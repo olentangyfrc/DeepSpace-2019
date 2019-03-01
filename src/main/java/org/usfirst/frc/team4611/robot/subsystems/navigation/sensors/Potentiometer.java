@@ -4,7 +4,7 @@ import org.usfirst.frc.team4611.robot.subsystems.baseclasses.AbsoluteEncoder;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
-public class Potentiometer extends AbsoluteEncoder{
+public class Potentiometer extends AbsoluteEncoder {
 	
 	AnalogPotentiometer pot;
 	double minimum;
@@ -17,7 +17,7 @@ public class Potentiometer extends AbsoluteEncoder{
 	}
 
 	@Override
-	public double getValue() {
+	public double getPercentOutput() {
 		if(pot.get() < .001) {
 			return 0;
 		}
