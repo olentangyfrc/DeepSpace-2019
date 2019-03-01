@@ -31,7 +31,6 @@ public class OI {
     private XboxController xbox;  
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
-    private static ShuffleboardTab tab = Shuffleboard.getTab("OI");
     
     private double  deadzone    = 0.15;
     private double  scaleFactor = 1.0;

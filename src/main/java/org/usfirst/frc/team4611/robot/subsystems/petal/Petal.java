@@ -27,10 +27,6 @@ public class Petal extends Subsystem {
 	public void init(PortMan pm) throws Exception {
 		logger.info("initializing");
 		petalSole = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Petal.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm1_label, "Petal.outDoubleSolenoid"));
-		
-		
-		tab = Shuffleboard.getTab("Health Map");
-		NetTableManager.updateValue("Health Map", "PetalInitialize", true);
 
 		petalStatus = tab.add("Petal Engaged", false).getEntry();
 		

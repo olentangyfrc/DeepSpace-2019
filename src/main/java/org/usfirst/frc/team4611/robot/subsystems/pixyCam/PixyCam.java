@@ -45,10 +45,6 @@ public class PixyCam extends Subsystem{
         pixy.init(0);
         logger.info("Here comes the version! :) " + pixy.getVersionInfo().toString());
         ccc = pixy.getCCC();
-
-        tab = Shuffleboard.getTab("Health Map");
-        NetTableManager.updateValue("Health Map", "PixyInitialize", true);
-
         
         signature = tab.add("Pixy Signature", 0).getEntry();
         x = tab.add("Pixy x Coordinate", 0).getEntry();

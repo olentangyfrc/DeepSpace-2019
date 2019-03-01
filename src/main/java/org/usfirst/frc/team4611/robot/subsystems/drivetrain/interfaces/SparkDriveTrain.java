@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public abstract class SparkDriveTrain extends DriveTrain {
 
     public final Logger logger = Logger.getLogger(SparkDriveTrain.class.getName());
-    static protected ShuffleboardTab tab = Shuffleboard.getTab("SparkDriveTrain");
     protected boolean inited = false;
 
     public CANSparkMax frontLeft;
@@ -47,8 +46,6 @@ public abstract class SparkDriveTrain extends DriveTrain {
         backLeftEncoder = new CANEncoder(backLeft);
         backRightEncoder = new CANEncoder(backRight);
 
-        NetTableManager.updateValue("Health Map", "Drive Train Initialize", true);
-        
         setupTalons();
         inited = true;
     }

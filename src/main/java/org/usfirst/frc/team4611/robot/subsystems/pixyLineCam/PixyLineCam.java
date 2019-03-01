@@ -61,8 +61,6 @@ public class PixyLineCam extends Subsystem{
         logger.info("Here comes the version! :) " + pixy.getVersionInfo().toString());
         line = pixy.getLine();
 
-        NetTableManager.updateValue("Health Map", "PixyLineInitialize", false);
-
         x0 = tab.add("Pixy x0", 0).getEntry();
         y0 = tab.add("Pixy y0", 0).getEntry();
         x1 = tab.add("Pixy x1", 0).getEntry();

@@ -9,6 +9,7 @@ package org.usfirst.frc.team4611.robot.subsystems.driverfeedback;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
@@ -61,6 +62,7 @@ public class DriverFeedback extends Subsystem {
     private NetworkTableEntry   leftSideSquare, rightSideSquare, frontSquare, frontCentered;
     private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
+    private NetworkTableEntry selectedCamera;
     private ComplexWidget       videoEntry;
 
   public void init() {
@@ -92,6 +94,8 @@ public class DriverFeedback extends Subsystem {
     elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,1).getEntry();
     elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,0).getEntry();
 
+    selectedCamera = tab.add("Selected Camera", "NONE").withSize(2, 1).withPosition(4, 4).getEntry();
+
     frontSquare     = tab.add("Front\nSquare", false)
                               .withSize(1,1).withPosition(4,0).getEntry();
 
@@ -114,7 +118,12 @@ public class DriverFeedback extends Subsystem {
       videoEntry = tab.add(httpCamera).withSize(4,3).withPosition(3,1);
   }
 
+  private String currentCamera = "NONE";
+
   public void updateDriverFeedback() {
+    
+    currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", new StringBuffer(currentCamera));
+    selectedCamera.setString(currentCamera);
 
     if (petal != null) {
 
