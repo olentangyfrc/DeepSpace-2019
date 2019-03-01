@@ -227,9 +227,8 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton9, OI.WhenPressed);
 
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.LEFT), OI.AuxJoyButton7, OI.WhenPressed);
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.CENTER), OI.AuxJoyButton8, OI.WhenPressed);
-        oi.bind(new ChooseCamera(ChooseCamera.Camera.RIGHT), OI.AuxJoyButton9, OI.WhenPressed);
+        //oi.bind(new MoveElevator(true), OI.AuxJoyButton3, OI.WhileHeld);
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton3, OI.WhenPressed);
     }
     
     /**

@@ -15,24 +15,35 @@ import edu.wpi.first.wpilibj.command.Command;
 
 
 public class ChooseCamera extends Command {
-public static  enum Camera {LEFT, CENTER, RIGHT};
+public static  enum Camera {LEFT, RIGHT, LOWFRONT, HIGHFRONT};
   private static Logger logger = Logger.getLogger(ChooseCamera.class.getName());
 
   private String camera;
+  private Camera c;
 
-  public ChooseCamera(Camera c) {
-    if (c == Camera.LEFT) {
+  public ChooseCamera() {
+    /*if (c == Camera.LEFT) {
       camera = "usb 1";
-    } else if (c == Camera.CENTER) {
+    } else if (c == Camera.HIGHFRONT) {
       camera = "usb 2";
     } else if (c == Camera.RIGHT) {
       camera = "usb 3";
-    }
+    }*/
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    int currentCamera = 0;
+    if(currentCamera == 0) {
+      c = Camera.LOWFRONT;
+    } else if(currentCamera == 1) {
+      c = Camera.HIGHFRONT;
+    } else if(currentCamera == 2) {
+      c = Camera.LEFT;
+    } else if(currentCamera == 3) {
+      c = Camera.RIGHT;
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
