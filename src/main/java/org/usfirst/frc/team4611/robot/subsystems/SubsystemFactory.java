@@ -155,19 +155,7 @@ public class SubsystemFactory {
     private void initCommon() {
         vision  = new Vision();
         vision.init();
-
-         camera1 = CameraServer.getInstance().startAutomaticCapture();	
-         camera1.setResolution(320, 240);
-         camera1.setFPS(20);
-         //camera1.setExposureManual(70); 
-
-        /*
-         camera2 = CameraServer.getInstance().startAutomaticCapture();	
-         camera2.setResolution(320, 240);
-         camera2.setFPS(20);
-         //camera2.setExposureManual(70);
-         */
-        }
+    }
 
     /**
      * init subsytems specific to Janky

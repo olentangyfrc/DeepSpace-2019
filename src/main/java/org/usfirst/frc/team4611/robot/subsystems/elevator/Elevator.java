@@ -32,9 +32,8 @@ public class Elevator extends Subsystem {
 
     private Potentiometer   pot;
 
+    private boolean mmMode  = true; // Motion Magic mode by default
 
-
-    private boolean mmMode  = false; // Motion Magic mode by default
     public Elevator(){
     }
 
@@ -77,83 +76,6 @@ public class Elevator extends Subsystem {
         updateValues();
     }
 
-    private int     maxEncoder    = 21470;
-    private int     stepUp        = 1500;
-    private int     stepDown      = 500;
-
-    private void moveMM(boolean moveUp) {
-        int step;
-        int target;
-
-        boolean lowerHardLimit = false;
-
-        if(moveUp) {
-            step = stepUp;
-        }
-        else {
-            step = -1 * stepDown;
-        } 
-
-        /*
-        if(!softLimitBottom.get()) {
-            lowerSoftLimitToggle = step < 0;
-            if(logging) logger.info("Soft Limit Bottom");
-        }
-
-        if(!softLimitTop.get()) {
-            upperSoftLimitToggle = step > 0;
-            if(logging) logger.info("Soft Limit Top");
-        }
-        */
-        
-        if(!hardLimitTop.get()) {
-            if(step >= 0) {
-                step = 0;
-                if(logging) logger.info("Hard Limit Top");
-            }
-        }
-        /*
-        if(upperSoftLimitToggle) {
-            if(step >= 0) {
-                step = step/2;//for non changed soft upward movement
-                if(logging) logger.info("Soft Limit Top");
-            }
-        }
-        if(lowerSoftLimitToggle) {
-            if(step <= 0) {
-                step = (int) (step/2);
-                if(logging) logger.info("Soft Limit Bottom");
-            }
-        }
-        */
-        if(!hardLimitBottom.get()) {
-            lowerHardLimit = true;
-            if(step <= 0) {
-                step = 0;
-                if(logging) logger.info("Hard Limit Bottom");
-            }
-        }
-
-        target = leftTalon.getSelectedSensorPosition() + step;
-        if (target > maxEncoder)
-            target = maxEncoder - 100;
-
-        if (step != 0) {
-            leftTalon.set(ControlMode.MotionMagic, target);
-        } else if (lowerHardLimit) {
-            leftTalon.set(ControlMode.Velocity, 0);
-        }
-    }
-
-    private double mmLevel1Target  =  10000;
-    private double mmLevel2Target  =  10000;
-    private double mmLevel3Target  =  14200;
-    private double mmLevel4Target  =  14623;
-    private double mmLevel5Target  =  17400;
-    private double mmLevel6Target  =  17600;
-    private double mmLevel7Target  =  17500;
-    private double positionTolerance    = 100;
-
     public boolean moveToLevel (HappyPosition level) {
         boolean done;
         if (mmMode) {
@@ -165,6 +87,45 @@ public class Elevator extends Subsystem {
         updateValues();
         return done;
     }
+
+    private int     maxEncoder    = 21470;
+    private int     stepUp        = 1500;
+    private int     stepDown      = -500;
+
+    private void moveMM(boolean moveUp) {
+        int step;
+        int target;
+
+        step = (moveUp ? stepUp : stepDown);
+
+        if(!hardLimitTop.get()) {
+            return;
+        }
+        if(!hardLimitBottom.get()) {
+            leftTalon.set(ControlMode.Velocity, 0);
+            return;
+        }
+
+        target = leftTalon.getSelectedSensorPosition() + step;
+
+        if (target > maxEncoder)
+            target = maxEncoder - 10;
+
+        if (target < 0)
+            target = 0;
+
+        leftTalon.set(ControlMode.MotionMagic, target);
+    }
+
+    private double mmLevel1Target  =  10000;
+    private double mmLevel2Target  =  10000;
+    private double mmLevel3Target  =  14200;
+    private double mmLevel4Target  =  14623;
+    private double mmLevel5Target  =  17400;
+    private double mmLevel6Target  =  17600;
+    private double mmLevel7Target  =  17500;
+    private double mmCargoGrabTarget  =  14200;
+    private double positionTolerance    = 100;
 
     private boolean moveToMMPos(HappyPosition level) {
         double finalTarget  = 0.0;
@@ -194,6 +155,8 @@ public class Elevator extends Subsystem {
             case LEVEL_7:
                 finalTarget = mmLevel7Target;
                 break;
+            case CARGO_GRAB:
+                finalTarget = mmCargoGrabTarget;
             default:
                 return false;
         }
@@ -221,52 +184,41 @@ public class Elevator extends Subsystem {
         boolean lowerSoftLimitToggle = false;
         double output;
 
-        if(moveUp) {
-            output = percOutputUp;
-        } else {
-            output = -1.0 * percOutputDown;
-        } 
+        output = (moveUp ? percOutputUp : (-1 * percOutputDown));
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = output < 0;
-            if(logging) logger.info("Soft Limit Bottom");
         }
 
         if(!softLimitTop.get()) {
             upperSoftLimitToggle = output > 0;
-            if(logging) logger.info("Soft Limit Top");
         }
         
         if(!hardLimitTop.get()) {
             if(output >= 0) {
                 output = 0;
-                if(logging) logger.info("Hard Limit Top");
             }
         }
         if(upperSoftLimitToggle) {
             if(output >= 0) {
-                output = output/2;//for non changed soft upward movement
-                if(logging) logger.info("Soft Limit Top");
+                output = output/2;
             }
         }
         if(lowerSoftLimitToggle) {
             if(output <= 0) {
                 output = (output/2);
-                if(logging)
-                    logger.info("Soft Limit Bottom");
             }
         }
         if(!hardLimitBottom.get()) {
             if(output <= 0) {
                 output = 0;
-                if(logging) logger.info("Hard Limit Bottom");
             }
         }
 
         leftTalon.set(ControlMode.PercentOutput, output);
     }
 
-    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7};
+    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, CARGO_GRAB};
 
     private double potLevel1Target  =  0.0539;
     private double potLevel2Target  =  0.0400;
@@ -275,6 +227,7 @@ public class Elevator extends Subsystem {
     private double potLevel5Target  =  0.9842;
     private double potLevel6Target  =  0.9689;
     private double potLevel7Target  =  0.7230;
+    private double potCargoGrabTarget   = 0.5335;
 
     public boolean moveToPotPos(HappyPosition level) {
         double finalTarget  = 0;
@@ -304,8 +257,9 @@ public class Elevator extends Subsystem {
             case LEVEL_7:
                 finalTarget = potLevel7Target;
                 break;
-            default:
-                return false;
+            case CARGO_GRAB:
+                finalTarget = potCargoGrabTarget;
+                break;
         }
         
         boolean stop = false;
@@ -315,8 +269,7 @@ public class Elevator extends Subsystem {
         }
         else if(finalTarget - pot.getPercentOutput() > .03) {
             this.move(true);
-        }
-        else{
+        } else {
             stop();
             /*
             if (level != HappyPosition.BOTTOM) {
@@ -352,6 +305,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = potLevel7Target;
+                break;
+            case CARGO_GRAB:
+                finalTarget = potCargoGrabTarget;
                 break;
             default:
                 return false;
@@ -438,6 +394,7 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry MMLevel5Entry;
     private NetworkTableEntry MMLevel6Entry;
     private NetworkTableEntry MMLevel7Entry;
+    private NetworkTableEntry MMCargoGrabEntry;
 
     private NetworkTableEntry PotLevel1Entry;
     private NetworkTableEntry PotLevel2Entry;
@@ -446,6 +403,7 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry PotLevel5Entry;
     private NetworkTableEntry PotLevel6Entry;
     private NetworkTableEntry PotLevel7Entry;
+    private NetworkTableEntry PotCargoGrabEntry;
 
     private NetworkTableEntry potPositionEntry;
     private NetworkTableEntry leftEncoderPositionEntry;
@@ -483,6 +441,7 @@ public class Elevator extends Subsystem {
         MMLevel5Entry = tab.add("MM 5", mmLevel5Target).withSize(1, 1).withPosition(4, 3).getEntry();
         MMLevel6Entry = tab.add("MM 6", mmLevel6Target).withSize(1, 1).withPosition(5, 3).getEntry();
         MMLevel7Entry = tab.add("MM 7", mmLevel7Target).withSize(1, 1).withPosition(6, 3).getEntry();
+        MMCargoGrabEntry = tab.add("MMCargoGrab", mmLevel7Target).withSize(1, 1).withPosition(7, 3).getEntry();
 
         PotLevel1Entry = tab.add("Pot 1", potLevel1Target).withSize(1, 1).withPosition(0, 4).getEntry();
         PotLevel2Entry = tab.add("Pot 2", potLevel2Target).withSize(1, 1).withPosition(1, 4).getEntry();
@@ -491,6 +450,7 @@ public class Elevator extends Subsystem {
         PotLevel5Entry = tab.add("Pot 5", potLevel5Target).withSize(1, 1).withPosition(4, 4).getEntry();
         PotLevel6Entry = tab.add("Pot 6", potLevel6Target).withSize(1, 1).withPosition(5, 4).getEntry();
         PotLevel7Entry = tab.add("Pot 7", potLevel7Target).withSize(1, 1).withPosition(6, 4).getEntry();
+        PotCargoGrabEntry = tab.add("PotCargoGrab", potLevel7Target).withSize(1, 1).withPosition(7, 4).getEntry();
     }
 
     public void updateValues() {
@@ -502,6 +462,7 @@ public class Elevator extends Subsystem {
         potLevel5Target = PotLevel5Entry.getDouble(potLevel5Target);
         potLevel6Target = PotLevel6Entry.getDouble(potLevel6Target);
         potLevel7Target = PotLevel7Entry.getDouble(potLevel7Target);
+        potCargoGrabTarget = PotLevel7Entry.getDouble(potCargoGrabTarget);
 
         mmLevel1Target = MMLevel1Entry.getDouble(mmLevel1Target);
         mmLevel2Target = MMLevel2Entry.getDouble(mmLevel2Target);
@@ -510,6 +471,7 @@ public class Elevator extends Subsystem {
         mmLevel5Target = MMLevel5Entry.getDouble(mmLevel5Target);
         mmLevel6Target = MMLevel6Entry.getDouble(mmLevel6Target);
         mmLevel7Target = MMLevel7Entry.getDouble(mmLevel7Target);
+        mmCargoGrabTarget = MMLevel7Entry.getDouble(mmCargoGrabTarget);
 
         stepUp = (int)stepUpEntry.getDouble(stepUp);
         stepDown = (int)stepDownEntry.getDouble(stepDown);
