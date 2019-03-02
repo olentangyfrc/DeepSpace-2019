@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class TalonMecanum extends DriveTrain {
 	private static Logger logger = Logger.getLogger(TalonMecanum.class.getName());
 
-	private int maxRPM = 280; // Reduced from 1200
+	private int maxRPM = 1200; // Reduced from 1200
 	public double pVal = .65;
 	public int interval = 10;
 
