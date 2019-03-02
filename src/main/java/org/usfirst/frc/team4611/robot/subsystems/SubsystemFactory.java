@@ -187,6 +187,9 @@ public class SubsystemFactory {
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
+        stick = new Stick();
+        stick.init(portMan);
+
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
@@ -203,8 +206,8 @@ public class SubsystemFactory {
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
 
-        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
-        oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevator(true), OI.button2, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.button5, OI.WhenPressed);
@@ -214,6 +217,9 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.BOTTOM), OI.RightJoyButton9, OI.WhenPressed);
+
+        oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
+        oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
 
         //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), button1, OI.WhenPressed);
         //oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), button2, OI.WhenPressed);

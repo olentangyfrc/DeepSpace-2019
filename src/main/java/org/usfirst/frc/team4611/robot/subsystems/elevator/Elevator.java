@@ -88,20 +88,38 @@ public class Elevator extends Subsystem {
         return done;
     }
 
-    private int     maxEncoder    = 21470;
+    private int     maxEncoder    = 22500;
     private int     stepUp        = 1500;
     private int     stepDown      = -500;
 
     private void moveMM(boolean moveUp) {
         int step;
         int target;
+        boolean lowerSoftLimitToggle = false;
+        boolean upperSoftLimitToggle = false;
 
         step = (moveUp ? stepUp : stepDown);
 
-        if(!hardLimitTop.get()) {
+        if(!softLimitBottom.get()) {
+            lowerSoftLimitToggle = step < 0;
+        }
+
+        if(!softLimitTop.get()) {
+            upperSoftLimitToggle = step > 0;
+        }
+        
+        if(lowerSoftLimitToggle && step <= 0) {
+            step = (step/2);
+        }
+
+        if(upperSoftLimitToggle && step >=0) {
+            step = (step/2);
+        }
+
+        if(!hardLimitTop.get() && step > 0) {
             return;
         }
-        if(!hardLimitBottom.get()) {
+        if(!hardLimitBottom.get() && step <= 0) {
             leftTalon.set(ControlMode.Velocity, 0);
             return;
         }
@@ -185,6 +203,7 @@ public class Elevator extends Subsystem {
         double output;
 
         output = (moveUp ? percOutputUp : (-1 * percOutputDown));
+        logger.info("moveUp [" + moveUp + "] % [" + output + "]");
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = output < 0;
@@ -194,25 +213,17 @@ public class Elevator extends Subsystem {
             upperSoftLimitToggle = output > 0;
         }
         
-        if(!hardLimitTop.get()) {
-            if(output >= 0) {
-                output = 0;
-            }
+        if(!hardLimitTop.get() && output >=0 ) {
+            output = 0;
         }
-        if(upperSoftLimitToggle) {
-            if(output >= 0) {
-                output = output/2;
-            }
+        if(upperSoftLimitToggle && output >= 0) {
+            output = output/2;
         }
-        if(lowerSoftLimitToggle) {
-            if(output <= 0) {
-                output = (output/2);
-            }
+        if(lowerSoftLimitToggle && output <= 0) {
+            output = (output/2);
         }
-        if(!hardLimitBottom.get()) {
-            if(output <= 0) {
-                output = 0;
-            }
+        if(!hardLimitBottom.get() && output <= 0) {
+            output = 0;
         }
 
         leftTalon.set(ControlMode.PercentOutput, output);
@@ -505,7 +516,7 @@ public class Elevator extends Subsystem {
         if (mmMode) {
             if (!controlMMDown && encoderCheckCount == 0 && leftTalon.getSelectedSensorPosition() > 10) {
                 encoderCheckCount += 1;
-            } else if (encoderCheckCount > 500) {
+            } else if (encoderCheckCount > 1000) {
                 if (Math.abs(lastEncoderPosition - leftTalon.getSelectedSensorPosition()) < 10) {
                     leftTalon.set(ControlMode.Velocity, 0.0);
                     encoderCheckCount = 0;

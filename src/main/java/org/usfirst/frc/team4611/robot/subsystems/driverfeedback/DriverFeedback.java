@@ -122,7 +122,7 @@ public class DriverFeedback extends Subsystem {
 
   public void updateDriverFeedback() {
     
-    currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", new StringBuffer(currentCamera));
+    currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", currentCamera);
     selectedCamera.setString(currentCamera);
 
     if (petal != null) {
