@@ -96,6 +96,17 @@ public class OI {
     public static final int button9 = 42; 
     public static final int button10 = 43; 
 
+    public static final int button11 = 44;
+    public static final int button12 = 45;
+    public static final int button13 = 46; 
+    public static final int button14 = 47; 
+    public static final int button15 = 48; 
+    public static final int button16 = 49; 
+    public static final int button17 = 50; 
+    public static final int button18 = 51;
+    public static final int button19 = 52; 
+    public static final int button20 = 53; 
+
     public static final int WhenPressed         = 1;
     public static final int WhenReleased        = 2;
     public static final int WhileHeld           = 3;
@@ -106,6 +117,7 @@ public class OI {
        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
        auxJoy = new Joystick(2);
+       buttons = new Joystick(3);
        buttons = new Joystick(4);
        xbox = new XboxController(3);
     }
@@ -173,7 +185,12 @@ public class OI {
         else if(button >= 34 && button <= 43){
             j = buttons;
             button -= 33;
-        } else {
+        } 
+        else if(button >= 44 && button <= 53){
+            j = buttons;
+            button -= 44;
+        }
+        else {
             throw new OzoneException ("Unrecognized joystick button [" + button + "]");
         }
 

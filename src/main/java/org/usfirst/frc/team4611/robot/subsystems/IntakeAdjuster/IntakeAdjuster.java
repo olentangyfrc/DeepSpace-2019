@@ -56,25 +56,24 @@ public class IntakeAdjuster extends Subsystem {
 
     public void spinIntakeAdjusterForward() {
 
-        if(pot.getRawValue() > maxPos) {
-            intakeAdjuster.set(ControlMode.Velocity, (int)(intakeSpeed*(adjusterVelocity.getDouble(power))));
+        if(pot.getRawValue() < maxPos) {
+            intakeAdjuster.set(ControlMode.PercentOutput, (adjusterVelocity.getDouble(power)));
         } else {
-            intakeAdjuster.set(ControlMode.Velocity, 0);
+            intakeAdjuster.set(ControlMode.PercentOutput, 0);
         }
     }
     
     public void spinIntakeAdjusterBackward() {
 
         if(pot.getRawValue() > minPos) {
-            intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power))));
+            intakeAdjuster.set(ControlMode.PercentOutput, -(adjusterVelocity.getDouble(power)));
         } else {
-            intakeAdjuster.set(ControlMode.Velocity, 0);
+            intakeAdjuster.set(ControlMode.PercentOutput, 0);
         }
     }
     
     public void stopIntakeAdjuster(){
-
-        intakeAdjuster.set(ControlMode.Velocity, 0); 
+        intakeAdjuster.set(ControlMode.PercentOutput, 0); 
         currentAdjusterPosition.setDouble(pot.getPercentOutput()); 
     }
 
@@ -130,7 +129,7 @@ public class IntakeAdjuster extends Subsystem {
 
         isLogging = tab.add("Intake Adjuster Logging", false).withPosition(5, 0).withSize(1, 1).getEntry();
 
-        adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
+        adjusterVelocity = tab.add("IntakeAdjuster PercentOutput", power).getEntry();
         currentAdjusterPosition = tab.add("Intake Adjuster Posittion", 1).getEntry();
         adjusterPosition1Entry = tab.add("Adjuster Position1", .5).withPosition(0, 1).withSize(1, 1).getEntry();
         adjusterPosition2Entry = tab.add("Adjuster Position2", .5).withPosition(0, 2).withSize(1, 1).getEntry();
@@ -151,7 +150,7 @@ public class IntakeAdjuster extends Subsystem {
         pos4 = adjusterPosition4Entry.getDouble(pos4);
 
         minPos = bottomHardStopEntry.getDouble(minPos);
-        maxPos = bottomHardStopEntry.getDouble(maxPos);
+        maxPos = topHardStopEntry.getDouble(maxPos);
 
         potRawEntry.setDouble(pot.getRawValue());
         potPercentEntry.setDouble(pot.getPercentOutput());
