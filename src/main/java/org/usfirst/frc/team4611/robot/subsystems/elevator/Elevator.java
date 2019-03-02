@@ -462,7 +462,7 @@ public class Elevator extends Subsystem {
         potLevel5Target = PotLevel5Entry.getDouble(potLevel5Target);
         potLevel6Target = PotLevel6Entry.getDouble(potLevel6Target);
         potLevel7Target = PotLevel7Entry.getDouble(potLevel7Target);
-        potCargoGrabTarget = PotLevel7Entry.getDouble(potCargoGrabTarget);
+        potCargoGrabTarget = PotCargoGrabEntry.getDouble(potCargoGrabTarget);
 
         mmLevel1Target = MMLevel1Entry.getDouble(mmLevel1Target);
         mmLevel2Target = MMLevel2Entry.getDouble(mmLevel2Target);
@@ -471,7 +471,7 @@ public class Elevator extends Subsystem {
         mmLevel5Target = MMLevel5Entry.getDouble(mmLevel5Target);
         mmLevel6Target = MMLevel6Entry.getDouble(mmLevel6Target);
         mmLevel7Target = MMLevel7Entry.getDouble(mmLevel7Target);
-        mmCargoGrabTarget = MMLevel7Entry.getDouble(mmCargoGrabTarget);
+        mmCargoGrabTarget = MMCargoGrabEntry.getDouble(mmCargoGrabTarget);
 
         stepUp = (int)stepUpEntry.getDouble(stepUp);
         stepDown = (int)stepDownEntry.getDouble(stepDown);
