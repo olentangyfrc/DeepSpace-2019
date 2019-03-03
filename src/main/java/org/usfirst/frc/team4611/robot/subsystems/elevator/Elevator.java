@@ -430,6 +430,10 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry accelEntry;
     private NetworkTableEntry pidPEntry;
     private NetworkTableEntry mmModeEntry;
+    private NetworkTableEntry leftTempEntry;
+    private NetworkTableEntry rightTempEntry;
+    private NetworkTableEntry leftCurrentEntry;
+    private NetworkTableEntry rightCurrentEntry;
 
     public void initSB () {
         isLoggingEntry = tab.add("Elevator Logging", logging).withSize(1,1).withPosition(0,0).getEntry();
@@ -465,6 +469,9 @@ public class Elevator extends Subsystem {
         PotLevel6Entry = tab.add("Pot 6", potLevel6Target).withSize(1, 1).withPosition(5, 4).getEntry();
         PotLevel7Entry = tab.add("Pot 7", potLevel7Target).withSize(1, 1).withPosition(6, 4).getEntry();
         PotCargoGrabEntry = tab.add("PotCargoGrab", potLevel7Target).withSize(1, 1).withPosition(7, 4).getEntry();
+
+        leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(5, 0).getEntry();
+        leftCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(8, 0).getEntry();
     }
 
     public void updateValues() {
@@ -504,6 +511,9 @@ public class Elevator extends Subsystem {
         stepDownEntry.setDouble(stepDown);
         percOutputUpEntry.setDouble(percOutputUp);
         percOutputDownEntry.setDouble(percOutputDown);
+
+        leftCurrentEntry.setDouble(leftTalon.getOutputCurrent());
+        rightCurrentEntry.setDouble(rightTalon.getOutputCurrent());
 
         if (resetMMValues) {
             acceleration    = (int) accelEntry.getDouble(acceleration);

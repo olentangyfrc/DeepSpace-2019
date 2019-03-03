@@ -26,9 +26,6 @@ public class Robot extends TimedRobot {
 
 			NetTableManager.startNetworkTables();
 			OzoneJavaLogger.getInstance().init(Level.FINE);
-		
-			// this is so pdp appears in LiveWindow 
-			PowerDistributionPanel pdp = new PowerDistributionPanel();
 
 			SubsystemFactory.getInstance().init();
 		} catch (Exception e) {

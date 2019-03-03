@@ -34,6 +34,7 @@ import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
 import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
+import org.usfirst.frc.team4611.robot.subsystems.systemstatus.SystemStatus;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.ChooseCamera;
@@ -94,6 +95,7 @@ public class SubsystemFactory {
     private PixyLineCam pixyLineCam;
     private DriverFeedback  driverFeedback;
     private SingleStick sstick;
+    private SystemStatus systemStatus;
   
     private UsbCamera camera1;
   
@@ -118,6 +120,14 @@ public class SubsystemFactory {
         }
 
         try {
+            // create SB tabs that we want to see first now
+            Shuffleboard.getTab("DriverFeedback");
+            Shuffleboard.getTab("SystemStatus");
+            Shuffleboard.getTab("Elevator");
+
+            systemStatus = new SystemStatus();
+            systemStatus.init();
+
             oi  = OI.getInstance();
             oi.init();
 
@@ -427,5 +437,8 @@ public class SubsystemFactory {
 
     public DriverFeedback getDriverFeedback() {
         return driverFeedback;
+    }
+    public SystemStatus getSystemStatus() {
+        return systemStatus;
     }
 }

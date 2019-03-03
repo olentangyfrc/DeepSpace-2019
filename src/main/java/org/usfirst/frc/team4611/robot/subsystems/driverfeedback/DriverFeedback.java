@@ -84,7 +84,6 @@ public class DriverFeedback extends Subsystem {
     pixyCam= SubsystemFactory.getInstance().getPixyCam();
 
     tab = Shuffleboard.getTab("DriverFeedback");
-    Shuffleboard.selectTab("DriverFeedback");
 
     // Elevator Entries
     elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,6).getEntry();
