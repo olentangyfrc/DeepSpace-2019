@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import org.usfirst.frc.team4611.robot.OzoneException;
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.IntakeAdjusterDefault;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
@@ -57,40 +56,25 @@ public class IntakeAdjuster extends Subsystem {
 
     public void spinIntakeAdjusterForward() {
 
-        logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
-        
-        if(pot.getRawValue() > maxPos) {
-            intakeAdjuster.set(ControlMode.Velocity, (int)(intakeSpeed*(adjusterVelocity.getDouble(power))));
+        if(pot.getRawValue() < maxPos) {
+            intakeAdjuster.set(ControlMode.PercentOutput, (adjusterVelocity.getDouble(power)));
         } else {
-            intakeAdjuster.set(ControlMode.Velocity, 0);
+            intakeAdjuster.set(ControlMode.PercentOutput, 0);
         }
-        
-        logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackForward()");
-    
-        }
+    }
     
     public void spinIntakeAdjusterBackward() {
-        logger.entering(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
 
         if(pot.getRawValue() > minPos) {
-            intakeAdjuster.set(ControlMode.Velocity, (int)(-intakeSpeed*(adjusterVelocity.getDouble(power))));
+            intakeAdjuster.set(ControlMode.PercentOutput, -(adjusterVelocity.getDouble(power)));
         } else {
-            intakeAdjuster.set(ControlMode.Velocity, 0);
+            intakeAdjuster.set(ControlMode.PercentOutput, 0);
         }
-    
-        logger.exiting(IntakeAdjuster.class.getName(), "spinIndiWheelBackBackward()");
-
-    
     }
+    
     public void stopIntakeAdjuster(){
-
-        logger.entering(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
-
-        intakeAdjuster.set(ControlMode.Velocity, 0); 
+        intakeAdjuster.set(ControlMode.PercentOutput, 0); 
         currentAdjusterPosition.setDouble(pot.getPercentOutput()); 
-
-        logger.exiting(IntakeAdjuster.class.getName(), "stopIndiWheelBack()");
-
     }
 
     public static enum HappyPositions {LEVEL1, LEVEL2, LEVEL3, LEVEL4};
@@ -122,7 +106,6 @@ public class IntakeAdjuster extends Subsystem {
         }
         return stop;
     }
-    
 
     @Override
     protected void initDefaultCommand() {
@@ -146,7 +129,7 @@ public class IntakeAdjuster extends Subsystem {
 
         isLogging = tab.add("Intake Adjuster Logging", false).withPosition(5, 0).withSize(1, 1).getEntry();
 
-        adjusterVelocity = tab.add("IntakeAdjuster Velocity", power).getEntry();
+        adjusterVelocity = tab.add("IntakeAdjuster PercentOutput", power).getEntry();
         currentAdjusterPosition = tab.add("Intake Adjuster Posittion", 1).getEntry();
         adjusterPosition1Entry = tab.add("Adjuster Position1", .5).withPosition(0, 1).withSize(1, 1).getEntry();
         adjusterPosition2Entry = tab.add("Adjuster Position2", .5).withPosition(0, 2).withSize(1, 1).getEntry();
@@ -158,22 +141,18 @@ public class IntakeAdjuster extends Subsystem {
 
         bottomHardStopEntry = tab.add("Bottom\nHard Stop", minPos).withPosition(3, 1).withSize(1, 1).getEntry();
         topHardStopEntry = tab.add("Top\nHard Stop", maxPos).withPosition(3, 2).withSize(1, 1).getEntry();
-    
     }
 
 	public void updateValues() {
         pos1 = adjusterPosition1Entry.getDouble(pos1);
-        pos2 = adjusterPosition1Entry.getDouble(pos2);
-        pos3 = adjusterPosition1Entry.getDouble(pos3);
-        pos4 = adjusterPosition1Entry.getDouble(pos4);
+        pos2 = adjusterPosition2Entry.getDouble(pos2);
+        pos3 = adjusterPosition3Entry.getDouble(pos3);
+        pos4 = adjusterPosition4Entry.getDouble(pos4);
 
         minPos = bottomHardStopEntry.getDouble(minPos);
-        maxPos = bottomHardStopEntry.getDouble(maxPos);
+        maxPos = topHardStopEntry.getDouble(maxPos);
 
         potRawEntry.setDouble(pot.getRawValue());
         potPercentEntry.setDouble(pot.getPercentOutput());
 	}
-
-
-
 }

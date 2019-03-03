@@ -34,14 +34,7 @@ public class NetTableManager {
 	 */
 	public static void updateValue(String subTable, String key, Object value) {
 		// Updates the value and returns a boolean that tells if it was successful
-		if (table.getSubTable(subTable).getEntry(key).setValue(value)) {
-			// System.out.println("Successfully sent value: " + value + " to Shuffleboard
-			// with SubTable: " + subTable + " and key: " + key);
-		} else {
-			// System.out.println("Unable to send value: " + value + " to Shuffleboard with
-			// SubTable: " + subTable + " and key: " + key);
-
-		}
+		table.getSubTable(subTable).getEntry(key).setValue(value);
 	}
 
 	/**
