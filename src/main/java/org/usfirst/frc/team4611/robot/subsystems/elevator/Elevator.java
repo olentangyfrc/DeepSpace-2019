@@ -275,10 +275,10 @@ public class Elevator extends Subsystem {
         
         boolean stop = false;
 
-        if(finalTarget - pot.getPercentOutput() < -.03) {
+        if(finalTarget - pot.getPercentOutput() < -.01) {
             this.move(false);
         }
-        else if(finalTarget - pot.getPercentOutput() > .03) {
+        else if(finalTarget - pot.getPercentOutput() > .01) {
             this.move(true);
         } else {
             stop();
@@ -331,8 +331,11 @@ public class Elevator extends Subsystem {
         leftTalon.configFactoryDefault();
         rightTalon.configFactoryDefault();
 
-        rightTalon.configPeakCurrentLimit(40);
-        leftTalon.configPeakCurrentLimit(40);
+        rightTalon.enableCurrentLimit(true);
+        rightTalon.configPeakCurrentLimit(30);
+
+        leftTalon.enableCurrentLimit(true);
+        leftTalon.configPeakCurrentLimit(30);
 
         leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
