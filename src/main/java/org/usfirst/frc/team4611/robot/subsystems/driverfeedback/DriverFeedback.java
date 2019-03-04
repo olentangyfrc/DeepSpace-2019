@@ -96,21 +96,23 @@ public class DriverFeedback extends Subsystem {
 
     selectedCamera = tab.add("Selected Camera", "NONE").withSize(2, 1).withPosition(4, 4).getEntry();
 
-    frontSquare     = tab.add("Front\nSquare", false)
-                              .withSize(1,1).withPosition(4,0).getEntry();
+    if (vision != null) {
+      frontSquare     = tab.add("Front\nSquare", false)
+                                .withSize(1,1).withPosition(4,0).getEntry();
 
-    frontCentered     = tab.add("Front\nCentered", false)
-                              .withSize(1,1).withPosition(5,0).getEntry();
+      frontCentered     = tab.add("Front\nCentered", false)
+                                .withSize(1,1).withPosition(5,0).getEntry();
+    }
 
     lineTrackerLeft = tab.add("Center Left ", false).withSize(1,1).withPosition(2,1).getEntry();
 
     leftSideSquare     = tab.add("Left Side\nSquare", false)
                               .withSize(1,1).withPosition(2,2).getEntry();
 
-    lineTrackerRight = tab.add("Center Right", false).withSize(1,1).withPosition(7,1).getEntry();
+    lineTrackerRight = tab.add("Center Right", false).withSize(1,1).withPosition(11,1).getEntry();
 
     rightSideSquare     = tab.add("Right Side\nSquare", false)
-                              .withSize(1,1).withPosition(7,2).getEntry();
+                              .withSize(1,1).withPosition(11,2).getEntry();
 
     // Vision Entries
       HttpCamera httpCamera = new HttpCamera("rPi Vision", "http://frcvision.local:1181/?action=stream", HttpCameraKind.kMJPGStreamer);
@@ -125,25 +127,13 @@ public class DriverFeedback extends Subsystem {
     currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", currentCamera);
     selectedCamera.setString(currentCamera);
 
-    if (petal != null) {
-
-    }
     if (nav != null) {
       leftSideSquare.setBoolean(nav.isLeftSideSquare());
       rightSideSquare.setBoolean(nav.isRightSideSquare());
 
     }
-    if (triangleHatch != null) {
-      
-    }
     if (stick != null) {
 
-    }
-    if (spatula != null) {
-      
-    }
-    if (kicker != null) {
-      
     }
     if (vision != null) {
       frontCentered.setBoolean(vision.isCentered());

@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class SystemStatus extends Subsystem {
   private static Logger logger = Logger.getLogger(SystemStatus.class.getName());
   private static ShuffleboardTab tab = Shuffleboard.getTab("SystemStatus");
+  PowerDistributionPanel pdp;
 
    boolean inited = false;
 
@@ -38,7 +39,7 @@ public class SystemStatus extends Subsystem {
   }
 
   public void init() {
-		
+    //pdp = new PowerDistributionPanel(51);
     inited = true;
   }
 

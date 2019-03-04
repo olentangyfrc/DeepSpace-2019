@@ -31,8 +31,8 @@ public class IntakeAdjuster extends Subsystem {
     private double power = 1;
     private int intakeSpeed = 1600;
     
-    private double minPos = 0.557;
-    private double maxPos = 0.606;
+    private double minPos = 0.530;
+    private double maxPos = 0.589;
 
     private double pos1 = 0, 
     pos2 = 0, 
