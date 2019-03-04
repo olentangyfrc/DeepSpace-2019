@@ -34,11 +34,6 @@ public class IntakeAdjuster extends Subsystem {
     private double minPos = 0.530;
     private double maxPos = 0.589;
 
-    private double pos1 = 0, 
-    pos2 = 0, 
-    pos3 = 0, 
-    pos4 = 0;
-
     private Potentiometer pot;
 
     public void init(PortMan pm) throws OzoneException {
@@ -79,6 +74,8 @@ public class IntakeAdjuster extends Subsystem {
 
     public static enum HappyPositions {LEVEL1, LEVEL2, LEVEL3, LEVEL4};
 
+    private double pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
     public boolean moveToPos(HappyPositions p) {
         double finalTarget = 0;
 
@@ -100,8 +97,8 @@ public class IntakeAdjuster extends Subsystem {
         else if(finalTarget - pot.getPercentOutput() > .01) {
             spinIntakeAdjusterForward();
         }
-        else{
-            this.stopIntakeAdjuster();
+        else {
+            stopIntakeAdjuster();
             stop = true;
         }
         return stop;

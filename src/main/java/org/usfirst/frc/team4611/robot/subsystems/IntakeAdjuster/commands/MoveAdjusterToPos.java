@@ -15,9 +15,6 @@ public class MoveAdjusterToPos extends Command {
     private boolean stop = false;
     private IntakeAdjuster.HappyPositions pos;
 
-
-    //MUST SEND A NUMBER 1 OR 2
-    //We use this to decide what level to move the intake adjuster to
     public MoveAdjusterToPos(IntakeAdjuster.HappyPositions p){
         intakeAdjuster = SubsystemFactory.getInstance().getIntakeAdjuster();
         pos = p;
@@ -35,14 +32,12 @@ public class MoveAdjusterToPos extends Command {
 
     @Override
     public synchronized void cancel() {
-        if(intakeAdjuster.isLogging())
-            logger.info("canceled");
+        stop = true;
     }
 
     @Override
     protected void interrupted() {
-        if(intakeAdjuster.isLogging())
-            logger.info("interrupted");
+        stop = true;
     }
     
     protected void initialize() {

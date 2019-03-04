@@ -430,8 +430,6 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry accelEntry;
     private NetworkTableEntry pidPEntry;
     private NetworkTableEntry mmModeEntry;
-    private NetworkTableEntry leftTempEntry;
-    private NetworkTableEntry rightTempEntry;
     private NetworkTableEntry leftCurrentEntry;
     private NetworkTableEntry rightCurrentEntry;
 
