@@ -358,6 +358,8 @@ public class SubsystemFactory {
         lineTracker.initSB();
         elevator = new Elevator();
         elevator.initSB();
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.initSB();
         //nav.init(portMan);
         //elevator = new Elevator();
         //elevator.initSB();
