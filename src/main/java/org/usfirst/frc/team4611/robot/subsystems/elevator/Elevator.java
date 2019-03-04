@@ -68,7 +68,6 @@ public class Elevator extends Subsystem {
 
     public void move(boolean moveUp) {
         if (mmMode) {
-            controlMMDown = false;
             moveMM(moveUp);
         } else {
             movePercOutput(moveUp);
@@ -79,7 +78,6 @@ public class Elevator extends Subsystem {
     public boolean moveToLevel (HappyPosition level) {
         boolean done;
         if (mmMode) {
-            controlMMDown = false;
             done =  moveToMMPos(level);
         } else {
             done =  moveToPotPos(level);
@@ -135,12 +133,12 @@ public class Elevator extends Subsystem {
         leftTalon.set(ControlMode.MotionMagic, target);
     }
 
-    private double mmLevel1Target  =  10000;
-    private double mmLevel2Target  =  10000;
-    private double mmLevel3Target  =  14200;
-    private double mmLevel4Target  =  14623;
-    private double mmLevel5Target  =  17400;
-    private double mmLevel6Target  =  17600;
+    private double mmLevel1Target  =  1370;
+    private double mmLevel2Target  =  10496;
+    private double mmLevel3Target  =  12549;
+    private double mmLevel4Target  =  19632;
+    private double mmLevel5Target  =  22300;
+    private double mmLevel6Target  =  22339;
     private double mmLevel7Target  =  17500;
     private double mmCargoGrabTarget  =  14200;
     private double positionTolerance    = 100;
@@ -231,12 +229,12 @@ public class Elevator extends Subsystem {
 
     public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, CARGO_GRAB};
 
-    private double potLevel1Target  =  0.0539;
-    private double potLevel2Target  =  0.0400;
-    private double potLevel3Target  =  0.5335;
-    private double potLevel4Target  =  0.8742;
-    private double potLevel5Target  =  0.9842;
-    private double potLevel6Target  =  0.9689;
+    private double potLevel1Target  =  0.20;
+    private double potLevel2Target  =  0.53;
+    private double potLevel3Target  =  0.60;
+    private double potLevel4Target  =  0.81;
+    private double potLevel5Target  =  0.89;
+    private double potLevel6Target  =  0.89;
     private double potLevel7Target  =  0.7230;
     private double potCargoGrabTarget   = 0.5335;
 
@@ -332,10 +330,12 @@ public class Elevator extends Subsystem {
         rightTalon.configFactoryDefault();
 
         rightTalon.enableCurrentLimit(true);
-        rightTalon.configPeakCurrentLimit(30);
+        rightTalon.configPeakCurrentLimit(40);
+        rightTalon.configPeakCurrentDuration(400);
 
         leftTalon.enableCurrentLimit(true);
-        leftTalon.configPeakCurrentLimit(30);
+        leftTalon.configPeakCurrentLimit(40);
+        leftTalon.configPeakCurrentDuration(400);
 
         leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -346,9 +346,9 @@ public class Elevator extends Subsystem {
         rightTalon.setInverted(false);
     }
 
-    private double  pidP = 1.0;
-    private int     cruiseSpeed = 10000;
-    private int     acceleration = 12000;
+    private double  pidP = 0.8;
+    private int     cruiseSpeed = 8000;
+    private int     acceleration = 10000;
 
     private void initTalonsForMotionMagic() {
 
@@ -471,7 +471,7 @@ public class Elevator extends Subsystem {
         PotCargoGrabEntry = tab.add("PotCargoGrab", potLevel7Target).withSize(1, 1).withPosition(7, 4).getEntry();
 
         leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(5, 0).getEntry();
-        leftCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(8, 0).getEntry();
+        rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(8, 0).getEntry();
     }
 
     public void updateValues() {
@@ -523,30 +523,7 @@ public class Elevator extends Subsystem {
             resetMMValuesEntry.setBoolean(resetMMValues);
             logger.info("Resetting Motion Magic Values");
         }
-
-        /** quick dirty hack so motion magic doesn't smoke motors */
-        /** this needs to be smarter */
-        if (mmMode) {
-            if (!controlMMDown && encoderCheckCount == 0 && leftTalon.getSelectedSensorPosition() > 10) {
-                encoderCheckCount += 1;
-            } else if (encoderCheckCount > 1000) {
-                if (Math.abs(lastEncoderPosition - leftTalon.getSelectedSensorPosition()) < 10) {
-                    leftTalon.set(ControlMode.Velocity, 0.0);
-                    encoderCheckCount = 0;
-                    controlMMDown = true;
-                }
-            } else {
-                encoderCheckCount += 1;
-            }
-            lastEncoderPosition = leftTalon.getSelectedSensorPosition();
-            if (lastEncoderPosition < 5) {
-                controlMMDown = false;
-            }
-        }
     }
-    private double lastEncoderPosition = 0;
-    private int encoderCheckCount = 0;
-    private boolean controlMMDown = false;
 
     public boolean isLogging(){
         return logging;

@@ -195,7 +195,7 @@ public class OI {
         }
 
 		String []parts	= c.getClass().getName().split("\\.");
-        logger.info("binding [" + parts[parts.length-1] + "] to joy[" + j + "] b[" + button + "]");
+        logger.info("binding [" + parts[parts.length-1] + "] to joy[" + j.getPort() + "] b[" + button + "]");
 
         Button  b = new JoystickButton(j, button);
         
