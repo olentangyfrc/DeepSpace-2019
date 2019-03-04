@@ -124,6 +124,7 @@ public class IntakeAdjuster extends Subsystem {
 
     private NetworkTableEntry bottomHardStopEntry;
     private NetworkTableEntry topHardStopEntry;
+    private NetworkTableEntry adjusterCurrentEntry;
 
     public void initSB() {
 
@@ -141,6 +142,8 @@ public class IntakeAdjuster extends Subsystem {
 
         bottomHardStopEntry = tab.add("Bottom\nHard Stop", minPos).withPosition(3, 1).withSize(1, 1).getEntry();
         topHardStopEntry = tab.add("Top\nHard Stop", maxPos).withPosition(3, 2).withSize(1, 1).getEntry();
+
+        adjusterCurrentEntry = tab.add("Adjuster Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(5, 0).getEntry();
     }
 
 	public void updateValues() {
@@ -154,5 +157,7 @@ public class IntakeAdjuster extends Subsystem {
 
         potRawEntry.setDouble(pot.getRawValue());
         potPercentEntry.setDouble(pot.getPercentOutput());
+
+        adjusterCurrentEntry.setDouble(intakeAdjuster.getOutputCurrent());
 	}
 }
