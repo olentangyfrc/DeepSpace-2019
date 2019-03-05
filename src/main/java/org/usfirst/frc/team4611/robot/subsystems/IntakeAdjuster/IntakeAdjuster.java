@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster;
 
+import java.awt.Robot;
 import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,6 +12,9 @@ import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.IntakeA
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.AnalogOutput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -31,15 +35,15 @@ public class IntakeAdjuster extends Subsystem {
     private double power = 1;
     private int intakeSpeed = 1600;
     
-    private double minPos = 0.530;
-    private double maxPos = 0.589;
+    private double minPos = 2.200;
+    private double maxPos = 2.570;
 
-    private Potentiometer pot;
+    private AnalogPotentiometer pot;
 
     public void init(PortMan pm) throws OzoneException {
         intakeAdjuster = new WPI_TalonSRX(pm.acquirePort(PortMan.can_23_label, "Intake.intakeAdjuster"));
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog1_label, "IntakeAdjuster Pot"), minPos, maxPos);
+		pot = new AnalogPotentiometer(pm.acquirePort(PortMan.analog1_label, "IntakeAdjuster Pot"));
 
         initSB();
     }
@@ -49,32 +53,36 @@ public class IntakeAdjuster extends Subsystem {
         return logging;
     }
 
-    public void spinIntakeAdjusterForward() {
+    public void raiseIntakeAdjuster() {
 
-        if(pot.getRawValue() < maxPos) {
+        if(getVoltage() < maxPos) {
             intakeAdjuster.set(ControlMode.PercentOutput, (adjusterVelocity.getDouble(power)));
         } else {
             intakeAdjuster.set(ControlMode.PercentOutput, 0);
         }
     }
     
-    public void spinIntakeAdjusterBackward() {
+    public void lowerIntakeAdjuster() {
 
-        if(pot.getRawValue() > minPos) {
-            intakeAdjuster.set(ControlMode.PercentOutput, -(adjusterVelocity.getDouble(power)));
-        } else {
-            intakeAdjuster.set(ControlMode.PercentOutput, 0);
-        }
+       intakeAdjuster.set(ControlMode.PercentOutput, -(adjusterVelocity.getDouble(power)));
     }
     
     public void stopIntakeAdjuster(){
         intakeAdjuster.set(ControlMode.PercentOutput, 0); 
-        currentAdjusterPosition.setDouble(pot.getPercentOutput()); 
+        currentAdjusterPosition.setDouble(getVoltage()); 
     }
 
     public static enum HappyPositions {LEVEL1, LEVEL2, LEVEL3, LEVEL4};
 
-    private double pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    private double pos1 = 0.5, pos2 = 0.5, pos3 = 0.5, pos4 = 0.5;
+
+    private double getPercentOutput() {
+         return ((getVoltage() - minPos) / (maxPos - minPos));
+    }
+
+    private double getVoltage() {
+        return (pot.get() * RobotController.getVoltage5V());
+    }
 
     public boolean moveToPos(HappyPositions p) {
         double finalTarget = 0;
@@ -91,11 +99,17 @@ public class IntakeAdjuster extends Subsystem {
         
         boolean stop = false;
 
-        if(finalTarget - pot.getPercentOutput() < -.01) {
-            spinIntakeAdjusterBackward();
+        if (getVoltage() < minPos || getVoltage() >= maxPos) {
+            logger.warning("Intake Adjuster Pot returning unwanted [" + getVoltage() + "] value");
+            return true;
         }
-        else if(finalTarget - pot.getPercentOutput() > .01) {
-            spinIntakeAdjusterForward();
+
+        logger.info("target [" + finalTarget + "] getPercentOutput [" + getPercentOutput() + "] diff [" + (finalTarget - getPercentOutput()) + "]");
+        if(finalTarget - getPercentOutput() < -.01) {
+            lowerIntakeAdjuster();
+        }
+        else if(finalTarget - getPercentOutput() > .01) {
+            raiseIntakeAdjuster();
         }
         else {
             stopIntakeAdjuster();
@@ -122,6 +136,7 @@ public class IntakeAdjuster extends Subsystem {
     private NetworkTableEntry bottomHardStopEntry;
     private NetworkTableEntry topHardStopEntry;
     private NetworkTableEntry adjusterCurrentEntry;
+    private NetworkTableEntry potWorking;
 
     public void initSB() {
 
@@ -129,13 +144,14 @@ public class IntakeAdjuster extends Subsystem {
 
         adjusterVelocity = tab.add("IntakeAdjuster PercentOutput", power).getEntry();
         currentAdjusterPosition = tab.add("Intake Adjuster Posittion", 1).getEntry();
-        adjusterPosition1Entry = tab.add("Adjuster Position1", .5).withPosition(0, 1).withSize(1, 1).getEntry();
-        adjusterPosition2Entry = tab.add("Adjuster Position2", .5).withPosition(0, 2).withSize(1, 1).getEntry();
-        adjusterPosition3Entry = tab.add("Adjuster Position3", .5).withPosition(0, 3).withSize(1, 1).getEntry();
-        adjusterPosition4Entry = tab.add("Adjuster Position4", .5).withPosition(0, 4).withSize(1, 1).getEntry();
+        adjusterPosition1Entry = tab.add("Adjuster Position1", pos1).withPosition(0, 1).withSize(1, 1).getEntry();
+        adjusterPosition2Entry = tab.add("Adjuster Position2", pos2).withPosition(0, 2).withSize(1, 1).getEntry();
+        adjusterPosition3Entry = tab.add("Adjuster Position3", pos3).withPosition(0, 3).withSize(1, 1).getEntry();
+        adjusterPosition4Entry = tab.add("Adjuster Position4", pos4).withPosition(0, 4).withSize(1, 1).getEntry();
 
         potRawEntry = tab.add("Raw Pot", 0).withPosition(0, 0).withSize(1, 1).getEntry();
         potPercentEntry = tab.add("Percent Pot", 0).withPosition(1, 0).withSize(1, 1).getEntry();
+        potWorking = tab.add("Pot Working", true).withPosition(9, 0).withSize(1, 1).getEntry();
 
         bottomHardStopEntry = tab.add("Bottom\nHard Stop", minPos).withPosition(3, 1).withSize(1, 1).getEntry();
         topHardStopEntry = tab.add("Top\nHard Stop", maxPos).withPosition(3, 2).withSize(1, 1).getEntry();
@@ -152,8 +168,9 @@ public class IntakeAdjuster extends Subsystem {
         minPos = bottomHardStopEntry.getDouble(minPos);
         maxPos = topHardStopEntry.getDouble(maxPos);
 
-        potRawEntry.setDouble(pot.getRawValue());
-        potPercentEntry.setDouble(pot.getPercentOutput());
+        potRawEntry.setDouble(getVoltage());
+        potPercentEntry.setDouble(getPercentOutput());
+        potWorking.setBoolean(getVoltage() > 0.1);
 
         adjusterCurrentEntry.setDouble(intakeAdjuster.getOutputCurrent());
 	}

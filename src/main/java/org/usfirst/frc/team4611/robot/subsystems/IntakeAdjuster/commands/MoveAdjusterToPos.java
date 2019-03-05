@@ -22,7 +22,7 @@ public class MoveAdjusterToPos extends Command {
     }
 
     protected void execute() {
-        stop=intakeAdjuster.moveToPos(pos);
+        stop = intakeAdjuster.moveToPos(pos);
     }
 
     @Override

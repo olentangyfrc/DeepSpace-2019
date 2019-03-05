@@ -28,7 +28,7 @@ public class MoveIntakeAdjusterForward extends Command {
     protected void execute() {
         if(stop)
             return;
-        intakeAdjuster.spinIntakeAdjusterForward();
+        intakeAdjuster.raiseIntakeAdjuster();
     }
 
     @Override

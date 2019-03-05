@@ -330,11 +330,13 @@ public class Elevator extends Subsystem {
         rightTalon.configFactoryDefault();
 
         rightTalon.enableCurrentLimit(true);
-        rightTalon.configPeakCurrentLimit(40);
+        rightTalon.configPeakCurrentLimit(50);
+        rightTalon.configContinuousCurrentLimit(40);
         rightTalon.configPeakCurrentDuration(400);
 
         leftTalon.enableCurrentLimit(true);
-        leftTalon.configPeakCurrentLimit(40);
+        leftTalon.configPeakCurrentLimit(50);
+        leftTalon.configContinuousCurrentLimit(40);
         leftTalon.configPeakCurrentDuration(400);
 
         leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
