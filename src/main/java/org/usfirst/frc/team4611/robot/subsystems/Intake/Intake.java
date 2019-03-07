@@ -22,9 +22,11 @@ public class Intake extends Subsystem {
     static private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
 
     private double defaultPercent = .75;
+    private double slowPercent = .25;
 
     private NetworkTableEntry isLogging;
     private NetworkTableEntry motorSpeed;
+    private NetworkTableEntry slowMotorSpeed;
     
     private boolean logging = false;
 
@@ -48,6 +50,7 @@ public class Intake extends Subsystem {
         isLogging = tab.add("Intake Logging", false).getEntry();
         
         motorSpeed = tab.add("Intake Motor Speed", defaultPercent).getEntry();
+        slowMotorSpeed = tab.add("Intake\nSlow Motor Speed", slowPercent).getEntry();
 
         logger.exiting(Intake.class.getName(), "init()");
     }
@@ -59,6 +62,10 @@ public class Intake extends Subsystem {
 
     public void spinIndiWheelFrontForward() {
         intake.set(ControlMode.PercentOutput, motorSpeed.getDouble(defaultPercent));
+    } 
+    
+    public void spinIndiWheelFrontForwardSlow() {
+        intake.set(ControlMode.PercentOutput, slowMotorSpeed.getDouble(slowPercent));
     }
 
     public void spinIndiWheelFrontBackward() {

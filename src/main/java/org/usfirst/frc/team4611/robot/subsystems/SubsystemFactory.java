@@ -311,7 +311,7 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.AuxJoyButton6, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.AuxJoyButton2, OI.WhenPressed);
-        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.AuxJoyButton9, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton9, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
