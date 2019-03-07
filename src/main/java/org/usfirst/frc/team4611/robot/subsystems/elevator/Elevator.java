@@ -41,8 +41,9 @@ public class Elevator extends Subsystem {
         mmMode = on;
     }
 
-    private double  potTop      = 0.98;
-    private double  potBot      = .06;
+    private double  potTop      = 4.0;
+    private double  potBot      = 0.1;
+
     public void init(PortMan pm) throws Exception {
         initSB();
 
@@ -422,6 +423,8 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry PotCargoGrabEntry;
 
     private NetworkTableEntry potPositionEntry;
+    private NetworkTableEntry potMinEntry;
+    private NetworkTableEntry potMaxEntry;
     private NetworkTableEntry leftEncoderPositionEntry;
     private NetworkTableEntry rightEncoderPositionEntry;
     private NetworkTableEntry percOutputUpEntry;
@@ -441,6 +444,8 @@ public class Elevator extends Subsystem {
         resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
         
         potPositionEntry = tab.add("Pot Position", 0).withSize(1,1).withPosition(3, 0).getEntry();
+        potMinEntry = tab.add("Pot Min", 0).withSize(1,1).withPosition(4, 0).getEntry();
+        potMaxEntry = tab.add("Pot Max", 0).withSize(1,1).withPosition(5, 0).getEntry();
         leftEncoderPositionEntry = tab.add("Left Encoder", 0).withSize(1, 1).withPosition(1, 0).getEntry();
         rightEncoderPositionEntry = tab.add("Right Encoder", 0).withSize(1, 1).withPosition(2, 0).getEntry();
         percOutputUpEntry = tab.add("% Output\nUp Entry", percOutputUp).withSize(1, 1).withPosition(3, 1).getEntry();
@@ -470,8 +475,8 @@ public class Elevator extends Subsystem {
         PotLevel7Entry = tab.add("Pot 7", potLevel7Target).withSize(1, 1).withPosition(6, 4).getEntry();
         PotCargoGrabEntry = tab.add("PotCargoGrab", potLevel7Target).withSize(1, 1).withPosition(7, 4).getEntry();
 
-        leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(5, 0).getEntry();
-        rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(8, 0).getEntry();
+        leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(6, 0).getEntry();
+        rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(9, 0).getEntry();
     }
 
     public void updateValues() {
@@ -506,7 +511,10 @@ public class Elevator extends Subsystem {
         leftEncoderPositionEntry.setDouble(leftTalon.getSelectedSensorPosition());
         rightEncoderPositionEntry.setDouble(rightTalon.getSelectedSensorPosition());
 
-        potPositionEntry.setDouble(pot.getRawValue());
+        potPositionEntry.setDouble(pot.getPercentOutput());
+        pot.setMin(potMinEntry.getDouble(pot.getMin()));
+        pot.setMax(potMaxEntry.getDouble(pot.getMax()));
+
         stepUpEntry.setDouble(stepUp);
         stepDownEntry.setDouble(stepDown);
         percOutputUpEntry.setDouble(percOutputUp);
