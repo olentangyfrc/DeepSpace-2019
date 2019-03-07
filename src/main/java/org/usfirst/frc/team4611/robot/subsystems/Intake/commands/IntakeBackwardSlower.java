@@ -7,14 +7,14 @@ import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeForwardSlower extends Command {
+public class IntakeBackwardSlower extends Command {
 
-    private Logger logger = Logger.getLogger(IntakeForwardSlower.class.getName());
+    private Logger logger = Logger.getLogger(IntakeBackwardSlower.class.getName());
 
     private Intake intake;
     private boolean stop = false;
 
-    public IntakeForwardSlower() {
+    public IntakeBackwardSlower() {
         intake = SubsystemFactory.getInstance().getShooterIntake();
         this.requires(intake);
     }
@@ -29,7 +29,7 @@ public class IntakeForwardSlower extends Command {
         if(stop) {
             return;
         }
-        intake.spinIndiWheelFrontForwardSlow();
+        intake.spinIndiWheelFrontBackwardSlow();
     }
 
     @Override

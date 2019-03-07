@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackwardSlower;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveAdjusterToPos;
@@ -280,7 +281,7 @@ public class SubsystemFactory {
         oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
         oi.bind(new IntakeBackward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
 
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
