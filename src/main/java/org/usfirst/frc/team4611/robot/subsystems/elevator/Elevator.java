@@ -244,7 +244,7 @@ public class Elevator extends Subsystem {
         
         switch (level) {
             case BOTTOM:
-                finalTarget = potBot;
+                finalTarget = 0.05;
                 break;
             case LEVEL_1:
                 finalTarget = potLevel1Target;
