@@ -24,7 +24,7 @@ public class SingleStick extends Subsystem {
     }
 
     public void init(PortMan pm) throws Exception{
-        pusher = new Solenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoid"));
+        pusher = new Solenoid(pm.acquirePort(PortMan.pcm0_label, "SingleStick.inDoubleSolenoid"));
 
 		stickStatus = tab.add("SingleStick Engaged", false).getEntry();
     } 

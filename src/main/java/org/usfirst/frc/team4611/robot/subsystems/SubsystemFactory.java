@@ -115,9 +115,9 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
-        if (botMacAddress == null) {
+        /*if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
-        }
+        }*/
 
         try {
             // create SB tabs that we want to see first now
@@ -134,7 +134,7 @@ public class SubsystemFactory {
 
             initComp();
 
-            // subsystems common to every bot
+            //subsystems common to every bot
             logger.info("["+botMacAddress+"]");
             /*if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
@@ -291,7 +291,7 @@ public class SubsystemFactory {
         oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
         oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
 
-        oi.bind(new MoveElevator(true), OI.button2, OI.WhileHeld);
+        /*oi.bind(new MoveElevator(true), OI.button2, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
@@ -299,18 +299,28 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);*/
 
         oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
 
+
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.AuxJoyButton4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.AuxJoyButton3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.AuxJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.AuxJoyButton8, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.AuxJoyButton9, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
-        oi.bind(new ChooseCamera(), OI.AuxJoyButton3, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
     
         oi.bind(new SPush(), OI.LeftJoyButton6, OI.WhenPressed);
         oi.bind(new SRetract(), OI.LeftJoyButton7, OI.WhenPressed);
+
+        //4, 6, 3, 7, 5, 8, 1
+        
 
     }
 

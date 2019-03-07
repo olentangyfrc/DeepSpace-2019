@@ -330,12 +330,14 @@ public class Elevator extends Subsystem {
         leftTalon.configFactoryDefault();
         rightTalon.configFactoryDefault();
 
-        rightTalon.enableCurrentLimit(true);
+        boolean currentLimitEnabled = true;
+
+        rightTalon.enableCurrentLimit(currentLimitEnabled);
         rightTalon.configPeakCurrentLimit(50);
         rightTalon.configContinuousCurrentLimit(40);
         rightTalon.configPeakCurrentDuration(400);
 
-        leftTalon.enableCurrentLimit(true);
+        leftTalon.enableCurrentLimit(currentLimitEnabled);
         leftTalon.configPeakCurrentLimit(50);
         leftTalon.configContinuousCurrentLimit(40);
         leftTalon.configPeakCurrentDuration(400);
@@ -349,7 +351,7 @@ public class Elevator extends Subsystem {
         rightTalon.setInverted(false);
     }
 
-    private double  pidP = 0.6;
+    private double  pidP = 0.8;
     private int     cruiseSpeed = 8000;
     private int     acceleration = 10000;
 
