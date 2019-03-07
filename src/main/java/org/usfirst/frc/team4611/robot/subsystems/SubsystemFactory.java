@@ -132,9 +132,11 @@ public class SubsystemFactory {
             oi  = OI.getInstance();
             oi.init();
 
+            initComp();
+
             // subsystems common to every bot
             logger.info("["+botMacAddress+"]");
-            if (botMacAddress.equals(protoMacAddress)) {
+            /*if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
             } else if (botMacAddress.equals(footballMacAddress) || botMacAddress == null || botMacAddress.equals("")) {
                 initFootball();
@@ -148,7 +150,7 @@ public class SubsystemFactory {
                 initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
-            } 
+            }*/
 
             initCommon();
             // driverfeedback will create a shuffleboard tab that aggregates data from subsystems.
@@ -270,6 +272,9 @@ public class SubsystemFactory {
         stick = new Stick();
         stick.init(portMan);
 
+        sstick = new SingleStick();
+        sstick.init(portMan);
+
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
         oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
@@ -303,6 +308,10 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.AuxJoyButton3, OI.WhenPressed);
+    
+        oi.bind(new SPush(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new SRetract(), OI.LeftJoyButton7, OI.WhenPressed);
+
     }
 
     

@@ -55,7 +55,7 @@ public class Elevator extends Subsystem {
         softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital12_label, "Elevator.softLimitBottom"));
         hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital13_label, "Elevator.hardLimitBottom"));
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog4_label, "Elevator Pot"), potBot, potTop);
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
         initTalonsForMotionMagic();
