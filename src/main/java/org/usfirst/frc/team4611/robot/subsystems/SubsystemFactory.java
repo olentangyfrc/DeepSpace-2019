@@ -304,13 +304,13 @@ public class SubsystemFactory {
         oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
 
-
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.AuxJoyButton4, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.AuxJoyButton8, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.AuxJoyButton3, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.AuxJoyButton7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.AuxJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.AuxJoyButton2, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.AuxJoyButton9, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
