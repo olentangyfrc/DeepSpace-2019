@@ -21,7 +21,9 @@ public class Intake extends Subsystem {
     private static Logger logger = Logger.getLogger(Intake.class.getName());
     static private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
 
-    private double defaultPercent = 1;
+
+    private int intakeSpeed = 1600;
+    private double defaultPercent = .5;
 
     private NetworkTableEntry isLogging;
     private NetworkTableEntry motorSpeed;
@@ -58,7 +60,7 @@ public class Intake extends Subsystem {
     }
 
     public void spinIndiWheelFrontForward() {
-        intake.set(ControlMode.PercentOutput, motorSpeed.getDouble(defaultPercent));
+        intake.set(ControlMode.Velocity, (int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     }
 
     public void spinIndiWheelFrontBackward() {
@@ -66,10 +68,10 @@ public class Intake extends Subsystem {
         if(logging)
             logger.info("entering spinIndiWheelFrontBackward()");
 
-        intake.set(ControlMode.PercentOutput, -motorSpeed.getDouble(defaultPercent));
+        intake.set(ControlMode.Velocity, -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
     
         if(logging)
-            logger.info("Intake Velocity: " + motorSpeed.getDouble(defaultPercent));
+            logger.info("Intake Velocity: " + -(int)(intakeSpeed*motorSpeed.getDouble(defaultPercent)));
         if(logging)
             logger.info("exiting spinIndiWheelFrontBackward()");
         
