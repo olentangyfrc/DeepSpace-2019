@@ -4,7 +4,7 @@
             "brightness": 50,
             "exposure": "auto",
             "fps": 30,
-            "height": 480,
+            "height": 240,
             "name": "usb 1",
             "path": "/dev/video1",
             "pixel format": "mjpeg",
@@ -43,29 +43,16 @@
                 }
             ],
             "stream": {
-                "properties": [
-                    {
-                        "name": "width",
-                        "value": 240
-                    },
-                    {
-                        "name": "height",
-                        "value": 240
-                    },
-                    {
-                        "name": "fps",
-                        "value": 30
-                    }
-                ]
+                "properties": []
             },
             "white balance": "auto",
-            "width": 480
+            "width": 320
         },
         {
             "brightness": 50,
             "exposure": "auto",
-            "fps": 50,
-            "height": 480,
+            "fps": 30,
+            "height": 240,
             "name": "usb 2",
             "path": "/dev/video2",
             "pixel format": "mjpeg",
@@ -104,47 +91,69 @@
                 }
             ],
             "stream": {
-                "properties": [
-                    {
-                        "name": "width",
-                        "value": 240
-                    },
-                    {
-                        "name": "height",
-                        "value": 240
-                    },
-                    {
-                        "name": "fps",
-                        "value": 30
-                    }
-                ]
+                "properties": []
             },
             "white balance": "auto",
-            "width": 480
+            "width": 320
         },
         {
-            "fps": 20,
+            "brightness": 50,
+            "exposure": "auto",
+            "fps": 30,
             "height": 240,
             "name": "usb 3",
             "path": "/dev/video3",
             "pixel format": "mjpeg",
+            "properties": [
+                {
+                    "name": "connect_verbose",
+                    "value": 1
+                },
+                {
+                    "name": "contrast",
+                    "value": 12
+                },
+                {
+                    "name": "saturation",
+                    "value": 12
+                },
+                {
+                    "name": "gain",
+                    "value": 25
+                },
+                {
+                    "name": "power_line_frequency",
+                    "value": 2
+                },
+                {
+                    "name": "sharpness",
+                    "value": 9
+                },
+                {
+                    "name": "backlight_compensation",
+                    "value": 0
+                },
+                {
+                    "name": "exposure_auto_priority",
+                    "value": true
+                }
+            ],
             "stream": {
-                "properties": [
-                    {
-                        "name": "width",
-                        "value": 240
-                    },
-                    {
-                        "name": "height",
-                        "value": 240
-                    },
-                    {
-                        "name": "fps",
-                        "value": 30
-                    }
-                ]
+                "properties": []
             },
-            "width": 240
+            "white balance": "auto",
+            "width": 320
+        },
+        {
+            "fps": 30,
+            "height": 240,
+            "name": "usb 4",
+            "path": "/dev/video4",
+            "pixel format": "mjpeg",
+            "stream": {
+                "properties": []
+            },
+            "width": 320
         }
     ],
     "ntmode": "client",
@@ -160,6 +169,10 @@
         {
             "key": "/Shuffleboard/Vision/selected_camera",
             "name": "usb 3"
+        },
+        {
+            "key": "/Shuffleboard/Vision/selected_camera",
+            "name": "usb 4"
         }
     ],
     "team": 4611

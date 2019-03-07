@@ -348,7 +348,7 @@ public class Elevator extends Subsystem {
         rightTalon.setInverted(false);
     }
 
-    private double  pidP = 0.8;
+    private double  pidP = 0.6;
     private int     cruiseSpeed = 8000;
     private int     acceleration = 10000;
 
@@ -520,6 +520,7 @@ public class Elevator extends Subsystem {
             cruiseSpeed             = (int) cruiseEntry.getDouble(cruiseSpeed);
             pidP                    = (int) pidPEntry.getDouble(pidP);
             resetMMValues           = false;
+            initTalonsForMotionMagic();
             resetMMValuesEntry.setBoolean(resetMMValues);
             logger.info("Resetting Motion Magic Values");
         }

@@ -122,6 +122,7 @@ public class SubsystemFactory {
         try {
             // create SB tabs that we want to see first now
             Shuffleboard.getTab("DriverFeedback");
+            Shuffleboard.selectTab("DriverFeedback");
             Shuffleboard.getTab("SystemStatus");
             Shuffleboard.getTab("Elevator");
 
