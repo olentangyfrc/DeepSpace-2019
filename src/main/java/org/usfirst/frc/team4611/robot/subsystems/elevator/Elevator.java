@@ -141,6 +141,7 @@ public class Elevator extends Subsystem {
     private double mmLevel5Target  =  22300;
     private double mmLevel6Target  =  22240;
     private double mmLevel7Target  =  14971;
+    private double mmLevel8Target  =  14259;
     private double mmCargoGrabTarget  =  14200;
     private double positionTolerance    = 100;
 
@@ -171,6 +172,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = mmLevel7Target;
+                break;
+            case LEVEL_8:
+                finalTarget = mmLevel8Target;
                 break;
             case CARGO_GRAB:
                 finalTarget = mmCargoGrabTarget;
@@ -228,7 +232,7 @@ public class Elevator extends Subsystem {
         leftTalon.set(ControlMode.PercentOutput, output);
     }
 
-    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, CARGO_GRAB};
+    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, LEVEL_8, CARGO_GRAB};
 
     private double potLevel1Target  =  0.20;
     private double potLevel2Target  =  0.53;
@@ -237,6 +241,7 @@ public class Elevator extends Subsystem {
     private double potLevel5Target  =  0.89;
     private double potLevel6Target  =  0.89;
     private double potLevel7Target  =  0.7230;
+    private double potLevel8Target = 0.7230;
     private double potCargoGrabTarget   = 0.5335;
 
     public boolean moveToPotPos(HappyPosition level) {
@@ -266,6 +271,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = potLevel7Target;
+                break;
+            case LEVEL_8:
+                finalTarget = potLevel8Target;
                 break;
             case CARGO_GRAB:
                 finalTarget = potCargoGrabTarget;
@@ -315,6 +323,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = potLevel7Target;
+                break;
+            case LEVEL_8:
+                finalTarget = potLevel8Target;
                 break;
             case CARGO_GRAB:
                 finalTarget = potCargoGrabTarget;
