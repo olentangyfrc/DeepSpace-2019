@@ -64,8 +64,8 @@ public class Intake extends Subsystem {
         intake.set(ControlMode.PercentOutput, motorSpeed.getDouble(defaultPercent));
     } 
     
-    public void spinIndiWheelFrontForwardSlow() {
-        intake.set(ControlMode.PercentOutput, slowMotorSpeed.getDouble(slowPercent));
+    public void spinIndiWheelFrontBackwardSlow() {
+        intake.set(ControlMode.PercentOutput, -slowMotorSpeed.getDouble(slowPercent));
     }
 
     public void spinIndiWheelFrontBackward() {
