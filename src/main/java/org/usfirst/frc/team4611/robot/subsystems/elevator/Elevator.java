@@ -140,7 +140,7 @@ public class Elevator extends Subsystem {
     private double mmLevel4Target  =  18214;
     private double mmLevel5Target  =  22300;
     private double mmLevel6Target  =  22240;
-    private double mmLevel7Target  =  14971;//14971
+    private double mmLevel7Target  =  14971;
     private double mmCargoGrabTarget  =  14200;
     private double positionTolerance    = 100;
 
