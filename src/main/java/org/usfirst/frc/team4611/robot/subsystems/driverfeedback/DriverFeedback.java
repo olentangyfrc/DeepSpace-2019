@@ -64,7 +64,6 @@ public class DriverFeedback extends Subsystem {
     private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
     private NetworkTableEntry selectedCamera;
-    private ComplexWidget       videoEntry;
 
   public void init() {
 
@@ -114,10 +113,6 @@ public class DriverFeedback extends Subsystem {
     rightSideSquare     = tab.add("Right Side\nSquare", false)
                               .withSize(1,1).withPosition(11,2).getEntry();
 
-    // Vision Entries
-      HttpCamera httpCamera = new HttpCamera("rPi Vision", "http://frcvision.local:1181/?action=stream", HttpCameraKind.kMJPGStreamer);
-      CameraServer.getInstance().addCamera(httpCamera);
-      videoEntry = tab.add(httpCamera).withSize(4,3).withPosition(3,1);
   }
 
   private String currentCamera = "NONE";
