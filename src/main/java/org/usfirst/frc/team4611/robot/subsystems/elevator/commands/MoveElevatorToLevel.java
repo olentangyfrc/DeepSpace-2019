@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveElevatorToLevel extends Command {
@@ -22,6 +23,10 @@ public class MoveElevatorToLevel extends Command {
     }
 
     protected void execute() {
+        if(DriverStation.getInstance().isDisabled()) {
+            return;
+        }
+
         if(lvl == Elevator.HappyPosition.LEVEL_1) {
             stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_1);
         } else if(lvl == Elevator.HappyPosition.LEVEL_2) {
@@ -47,6 +52,9 @@ public class MoveElevatorToLevel extends Command {
 
     @Override
     protected boolean isFinished() {
+        if(DriverStation.getInstance().isDisabled()) {
+            return true;
+        }
         return stop;
     }
 
