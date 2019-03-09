@@ -35,7 +35,9 @@ public class SparkMecanum extends SparkDriveTrain {
     private String velocity1ID = "Velocity1";
 	private String velocity2ID = "Velocity2";
 	private String velocity3ID = "Velocity3";
-	private String velocity4ID = "Velocity4";
+    private String velocity4ID = "Velocity4";
+    
+    private int velocityScalarFront;
 
     @Override
     public void init(PortMan pm) throws Exception {
@@ -51,8 +53,8 @@ public class SparkMecanum extends SparkDriveTrain {
 		double XVal = OI.getInstance().getLeftJoystickXValue();
 		double ZVal = OI.getInstance().getRightJoystickXValue();
     
-        velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1));
-		velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)); 
+        velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * velocityScalarFront;
+		velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * velocityScalarFront; 
 		velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
 		velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
         
