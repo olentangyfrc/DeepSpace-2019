@@ -137,6 +137,13 @@ public class OI {
     public double getRightJoystickYValue() {
         return getFilteredValue (rightJoy.getY());
     }
+    public double getAuxJoystickXValue() {
+        return getFilteredValue (auxJoy.getX());
+    }
+
+    public double getAuxJoystickYValue() {
+        return getFilteredValue (auxJoy.getY());
+    }
 
     public double getLeftXboxYValue(){
         return getFilteredValue(xbox.getY(Hand.kLeft));

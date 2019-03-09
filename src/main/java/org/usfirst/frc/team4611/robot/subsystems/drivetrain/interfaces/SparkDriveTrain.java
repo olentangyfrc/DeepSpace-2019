@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import java.util.logging.Logger;
@@ -9,9 +8,6 @@ import java.util.logging.Logger;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class SparkDriveTrain extends DriveTrain {
 
@@ -57,5 +53,4 @@ public abstract class SparkDriveTrain extends DriveTrain {
         backLeftEncoderPos= backLeftEncoder.getPosition();
         backRightEncoderPos = backRightEncoder.getPosition();
     }
-   
 }

@@ -9,6 +9,7 @@ package org.usfirst.frc.team4611.robot.subsystems.elevator.commands;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 
@@ -32,6 +33,13 @@ public class ElevatorDefault extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
+    if(OI.getInstance().getAuxJoystickYValue() > 0.5) {
+      elevator.move(true);
+    } else if (OI.getInstance().getAuxJoystickYValue() < -0.5) {
+      elevator.move(false);
+    }
+
     elevator.updateValues();
   }
 

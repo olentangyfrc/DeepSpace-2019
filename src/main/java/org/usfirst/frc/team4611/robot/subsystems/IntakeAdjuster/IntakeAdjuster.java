@@ -35,8 +35,8 @@ public class IntakeAdjuster extends Subsystem {
     private double power = 1;
     private int intakeSpeed = 1600;
     
-    private double minPos = 2.200;
-    private double maxPos = 2.570;
+    private double minPos = 3.95;
+    private double maxPos = 4.26;
 
     private AnalogPotentiometer pot;
 
@@ -63,7 +63,6 @@ public class IntakeAdjuster extends Subsystem {
     }
     
     public void lowerIntakeAdjuster() {
-
        intakeAdjuster.set(ControlMode.PercentOutput, -(adjusterVelocity.getDouble(power)));
     }
     
@@ -74,7 +73,7 @@ public class IntakeAdjuster extends Subsystem {
 
     public static enum HappyPositions {LEVEL1, LEVEL2, LEVEL3, LEVEL4};
 
-    private double pos1 = 0.5, pos2 = 0.5, pos3 = 0.5, pos4 = 0.5;
+    private double pos1 = 0.28, pos2 = 0.44, pos3 = 0.62, pos4 = 0.9;
 
     private double getPercentOutput() {
          return ((getVoltage() - minPos) / (maxPos - minPos));

@@ -2,37 +2,42 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation.sensors;
 
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.AbsoluteEncoder;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class Potentiometer extends AbsoluteEncoder {
 	
-	AnalogPotentiometer pot;
+	AnalogInput input;
 	double minimum;
 	double maximum;
 	
 	public Potentiometer(int port, double min, double max) {
-		pot = new AnalogPotentiometer(port);
+		input = new AnalogInput(port);
 		minimum = min;
 		maximum = max;
 	}
 
 	@Override
 	public double getPercentOutput() {
-		if(pot.get() < .001) {
-			return 0;
-		}
-		else {
-			return (pot.get()-minimum)/(maximum-minimum);
-		}
+		return (input.getVoltage()-minimum)/(maximum-minimum);
 	}
 
 	public double getRawValue() {
-		if(pot.get() < .001) {
-			return 0;
-		}
-		else {
-			return pot.get();
-		}
+		return input.getVoltage();
+	}
+
+	public void setMin(double m) {
+		minimum = m;
+	}
+	public double getMin() {
+		return minimum;
+	}
+
+	public void setMax(double m) {
+		maximum = m;
+	}
+	public double getMax() {
+		return maximum;
 	}
 
 	@Override

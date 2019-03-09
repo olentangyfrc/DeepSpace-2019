@@ -41,8 +41,9 @@ public class Elevator extends Subsystem {
         mmMode = on;
     }
 
-    private double  potTop      = 0.98;
-    private double  potBot      = .06;
+    private double  potTop      = 4.0;
+    private double  potBot      = 0.1;
+
     public void init(PortMan pm) throws Exception {
         initSB();
 
@@ -54,7 +55,7 @@ public class Elevator extends Subsystem {
         softLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital12_label, "Elevator.softLimitBottom"));
         hardLimitBottom = new DigitalInput(pm.acquirePort(PortMan.digital13_label, "Elevator.hardLimitBottom"));
 
-        pot = new Potentiometer(pm.acquirePort(PortMan.analog4_label, "Elevator Pot"), potBot, potTop);
+        pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
         initTalonsForMotionMagic();
@@ -134,12 +135,13 @@ public class Elevator extends Subsystem {
     }
 
     private double mmLevel1Target  =  1370;
-    private double mmLevel2Target  =  10496;
-    private double mmLevel3Target  =  12549;
-    private double mmLevel4Target  =  19632;
+    private double mmLevel2Target  =  9799;
+    private double mmLevel3Target  =  12764;
+    private double mmLevel4Target  =  18214;
     private double mmLevel5Target  =  22300;
-    private double mmLevel6Target  =  22339;
-    private double mmLevel7Target  =  17500;
+    private double mmLevel6Target  =  22240;
+    private double mmLevel7Target  =  14971;
+    private double mmLevel8Target  =  11373;
     private double mmCargoGrabTarget  =  14200;
     private double positionTolerance    = 100;
 
@@ -170,6 +172,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = mmLevel7Target;
+                break;
+            case LEVEL_8:
+                finalTarget = mmLevel8Target;
                 break;
             case CARGO_GRAB:
                 finalTarget = mmCargoGrabTarget;
@@ -227,7 +232,7 @@ public class Elevator extends Subsystem {
         leftTalon.set(ControlMode.PercentOutput, output);
     }
 
-    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, CARGO_GRAB};
+    public static enum HappyPosition {BOTTOM, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6, LEVEL_7, LEVEL_8, CARGO_GRAB};
 
     private double potLevel1Target  =  0.20;
     private double potLevel2Target  =  0.53;
@@ -236,6 +241,7 @@ public class Elevator extends Subsystem {
     private double potLevel5Target  =  0.89;
     private double potLevel6Target  =  0.89;
     private double potLevel7Target  =  0.7230;
+    private double potLevel8Target = 0.7230;
     private double potCargoGrabTarget   = 0.5335;
 
     public boolean moveToPotPos(HappyPosition level) {
@@ -243,7 +249,7 @@ public class Elevator extends Subsystem {
         
         switch (level) {
             case BOTTOM:
-                finalTarget = potBot;
+                finalTarget = 0.05;
                 break;
             case LEVEL_1:
                 finalTarget = potLevel1Target;
@@ -265,6 +271,9 @@ public class Elevator extends Subsystem {
                 break;
             case LEVEL_7:
                 finalTarget = potLevel7Target;
+                break;
+            case LEVEL_8:
+                finalTarget = potLevel8Target;
                 break;
             case CARGO_GRAB:
                 finalTarget = potCargoGrabTarget;
@@ -315,6 +324,9 @@ public class Elevator extends Subsystem {
             case LEVEL_7:
                 finalTarget = potLevel7Target;
                 break;
+            case LEVEL_8:
+                finalTarget = potLevel8Target;
+                break;
             case CARGO_GRAB:
                 finalTarget = potCargoGrabTarget;
                 break;
@@ -329,12 +341,14 @@ public class Elevator extends Subsystem {
         leftTalon.configFactoryDefault();
         rightTalon.configFactoryDefault();
 
-        rightTalon.enableCurrentLimit(true);
+        boolean currentLimitEnabled = true;
+
+        rightTalon.enableCurrentLimit(currentLimitEnabled);
         rightTalon.configPeakCurrentLimit(50);
         rightTalon.configContinuousCurrentLimit(40);
         rightTalon.configPeakCurrentDuration(400);
 
-        leftTalon.enableCurrentLimit(true);
+        leftTalon.enableCurrentLimit(currentLimitEnabled);
         leftTalon.configPeakCurrentLimit(50);
         leftTalon.configContinuousCurrentLimit(40);
         leftTalon.configPeakCurrentDuration(400);
@@ -348,7 +362,7 @@ public class Elevator extends Subsystem {
         rightTalon.setInverted(false);
     }
 
-    private double  pidP = 0.6;
+    private double  pidP = 0.8;
     private int     cruiseSpeed = 8000;
     private int     acceleration = 10000;
 
@@ -422,6 +436,8 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry PotCargoGrabEntry;
 
     private NetworkTableEntry potPositionEntry;
+    private NetworkTableEntry potMinEntry;
+    private NetworkTableEntry potMaxEntry;
     private NetworkTableEntry leftEncoderPositionEntry;
     private NetworkTableEntry rightEncoderPositionEntry;
     private NetworkTableEntry percOutputUpEntry;
@@ -441,6 +457,8 @@ public class Elevator extends Subsystem {
         resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
         
         potPositionEntry = tab.add("Pot Position", 0).withSize(1,1).withPosition(3, 0).getEntry();
+        potMinEntry = tab.add("Pot Min", 0).withSize(1,1).withPosition(4, 0).getEntry();
+        potMaxEntry = tab.add("Pot Max", 0).withSize(1,1).withPosition(5, 0).getEntry();
         leftEncoderPositionEntry = tab.add("Left Encoder", 0).withSize(1, 1).withPosition(1, 0).getEntry();
         rightEncoderPositionEntry = tab.add("Right Encoder", 0).withSize(1, 1).withPosition(2, 0).getEntry();
         percOutputUpEntry = tab.add("% Output\nUp Entry", percOutputUp).withSize(1, 1).withPosition(3, 1).getEntry();
@@ -470,8 +488,8 @@ public class Elevator extends Subsystem {
         PotLevel7Entry = tab.add("Pot 7", potLevel7Target).withSize(1, 1).withPosition(6, 4).getEntry();
         PotCargoGrabEntry = tab.add("PotCargoGrab", potLevel7Target).withSize(1, 1).withPosition(7, 4).getEntry();
 
-        leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(5, 0).getEntry();
-        rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(8, 0).getEntry();
+        leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(6, 0).getEntry();
+        rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(9, 0).getEntry();
     }
 
     public void updateValues() {
@@ -506,7 +524,10 @@ public class Elevator extends Subsystem {
         leftEncoderPositionEntry.setDouble(leftTalon.getSelectedSensorPosition());
         rightEncoderPositionEntry.setDouble(rightTalon.getSelectedSensorPosition());
 
-        potPositionEntry.setDouble(pot.getRawValue());
+        potPositionEntry.setDouble(pot.getPercentOutput());
+        pot.setMin(potMinEntry.getDouble(pot.getMin()));
+        pot.setMax(potMaxEntry.getDouble(pot.getMax()));
+
         stepUpEntry.setDouble(stepUp);
         stepDownEntry.setDouble(stepDown);
         percOutputUpEntry.setDouble(percOutputUp);

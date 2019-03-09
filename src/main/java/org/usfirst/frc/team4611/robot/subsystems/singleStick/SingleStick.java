@@ -2,47 +2,49 @@ package org.usfirst.frc.team4611.robot.subsystems.singleStick;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class SingleStick extends Subsystem {
-
     private static Logger logger = Logger.getLogger(SingleStick.class.getName());
-    static private ShuffleboardTab tab = Shuffleboard.getTab("SingleStick");
+    static private ShuffleboardTab tab = Shuffleboard.getTab("Stick");
 
-    private Solenoid pusher;
+    private DoubleSolenoid pusher;
 
 	private NetworkTableEntry stickStatus;
 
     public SingleStick() {
     }
 
-    public void init(PortMan pm) throws Exception{
-        pusher = new Solenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoid"));
+    public void init(PortMan pm) {
+        try{
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoidx"), pm.acquirePort(PortMan.pcm1_label, "Stick.outDoubleSolenoidx"));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
-		stickStatus = tab.add("SingleStick Engaged", false).getEntry();
+		stickStatus = tab.add("Stick Engagedx", false).getEntry();
     } 
 
     public void pushHatch() {
-        pusher.set(true);
+        pusher.set(DoubleSolenoid.Value.kForward);
 
         stickStatus.setBoolean(true);
     }
 
     public void retractPistons() {
-        pusher.set(false);
+        pusher.set(DoubleSolenoid.Value.kReverse);
 
         stickStatus.setBoolean(false);
     }
 
     public boolean isRetracted() {
-        return false;
+        return pusher.get().equals(DoubleSolenoid.Value.kReverse);
     }
 
     @Override

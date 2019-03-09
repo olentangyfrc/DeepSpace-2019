@@ -112,11 +112,6 @@ public class SparkTurboTankDrive extends SparkDriveTrain {
     }
 
     @Override
-    public double getVelocity() {
-        return 0;
-    }
-
-    @Override
     public void activateTurbo() {
         turboSol.set(Value.kForward);
     }

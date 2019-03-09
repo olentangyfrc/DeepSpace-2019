@@ -7,6 +7,7 @@ import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
+import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackwardSlower;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveAdjusterToPos;
@@ -115,9 +116,9 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
-        if (botMacAddress == null) {
+        /*if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
-        }
+        }*/
 
         try {
             // create SB tabs that we want to see first now
@@ -132,9 +133,11 @@ public class SubsystemFactory {
             oi  = OI.getInstance();
             oi.init();
 
-            // subsystems common to every bot
+            initComp();
+
+            //subsystems common to every bot
             logger.info("["+botMacAddress+"]");
-            if (botMacAddress.equals(protoMacAddress)) {
+            /*if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
             } else if (botMacAddress.equals(footballMacAddress) || botMacAddress == null || botMacAddress.equals("")) {
                 initFootball();
@@ -148,7 +151,7 @@ public class SubsystemFactory {
                 initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
-            } 
+            }*/
 
             initCommon();
             // driverfeedback will create a shuffleboard tab that aggregates data from subsystems.
@@ -164,12 +167,10 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
-        vision  = new Vision();
-        vision.init();
     }
 
     /**
-     * init subsytems specific to Janky
+     * init subsytems specific to Proto
      */
     private void initProto() throws Exception{
         logger.info("initalizing Proto");
@@ -242,9 +243,83 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Proto
      */
+    private void initComp() throws Exception{
+        logger.info("initalizing Blue");
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
+        nav = new Navigation();
+        nav.init(portMan);
+        
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
+
+        roller = new Roller();
+        roller.init(portMan);
+
+        doubleWheel = new DoubleWheel();
+        doubleWheel.init(portMan);
+
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
+
+        driveTrain = new SparkMecanum();
+        driveTrain.init(portMan);
+
+        stick = new Stick();
+        stick.init(portMan);
+
+        sstick = new SingleStick();
+        sstick.init(portMan);
+
+        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
+
+        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
+
+        oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
+        oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
+
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.AuxJoyButton4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.AuxJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.AuxJoyButton3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.AuxJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_8), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.AuxJoyButton2, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton9, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
+    
+        oi.bind(new SPush(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new SRetract(), OI.LeftJoyButton7, OI.WhenPressed);
+
+        //4, 6, 3, 7, 5, 8, 1
+        
+
+    }
 
     
-    private void initComp() throws Exception {
+    /**
+     * This was the blue code as it was on stop build
+     */
+    private void initCompOrig() throws Exception {
         logger.info("initalizing Comp");
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);

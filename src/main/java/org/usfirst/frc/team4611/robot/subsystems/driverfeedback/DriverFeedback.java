@@ -27,12 +27,8 @@ import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
-import edu.wpi.cscore.HttpCamera;
-import edu.wpi.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -61,10 +57,9 @@ public class DriverFeedback extends Subsystem {
 
     ShuffleboardTab tab;
     private NetworkTableEntry   leftSideSquare, rightSideSquare, frontSquare, frontCentered;
-    private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7;
+    private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7, elevatorPos8;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
     private NetworkTableEntry selectedCamera;
-    private ComplexWidget       videoEntry;
 
   public void init() {
 
@@ -86,13 +81,14 @@ public class DriverFeedback extends Subsystem {
     tab = Shuffleboard.getTab("DriverFeedback");
 
     // Elevator Entries
-    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,6).getEntry();
-    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,5).getEntry();
-    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,4).getEntry();
-    elevatorPos4    = tab.add("Elevator 4", false).withSize(1,1).withPosition(0,3).getEntry();
-    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,2).getEntry();
-    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,1).getEntry();
-    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,0).getEntry();
+    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,7).getEntry();
+    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,6).getEntry();
+    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,5).getEntry();
+    elevatorPos4    = tab.add("Elevator 4", false).withSize(1,1).withPosition(0,4).getEntry();
+    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,3).getEntry();
+    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,2).getEntry();
+    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,1).getEntry();
+    elevatorPos8    = tab.add("Elevator 8", false).withSize(1, 1).withPosition(0, 0).getEntry();
 
     selectedCamera = tab.add("Selected Camera", "NONE").withSize(2, 1).withPosition(4, 4).getEntry();
 
@@ -114,10 +110,6 @@ public class DriverFeedback extends Subsystem {
     rightSideSquare     = tab.add("Right Side\nSquare", false)
                               .withSize(1,1).withPosition(11,2).getEntry();
 
-    // Vision Entries
-      HttpCamera httpCamera = new HttpCamera("rPi Vision", "http://frcvision.local:1181/?action=stream", HttpCameraKind.kMJPGStreamer);
-      CameraServer.getInstance().addCamera(httpCamera);
-      videoEntry = tab.add(httpCamera).withSize(4,3).withPosition(3,1);
   }
 
   private String currentCamera = "NONE";
@@ -144,12 +136,13 @@ public class DriverFeedback extends Subsystem {
     }
     if (elevator != null) {
       elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_1));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_2));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_3));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_4));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_5));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_6));
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_7));
+      elevatorPos2.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_2));
+      elevatorPos3.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_3));
+      elevatorPos4.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_4));
+      elevatorPos5.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_5));
+      elevatorPos6.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_6));
+      elevatorPos7.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_7));
+      elevatorPos8.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_8));
     }
       
     if (lineTracker != null) {

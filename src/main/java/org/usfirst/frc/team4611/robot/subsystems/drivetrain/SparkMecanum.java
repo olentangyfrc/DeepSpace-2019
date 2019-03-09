@@ -29,54 +29,61 @@ public class SparkMecanum extends SparkDriveTrain {
     public double encoderPosFrontRight = 0;
     public double encoderPosBackLeft = 0;
     public double encoderPosBackRight = 0;
-
-    private Timer driveT;
-
-    private String velocity1ID = "Velocity1";
-	private String velocity2ID = "Velocity2";
-	private String velocity3ID = "Velocity3";
-	private String velocity4ID = "Velocity4";
+    
+    private double velocityScalarFront = 1.0;
 
     @Override
     public void init(PortMan pm) throws Exception {
-        logger.info("initializing");
         super.init(pm);
+        NetTableManager.updateValue("Spark Mecanum", "Strafe adjustment", Double.valueOf(velocityScalarFront));
     }
 
     @Override
     public void move() {
         if (!inited) return;
 
+        double strafingAdjustment = 1.0;
+        velocityScalarFront = ((Double) NetTableManager.getValue("Spark Mecanum", "Strafe adjustment", Double.valueOf(velocityScalarFront)))
+                                  .doubleValue();
+
         double YVal = -OI.getInstance().getLeftJoystickYValue();
 		double XVal = OI.getInstance().getLeftJoystickXValue();
-		double ZVal = OI.getInstance().getRightJoystickXValue();
-    
-        velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1));
-		velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)); 
-		velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
-		velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        double ZVal = OI.getInstance().getRightJoystickXValue();
+        
+        // make front motor adjustments if purely strafing laterally
+        if (YVal == 0.0 && ZVal == 0.0 && XVal > 0) {
+            strafingAdjustment = velocityScalarFront;
+            logger.info("Strafing adjustment right [" + strafingAdjustment + "]");
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * strafingAdjustment;
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * strafingAdjustment;
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        } else if(YVal == 0.0 && ZVal == 0.0 && XVal < 0) {
+            strafingAdjustment = velocityScalarFront;
+            logger.info("Strafing adjustment left [" + strafingAdjustment + "]");
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * strafingAdjustment;
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * strafingAdjustment;
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        } else {
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1));
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2));
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        }
         
         frontLeft.set(velocity1);
         frontRight.set(velocity2);
         backLeft.set(velocity4);
         backRight.set(velocity3);
 
-        //logger.info(""+this.getAverageSensorPos());
-
-        HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put(velocity1ID, velocity1);
-		values.put(velocity2ID, velocity2);
-		values.put(velocity3ID, velocity3);
-		values.put(velocity4ID, velocity4);
+        if (YVal == 0.0 && ZVal == 0.0) {
+            logger.info("fl [" + velocity1 + "] fr [" + velocity2 + "] br [" + velocity3 + "] bl [" + velocity4 + "]");
+        }
     }
 
     @Override
     public void setupTalons() {
-
-        driveT = new Timer();
-        driveT.start();
-        driveT.reset();
-
         frontLeft.getPIDController().setP(0.65);
         frontRight.getPIDController().setP(0.65);
         backLeft.getPIDController().setP(0.65);
@@ -141,11 +148,6 @@ public class SparkMecanum extends SparkDriveTrain {
 		return getAverageSensorPos() / METER_PU_MULT;
 
 	}
-
-    @Override
-    public double getVelocity() {
-        return getMetersTraveled() / (driveT.get() / 1000);
-    }
 
     public void moveAtSpeed(double speed1, double speed2, double speed3, double speed4) {
 
