@@ -22,7 +22,7 @@ public class Intake extends Subsystem {
     static private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
 
     private double defaultPercent = .75;
-    private double slowPercent = .25;
+    private double slowPercent = .5;
 
     private NetworkTableEntry isLogging;
     private NetworkTableEntry motorSpeed;
