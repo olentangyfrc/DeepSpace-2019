@@ -29,34 +29,48 @@ public class SparkMecanum extends SparkDriveTrain {
     public double encoderPosFrontRight = 0;
     public double encoderPosBackLeft = 0;
     public double encoderPosBackRight = 0;
+    
+    private double velocityScalarFront = 1.0;
 
     @Override
     public void init(PortMan pm) throws Exception {
         super.init(pm);
+        NetTableManager.updateValue("Spark Mecanum", "Strafe adjustment", Double.valueOf(velocityScalarFront));
     }
-
-    private double velocityScalarFront = 0.90;
 
     @Override
     public void move() {
         if (!inited) return;
 
         double strafingAdjustment = 1.0;
+        velocityScalarFront = ((Double) NetTableManager.getValue("Spark Mecanum", "Strafe adjustment", Double.valueOf(velocityScalarFront)))
+                                  .doubleValue();
 
         double YVal = -OI.getInstance().getLeftJoystickYValue();
 		double XVal = OI.getInstance().getLeftJoystickXValue();
         double ZVal = OI.getInstance().getRightJoystickXValue();
         
         // make front motor adjustments if purely strafing laterally
-        if (YVal == 0.0 && ZVal == 0.0) {
+        if (YVal == 0.0 && ZVal == 0.0 && XVal > 0) {
             strafingAdjustment = velocityScalarFront;
-            logger.info("Strafing adjustment [" + strafingAdjustment + "]");
+            logger.info("Strafing adjustment right [" + strafingAdjustment + "]");
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * strafingAdjustment;
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * strafingAdjustment;
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        } else if(YVal == 0.0 && ZVal == 0.0 && XVal < 0) {
+            strafingAdjustment = velocityScalarFront;
+            logger.info("Strafing adjustment left [" + strafingAdjustment + "]");
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * strafingAdjustment;
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * strafingAdjustment;
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
+        } else {
+            velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1));
+            velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2));
+            velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
+            velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
         }
-    
-        velocity1 = ((YVal + XVal + ZVal) * (velocityInvert1)) * strafingAdjustment;
-		velocity2 = ((YVal - XVal - ZVal) * (velocityInvert2)) * strafingAdjustment; 
-		velocity3 = ((YVal + XVal - ZVal) * (velocityInvert3));
-		velocity4 = ((YVal - XVal + ZVal) * (velocityInvert4));
         
         frontLeft.set(velocity1);
         frontRight.set(velocity2);
