@@ -10,7 +10,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public abstract class DriveTrain extends Subsystem {
@@ -29,8 +28,6 @@ public abstract class DriveTrain extends Subsystem {
     protected ShuffleboardTab tab; 
     private NetworkTableEntry isLogging;
 
-    private boolean logging = false;
-
     public abstract void move();
 
     public void init(PortMan pm) throws Exception {
@@ -47,11 +44,6 @@ public abstract class DriveTrain extends Subsystem {
 
         setupTalons();
     }
-
-    /*public boolean isLogging(){
-        logging = isLogging.getBoolean(false);
-        return logging;
-    }*/
 
     /**
      * Used to setup DriveTrian talons as needed
@@ -120,7 +112,6 @@ public abstract class DriveTrain extends Subsystem {
     /**
      * @return The approximate velocity of the wheels (in m/s)
      */
-    public abstract double getVelocity();
 
     public abstract void activateTurbo();
 
