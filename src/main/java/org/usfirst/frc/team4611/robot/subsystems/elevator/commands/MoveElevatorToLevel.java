@@ -23,9 +23,6 @@ public class MoveElevatorToLevel extends Command {
     }
 
     protected void execute() {
-        if(DriverStation.getInstance().isDisabled()) {
-            return;
-        }
 
         if(lvl == Elevator.HappyPosition.LEVEL_1) {
             stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_1);
@@ -52,9 +49,6 @@ public class MoveElevatorToLevel extends Command {
 
     @Override
     protected boolean isFinished() {
-        if(DriverStation.getInstance().isDisabled()) {
-            return true;
-        }
         return stop;
     }
 
@@ -70,6 +64,12 @@ public class MoveElevatorToLevel extends Command {
 
     @Override
     protected void interrupted() {
+        elevator.stop();
         stop = true;
+    }
+
+    @Override
+    protected void end() {
+        elevator.stop();
     }
 }
