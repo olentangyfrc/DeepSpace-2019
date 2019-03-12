@@ -35,35 +35,25 @@ public class Robot extends TimedRobot {
 			logger.exiting(Robot.class.getName(), "robotInit()");
 		}
 	}
-
-	@Override
-	public void disabledInit() {
-		Scheduler.getInstance().run();
-		Scheduler.getInstance().disable();
-		return;
-	}
-
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().disable();
+		Scheduler.getInstance().run();
+		//Scheduler.getInstance().disable();
 	}
 
 	@Override
 	public void teleopInit() {
-		Scheduler.getInstance().enable();
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousInit() {
-		Scheduler.getInstance().enable();
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void testInit() {
-		Scheduler.getInstance().enable();
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
@@ -76,6 +66,11 @@ public class Robot extends TimedRobot {
 	}
 	@Override
 	public void testPeriodic() {
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
 	}
+	@Override
+	public void disabledInit() {
+		//Scheduler.getInstance().run();
+	}
+
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team4611.robot.FUWpi;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
@@ -116,9 +117,10 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
-        /*if (botMacAddress == null) {
+        botMacAddress = footballMacAddress;
+        if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
-        }*/
+        }
 
         try {
             // create SB tabs that we want to see first now
@@ -133,11 +135,9 @@ public class SubsystemFactory {
             oi  = OI.getInstance();
             oi.init();
 
-            initComp();
-
             //subsystems common to every bot
             logger.info("["+botMacAddress+"]");
-            /*if (botMacAddress.equals(protoMacAddress)) {
+            if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
             } else if (botMacAddress.equals(footballMacAddress) || botMacAddress == null || botMacAddress.equals("")) {
                 initFootball();
@@ -151,7 +151,7 @@ public class SubsystemFactory {
                 initNewbie();
             } else {
                 logger.severe("Unrecognized MAC Address [" + botMacAddress + "]");
-            }*/
+            }
 
             initCommon();
             // driverfeedback will create a shuffleboard tab that aggregates data from subsystems.
@@ -426,6 +426,10 @@ public class SubsystemFactory {
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
 
+        elevator = new Elevator();
+        oi.bind(new FUWpi(), OI.LeftJoyButton1, OI.WhenPressed);
+
+        /*
         nav    = new Navigation();
         nav.initSB();
         lineTracker = new LineTracker();
@@ -437,6 +441,7 @@ public class SubsystemFactory {
         //nav.init(portMan);
         //elevator = new Elevator();
         //elevator.initSB();
+        */
     }
 
     public DriveTrain getDriveTrain(){

@@ -38,7 +38,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public class DriverFeedback extends Subsystem {
   private static Logger logger = Logger.getLogger(DriverFeedback.class.getName());
-
+  private boolean inited = false;
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
@@ -115,7 +115,8 @@ public class DriverFeedback extends Subsystem {
   private String currentCamera = "NONE";
 
   public void updateDriverFeedback() {
-    
+    if (!inited) return;
+
     currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", currentCamera);
     selectedCamera.setString(currentCamera);
 

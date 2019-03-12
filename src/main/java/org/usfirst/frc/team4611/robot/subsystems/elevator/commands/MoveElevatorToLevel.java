@@ -23,28 +23,7 @@ public class MoveElevatorToLevel extends Command {
     }
 
     protected void execute() {
-
-        if(lvl == Elevator.HappyPosition.LEVEL_1) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_1);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_2) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_2);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_3) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_3);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_4) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_4);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_5) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_5);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_6) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_6);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_7) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_7);
-        } else if(lvl == Elevator.HappyPosition.LEVEL_8) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.LEVEL_8);
-        } else if(lvl == Elevator.HappyPosition.BOTTOM) {
-            stop = elevator.moveToLevel(Elevator.HappyPosition.BOTTOM);
-        } else {
-            stop = true;
-        }
+        stop = elevator.moveToLevel(lvl);
     }
 
     @Override
