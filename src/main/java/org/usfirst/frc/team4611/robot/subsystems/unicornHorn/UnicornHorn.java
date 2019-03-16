@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4611.robot.subsystems.stick;
+package org.usfirst.frc.team4611.robot.subsystems.unicornHorn;
 
 import java.util.logging.Logger;
 
@@ -10,37 +10,26 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
-public class Stick extends Subsystem {
-    private static Logger logger = Logger.getLogger(Stick.class.getName());
-    static private ShuffleboardTab tab = Shuffleboard.getTab("Stick");
+public class UnicornHorn extends Subsystem {
+    private static Logger logger = Logger.getLogger(UnicornHorn.class.getName());
+    static private ShuffleboardTab tab = Shuffleboard.getTab("UnicornHorn");
 
     private DoubleSolenoid pusher;
 
-	private NetworkTableEntry stickStatus;
-
-    public Stick() {  
+    public UnicornHorn() {  
     }
 
-    public void init(PortMan pm) {
-        try{
-           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm2_label, "Stick.inDoubleSolenoid"), pm.acquirePort(PortMan.pcm3_label, "Stick.outDoubleSolenoid"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-		stickStatus = tab.add("Stick Engaged", false).getEntry();
+    public void init(PortMan pm) throws Exception {
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "UnicornHorn.inDoubleSolenoid"),
+                pm.acquirePort(PortMan.pcm1_label, "UnicornHorn.outDoubleSolenoid"));
     } 
 
     public void pushHatch() {
         pusher.set(DoubleSolenoid.Value.kForward);
-
-        stickStatus.setBoolean(true);
     }
 
     public void retractPistons() {
         pusher.set(DoubleSolenoid.Value.kReverse);
-
-        stickStatus.setBoolean(false);
     }
 
     public boolean isRetracted() {

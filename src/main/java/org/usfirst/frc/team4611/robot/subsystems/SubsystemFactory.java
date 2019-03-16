@@ -33,9 +33,12 @@ import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
-import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
-import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Push;
-import org.usfirst.frc.team4611.robot.subsystems.stick.commands.Retract;
+import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.UnicornHorn;
+import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.UnicornHorn;
+import org.usfirst.frc.team4611.robot.subsystems.hook.Hook;
+import org.usfirst.frc.team4611.robot.subsystems.hook.commands.MoveHook;
+import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.commands.Push;
+import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.commands.Retract;
 import org.usfirst.frc.team4611.robot.subsystems.systemstatus.SystemStatus;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
@@ -53,9 +56,9 @@ import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorT
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
-import org.usfirst.frc.team4611.robot.subsystems.singleStick.SingleStick;
-import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SPush;
-import org.usfirst.frc.team4611.robot.subsystems.singleStick.commands.SRetract;
+import org.usfirst.frc.team4611.robot.subsystems.climber.Climber;
+import org.usfirst.frc.team4611.robot.subsystems.climber.commands.SPush;
+import org.usfirst.frc.team4611.robot.subsystems.climber.commands.SRetract;
 
 
 public class SubsystemFactory {
@@ -82,7 +85,8 @@ public class SubsystemFactory {
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
-    private Stick stick;
+    private UnicornHorn unicornHorn;
+    private Hook hook;
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
@@ -96,7 +100,7 @@ public class SubsystemFactory {
     private PixyCam pixyCam;
     private PixyLineCam pixyLineCam;
     private DriverFeedback  driverFeedback;
-    private SingleStick sstick;
+    private org.usfirst.frc.team4611.robot.subsystems.climber.Climber climber;
     private SystemStatus systemStatus;
   
     private UsbCamera camera1;
@@ -137,6 +141,7 @@ public class SubsystemFactory {
 
             //subsystems common to every bot
             logger.info("["+botMacAddress+"]");
+        botMacAddress = protoMacAddress;
             if (botMacAddress.equals(protoMacAddress)) {
                 initProto();
             } else if (botMacAddress.equals(footballMacAddress) || botMacAddress == null || botMacAddress.equals("")) {
@@ -172,7 +177,7 @@ public class SubsystemFactory {
     /**
      * init subsytems specific to Proto
      */
-    private void initProto() throws Exception{
+    private void initProtoOrig() throws Exception{
         logger.info("initalizing Proto");
 
         elevator = new Elevator();
@@ -199,8 +204,8 @@ public class SubsystemFactory {
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
-        stick = new Stick();
-        stick.init(portMan);
+        unicornHorn = new UnicornHorn();
+        unicornHorn.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -239,6 +244,79 @@ public class SubsystemFactory {
        
         //oi.bind(new MoveElevator(true), OI.AuxJoyButton3, OI.WhileHeld);
     }
+     /**
+     * init subsytems specific to Proto
+     */
+    private void initProto() throws Exception{
+        logger.info("initalizing Proto");
+
+        elevator = new Elevator();
+        elevator.init(portMan);
+
+        nav = new Navigation();
+        nav.init(portMan);
+        
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+        lineTracker = new LineTracker();
+        lineTracker.init(portMan);
+
+        roller = new Roller();
+        roller.init(portMan);
+
+        doubleWheel = new DoubleWheel();
+        doubleWheel.init(portMan);
+
+        shooterIntake = new Intake();
+        shooterIntake.init(portMan);
+
+        driveTrain = new SparkMecanum();
+        driveTrain.init(portMan);
+
+        unicornHorn = new UnicornHorn();
+        unicornHorn.init(portMan);
+
+        hook = new Hook();
+        hook.init(portMan);
+
+        climber = new Climber();
+        climber.init(portMan);
+
+        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
+
+        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
+        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
+        oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
+
+        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
+        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
+        
+        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
+        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
+        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton10, OI.WhileHeld);
+        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton11, OI.WhileHeld);
+
+        oi.bind(new MoveHook(true), OI.LeftJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveHook(false), OI.LeftJoyButton9, OI.WhenPressed);
+
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.AuxJoyButton4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.AuxJoyButton8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.AuxJoyButton3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.AuxJoyButton7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_8), OI.AuxJoyButton6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.AuxJoyButton2, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton9, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
+    
+        oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
+        oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
+    }
     
     /**
      * init subsytems specific to Proto
@@ -270,11 +348,11 @@ public class SubsystemFactory {
         driveTrain = new SparkMecanum();
         driveTrain.init(portMan);
 
-        stick = new Stick();
-        stick.init(portMan);
+        unicornHorn = new UnicornHorn();
+        unicornHorn.init(portMan);
 
-        sstick = new SingleStick();
-        sstick.init(portMan);
+        climber = new Climber();
+        climber.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -339,11 +417,11 @@ public class SubsystemFactory {
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
-        stick = new Stick();
-        stick.init(portMan);
+        unicornHorn = new UnicornHorn();
+        unicornHorn.init(portMan);
 
-        sstick = new SingleStick();
-        sstick.init(portMan);
+        climber = new Climber();
+        climber.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
 
@@ -464,12 +542,12 @@ public class SubsystemFactory {
         return spatula;
     }
 
-    public Stick getStick(){
-        return stick;
+    public UnicornHorn getUnicornHorn(){
+        return unicornHorn;
     }
 
-    public SingleStick getSingleStick(){
-        return sstick;
+    public Climber getClimber(){
+        return climber;
     }
 
     public Kicker getKicker(){
@@ -521,5 +599,9 @@ public class SubsystemFactory {
     }
     public SystemStatus getSystemStatus() {
         return systemStatus;
+    }
+
+    public Hook getHook() {
+        return hook;
     }
 }
