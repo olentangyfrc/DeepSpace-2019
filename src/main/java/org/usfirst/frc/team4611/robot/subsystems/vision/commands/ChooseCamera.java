@@ -8,19 +8,14 @@
 package org.usfirst.frc.team4611.robot.subsystems.vision.commands;
 
 import java.util.logging.Logger;
-
 import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-
 import edu.wpi.first.wpilibj.command.Command;
 
-
 public class ChooseCamera extends Command {
-public static  enum Camera {LEFT, RIGHT, LOWFRONT, HIGHFRONT};
   private static Logger logger = Logger.getLogger(ChooseCamera.class.getName());
 
   private String camera;
-  private Camera c;
-  private static int cycleCount = -1;
+  private static int cycleCount = 0;
 
   public ChooseCamera() {
   }
@@ -28,20 +23,16 @@ public static  enum Camera {LEFT, RIGHT, LOWFRONT, HIGHFRONT};
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (cycleCount == 3) {
-      cycleCount = 0;
-    } else {
-      cycleCount += 1;
-    }
-    if (cycleCount == 0) {
+    if (cycleCount % 4 == 0) {
       camera = "usb 1";
-    } else if (cycleCount == 1) {
+    } else if (cycleCount % 4 == 1) {
       camera = "usb 2";
-    } else if (cycleCount == 2) {
+    } else if (cycleCount % 4 == 2) {
       camera = "usb 3";
-    } else if (cycleCount == 3) {
+    } else if (cycleCount % 4 == 3) {
       camera = "usb 4";
     }
+    cycleCount += 1;
   }
 
   // Called repeatedly when this Command is scheduled to run
