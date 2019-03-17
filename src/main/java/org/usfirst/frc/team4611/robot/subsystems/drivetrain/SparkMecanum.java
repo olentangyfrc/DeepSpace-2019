@@ -77,9 +77,11 @@ public class SparkMecanum extends SparkDriveTrain {
         backLeft.set(velocity4);
         backRight.set(velocity3);
 
+        /*
         if (YVal == 0.0 && ZVal == 0.0) {
             logger.info("fl [" + velocity1 + "] fr [" + velocity2 + "] br [" + velocity3 + "] bl [" + velocity4 + "]");
         }
+        */
     }
 
     @Override

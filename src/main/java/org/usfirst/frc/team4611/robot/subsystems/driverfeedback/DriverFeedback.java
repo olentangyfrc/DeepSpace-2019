@@ -23,7 +23,6 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
-import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
@@ -38,11 +37,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public class DriverFeedback extends Subsystem {
   private static Logger logger = Logger.getLogger(DriverFeedback.class.getName());
-
+  private boolean inited = false;
     private Petal petal; 
     private Navigation nav;
     private TriangleHatch triangleHatch;
-    private Stick stick;
     private Spatula spatula;
     private Kicker kicker;
     private Vision vision;
@@ -66,7 +64,6 @@ public class DriverFeedback extends Subsystem {
     petal = SubsystemFactory.getInstance().getPetal();
     nav = SubsystemFactory.getInstance().getNavigation();
     triangleHatch = SubsystemFactory.getInstance().getTriangleHatch();
-    stick= SubsystemFactory.getInstance().getStick();
     spatula= SubsystemFactory.getInstance().getSpatula();
     kicker= SubsystemFactory.getInstance().getKicker();
     vision= SubsystemFactory.getInstance().getVision();
@@ -115,16 +112,14 @@ public class DriverFeedback extends Subsystem {
   private String currentCamera = "NONE";
 
   public void updateDriverFeedback() {
-    
+    if (!inited) return;
+
     currentCamera = (String)NetTableManager.getValue("Vision", "selected_camera", currentCamera);
     selectedCamera.setString(currentCamera);
 
     if (nav != null) {
       leftSideSquare.setBoolean(nav.isLeftSideSquare());
       rightSideSquare.setBoolean(nav.isRightSideSquare());
-
-    }
-    if (stick != null) {
 
     }
     if (vision != null) {

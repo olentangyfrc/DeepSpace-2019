@@ -1,23 +1,21 @@
-package org.usfirst.frc.team4611.robot.subsystems.singleStick.commands;
+package org.usfirst.frc.team4611.robot.subsystems.climber.commands;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.singleStick.SingleStick;
-import org.usfirst.frc.team4611.robot.subsystems.stick.Stick;
+import org.usfirst.frc.team4611.robot.subsystems.climber.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SRetract extends Command {
 
-    private SingleStick stick;
+    private Climber stick;
 
     public SRetract() {
-        stick = SubsystemFactory.getInstance().getSingleStick();
+        stick = SubsystemFactory.getInstance().getClimber();
         this.requires(stick);
     }
 
     @Override
     protected void execute() {
-        System.out.println("Retracting Hatch");
         stick.retractPistons();
     }
 

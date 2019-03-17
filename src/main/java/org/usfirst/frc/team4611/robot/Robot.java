@@ -7,7 +7,6 @@ import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.OzoneJavaLogger;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,39 +35,42 @@ public class Robot extends TimedRobot {
 			logger.exiting(Robot.class.getName(), "robotInit()");
 		}
 	}
-
-	@Override
-	public void disabledInit() {
-	}
-
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		//Scheduler.getInstance().disable();
+	}
+
+	@Override
+	public void teleopInit() {
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousInit() {
+		//Scheduler.getInstance().run();
+	}
+
+	@Override
+	public void testInit() {
+		//Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
-	@Override
-	public void teleopInit() {
-	}
-
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
-	@Override
-	public void testInit() {
-	}
-
 	@Override
 	public void testPeriodic() {
+		//Scheduler.getInstance().run();
 	}
+	@Override
+	public void disabledInit() {
+		//Scheduler.getInstance().run();
+	}
+
 }

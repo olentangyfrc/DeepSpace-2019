@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class Elevator extends Subsystem {
 
     private final Logger logger = Logger.getLogger(Elevator.class.getName());
+    private boolean inited = false;
     private boolean logging     = false;
     static private ShuffleboardTab tab = Shuffleboard.getTab("Elevator");
 
@@ -206,7 +207,6 @@ public class Elevator extends Subsystem {
         double output;
 
         output = (moveUp ? percOutputUp : (-1 * percOutputDown));
-        logger.info("moveUp [" + moveUp + "] % [" + output + "]");
 
         if(!softLimitBottom.get()) {
             lowerSoftLimitToggle = output < 0;
@@ -493,6 +493,8 @@ public class Elevator extends Subsystem {
     }
 
     public void updateValues() {
+        if (!inited) return;
+
         // read new values
         potLevel1Target = PotLevel1Entry.getDouble(potLevel1Target);
         potLevel2Target = PotLevel2Entry.getDouble(potLevel2Target);
