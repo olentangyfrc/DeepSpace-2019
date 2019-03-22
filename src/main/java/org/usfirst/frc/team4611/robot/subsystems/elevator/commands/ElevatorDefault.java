@@ -39,8 +39,6 @@ public class ElevatorDefault extends Command {
     } else if (OI.getInstance().getAuxJoystickYValue() < -0.5) {
       elevator.move(false);
     }
-
-    elevator.updateValues();
   }
 
   // Make this return true when this Command no longer needs to run execute()

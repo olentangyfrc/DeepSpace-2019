@@ -14,14 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends TimedRobot {
 
-	private static Logger logger;
+	private static Logger logger	= Logger.getLogger(Robot.class.getName());
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
 		try {
-			logger	= Logger.getLogger(Robot.class.getName());
-			logger.entering(Robot.class.getName(), "robotInit()");
 
 			NetTableManager.startNetworkTables();
 			OzoneJavaLogger.getInstance().init(Level.FINE);
@@ -31,8 +29,6 @@ public class Robot extends TimedRobot {
 			logger.severe(e.getMessage());
 			e.printStackTrace();
 			System.exit(1);
-		} finally {
-			logger.exiting(Robot.class.getName(), "robotInit()");
 		}
 	}
 	@Override
@@ -43,17 +39,17 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousInit() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void testInit() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
@@ -66,11 +62,10 @@ public class Robot extends TimedRobot {
 	}
 	@Override
 	public void testPeriodic() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 	@Override
 	public void disabledInit() {
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
-
 }
