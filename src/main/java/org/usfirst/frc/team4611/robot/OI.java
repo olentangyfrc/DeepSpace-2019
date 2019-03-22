@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
- * This is where we create all of out buttons and joysticks and set up the "UI"
+ * This is where we create all of out buttonsA and joysticks and set up the "UI"
  * of the bot for the drivers. You're gonna end up here a lot when people
- * complain about buttons needing to be changed
+ * complain about buttonsA needing to be changed
  */
 
 public class OI {
@@ -27,7 +27,8 @@ public class OI {
     private Joystick leftJoy;
     private Joystick rightJoy;
     private Joystick auxJoy;
-    private Joystick buttons;
+    private Joystick buttonsA;
+    private Joystick buttonsB;
     private XboxController xbox;  
 
     static Logger logger = Logger.getLogger(SubsystemFactory.class.getName());
@@ -117,8 +118,8 @@ public class OI {
        leftJoy = new Joystick(0); // The left joystick exists on this port in robot map
        rightJoy = new Joystick(1); // The right joystick exists on this port in robot map
        auxJoy = new Joystick(2);
-       buttons = new Joystick(3);
-       buttons = new Joystick(4);
+       buttonsB = new Joystick(3);
+       buttonsA = new Joystick(4);
        xbox = new XboxController(3);
     }
 
@@ -190,11 +191,11 @@ public class OI {
             button -= 22;
         }
         else if(button >= 34 && button <= 43){
-            j = buttons;
+            j = buttonsA;
             button -= 33;
         } 
         else if(button >= 44 && button <= 53){
-            j = buttons;
+            j = buttonsA;
             button -= 44;
         }
         else {
