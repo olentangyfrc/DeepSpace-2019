@@ -60,6 +60,7 @@ public class Elevator extends Subsystem {
 
         initTalonCommon();
         initTalonsForMotionMagic();
+        inited = true;
     }
 
     public void stop() {
