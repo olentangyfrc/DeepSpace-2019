@@ -389,7 +389,6 @@ public class SubsystemFactory {
         logger.info("Initializing Football");
 
         elevator = new Elevator();
-        oi.bind(new FUWpi(), OI.LeftJoyButton1, OI.WhenPressed);
 
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);

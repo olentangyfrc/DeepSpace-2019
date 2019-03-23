@@ -80,7 +80,6 @@ public class Elevator extends Subsystem {
 
     public boolean moveToLevel (HappyPosition level) {
         boolean done;
-        logger.info("Move Elevator to Level");
         if (mmMode) {
             done =  moveToMMPos(level);
         } else {
