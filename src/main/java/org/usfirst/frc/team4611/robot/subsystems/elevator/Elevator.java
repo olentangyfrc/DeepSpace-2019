@@ -145,10 +145,19 @@ public class Elevator extends Subsystem {
     private double mmLevel7Target  =  14971;
     private double mmLevel8Target  =  11373;
     private double mmCargoGrabTarget  =  14200;
-    private double positionTolerance    = 100;
+    private double positionTolerance    = 20;
 
     private boolean moveToMMPos(HappyPosition level) {
         double finalTarget  = 0.0;
+
+        if(hardLimitTop.get() || hardLimitBottom.get()) {
+            leftTalon.set(ControlMode.MotionMagic, leftTalon.getSelectedSensorPosition());
+            return true;
+        } 
+
+        if(Math.abs(finalTarget - leftTalon.getSelectedSensorPosition()) <= positionTolerance) {
+            return true;
+        }
         
         switch (level) {
             case BOTTOM:
@@ -183,20 +192,15 @@ public class Elevator extends Subsystem {
             default:
                 return false;
         }
-        
-        boolean stop = false;
 
-        if (level == HappyPosition.BOTTOM) {
-            leftTalon.set(ControlMode.Velocity, 0.0);
-            stop = true;
-        }else if(finalTarget - leftTalon.getSelectedSensorPosition() < -positionTolerance) {
-            moveMM(false);
-        } else if(finalTarget - leftTalon.getSelectedSensorPosition() > positionTolerance) {
-            moveMM(true);
-        } else {
-            stop = true;
+        //safe guard to ensure we dont go higher than our maximum
+        if(finalTarget > maxEncoder) {
+            finalTarget = maxEncoder;
         }
-        return stop;
+
+        leftTalon.set(ControlMode.MotionMagic, finalTarget);
+
+        return false;
     }
 
     private double  percOutputUp    = 0.75;
