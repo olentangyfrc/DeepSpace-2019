@@ -85,7 +85,6 @@ public class IntakeAdjuster extends Subsystem {
 
     public boolean moveToPos(HappyPositions p) {
         double finalTarget = 0;
-
         if(p == HappyPositions.LEVEL1) {
             finalTarget = pos1;
         } else if(p == HappyPositions.LEVEL2) {
