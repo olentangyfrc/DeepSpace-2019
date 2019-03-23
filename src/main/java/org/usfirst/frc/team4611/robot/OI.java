@@ -195,7 +195,7 @@ public class OI {
             button -= 33;
         } 
         else if(button >= 44 && button <= 53){
-            j = buttonsA;
+            j = buttonsB;
             button -= 44;
         }
         else {

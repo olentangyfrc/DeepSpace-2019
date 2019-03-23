@@ -121,6 +121,7 @@ public class SubsystemFactory {
         logger.info("intializing");
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
+        botMacAddress = footballMacAddress;
         logger.info("["+botMacAddress+"]");
         if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
@@ -251,6 +252,7 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_8), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button9, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.button12, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
@@ -340,67 +342,7 @@ public class SubsystemFactory {
     /**
      * This was the blue code as it was on stop build
      */
-    private void initCompOrig() throws Exception {
-        logger.info("initalizing Comp");
-        driveTrain = new SparkMecanum();
-        driveTrain.init(portMan);
-
-        elevator = new Elevator();
-        elevator.init(portMan);
-
-        roller = new Roller();
-        roller.init(portMan);
-
-        doubleWheel = new DoubleWheel();
-        doubleWheel.init(portMan);
-
-        shooterIntake = new Intake();
-        shooterIntake.init(portMan);
-
-        intakeAdjuster = new IntakeAdjuster();
-        intakeAdjuster.init(portMan);
-
-        unicornHorn = new UnicornHorn();
-        unicornHorn.init(portMan);
-
-        climber = new Climber();
-        climber.init(portMan);
-
-        oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
-
-        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
-        oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
-        oi.bind(new IntakeForward(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
-
-        oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
-        oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
-        
-        oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
-        oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
-        oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterBackward(), OI.RightJoyButton11, OI.WhileHeld);
-        oi.bind(new MoveIntakeAdjusterForward(), OI.RightJoyButton10, OI.WhileHeld);
-        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.RightJoyButton8, OI.WhenPressed);
-        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.RightJoyButton9, OI.WhenPressed);
-
-        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
-        oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.button5, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_6), OI.button8, OI.WhenPressed);
-        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
-        
-        oi.bind(new Push(), OI.LeftJoyButton9, OI.WhenPressed);
-        oi.bind(new Retract(), OI.LeftJoyButton8, OI.WhenPressed);
-
-        oi.bind(new SPush(), OI.LeftJoyButton6, OI.WhenPressed);
-        oi.bind(new SRetract(), OI.LeftJoyButton7, OI.WhenPressed);
-
-    } 
+    
     /**
      * init subsystems specific to Newbie
      * @throws Exception
@@ -449,6 +391,25 @@ public class SubsystemFactory {
 
         elevator = new Elevator();
         oi.bind(new FUWpi(), OI.LeftJoyButton1, OI.WhenPressed);
+
+        intakeAdjuster = new IntakeAdjuster();
+        intakeAdjuster.init(portMan);
+
+        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
+
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_2), OI.button4, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_3), OI.button5, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_4), OI.button6, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.button7, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_8), OI.button8, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button9, OI.WhenPressed);
+        oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.button10, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.button12, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.button14, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);
 
         /*
         nav    = new Navigation();
