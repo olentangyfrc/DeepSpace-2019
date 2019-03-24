@@ -409,6 +409,7 @@ public class Elevator extends Subsystem {
             c = cruiseSpeedDown;
             a = accelerationDown;
         }
+        logger.info("MM Config p[" + p + "] a[" + a + "] c[" + c + "]");
 
         leftTalon.config_kP(0, p, 0);
         leftTalon.config_kI(0, 0, 0);
