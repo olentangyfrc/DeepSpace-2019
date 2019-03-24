@@ -38,15 +38,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class DriverFeedback extends Subsystem {
   private static Logger logger = Logger.getLogger(DriverFeedback.class.getName());
   private boolean inited = false;
-    private Petal petal; 
     private Navigation nav;
-    private TriangleHatch triangleHatch;
-    private Spatula spatula;
-    private Kicker kicker;
     private Vision vision;
     private WheelIntake wheelIntake;
     private Elevator elevator;
-    private double doubleWheel;
     private LineTracker lineTracker;
     private Roller roller;
     private Intake shooterIntake;
@@ -55,17 +50,12 @@ public class DriverFeedback extends Subsystem {
 
     ShuffleboardTab tab;
     private NetworkTableEntry   leftSideSquare, rightSideSquare, frontSquare, frontCentered;
-    private NetworkTableEntry   elevatorPos1, elevatorPos2, elevatorPos3, elevatorPos4, elevatorPos5, elevatorPos6, elevatorPos7, elevatorPos8;
     private NetworkTableEntry   lineTrackerLeft, lineTrackerRight;
     private NetworkTableEntry selectedCamera;
 
   public void init() {
 
-    petal = SubsystemFactory.getInstance().getPetal();
     nav = SubsystemFactory.getInstance().getNavigation();
-    triangleHatch = SubsystemFactory.getInstance().getTriangleHatch();
-    spatula= SubsystemFactory.getInstance().getSpatula();
-    kicker= SubsystemFactory.getInstance().getKicker();
     vision= SubsystemFactory.getInstance().getVision();
     wheelIntake= SubsystemFactory.getInstance().getWheelIntake();
     elevator= SubsystemFactory.getInstance().getElevator();
@@ -73,19 +63,8 @@ public class DriverFeedback extends Subsystem {
     roller= SubsystemFactory.getInstance().getRoller();
     shooterIntake= SubsystemFactory.getInstance().getShooterIntake();
     intakeAdjuster= SubsystemFactory.getInstance().getIntakeAdjuster();
-    pixyCam= SubsystemFactory.getInstance().getPixyCam();
 
     tab = Shuffleboard.getTab("DriverFeedback");
-
-    // Elevator Entries
-    elevatorPos1    = tab.add("Elevator 1", false).withSize(1,1).withPosition(0,7).getEntry();
-    elevatorPos2    = tab.add("Elevator 2", false).withSize(1,1).withPosition(0,6).getEntry();
-    elevatorPos3    = tab.add("Elevator 3", false).withSize(1,1).withPosition(0,5).getEntry();
-    elevatorPos4    = tab.add("Elevator 4", false).withSize(1,1).withPosition(0,4).getEntry();
-    elevatorPos5    = tab.add("Elevator 5", false).withSize(1,1).withPosition(0,3).getEntry();
-    elevatorPos6    = tab.add("Elevator 6", false).withSize(1,1).withPosition(0,2).getEntry();
-    elevatorPos7    = tab.add("Elevator 7", false).withSize(1,1).withPosition(0,1).getEntry();
-    elevatorPos8    = tab.add("Elevator 8", false).withSize(1, 1).withPosition(0, 0).getEntry();
 
     selectedCamera = tab.add("Selected Camera", "NONE").withSize(2, 1).withPosition(4, 4).getEntry();
 
