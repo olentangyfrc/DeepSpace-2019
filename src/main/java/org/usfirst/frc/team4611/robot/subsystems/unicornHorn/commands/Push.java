@@ -8,20 +8,36 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Push extends Command {
     
     private UnicornHorn unicornHorn;
+    private long startTime = 0;
+    private boolean stop = false;;
 
     public Push() {
         unicornHorn = SubsystemFactory.getInstance().getUnicornHorn();
         this.requires(unicornHorn);
     }
 
+    protected void initialize() {
+        startTime = 0;
+        stop = false;
+    }
+
     @Override
     protected void execute() {
-        unicornHorn.pushHatch();
+        if(startTime == 0) {
+            startTime = System.currentTimeMillis();
+        }
+
+        if(System.currentTimeMillis() > (3000 + startTime)) {
+            unicornHorn.retractPistons();
+            stop = true;
+        } else {
+            unicornHorn.pushHatch();
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return stop;
     }
 
 }
