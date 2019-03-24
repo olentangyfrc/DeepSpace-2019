@@ -69,6 +69,12 @@ public class Elevator extends Subsystem {
         if (!mmMode) {
             leftTalon.set(ControlMode.PercentOutput, 0.0);
         }
+        /*
+        TODO: need to figure out how to get MM to stop where it is.
+        else {
+            leftTalon.set(ControlMode.MotionMagic, leftTalon.getSelectedSensorPosition());
+        }
+        */
     }
 
     boolean lastMoveWasUp = true;

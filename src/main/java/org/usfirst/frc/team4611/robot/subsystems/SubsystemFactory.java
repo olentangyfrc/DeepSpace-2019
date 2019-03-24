@@ -214,8 +214,13 @@ public class SubsystemFactory {
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
         
+        /*
         oi.bind(new MoveHatch(5), OI.LeftJoyButton3, OI.WhenPressed);
         oi.bind(new MoveHatch(-5), OI.LeftJoyButton2, OI.WhenPressed);
+        */
+        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
+        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
+
         oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
         oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
