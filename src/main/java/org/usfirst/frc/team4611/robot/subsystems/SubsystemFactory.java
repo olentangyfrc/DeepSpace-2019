@@ -53,6 +53,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToLevel;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveHatch;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
@@ -212,9 +213,9 @@ public class SubsystemFactory {
         climber.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
-
-        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
+        
+        oi.bind(new MoveHatch(5), OI.LeftJoyButton3, OI.WhenPressed);
+        oi.bind(new MoveHatch(-5), OI.LeftJoyButton2, OI.WhenPressed);
         oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
         oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 

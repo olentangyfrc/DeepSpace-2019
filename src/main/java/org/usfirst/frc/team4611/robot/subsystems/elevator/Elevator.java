@@ -31,6 +31,8 @@ public class Elevator extends Subsystem {
     private DigitalInput    softLimitBottom;
     private DigitalInput    hardLimitBottom;
 
+    private final double elevatorInchToPUMult = 356.8;
+
     private Potentiometer   pot;
 
     private boolean mmMode  = true; // Motion Magic mode by default
@@ -77,6 +79,26 @@ public class Elevator extends Subsystem {
             movePercOutput(moveUp);
         }
         updateValues();
+    }
+    
+    public boolean move(double pos) {
+        boolean stop = false;
+        pos = pos * elevatorInchToPUMult;
+        double finalTarget = leftTalon.getSelectedSensorPosition() + pos;
+
+        if(finalTarget > maxEncoder) {
+            finalTarget = maxEncoder;
+        }
+        else if(finalTarget < 0) {
+            finalTarget = 0;
+        }
+
+        leftTalon.set(ControlMode.MotionMagic, finalTarget);
+
+        if(Math.abs(finalTarget - leftTalon.getSelectedSensorPosition()) > positionTolerance) {
+            stop = true;
+        }
+        return stop;
     }
 
     public boolean moveToLevel (HappyPosition level) {
