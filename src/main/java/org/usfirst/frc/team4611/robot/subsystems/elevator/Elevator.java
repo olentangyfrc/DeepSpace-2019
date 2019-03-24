@@ -59,7 +59,7 @@ public class Elevator extends Subsystem {
         pot = new Potentiometer(pm.acquirePort(PortMan.analog0_label, "Elevator Pot"), potBot, potTop);
 
         initTalonCommon();
-        initTalonsForMotionMagic();
+        initTalonsForMotionMagic(true);
         inited = true;
     }
 
@@ -69,6 +69,7 @@ public class Elevator extends Subsystem {
         }
     }
 
+    boolean lastMoveWasUp = true;
     public void move(boolean moveUp) {
         if (mmMode) {
             moveMM(moveUp);
@@ -124,6 +125,14 @@ public class Elevator extends Subsystem {
             leftTalon.set(ControlMode.Velocity, 0);
             return;
         }
+
+        // don't want to keep setting configs if we don't need to
+        if (moveUp && !lastMoveWasUp) {
+            initTalonsForMotionMagic(true);
+        } else if (!moveUp && lastMoveWasUp) {
+            initTalonsForMotionMagic(false);
+        }
+        lastMoveWasUp = moveUp;
 
         target = leftTalon.getSelectedSensorPosition() + step;
 
@@ -196,6 +205,14 @@ public class Elevator extends Subsystem {
         //safe guard to ensure we dont go higher than our maximum
         if(finalTarget > maxEncoder) {
             finalTarget = maxEncoder;
+        }
+
+        if (finalTarget > leftTalon.getSelectedSensorPosition() && !lastMoveWasUp) {
+            lastMoveWasUp = true;
+            initTalonsForMotionMagic(true);
+        } else if (finalTarget <= leftTalon.getSelectedSensorPosition() && lastMoveWasUp) {
+            lastMoveWasUp = false;
+            initTalonsForMotionMagic(false);
         }
 
         leftTalon.set(ControlMode.MotionMagic, finalTarget);
@@ -352,14 +369,17 @@ public class Elevator extends Subsystem {
         rightTalon.configPeakCurrentLimit(50);
         rightTalon.configContinuousCurrentLimit(40);
         rightTalon.configPeakCurrentDuration(400);
+        rightTalon.configAllowableClosedloopError(0, 100);
+        rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        rightTalon.setSelectedSensorPosition(0, 0, 0);
 
         leftTalon.enableCurrentLimit(currentLimitEnabled);
         leftTalon.configPeakCurrentLimit(50);
         leftTalon.configContinuousCurrentLimit(40);
         leftTalon.configPeakCurrentDuration(400);
-
+        leftTalon.configAllowableClosedloopError(0, 100);
         leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        leftTalon.setSelectedSensorPosition(0, 0 ,0);
 
         rightTalon.follow(leftTalon);
 
@@ -367,45 +387,49 @@ public class Elevator extends Subsystem {
         rightTalon.setInverted(false);
     }
 
-    private double  pidP = 0.8;
-    private int     cruiseSpeed = 8000;
-    private int     acceleration = 10000;
+    private double  pidPUp = 0.8;
+    private int     cruiseSpeedUp = 8000;
+    private int     accelerationUp = 10000;
 
-    private void initTalonsForMotionMagic() {
+    private double  pidPDown = 0.8;
+    private int     cruiseSpeedDown = 8000;
+    private int     accelerationDown = 10000;
 
-        leftTalon.config_kP(0, pidP, 0);
+    private void initTalonsForMotionMagic(boolean up) {
+
+        double p;
+        int  c, a;
+
+        if (up) {
+            p = pidPUp;
+            c = cruiseSpeedUp;
+            a = accelerationUp;
+        } else {
+            p = pidPDown;
+            c = cruiseSpeedDown;
+            a = accelerationDown;
+        }
+
+        leftTalon.config_kP(0, p, 0);
         leftTalon.config_kI(0, 0, 0);
         leftTalon.config_kD(0, 0, 0);
         leftTalon.config_kF(0, 0, 0);
         leftTalon.configAllowableClosedloopError(0, 100);
 
-        leftTalon.setSelectedSensorPosition(0, 0 ,0);
-        leftTalon.configMotionCruiseVelocity(cruiseSpeed);
-        leftTalon.configMotionAcceleration(acceleration);
+        leftTalon.configMotionCruiseVelocity(c);
+        leftTalon.configMotionAcceleration(a);
 
-        rightTalon.config_kP(0, pidP, 0);
+        rightTalon.config_kP(0, p, 0);
         rightTalon.config_kI(0, 0, 0);
         rightTalon.config_kD(0, 0, 0);
         rightTalon.config_kF(0, 0, 0);
         rightTalon.configAllowableClosedloopError(0, 100);
 
-        rightTalon.setSelectedSensorPosition(0, 0, 0);
-        rightTalon.configMotionCruiseVelocity(cruiseSpeed);
-        rightTalon.configMotionAcceleration(acceleration);
+        rightTalon.configMotionCruiseVelocity(c);
+        rightTalon.configMotionAcceleration(a);
     }
-    
-    private long stallDuration = 100;
+
     private double stallPercent = 0.08;
-
-    private void keepInPlaceForTime() {
-        
-        long endTime = System.currentTimeMillis() + stallDuration;
-
-        while(System.currentTimeMillis() <= endTime) {
-            if(logging) logger.info("stalling");
-            leftTalon.set(ControlMode.PercentOutput, stallPercent);
-        }
-    }
 
     public void keepInPlace() {
         if (!mmMode) {
@@ -449,31 +473,39 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry percOutputDownEntry;
     private NetworkTableEntry stepUpEntry;
     private NetworkTableEntry stepDownEntry;
-    private NetworkTableEntry cruiseEntry;
-    private NetworkTableEntry accelEntry;
-    private NetworkTableEntry pidPEntry;
+    private NetworkTableEntry cruiseUpEntry;
+    private NetworkTableEntry cruiseDownEntry;
+    private NetworkTableEntry accelUpEntry;
+    private NetworkTableEntry accelDownEntry;
+    private NetworkTableEntry pidPUpEntry;
+    private NetworkTableEntry pidPDownEntry;
     private NetworkTableEntry mmModeEntry;
     private NetworkTableEntry leftCurrentEntry;
     private NetworkTableEntry rightCurrentEntry;
+    private NetworkTableEntry leftVelocityEntry;
 
     public void initSB () {
         isLoggingEntry = tab.add("Elevator Logging", logging).withSize(1,1).withPosition(0,0).getEntry();
         mmModeEntry = tab.add("MM Mode", mmMode).withSize(1, 1).withPosition(0, 1).getEntry();
-        resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
         
         potPositionEntry = tab.add("Pot Position", 0).withSize(1,1).withPosition(3, 0).getEntry();
         potMinEntry = tab.add("Pot Min", 0).withSize(1,1).withPosition(4, 0).getEntry();
         potMaxEntry = tab.add("Pot Max", 0).withSize(1,1).withPosition(5, 0).getEntry();
         leftEncoderPositionEntry = tab.add("Left Encoder", 0).withSize(1, 1).withPosition(1, 0).getEntry();
         rightEncoderPositionEntry = tab.add("Right Encoder", 0).withSize(1, 1).withPosition(2, 0).getEntry();
+        /*
         percOutputUpEntry = tab.add("% Output\nUp Entry", percOutputUp).withSize(1, 1).withPosition(3, 1).getEntry();
         percOutputDownEntry = tab.add("% Output\nDown Entry", percOutputDown).withSize(1, 1).withPosition(4, 1).getEntry();
-
         stepUpEntry = tab.add("MM Step\nUp Entry", stepUp).withSize(1, 1).withPosition(1, 1).getEntry();
         stepDownEntry = tab.add("MM Step\nDown Entry", stepDown).withSize(1, 1).withPosition(2, 1).getEntry();
-        pidPEntry = tab.add("pid P", pidP).withSize(1, 1).withPosition(1, 2).getEntry();
-        accelEntry = tab.add("Acceleration", acceleration).withSize(1, 1).withPosition(2, 2).getEntry();
-        cruiseEntry = tab.add("Cruise", cruiseSpeed).withSize(1, 1).withPosition(3, 2).getEntry();
+        */
+        resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
+        pidPUpEntry = tab.add("pid P Up", pidPUp).withSize(1, 1).withPosition(1, 2).getEntry();
+        pidPDownEntry = tab.add("pid P Down", pidPDown).withSize(1, 1).withPosition(2, 2).getEntry();
+        accelUpEntry = tab.add("Accel Up", accelerationUp).withSize(1, 1).withPosition(1, 1).getEntry();
+        accelDownEntry = tab.add("Accel Down", accelerationDown).withSize(1, 1).withPosition(2, 1).getEntry();
+        cruiseUpEntry = tab.add("Vel Up", cruiseSpeedUp).withSize(1, 1).withPosition(3, 1).getEntry();
+        cruiseDownEntry = tab.add("Vel Down", cruiseSpeedDown).withSize(1, 1).withPosition(4, 1).getEntry();
 
         MMLevel1Entry = tab.add("MM 1", mmLevel1Target).withSize(1, 1).withPosition(0, 3).getEntry();
         MMLevel2Entry = tab.add("MM 2", mmLevel2Target).withSize(1, 1).withPosition(1, 3).getEntry();
@@ -495,6 +527,7 @@ public class Elevator extends Subsystem {
 
         leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(6, 0).getEntry();
         rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(9, 0).getEntry();
+        leftVelocityEntry = tab.add("Left Velocity", 0.0).withWidget("Graph").withSize(3, 3).withPosition(12, 0).getEntry();
     }
 
     public void updateValues() {
@@ -542,15 +575,17 @@ public class Elevator extends Subsystem {
 
         leftCurrentEntry.setDouble(leftTalon.getOutputCurrent());
         rightCurrentEntry.setDouble(rightTalon.getOutputCurrent());
+        leftVelocityEntry.setDouble(leftTalon.getSelectedSensorVelocity());
 
         if (resetMMValues) {
-            acceleration    = (int) accelEntry.getDouble(acceleration);
-            cruiseSpeed             = (int) cruiseEntry.getDouble(cruiseSpeed);
-            pidP                    = (int) pidPEntry.getDouble(pidP);
-            resetMMValues           = false;
-            initTalonsForMotionMagic();
+            accelerationUp    = (int) accelUpEntry.getDouble(accelerationUp);
+            accelerationDown  = (int) accelDownEntry.getDouble(accelerationDown);
+            cruiseSpeedUp     = (int) cruiseUpEntry.getDouble(cruiseSpeedUp);
+            cruiseSpeedDown   = (int) cruiseDownEntry.getDouble(cruiseSpeedDown);
+            pidPUp            =  pidPUpEntry.getDouble(pidPUp);
+            pidPDown          =  pidPDownEntry.getDouble(pidPDown);
+            resetMMValues     = false;
             resetMMValuesEntry.setBoolean(resetMMValues);
-            logger.info("Resetting Motion Magic Values");
         }
     }
 

@@ -389,7 +389,9 @@ public class SubsystemFactory {
         logger.info("Initializing Football");
 
         elevator = new Elevator();
+        elevator.initSB();
 
+        /*
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
@@ -408,6 +410,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.button14, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);
+        */
 
         /*
         nav    = new Navigation();
