@@ -70,6 +70,7 @@ public class Elevator extends Subsystem {
             leftTalon.set(ControlMode.PercentOutput, 0.0);
         }
         else {
+            // this will use MM to hold elevator at current position
             leftTalon.set(ControlMode.MotionMagic, leftTalon.getSelectedSensorPosition());
         }
     }
@@ -210,6 +211,9 @@ public class Elevator extends Subsystem {
             upperSoftLimitToggle = output > 0;
         }
         
+        // we need to add the potMax logic here. but we can't until we get proper mins/max
+        // they are on shuffleboard, so this commented line below should be the line to be used when we can test
+        //if((!hardLimitTop.get() || leftTalon.getSelectedSensorPosition() >= maxEncoder || pot.getPercentOutput() > 0.99) && output >=0 ) {
         if((!hardLimitTop.get() || leftTalon.getSelectedSensorPosition() >= maxEncoder) && output >=0 ) {
             output = 0;
         }
@@ -219,6 +223,10 @@ public class Elevator extends Subsystem {
         if(lowerSoftLimitToggle && output <= 0) {
             output = (output/2);
         }
+        
+        // we need to add the potMax logic here. but we can't until we get proper mins/max
+        // they are on shuffleboard, so this commented line below should be the line to be used when we can test
+        //if((!hardLimitBottom.get() || leftTalon.getSelectedSensorPosition() <= 0 || pot.getPercentOutput() < 0.05) && output <=0 ) {
         if((!hardLimitBottom.get() || leftTalon.getSelectedSensorPosition() <= 0) && output <= 0) {
             output = 0;
         }
@@ -291,44 +299,6 @@ public class Elevator extends Subsystem {
             stop = true;
         }
         return stop;
-    }
-
-    public boolean isAtPosition(HappyPosition level) {
-        double finalTarget;
-        
-        switch (level) {
-            case LEVEL_1:
-                finalTarget = potLevel1Target;
-                break;
-            case LEVEL_2:
-                finalTarget = potLevel2Target;
-                break;
-            case LEVEL_3:
-                finalTarget = potLevel3Target;
-                break;
-            case LEVEL_4:
-                finalTarget = potLevel4Target;
-                break;
-            case LEVEL_5:
-                finalTarget = potLevel5Target;
-                break;
-            case LEVEL_6:
-                finalTarget = potLevel6Target;
-                break;
-            case LEVEL_7:
-                finalTarget = potLevel7Target;
-                break;
-            case LEVEL_8:
-                finalTarget = potLevel8Target;
-                break;
-            case CARGO_GRAB:
-                finalTarget = potCargoGrabTarget;
-                break;
-            default:
-                return false;
-        }
-
-        return (Math.abs(finalTarget - pot.getPercentOutput()) < .05);
     }
 
     private void initTalonCommon() {
@@ -460,8 +430,8 @@ public class Elevator extends Subsystem {
         mmModeEntry = tab.add("MM Mode", mmMode).withSize(1, 1).withPosition(0, 1).getEntry();
         
         potPositionEntry = tab.add("Pot Pos", 0).withSize(1,1).withPosition(3, 0).getEntry();
-        potMinEntry = tab.add("Pot Min", 0).withSize(1,1).withPosition(4, 0).getEntry();
-        potMaxEntry = tab.add("Pot Max", 0).withSize(1,1).withPosition(5, 0).getEntry();
+        potMinEntry = tab.add("Pot Min", 0.0).withSize(1,1).withPosition(4, 0).getEntry();
+        potMaxEntry = tab.add("Pot Max", 0.0).withSize(1,1).withPosition(5, 0).getEntry();
         leftEncoderPositionEntry = tab.add("L Enc", 0).withSize(1, 1).withPosition(1, 0).getEntry();
         rightEncoderPositionEntry = tab.add("R Enc", 0).withSize(1, 1).withPosition(2, 0).getEntry();
         percOutputUpEntry = tab.add("% Up", percOutputUp).withSize(1, 1).withPosition(4, 1).getEntry();

@@ -130,14 +130,6 @@ public class DriverFeedback extends Subsystem {
       
     }
     if (elevator != null) {
-      elevatorPos1.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_1));
-      elevatorPos2.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_2));
-      elevatorPos3.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_3));
-      elevatorPos4.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_4));
-      elevatorPos5.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_5));
-      elevatorPos6.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_6));
-      elevatorPos7.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_7));
-      elevatorPos8.setBoolean(elevator.isAtPosition(Elevator.HappyPosition.LEVEL_8));
     }
       
     if (lineTracker != null) {
