@@ -459,22 +459,20 @@ public class Elevator extends Subsystem {
         isLoggingEntry = tab.add("Elevator Logging", logging).withSize(1,1).withPosition(0,0).getEntry();
         mmModeEntry = tab.add("MM Mode", mmMode).withSize(1, 1).withPosition(0, 1).getEntry();
         
-        potPositionEntry = tab.add("Pot Position", 0).withSize(1,1).withPosition(3, 0).getEntry();
+        potPositionEntry = tab.add("Pot Pos", 0).withSize(1,1).withPosition(3, 0).getEntry();
         potMinEntry = tab.add("Pot Min", 0).withSize(1,1).withPosition(4, 0).getEntry();
         potMaxEntry = tab.add("Pot Max", 0).withSize(1,1).withPosition(5, 0).getEntry();
-        leftEncoderPositionEntry = tab.add("Left Encoder", 0).withSize(1, 1).withPosition(1, 0).getEntry();
-        rightEncoderPositionEntry = tab.add("Right Encoder", 0).withSize(1, 1).withPosition(2, 0).getEntry();
-        /*
-        percOutputUpEntry = tab.add("% Output\nUp Entry", percOutputUp).withSize(1, 1).withPosition(3, 1).getEntry();
-        percOutputDownEntry = tab.add("% Output\nDown Entry", percOutputDown).withSize(1, 1).withPosition(4, 1).getEntry();
-        */
-        resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
-        pidPUpEntry = tab.add("pid P Up", pidPUp).withSize(1, 1).withPosition(1, 2).getEntry();
-        pidPDownEntry = tab.add("pid P Down", pidPDown).withSize(1, 1).withPosition(2, 2).getEntry();
-        accelUpEntry = tab.add("Accel Up", accelerationUp).withSize(1, 1).withPosition(1, 1).getEntry();
-        accelDownEntry = tab.add("Accel Down", accelerationDown).withSize(1, 1).withPosition(2, 1).getEntry();
+        leftEncoderPositionEntry = tab.add("L Enc", 0).withSize(1, 1).withPosition(1, 0).getEntry();
+        rightEncoderPositionEntry = tab.add("R Enc", 0).withSize(1, 1).withPosition(2, 0).getEntry();
+        percOutputUpEntry = tab.add("% Up", percOutputUp).withSize(1, 1).withPosition(4, 1).getEntry();
+        percOutputDownEntry = tab.add("% Dn", percOutputDown).withSize(1, 1).withPosition(4, 2).getEntry();
+        resetMMValuesEntry = tab.add("Cfg MM", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
+        pidPUpEntry = tab.add("pid P Up", pidPUp).withSize(1, 1).withPosition(1, 1).getEntry();
+        pidPDownEntry = tab.add("pid P Dn", pidPDown).withSize(1, 1).withPosition(1, 2).getEntry();
+        accelUpEntry = tab.add("Accel Up", accelerationUp).withSize(1, 1).withPosition(2, 1).getEntry();
+        accelDownEntry = tab.add("Accel Dn", accelerationDown).withSize(1, 1).withPosition(2, 2).getEntry();
         cruiseUpEntry = tab.add("Vel Up", cruiseSpeedUp).withSize(1, 1).withPosition(3, 1).getEntry();
-        cruiseDownEntry = tab.add("Vel Down", cruiseSpeedDown).withSize(1, 1).withPosition(4, 1).getEntry();
+        cruiseDownEntry = tab.add("Vel Dn", cruiseSpeedDown).withSize(1, 1).withPosition(3, 2).getEntry();
 
         MMLevel1Entry = tab.add("MM 1", mmLevel1Target).withSize(1, 1).withPosition(0, 3).getEntry();
         MMLevel2Entry = tab.add("MM 2", mmLevel2Target).withSize(1, 1).withPosition(1, 3).getEntry();
@@ -496,7 +494,7 @@ public class Elevator extends Subsystem {
 
         leftCurrentEntry = tab.add("Left Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(6, 0).getEntry();
         rightCurrentEntry = tab.add("Right Current", 0.0).withWidget("Graph").withSize(3, 3).withPosition(9, 0).getEntry();
-        leftVelocityEntry = tab.add("Left Velocity", 0.0).withWidget("Graph").withSize(3, 3).withPosition(12, 0).getEntry();
+        leftVelocityEntry = tab.add("Left Velocity", 0.0).withWidget("Graph").withSize(3, 3).withPosition(9, 3).getEntry();
     }
 
     public void updateValues() {
@@ -521,10 +519,8 @@ public class Elevator extends Subsystem {
         mmLevel7Target = MMLevel7Entry.getDouble(mmLevel7Target);
         mmCargoGrabTarget = MMCargoGrabEntry.getDouble(mmCargoGrabTarget);
 
-       /*
         percOutputUp  = percOutputUpEntry.getDouble(percOutputUp);
         percOutputDown  = percOutputDownEntry.getDouble(percOutputDown);
-        */
        
         mmMode = mmModeEntry.getBoolean(mmMode);
         resetMMValues = resetMMValuesEntry.getBoolean(resetMMValues);
