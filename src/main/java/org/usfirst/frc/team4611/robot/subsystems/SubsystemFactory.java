@@ -242,7 +242,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
 
-        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
+        /*oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
 
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
@@ -256,7 +256,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.button12, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.button14, OI.WhenPressed);
-        oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);*/
     
         oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);

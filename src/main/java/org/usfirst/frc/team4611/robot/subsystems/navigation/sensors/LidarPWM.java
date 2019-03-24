@@ -32,7 +32,7 @@ public class LidarPWM {
 		double cm;
 		if (counter.get() < 1) {
 			if (printedWarningCount-- > 0) {
-				logger.info("LidarLitePWM: waiting for distance measurement");
+				//logger.info("LidarLitePWM: waiting for distance measurement");
 			}
 			return 0;
 		}
