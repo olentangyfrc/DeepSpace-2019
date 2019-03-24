@@ -444,7 +444,6 @@ public class Elevator extends Subsystem {
     private NetworkTableEntry rightEncoderPositionEntry;
     private NetworkTableEntry percOutputUpEntry;
     private NetworkTableEntry percOutputDownEntry;
-    private NetworkTableEntry manualVelocityEntry;
     private NetworkTableEntry cruiseUpEntry;
     private NetworkTableEntry cruiseDownEntry;
     private NetworkTableEntry accelUpEntry;
@@ -472,7 +471,6 @@ public class Elevator extends Subsystem {
         resetMMValuesEntry = tab.add("Set MM Values", resetMMValues).withSize(1, 1).withPosition(0, 2).getEntry();
         pidPUpEntry = tab.add("pid P Up", pidPUp).withSize(1, 1).withPosition(1, 2).getEntry();
         pidPDownEntry = tab.add("pid P Down", pidPDown).withSize(1, 1).withPosition(2, 2).getEntry();
-        manualVelocityEntry = tab.add("Manual V Entry", manualVelocity).withSize(1, 1).withPosition(3, 2).getEntry();
         accelUpEntry = tab.add("Accel Up", accelerationUp).withSize(1, 1).withPosition(1, 1).getEntry();
         accelDownEntry = tab.add("Accel Down", accelerationDown).withSize(1, 1).withPosition(2, 1).getEntry();
         cruiseUpEntry = tab.add("Vel Up", cruiseSpeedUp).withSize(1, 1).withPosition(3, 1).getEntry();
@@ -527,8 +525,6 @@ public class Elevator extends Subsystem {
         percOutputUp  = percOutputUpEntry.getDouble(percOutputUp);
         percOutputDown  = percOutputDownEntry.getDouble(percOutputDown);
         */
-
-        manualVelocity = manualVelocityEntry.getDouble(manualVelocity);
        
         mmMode = mmModeEntry.getBoolean(mmMode);
         resetMMValues = resetMMValuesEntry.getBoolean(resetMMValues);
@@ -553,7 +549,6 @@ public class Elevator extends Subsystem {
             cruiseSpeedDown   = (int) cruiseDownEntry.getDouble(cruiseSpeedDown);
             pidPUp            =  pidPUpEntry.getDouble(pidPUp);
             pidPDown          =  pidPDownEntry.getDouble(pidPDown);
-            manualVelocity    = manualVelocityEntry.getDouble(manualVelocity);
             resetMMValues     = false;
             resetMMValuesEntry.setBoolean(resetMMValues);
         }
