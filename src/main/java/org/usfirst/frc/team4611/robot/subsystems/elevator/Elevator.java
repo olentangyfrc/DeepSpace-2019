@@ -68,6 +68,8 @@ public class Elevator extends Subsystem {
     public void stop() {
         if (!mmMode) {
             leftTalon.set(ControlMode.PercentOutput, 0.0);
+        } else {
+            leftTalon.set(ControlMode.MotionMagic, leftTalon.getSelectedSensorPosition());
         }
     }
 
