@@ -53,6 +53,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevatorToLevel;
+import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveHatch;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.MoveElevator;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.PixyLineCam;
@@ -212,9 +213,9 @@ public class SubsystemFactory {
         climber.init(portMan);
 
         oi.bind(new KeepElevatorInPlace(), OI.LeftJoyButton1, OI.WhileHeld);
-
-        oi.bind(new MoveElevator(true), OI.LeftJoyButton3, OI.WhileHeld);
-        oi.bind(new MoveElevator(false), OI.LeftJoyButton2, OI.WhileHeld);
+        
+        oi.bind(new MoveHatch(5), OI.LeftJoyButton3, OI.WhenPressed);
+        oi.bind(new MoveHatch(-5), OI.LeftJoyButton2, OI.WhenPressed);
         oi.bind(new IntakeBackward(), OI.LeftJoyButton4, OI.ToggleWhenPressed);
         oi.bind(new IntakeBackwardSlower(), OI.LeftJoyButton5, OI.ToggleWhenPressed);
 
@@ -242,7 +243,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
 
-        oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
+        /*oi.bind(new MoveElevator(true), OI.button1, OI.WhileHeld);
         oi.bind(new MoveElevator(false), OI.button2, OI.WhileHeld);
 
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_1), OI.button3, OI.WhenPressed);
@@ -256,7 +257,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.button12, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.button14, OI.WhenPressed);
-        oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);
+        oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);*/
     
         oi.bind(new Push(), OI.LeftJoyButton6, OI.WhenPressed);
         oi.bind(new Retract(), OI.LeftJoyButton7, OI.WhenPressed);
@@ -389,7 +390,9 @@ public class SubsystemFactory {
         logger.info("Initializing Football");
 
         elevator = new Elevator();
+        elevator.initSB();
 
+        /*
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
@@ -408,6 +411,7 @@ public class SubsystemFactory {
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.button13, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.button14, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.button15, OI.WhenPressed);
+        */
 
         /*
         nav    = new Navigation();
