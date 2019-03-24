@@ -29,9 +29,9 @@ public class MoveElevator extends Command {
     protected void execute() {
         if (!stop) {
             if(moveUp) {
-                elevator.moveToLevel(HappyPosition.LEVEL_5);
-            } else if(!moveUp) {
-                elevator.moveToLevel(HappyPosition.BOTTOM);
+                elevator.move(moveUp);
+            } else {
+                elevator.move(moveUp);
             }
         }
     }
