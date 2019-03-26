@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator.HappyPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,11 +27,7 @@ public class MoveElevator extends Command {
 
     protected void execute() {
         if (!stop) {
-            if(moveUp) {
-                elevator.move(moveUp);
-            } else {
-                elevator.move(moveUp);
-            }
+            elevator.move(moveUp);
         }
     }
 
