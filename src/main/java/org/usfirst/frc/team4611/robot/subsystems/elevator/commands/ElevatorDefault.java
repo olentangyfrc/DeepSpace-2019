@@ -19,6 +19,8 @@ public class ElevatorDefault extends Command {
     private final Logger logger = Logger.getLogger(MoveElevatorDown.class.getName());
     
     private Elevator elevator;
+    private boolean moving = false;
+    private boolean wasMoving = false;
 
   public ElevatorDefault() {
         elevator = SubsystemFactory.getInstance().getElevator();
@@ -36,8 +38,20 @@ public class ElevatorDefault extends Command {
     
     if(OI.getInstance().getAuxJoystickYValue() > 0.5) {
       elevator.move(true);
+      moving = true;
     } else if (OI.getInstance().getAuxJoystickYValue() < -0.5) {
       elevator.move(false);
+      moving = true;
+    } else {
+      moving = false;
+    }
+   
+    if (!moving && wasMoving) {
+      elevator.stop();
+      wasMoving = false;
+    }
+    if (moving) {
+      wasMoving = true;
     }
 
     elevator.updateValues();
@@ -46,7 +60,7 @@ public class ElevatorDefault extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

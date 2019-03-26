@@ -66,8 +66,10 @@ public class Elevator extends Subsystem {
     }
 
     public void stop() {
+        logger.info("stopping mm[" + mmMode + "]");
         if (!mmMode) {
             leftTalon.set(ControlMode.PercentOutput, 0.0);
+            leftTalon.set(ControlMode.MotionMagic, leftTalon.getSelectedSensorPosition());
         }
         else {
             // this will use MM to hold elevator at current position
@@ -124,7 +126,7 @@ public class Elevator extends Subsystem {
     private double mmLevel7Target  =  14971;
     private double mmLevel8Target  =  11373;
     private double mmCargoGrabTarget  =  14200;
-    private double positionTolerance    = 20;
+    private double positionTolerance    = 100;
 
     private boolean moveToMMPos(HappyPosition level) {
         double finalTarget  = 0.0;
@@ -168,6 +170,7 @@ public class Elevator extends Subsystem {
             finalTarget = maxEncoder;
         }
 
+        logger.info("abs[" + Math.abs(finalTarget - leftTalon.getSelectedSensorPosition()) + "] [" + positionTolerance + "]");
         if(Math.abs(finalTarget - leftTalon.getSelectedSensorPosition()) <= positionTolerance) {
             return true;
         }
@@ -193,8 +196,8 @@ public class Elevator extends Subsystem {
         return false;
     }
 
-    private double  percOutputUp    = 0.75;
-    private double  percOutputDown  = 0.1;
+    private double  percOutputUp    = 0.50;
+    private double  percOutputDown  = 0.15;
 
     public void movePercOutput(boolean moveUp) {
         boolean upperSoftLimitToggle = false;
