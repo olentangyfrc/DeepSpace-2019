@@ -27,7 +27,7 @@ public class MoveElevator extends Command {
 
     protected void execute() {
         if (!stop) {
-                elevator.move(moveUp);
+            elevator.move(moveUp);
         }
     }
 

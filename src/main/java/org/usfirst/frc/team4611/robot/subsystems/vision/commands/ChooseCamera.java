@@ -23,14 +23,10 @@ public class ChooseCamera extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (cycleCount % 4 == 0) {
+    if (cycleCount % 2 == 0) {
       camera = "usb 1";
-    } else if (cycleCount % 4 == 1) {
+    } else if (cycleCount % 2 == 1) {
       camera = "usb 2";
-    } else if (cycleCount % 4 == 2) {
-      camera = "usb 3";
-    } else if (cycleCount % 4 == 3) {
-      camera = "usb 4";
     }
     cycleCount += 1;
   }

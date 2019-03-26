@@ -393,11 +393,12 @@ public class SubsystemFactory {
      */
     private void initFootball() throws Exception {
         logger.info("Initializing Football");
+        oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);
 
+        /*
         elevator = new Elevator();
         elevator.initSB();
 
-        /*
         intakeAdjuster = new IntakeAdjuster();
         intakeAdjuster.init(portMan);
 
