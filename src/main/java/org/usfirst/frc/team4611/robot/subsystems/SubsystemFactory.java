@@ -105,6 +105,7 @@ public class SubsystemFactory {
     private SystemStatus systemStatus;
   
     private UsbCamera camera1;
+    private UsbCamera camera2;
   
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -123,6 +124,8 @@ public class SubsystemFactory {
         
         botMacAddress   = System.getenv("MAC_ADDRESS");
         logger.info("["+botMacAddress+"]");
+
+        botMacAddress = blueMacAddress;
         if (botMacAddress == null) {
             throw new OzoneException("Could not find MAC Address for this bot. Make sure /home/lvuser/.bash_profile is correct");
         }
@@ -274,6 +277,16 @@ public class SubsystemFactory {
 
         elevator = new Elevator();
         elevator.init(portMan);
+       
+        camera1 = CameraServer.getInstance().startAutomaticCapture();	
+		camera1.setResolution(320, 240);
+		camera1.setFPS(20);
+        camera1.setExposureManual(35);
+        
+        camera2 = CameraServer.getInstance().startAutomaticCapture();	
+		camera2.setResolution(320, 240);
+		camera2.setFPS(20);
+		camera2.setExposureManual(35);
 
         nav = new Navigation();
         nav.init(portMan);
@@ -324,6 +337,9 @@ public class SubsystemFactory {
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
         
+        oi.bind(new SPush(), OI.RightJoyButton6, OI.WhenPressed);
+        oi.bind(new SRetract(), OI.RightJoyButton7, OI.WhenPressed);
+
         oi.bind(new MoveRollerBackward(), OI.RightJoyButton1, OI.WhileHeld);
         oi.bind(new MoveRollerSlowForward(), OI.RightJoyButton2, OI.WhileHeld);
         oi.bind(new MoveRollerForward(), OI.RightJoyButton3, OI.WhileHeld);
@@ -337,7 +353,7 @@ public class SubsystemFactory {
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_5), OI.AuxJoyButton5, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_8), OI.AuxJoyButton6, OI.WhenPressed);
         oi.bind(new MoveElevatorToLevel(Elevator.HappyPosition.LEVEL_7), OI.AuxJoyButton2, OI.WhenPressed);
-        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton9, OI.WhenPressed);
+        oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL1), OI.AuxJoyButton9, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL2), OI.AuxJoyButton10, OI.WhenPressed);
         oi.bind(new MoveAdjusterToPos(IntakeAdjuster.HappyPositions.LEVEL3), OI.AuxJoyButton11, OI.WhenPressed);
         oi.bind(new ChooseCamera(), OI.AuxJoyButton1, OI.WhenPressed);

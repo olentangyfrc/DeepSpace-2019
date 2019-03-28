@@ -27,14 +27,10 @@ public class Climber extends Subsystem {
 
     public void pushHatch() {
         pusher.set(DoubleSolenoid.Value.kForward);
-
-        stickStatus.setBoolean(true);
     }
 
     public void retractPistons() {
         pusher.set(DoubleSolenoid.Value.kReverse);
-
-        stickStatus.setBoolean(false);
     }
 
     public boolean isRetracted() {
