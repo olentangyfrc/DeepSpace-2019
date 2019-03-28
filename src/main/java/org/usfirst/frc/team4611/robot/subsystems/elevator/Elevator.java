@@ -117,7 +117,7 @@ public class Elevator extends Subsystem {
 
     private int     maxEncoder    = 22300;
 
-    private double mmLevel1Target  =  1370;
+    private double mmLevel1Target  =  2336;//1370
     private double mmLevel2Target  =  9799;
     private double mmLevel3Target  =  12764;
     private double mmLevel4Target  =  18214;
@@ -360,7 +360,7 @@ public class Elevator extends Subsystem {
         leftTalon.config_kI(0, 0, 0);
         leftTalon.config_kD(0, 0, 0);
         leftTalon.config_kF(0, 0, 0);
-        leftTalon.configAllowableClosedloopError(0, 100);
+        leftTalon.configAllowableClosedloopError(0, 200);
 
         leftTalon.configMotionCruiseVelocity(c);
         leftTalon.configMotionAcceleration(a);
@@ -369,7 +369,7 @@ public class Elevator extends Subsystem {
         rightTalon.config_kI(0, 0, 0);
         rightTalon.config_kD(0, 0, 0);
         rightTalon.config_kF(0, 0, 0);
-        rightTalon.configAllowableClosedloopError(0, 100);
+        rightTalon.configAllowableClosedloopError(0, 200);
 
         rightTalon.configMotionCruiseVelocity(c);
         rightTalon.configMotionAcceleration(a);
