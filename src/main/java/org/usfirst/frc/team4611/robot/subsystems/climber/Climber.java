@@ -22,7 +22,7 @@ public class Climber extends Subsystem {
     }
 
     public void init(PortMan pm) throws Exception {
-           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm4_label, "Stick.inDoubleSolenoidx"), pm.acquirePort(PortMan.pcm5_label, "Stick.outDoubleSolenoidx"));
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "Stick.inDoubleSolenoidx"), pm.acquirePort(PortMan.pcm1_label, "Stick.outDoubleSolenoidx"));
     } 
 
     public void pushHatch() {

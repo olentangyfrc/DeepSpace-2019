@@ -20,8 +20,8 @@ public class UnicornHorn extends Subsystem {
     }
 
     public void init(PortMan pm) throws Exception {
-           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm0_label, "UnicornHorn.inDoubleSolenoid"),
-                pm.acquirePort(PortMan.pcm1_label, "UnicornHorn.outDoubleSolenoid"));
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm2_label, "UnicornHorn.inDoubleSolenoid"),
+                pm.acquirePort(PortMan.pcm3_label, "UnicornHorn.outDoubleSolenoid"));
     } 
 
     public void pushHatch() {

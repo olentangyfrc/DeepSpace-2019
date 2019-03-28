@@ -20,8 +20,8 @@ public class Hook extends Subsystem {
     }
 
     public void init(PortMan pm) throws Exception {
-           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm2_label, "Hook.inDoubleSolenoidx"),
-                                                pm.acquirePort(PortMan.pcm3_label, "Hook.outDoubleSolenoidx"));
+           pusher = new DoubleSolenoid(pm.acquirePort(PortMan.pcm4_label, "Hook.inDoubleSolenoidx"),
+                                                pm.acquirePort(PortMan.pcm5_label, "Hook.outDoubleSolenoidx"));
     } 
 
     public void move(boolean up) {
