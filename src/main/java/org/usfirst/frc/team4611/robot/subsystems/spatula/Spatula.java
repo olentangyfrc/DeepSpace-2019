@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot.subsystems.spatula;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.networktables.NetworkTableEntry;

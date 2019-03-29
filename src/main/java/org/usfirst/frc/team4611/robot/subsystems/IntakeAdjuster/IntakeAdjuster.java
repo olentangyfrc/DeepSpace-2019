@@ -70,7 +70,7 @@ public class IntakeAdjuster extends Subsystem {
 
     public static enum HappyPositions {LEVEL1, LEVEL2, LEVEL3, LEVEL4};
 
-    private double pos1 = 0.295 , pos2 = 0.49, pos3 = 0.6, pos4 = 0.9;
+    private double pos1 = 0.5 , pos2 = 0.49, pos3 = 0.6, pos4 = 0.9;
 
     private double getPercentOutput() {
          return ((getVoltage() - minPos) / (maxPos - minPos));

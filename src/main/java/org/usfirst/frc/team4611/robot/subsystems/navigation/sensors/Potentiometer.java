@@ -3,7 +3,6 @@ package org.usfirst.frc.team4611.robot.subsystems.navigation.sensors;
 import org.usfirst.frc.team4611.robot.subsystems.baseclasses.AbsoluteEncoder;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 public class Potentiometer extends AbsoluteEncoder {
 	
