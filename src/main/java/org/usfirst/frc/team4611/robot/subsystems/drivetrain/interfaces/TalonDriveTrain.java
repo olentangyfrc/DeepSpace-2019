@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import java.util.logging.Logger;

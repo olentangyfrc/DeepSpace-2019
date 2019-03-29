@@ -2,7 +2,6 @@ package org.usfirst.frc.team4611.robot.subsystems.pixyLineCam;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.pixyLineCam.commands.PollPixyLine;
 //import org.usfirst.frc.team4611.robot.subsystems.vision.commands.PollNetworkTable;
 

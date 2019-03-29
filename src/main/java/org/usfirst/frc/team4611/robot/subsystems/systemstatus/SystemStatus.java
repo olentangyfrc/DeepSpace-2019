@@ -9,15 +9,10 @@ package org.usfirst.frc.team4611.robot.subsystems.systemstatus;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
-import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
-import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.systemstatus.commands.SystemStatusDefault;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 

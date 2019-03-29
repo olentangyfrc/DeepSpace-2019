@@ -8,7 +8,6 @@
 package org.usfirst.frc.team4611.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 /**
  * Simple wrapped of Exception that will put an exception on Shuffleboard

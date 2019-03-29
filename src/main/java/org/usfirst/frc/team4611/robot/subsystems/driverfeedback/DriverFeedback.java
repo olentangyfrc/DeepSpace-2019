@@ -17,13 +17,9 @@ import org.usfirst.frc.team4611.robot.subsystems.Roller.Roller;
 import org.usfirst.frc.team4611.robot.subsystems.WheelIntake.WheelIntake;
 import org.usfirst.frc.team4611.robot.subsystems.driverfeedback.commands.DriverFeedbackDefault;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
-import org.usfirst.frc.team4611.robot.subsystems.kicker.Kicker;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
-import org.usfirst.frc.team4611.robot.subsystems.petal.Petal;
 import org.usfirst.frc.team4611.robot.subsystems.pixyCam.PixyCam;
-import org.usfirst.frc.team4611.robot.subsystems.spatula.Spatula;
-import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.vision.Vision;
 
 import edu.wpi.first.networktables.NetworkTableEntry;

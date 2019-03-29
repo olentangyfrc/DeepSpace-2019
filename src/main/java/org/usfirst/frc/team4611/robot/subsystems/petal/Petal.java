@@ -2,13 +2,11 @@ package org.usfirst.frc.team4611.robot.subsystems.petal;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Petal extends Subsystem {

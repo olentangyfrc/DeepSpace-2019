@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;

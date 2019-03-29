@@ -2,14 +2,12 @@ package org.usfirst.frc.team4611.robot.subsystems;
 
 import java.util.logging.Logger;
 
-import org.usfirst.frc.team4611.robot.FUWpi;
 import org.usfirst.frc.team4611.robot.OI;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.Intake;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackward;
 import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeBackwardSlower;
-import org.usfirst.frc.team4611.robot.subsystems.Intake.commands.IntakeForward;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveAdjusterToPos;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.MoveIntakeAdjusterBackward;
@@ -34,7 +32,6 @@ import org.usfirst.frc.team4611.robot.subsystems.navigation.Navigation;
 import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.LineTracker;
 import org.usfirst.frc.team4611.robot.subsystems.trianglehatch.TriangleHatch;
 import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.UnicornHorn;
-import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.UnicornHorn;
 import org.usfirst.frc.team4611.robot.subsystems.hook.Hook;
 import org.usfirst.frc.team4611.robot.subsystems.hook.commands.MoveHook;
 import org.usfirst.frc.team4611.robot.subsystems.unicornHorn.commands.Push;
@@ -46,9 +43,7 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.ChooseCamera;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
 import org.usfirst.frc.team4611.robot.subsystems.elevator.commands.KeepElevatorInPlace;

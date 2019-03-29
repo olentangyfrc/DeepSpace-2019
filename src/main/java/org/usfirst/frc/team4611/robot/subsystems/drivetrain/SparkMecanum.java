@@ -1,8 +1,5 @@
 package org.usfirst.frc.team4611.robot.subsystems.drivetrain;
 
-import edu.wpi.first.wpilibj.Timer;
-
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team4611.robot.OI;

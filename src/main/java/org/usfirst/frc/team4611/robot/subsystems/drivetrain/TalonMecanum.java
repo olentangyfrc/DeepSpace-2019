@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team4611.robot.OI;
-import org.usfirst.frc.team4611.robot.networktables.NetTableManager;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
