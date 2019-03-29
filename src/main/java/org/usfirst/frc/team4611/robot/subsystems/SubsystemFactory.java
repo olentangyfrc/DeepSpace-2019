@@ -43,6 +43,7 @@ import org.usfirst.frc.team4611.robot.subsystems.vision.commands.ChooseCamera;
 import org.usfirst.frc.team4611.robot.subsystems.vision.commands.StrafeVision;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import org.usfirst.frc.team4611.robot.subsystems.elevator.Elevator;
@@ -169,6 +170,17 @@ public class SubsystemFactory {
      * init subsystems that are common to all bots
      */
     private void initCommon() {
+        /* camera1 = CameraServer.getInstance().startAutomaticCapture();
+        camera1.setResolution(320, 240);
+        camera1.setFPS(18);
+        camera1.setExposureManual(35);
+        
+        // camera2 = CameraServer.getInstance().startAutomaticCapture();
+        camera2.setResolution(320, 240);
+        camera2.setFPS(18);
+        camera2.setExposureManual(35);
+        
+        */
     }
 
      /**
