@@ -117,12 +117,12 @@ public class Elevator extends Subsystem {
 
     private int     maxEncoder    = 22300;
 
-    private double mmLevel1Target  =  2336;//1370
+    private double mmLevel1Target  =   2336;//1370
     private double mmLevel2Target  =  9799;
     private double mmLevel3Target  =  12764;
     private double mmLevel4Target  =  12930;
     private double mmLevel5Target  =  22300;
-    private double mmLevel6Target  =  22240;
+    private double mmLevel6Target  =  22245;
     private double mmLevel7Target  =  9277;
     private double mmLevel8Target  =  11373;
     private double mmCargoGrabTarget  =  14200;
