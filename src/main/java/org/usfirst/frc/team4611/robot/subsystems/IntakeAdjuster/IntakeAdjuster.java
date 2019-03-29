@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster;
 
-import java.awt.Robot;
-import java.util.logging.Logger;
+ import java.util.logging.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -9,10 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4611.robot.OzoneException;
 import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands.IntakeAdjusterDefault;
-import org.usfirst.frc.team4611.robot.subsystems.navigation.sensors.Potentiometer;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.AnalogOutput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;

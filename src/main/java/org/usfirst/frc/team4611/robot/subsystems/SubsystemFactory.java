@@ -318,7 +318,7 @@ public class SubsystemFactory {
 
         oi.bind(new MoveHook(true), OI.LeftJoyButton8, OI.WhenPressed);
         oi.bind(new MoveHook(false), OI.LeftJoyButton9, OI.WhenPressed);
-
+        
         oi.bind(new IntakeBall(), OI.RightJoyButton5, OI.WhileHeld);
         oi.bind(new OutTakeBall(), OI.RightJoyButton4, OI.ToggleWhenPressed);
         

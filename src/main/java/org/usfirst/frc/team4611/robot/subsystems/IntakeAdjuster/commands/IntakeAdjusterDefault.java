@@ -9,7 +9,6 @@ package org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.commands;
 
 import org.usfirst.frc.team4611.robot.subsystems.SubsystemFactory;
 import org.usfirst.frc.team4611.robot.subsystems.IntakeAdjuster.IntakeAdjuster;
-import org.usfirst.frc.team4611.robot.subsystems.driverfeedback.DriverFeedback;
 
 import edu.wpi.first.wpilibj.command.Command;
 
