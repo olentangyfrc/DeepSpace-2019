@@ -37,11 +37,13 @@ public abstract class DriveTrain extends Subsystem {
         backLeft = new WPI_TalonSRX(pm.acquirePort(PortMan.can_13_label, "DriveTrain.BackLeft"));
         backRight = new WPI_TalonSRX(pm.acquirePort(PortMan.can_12_label, "DriveTrain.BackRight"));
 
+        /*
         isLogging = tab.add("Drive Train Logging", false).getEntry();
         
         if(isLogging.getBoolean(false))
             logger.info("initializing");
 
+        */
         setupTalons();
     }
 

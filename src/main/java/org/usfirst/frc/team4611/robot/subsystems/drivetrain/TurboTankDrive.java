@@ -8,17 +8,12 @@ import org.usfirst.frc.team4611.robot.subsystems.PortMan;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.commands.Move;
 import org.usfirst.frc.team4611.robot.subsystems.drivetrain.interfaces.DriveTrain;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class TurboTankDrive extends DriveTrain {
 
-    private final int turboSolOpenPort = 0;
-    private final int turboSolClosePort = 1;
-
-    private DoubleSolenoid turboSol = new DoubleSolenoid(turboSolOpenPort, turboSolClosePort);
-
+    DoubleSolenoid turboSol;
     private int maxRPM = 1200; // Reduced from 1200
 
     public double pVal = .65;
@@ -29,9 +24,6 @@ public class TurboTankDrive extends DriveTrain {
 
     private double YValScaler1 = 1;
     private double YValScaler2 = 1;
-
-    private NetworkTableEntry leftSideEntry;
-    private NetworkTableEntry rightSideEntry;
 
     public TurboTankDrive() {
     }
@@ -79,9 +71,6 @@ public class TurboTankDrive extends DriveTrain {
 
         backLeft.setInverted(false);
         backRight.setInverted(false);
-
-        leftSideEntry = tab.add("Leftside Velocity", -1.0).getEntry();
-        rightSideEntry = tab.add("Rightside Velocity", -1.0).getEntry();
     }
 
     @Override
@@ -89,15 +78,11 @@ public class TurboTankDrive extends DriveTrain {
         double LYVal = -OI.getInstance().getLeftJoystickYValue();
         double RYVal = OI.getInstance().getRightJoystickYValue();
 
-
         velocity1 = 4 * (maxRPM * (LYVal * YValScaler1));
         velocity2 = 4 * (maxRPM * (RYVal * YValScaler2));
 
         frontLeft.set(ControlMode.Velocity, velocity1);
         frontRight.set(ControlMode.Velocity, velocity2);
-
-        leftSideEntry.setDouble(velocity1);
-        rightSideEntry.setDouble(velocity2);
     }
 
     @Override
@@ -147,12 +132,6 @@ public class TurboTankDrive extends DriveTrain {
     public void rotate(double d) {
 
     }
-
-    /*
-     * public void followTrajectory(Trajectory t) {
-     * 
-     * }
-     */
 
     public void setTrajectorySpeeds() {
 
