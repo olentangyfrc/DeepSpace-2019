@@ -407,8 +407,8 @@ public class SubsystemFactory {
         driveTrain = new TurboTankDrive();
         driveTrain.init(portMan);
 
-        oi.bind(new ActivateTurbo(), OI.RightJoyButton1, OI.WhenPressed);
-        oi.bind(new DeactivateTurbo(), OI.RightJoyButton1, OI.WhenReleased);
+        oi.bind(new ActivateTurbo(), OI.RightJoyButton3, OI.WhenPressed);
+        oi.bind(new DeactivateTurbo(), OI.RightJoyButton2, OI.WhenPressed);
     }
 
     /**

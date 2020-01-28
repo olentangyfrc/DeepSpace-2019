@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class TurboTankDrive extends DriveTrain {
 
     DoubleSolenoid turboSol;
-    private int maxRPM = 1200; // Reduced from 1200
+    private int maxRPM = 16000;
 
     public double pVal = .65;
     public int interval = 10;
@@ -142,11 +142,11 @@ public class TurboTankDrive extends DriveTrain {
     }
 
     public void activateTurbo() {
-        turboSol.set(Value.kForward);
+        turboSol.set(Value.kReverse);
     }
 
     public void deactivateTurbo() {
-        turboSol.set(Value.kReverse);
+        turboSol.set(Value.kForward);
     }
 
     @Override

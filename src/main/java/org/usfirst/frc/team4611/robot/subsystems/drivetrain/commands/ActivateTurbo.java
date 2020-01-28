@@ -25,7 +25,6 @@ public class ActivateTurbo extends Command {
     }
 
     protected boolean isFinished() {
-        driveTrain.deactivateTurbo();
         return true;
     }
 
